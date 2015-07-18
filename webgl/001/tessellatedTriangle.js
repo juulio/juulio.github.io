@@ -9,7 +9,7 @@ var canvas,
     points = [],
     twistAngle = 0, // 8 degrees
     NumTimesToSubdivide = 0,
-    animate = false;
+    animate = true;
 
 
 function init() {
