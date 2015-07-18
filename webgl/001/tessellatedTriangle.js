@@ -1,22 +1,16 @@
 // x' = xcosA - ysinA
 // y' = xsinA + ycosA
 
-
-/* 
-1- Display a Twisted Triangle
-2- Set all parameters in JS file
-    vertices of triangle
-    amount of twist
-    degree of tessellation
-*/
 'use strict';
 
 var canvas,
     gl,
     bufferId,
     points = [],
-    twistAngle = 40* Math.PI / 180, // 8 degrees
-    NumTimesToSubdivide = 0;
+    twistAngle = 0, // 8 degrees
+    NumTimesToSubdivide = 0,
+    animate = false;
+
 
 function init() {
     canvas = document.getElementById( "gl-canvas" );
@@ -40,25 +34,50 @@ function init() {
     gl.bindBuffer( gl.ARRAY_BUFFER, bufferId );
     gl.bufferData( gl.ARRAY_BUFFER, 8*Math.pow(3, 6), gl.STATIC_DRAW );
 
-
     // Associate out shader variables with our data buffer
     
     var vPosition = gl.getAttribLocation( program, "vPosition" );
     gl.vertexAttribPointer( vPosition, 2, gl.FLOAT, false, 0, 0 );
     gl.enableVertexAttribArray( vPosition );
 
-    setInterval(function () {
-        if(NumTimesToSubdivide < 5) {
-            NumTimesToSubdivide++;
-        }
-        else {
-            NumTimesToSubdivide = 0;
-        }
-        document.getElementById("recursiveSteps").innerHTML = NumTimesToSubdivide;
-        render();
-        // twist();
-    }, 1000);
+    // Tessellation /recursive steps slider handler
 
+    document.getElementById("steps_slider").onchange = function(target) {
+        NumTimesToSubdivide = parseInt(event.target.value);
+        render();
+        document.getElementById("recursiveSteps").innerHTML = NumTimesToSubdivide;
+    }
+
+    // Twist angle slider handler
+
+    document.getElementById("angle_slider").onchange = function(target) {
+        twistAngle = parseInt(event.target.value);
+        render();
+        document.getElementById("twistAngle").innerHTML = twistAngle;
+    }
+
+    // Continuous animation checkbox handler
+
+    document.getElementById("toggleAnimation").onclick = function(target) {
+        animate = toggleAnimation.checked;
+    }
+
+    // toggle continuous animation
+
+    setInterval(function () {
+        if (animate) {
+            if(NumTimesToSubdivide < 5) {
+                NumTimesToSubdivide++;
+            }
+            else {
+                NumTimesToSubdivide = 0;
+            }
+            document.getElementById("recursiveSteps").innerHTML = NumTimesToSubdivide;
+            document.getElementById("steps_slider").value = NumTimesToSubdivide;
+            render();
+        }
+    }, 1000);
+    
     render();
 }
 
@@ -109,11 +128,9 @@ function twist(point){
     var x = point[0],
         y = point[1],
         d = Math.sqrt( (Math.pow(x,2) + Math.pow(y,2)) ),
-        alpha = d*twistAngle,
+        alpha = d*(twistAngle* Math.PI / 180),
         xPrime = x*Math.cos(alpha)-y*Math.sin(alpha),
         yPrime = x*Math.sin(alpha)+y*Math.cos(alpha);
 
     return vec2(xPrime, yPrime);
 }
-
-

@@ -2,6 +2,7 @@
 <html>
 <head>
 <title>Tessellated Triangle</title>
+<link href="styles.css" rel="stylesheet" type="text/css">
 <script id="vertex-shader" type="x-shader/x-vertex">
 attribute vec4 vPosition;
 
@@ -29,10 +30,27 @@ main()
 </head>
 
 <body>
-<p style="text-align: center;">Number of recursive steps: <span id="recursiveSteps">0</span></p>
+	<h1>Tessellation + Twist</h1>
+	<div class="main_container">
+		<div class="canvas_container">
+			<canvas id="gl-canvas" width="400" height="400">
+			Oops ... your browser doesn't support the HTML5 canvas element
+			</canvas>
+		</div>
+		
+		<div class="controls_container">
+			<h2>Controls Panel</h2>
+			<p>Number of recursive steps: <span id="recursiveSteps">0</span><br>
+			0 <input id="steps_slider" type="range" min="0" max="5" step="1" value="0"> 5</p>
+			<p>Twist angle: <span id="twistAngle"></span><br>
+			0 <input id="angle_slider" type="range" min="0" max="360" step="1" value="0"> 360</p>
+			</p>
+			<p><label for="toggleAnimation"><input id="toggleAnimation" type="checkbox" onclick="handleClick(this);">Toggle Animation</label></p>
+			</div>
+		</div>
+		
+		<div class="clear"></div>
+	</div>
 
-<canvas id="gl-canvas" width="400" height="400" style="display: block; margin: 0 auto; border: solid 1px #000">
-Oops ... your browser doesn't support the HTML5 canvas element
-</canvas>
 </body>
 </html>
