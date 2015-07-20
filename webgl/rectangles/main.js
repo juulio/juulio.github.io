@@ -64,6 +64,9 @@ window.onload = function(){
 		// Draw the rectangle.
 		gl.drawArrays(gl.TRIANGLES, 0, 6);
 	}
+
+	var title = document.getElementsByTagName('h1');
+	title[0].innerText += " - Reload the page to get random rectangles.";
 }
 
 // Returns a random integer from 0 to range - 1.
