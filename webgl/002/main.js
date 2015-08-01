@@ -76,9 +76,6 @@ function init() {
                 x = 2*event.clientX/canvas.width-1,
                 y =  2*(canvas.height-event.clientY)/canvas.height-1;
 
-            console.log('X ' + x);
-            console.log('Y ' + y);
-
             // var point = vec2(x, y);
             // points.push(point);
 
