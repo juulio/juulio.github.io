@@ -86,6 +86,10 @@ p {
 	margin-bottom: 40px;
 }
 
+#gl-canvas {
+	border: solid 1px #000;
+}
+
 #gl-canvas:hover {
 	cursor: crosshair;
 }
