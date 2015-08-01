@@ -115,7 +115,7 @@ window.onload = init;
 function render() {
 
     gl.clear( gl.COLOR_BUFFER_BIT );
-    gl.drawArrays( gl.TRIANGLE_STRIP, 0, index );
+    gl.drawArrays( gl.LINE_STRIP, 0, index );
 
     window.requestAnimFrame(render);
 
