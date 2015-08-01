@@ -6,7 +6,8 @@ var canvas,
     points = [],
     isMousePressed = false,
     maxNumTriangles = 400,
-    maxNumVertices  = 3 * maxNumTriangles;
+    maxNumVertices  = 3 * maxNumTriangles,
+    index = 0;
 
 var colors = [
 
@@ -43,6 +44,10 @@ function init() {
 
     // Associate out shader variables with our data buffer
     
+    var vBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, vBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, 8*maxNumVertices, gl.STATIC_DRAW);
+
     var vPosition = gl.getAttribLocation( program, "vPosition" );
     gl.vertexAttribPointer( vPosition, 2, gl.FLOAT, false, 0, 0 );
     gl.enableVertexAttribArray( vPosition );
@@ -67,17 +72,31 @@ function init() {
         if(isMousePressed) {
             var pos = getMousePos(this, e), /// provide this canvas and event
                 x = pos.x,
-                y = pos.y;
+                y = pos.y,
+                x = 2*event.clientX/canvas.width-1,
+                y =  2*(canvas.height-event.clientY)/canvas.height-1;
 
-            var point = vec2(x, y);
-            points.push(point);
+            console.log('X ' + x);
+            console.log('Y ' + y);
 
-            render();
+            // var point = vec2(x, y);
+            // points.push(point);
+
+            gl.bindBuffer( gl.ARRAY_BUFFER, vBuffer);
+            var t = vec2(x,y)
+            gl.bufferSubData(gl.ARRAY_BUFFER, 8*index, flatten(t));
+
+            gl.bindBuffer( gl.ARRAY_BUFFER, cBuffer);
+            t = vec4(colors[index%7]);
+            gl.bufferSubData(gl.ARRAY_BUFFER, 16*index, flatten(t));
+            index++;
 
             //console.log('X ' + x);
             //console.log('Y ' + y);
         }
     }
+
+    render();
     
 }
 
@@ -94,20 +113,13 @@ function getMousePos(canvas, e) {
     };
 }
 
-function triangle(a,b,c) {
-    points.push(a,b,c);
-}
-
 window.onload = init;
 
 function render() {
-    var vertices  = [
-        vec2(-0.8, -0.5),
-        vec2(0, 0.8),
-        vec2(0.8, -0.5)
-    ];
 
-    gl.bufferSubData(gl.ARRAY_BUFFER, 0, flatten(points));
     gl.clear( gl.COLOR_BUFFER_BIT );
-    gl.drawArrays( gl.LINE_STRIP, 0, points.length );
+    gl.drawArrays( gl.TRIANGLE_STRIP, 0, index );
+
+    window.requestAnimFrame(render);
+
 }
