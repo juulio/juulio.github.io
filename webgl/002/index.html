@@ -31,9 +31,10 @@
 	}
 	</script>
 
-	<script type="text/javascript" src="Common/webgl-utils.js"></script>
-	<script type="text/javascript" src="Common/initShaders.js"></script>
-	<script type="text/javascript" src="Common/MV.js"></script>
+	<script type="text/javascript" src="../Common/webgl-utils.js"></script>
+	<script type="text/javascript" src="../Common/initShaders.js"></script>
+	<script type="text/javascript" src="../Common/MV.js"></script>
+	<script type="text/javascript" src="beehive_picker.js"></script>
 	<script type="text/javascript" src="main.js"></script>
 </head>
 
@@ -41,19 +42,9 @@
 	<canvas id="gl-canvas" width="400" height="400">
 	Oops ... your browser doesn't support the HTML5 canvas element
 	</canvas>
-	<h1>Assignment #2 - Paint Brush</h1>
-	<div class="main_container">
-		<div class="canvas_container">
-			
-		</div>
-		
-		<div class="controls_container">
-			<h2>Controls Panel</h2>
-			
-		</div>
-		
-		<div class="clear"></div>
-	</div>
+	<div id="colorPicker"></div>
+	<p>X: <span id="x-data"></span></p>
+	<p>Y: <span id="y-data"></span></p>
 
 </body>
 </html>

@@ -7,22 +7,12 @@ var canvas,
     isMousePressed = false,
     maxNumTriangles = 400,
     maxNumVertices  = 3 * maxNumTriangles,
+    selectedColor = vec4(0.0, 1.0, 0.0, 1.0), // black
     index = 0;
-
-var colors = [
-
-    vec4( 0.0, 0.0, 0.0, 1.0 ),  // black
-    vec4( 1.0, 0.0, 0.0, 1.0 ),  // red
-    vec4( 1.0, 1.0, 0.0, 1.0 ),  // yellow
-    vec4( 0.0, 1.0, 0.0, 1.0 ),  // green
-    vec4( 0.0, 0.0, 1.0, 1.0 ),  // blue
-    vec4( 1.0, 0.0, 1.0, 1.0 ),  // magenta
-    vec4( 0.0, 1.0, 1.0, 1.0)   // cyan
-];
 
 function init() {
     canvas = document.getElementById( "gl-canvas" );
-    
+
     gl = WebGLUtils.setupWebGL( canvas );
     if ( !gl ) { alert( "WebGL isn't available" ); }
 
@@ -78,14 +68,15 @@ function init() {
 
             // var point = vec2(x, y);
             // points.push(point);
+            // document.getElementById("x-data").innerHTML = x;
+            // document.getElementById("y-data").innerHTML = y;
 
             gl.bindBuffer( gl.ARRAY_BUFFER, vBuffer);
             var t = vec2(x,y)
             gl.bufferSubData(gl.ARRAY_BUFFER, 8*index, flatten(t));
 
             gl.bindBuffer( gl.ARRAY_BUFFER, cBuffer);
-            t = vec4(colors[index%7]);
-            gl.bufferSubData(gl.ARRAY_BUFFER, 16*index, flatten(t));
+            gl.bufferSubData(gl.ARRAY_BUFFER, 16*index, flatten(selectedColor));
             index++;
 
             //console.log('X ' + x);
@@ -94,7 +85,7 @@ function init() {
     }
 
     render();
-    
+    setupColorPicker();
 }
 
 // Get Mouse Position inside canvas
@@ -118,5 +109,19 @@ function render() {
     gl.drawArrays( gl.LINE_STRIP, 0, index );
 
     window.requestAnimFrame(render);
+}
 
+function setupColorPicker(){
+    var colorPicker = document.getElementById('colorPicker');
+    Beehive.Picker(colorPicker);
+    colorPicker.addEventListener('click', function(e){
+        var color = Beehive.getColorCode(e.target);
+        if( color) {
+            var r = parseInt(color.substr(1,2),16) / 256
+            var g = parseInt(color.substr(3,2),16) / 256
+            var b = parseInt(color.substr(5,2),16) / 256
+            // console.log(r + ' ' + g + ' ' + b);  
+            selectedColor = vec4(r, g, b, 1.0);
+        }
+    });
 }

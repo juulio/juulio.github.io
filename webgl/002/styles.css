@@ -53,6 +53,24 @@ table {
 	clear: both;
 }
 
+#gl-canvas {
+	float: left;
+	border: solid 1px #000;
+}
+
+#gl-canvas:hover {
+	cursor: crosshair;
+}
+
+#colorPicker {
+	float: left;
+	width: 182px;
+	margin-top: 25px;
+	margin-right: 40px;
+}
+
+
+/* UNUSED     *****************************************************/
 h1 {
 	font-size: 200%;
 	margin-top: 25px;
@@ -86,10 +104,4 @@ p {
 	margin-bottom: 40px;
 }
 
-#gl-canvas {
-	border: solid 1px #000;
-}
 
-#gl-canvas:hover {
-	cursor: crosshair;
-}
