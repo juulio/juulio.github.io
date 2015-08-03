@@ -42,9 +42,28 @@
 	<canvas id="gl-canvas" width="400" height="400">
 	Oops ... your browser doesn't support the HTML5 canvas element
 	</canvas>
-	<div id="colorPicker"></div>
-	<p>X: <span id="x-data"></span></p>
-	<p>Y: <span id="y-data"></span></p>
+	
+	<div class="controlPanel">
+		<h1>Paint Brush - Control Panel</h1>
+		
+		<div class="colorPickerContainer">
+			<div id="colorPicker"></div>
+			<div class="colorPickerDetailsContainer">
+			<h3>Please choose a color from the palette.</h3>
+				<p>Color HEX: <span id="selectedColorHex">#000000</span></p>
+				<div id="selectedColor"></div>
+				<p>R: <span id="Rvalue">0.0</span></p>
+				<p>G: <span id="Gvalue">0.0</span></p>
+				<p>B: <span id="Bvalue">0.0</span></p>
+			</div>
+			<div class="clear"></div>
+		</div>
+		
+		<!-- <p>X: <span id="x-data"></span></p>
+		<p>Y: <span id="y-data"></span></p>	 -->
+	</div>
+
+	
 
 </body>
 </html>

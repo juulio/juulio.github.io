@@ -7,7 +7,7 @@ var canvas,
     isMousePressed = false,
     maxNumTriangles = 400,
     maxNumVertices  = 3 * maxNumTriangles,
-    selectedColor = vec4(0.0, 1.0, 0.0, 1.0), // black
+    selectedColor = vec4(0.0, 0.0, 0.0, 1.0), // black
     index = 0;
 
 function init() {
@@ -112,16 +112,31 @@ function render() {
 }
 
 function setupColorPicker(){
-    var colorPicker = document.getElementById('colorPicker');
+    var colorPicker = document.getElementById('colorPicker'),
+        selectedColorDiv = document.getElementById('selectedColor'),
+        selectedColorHex = document.getElementById('selectedColorHex'),
+        Rdiv = document.getElementById('Rvalue'),
+        Gdiv = document.getElementById('Gvalue'),
+        Bdiv = document.getElementById('Bvalue');
+
     Beehive.Picker(colorPicker);
     colorPicker.addEventListener('click', function(e){
-        var color = Beehive.getColorCode(e.target);
+        var color = Beehive.getColorCode(e.target);            
+
         if( color) {
             var r = parseInt(color.substr(1,2),16) / 256
             var g = parseInt(color.substr(3,2),16) / 256
             var b = parseInt(color.substr(5,2),16) / 256
             // console.log(r + ' ' + g + ' ' + b);  
             selectedColor = vec4(r, g, b, 1.0);
+
+
+            Rdiv.innerHTML = r;
+            Gdiv.innerHTML = g;
+            Bdiv.innerHTML = b;
+            selectedColorHex.innerHTML = color,
+            selectedColorDiv.style.backgroundColor = color;
+
         }
     });
 }

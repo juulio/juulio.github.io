@@ -62,25 +62,44 @@ table {
 	cursor: crosshair;
 }
 
-#colorPicker {
+.controlPanel {
 	float: left;
-	width: 182px;
-	margin-top: 25px;
+	width: 650px;
+	margin-left: 40px;
+}
+
+#colorPicker {
+	width: 30%;
+	float: left;
 	margin-right: 40px;
 }
 
+.colorPickerDetailsContainer {
+	width: 60%;
+	float: left;
+}
 
-/* UNUSED     *****************************************************/
 h1 {
+	padding: 20px 0;
 	font-size: 200%;
-	margin-top: 25px;
-	text-align: center;
 }
 
 h2 {
 	font-size: 170%;
-	margin-bottom: 25px;
 }
+
+#selectedColor {
+	width: 175px;
+	height: 30px;
+	background-color: #000;
+}
+
+p {
+	margin: 15px 0;
+}
+/* UNUSED     *****************************************************/
+
+
 
 .main_container {
 	width: 900px;
@@ -99,9 +118,3 @@ h2 {
 	padding-top: 70px;
 	padding-left: 70px;
 }
-
-p {
-	margin-bottom: 40px;
-}
-
-
