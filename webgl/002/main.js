@@ -6,14 +6,14 @@
     'use strict';
 
     var gl,
-        canvas,
         index = 0,
         points = [],
         bufferId = '',
         maxNumTriangles = 400,
         maxNumVertices = 3 * maxNumTriangles,
         isMousePressed = false,
-        selectedColor = vec4(0.0, 0.0, 0.0, 1.0); // black
+        selectedColor = vec4(0.0, 0.0, 0.0, 1.0), // black
+        canvas = document.getElementById( "gl-canvas" );
 
     // Get Mouse Position inside canvas
     function getMousePos(canvas, e) {
@@ -37,7 +37,7 @@
         window.requestAnimFrame(render);
     };
 
-    // init color picker and show HEX and RGB on the screen
+    // Load color picker library to show HEX and RGB on the screen
     function setupColorPicker(){
         var colorPicker = document.getElementById('colorPicker'),
             selectedColorDiv = document.getElementById('selectedColor'),
@@ -70,9 +70,44 @@
     };     
 
     function init(){
-        canvas = document.getElementById( "gl-canvas" );
+        // Setup WebGL
+        gl = WebGLUtils.setupWebGL(canvas);
+        if ( !gl ) { alert( "WebGL isn't available" ); }
+
+        //  Configure WebGL
+        gl.viewport( 0, 0, canvas.width, canvas.height );
+        gl.clearColor( 1.0, 1.0, 1.0, 1.0 );
         
-        // Setup mouse events on Canvas
+        //  Load shaders and initialize attribute buffers
+        
+        var program = initShaders( gl, "vertex-shader", "fragment-shader" );
+        gl.useProgram( program );
+        
+        // Load the data into the GPU
+        
+        bufferId = gl.createBuffer();
+        gl.bindBuffer( gl.ARRAY_BUFFER, bufferId );
+        gl.bufferData(gl.ARRAY_BUFFER, 8*maxNumVertices, gl.STATIC_DRAW);
+
+        // Associate out shader variables with data buffers
+        
+        var vBuffer = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, vBuffer);
+        gl.bufferData(gl.ARRAY_BUFFER, 8*maxNumVertices, gl.STATIC_DRAW);
+
+        var vPosition = gl.getAttribLocation( program, "vPosition" );
+        gl.vertexAttribPointer( vPosition, 2, gl.FLOAT, false, 0, 0 );
+        gl.enableVertexAttribArray( vPosition );
+
+        var cBuffer = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, cBuffer);
+        gl.bufferData(gl.ARRAY_BUFFER, 16*maxNumVertices, gl.STATIC_DRAW);
+
+        var vColor = gl.getAttribLocation( program, "vColor");
+        gl.vertexAttribPointer(vColor, 4, gl.FLOAT, false, 0, 0);
+        gl.enableVertexAttribArray(vColor);
+
+        // Setup mouse events on Canvas element
         canvas.onmousedown = function(e) {
             isMousePressed = true;
         },
@@ -104,44 +139,7 @@
                 //console.log('Y ' + y);
             }
         };
-
-        // Setup WebGL
-        gl = WebGLUtils.setupWebGL(canvas);
-        if ( !gl ) { alert( "WebGL isn't available" ); }
-
-        //  Configure WebGL
-        gl.viewport( 0, 0, canvas.width, canvas.height );
-        gl.clearColor( 1.0, 1.0, 1.0, 1.0 );
         
-        //  Load shaders and initialize attribute buffers
-        
-        var program = initShaders( gl, "vertex-shader", "fragment-shader" );
-        gl.useProgram( program );
-        
-        // Load the data into the GPU
-        
-        bufferId = gl.createBuffer();
-        gl.bindBuffer( gl.ARRAY_BUFFER, bufferId );
-        gl.bufferData(gl.ARRAY_BUFFER, 8*maxNumVertices, gl.STATIC_DRAW);
-
-        // Associate out shader variables with our data buffer
-        
-        var vBuffer = gl.createBuffer();
-        gl.bindBuffer(gl.ARRAY_BUFFER, vBuffer);
-        gl.bufferData(gl.ARRAY_BUFFER, 8*maxNumVertices, gl.STATIC_DRAW);
-
-        var vPosition = gl.getAttribLocation( program, "vPosition" );
-        gl.vertexAttribPointer( vPosition, 2, gl.FLOAT, false, 0, 0 );
-        gl.enableVertexAttribArray( vPosition );
-
-        var cBuffer = gl.createBuffer();
-        gl.bindBuffer(gl.ARRAY_BUFFER, cBuffer);
-        gl.bufferData(gl.ARRAY_BUFFER, 16*maxNumVertices, gl.STATIC_DRAW);
-
-        var vColor = gl.getAttribLocation( program, "vColor");
-        gl.vertexAttribPointer(vColor, 4, gl.FLOAT, false, 0, 0);
-        gl.enableVertexAttribArray(vColor);
-
         setupColorPicker();
 
         render();
