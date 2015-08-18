@@ -111,7 +111,7 @@
     	vars.context.fillText("0",0, 206);
 	}
 
-    function init(){
+    function initMainCanvas(){
     	vars.canvas = document.getElementById("canvas");
         vars.context = vars.canvas.getContext('2d');
 		vars.context.font = "16px Arial";
@@ -121,6 +121,57 @@
     	drawYaxis();
     	drawLinesBetweenDots();
     };
+
+    function initHeaderCanvas() {
+    	var headerCanvas = document.getElementById("headerCanvas"),
+    		headerCanvasWidth = headerCanvas.width,
+    		headerCanvasContext = headerCanvas.getContext('2d'),
+    		movingDot = {
+    			xpos : 20,
+    			ypos : 40,
+    			radius : 5
+    		};
+
+		// resize the canvas to fill browser window dynamically
+		window.addEventListener('resize', resizeCanvas, false);
+
+		function resizeCanvas() {
+		        headerCanvas.width = window.innerWidth;
+		        /**
+		         * Your drawings need to be inside this function otherwise they will be reset when 
+		         * you resize the browser window and the canvas goes will be cleared.
+		         */
+		        drawStuff(); 
+		}
+
+		resizeCanvas();
+
+
+		function drawStuff() {
+	        
+		}
+
+		// Animate the headerCanvas elements
+		function animateHeaderCanvas() {
+			headerCanvasContext.beginPath();
+	        headerCanvasContext.arc(movingDot.xpos, movingDot.ypos, movingDot.radius, 0, 2*Math.PI, false);
+	        headerCanvasContext.lineWidth = 2;
+	        headerCanvasContext.strokeStyle = '#ff0000';
+	        headerCanvasContext.stroke();
+
+			movingDot.xpos++;
+			window.requestAnimationFrame(animateHeaderCanvas);
+		}
+
+		animateHeaderCanvas();
+    	
+    }
+
+    function init(){
+    	initHeaderCanvas();
+    	initMainCanvas();
+    }
+
 
     init();
 
