@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Tessellated Triangle</title>
+<link href="styles.css" rel="stylesheet" type="text/css">
+<script id="vertex-shader" type="x-shader/x-vertex">
+attribute vec4 vPosition;
+
+void
+main()	
+{
+    gl_Position = vPosition;
+}
+</script>
+
+<script id="fragment-shader" type="x-shader/x-fragment">
+precision mediump float;
+
+void
+main()
+{
+    gl_FragColor = vec4( 1.0, 0.0, 0.0, 1.0 );
+}
+</script>
+
+<script type="text/javascript" src="../Common/webgl-utils.js"></script>
+<script type="text/javascript" src="../Common/initShaders.js"></script>
+<script type="text/javascript" src="../Common/MV.js"></script>
+<script type="text/javascript" src="tessellatedTriangle.js"></script>
+</head>
+
+<body>
+	<h1>Tessellation + Twist</h1>
+	<div class="main_container">
+		<div class="canvas_container">
+			<canvas id="gl-canvas" width="400" height="400">
+			Oops ... your browser doesn't support the HTML5 canvas element
+			</canvas>
+		</div>
+		
+		<div class="controls_container">
+			<h2>Controls Panel</h2>
+			<p>Number of recursive steps: <span id="recursiveSteps">0</span><br>
+			0 <input id="steps_slider" type="range" min="0" max="5" step="1" value="0"> 5</p>
+			<p>Twist angle: <span id="twistAngle"></span><br>
+			0 <input id="angle_slider" type="range" min="0" max="360" step="1" value="0"> 360</p>
+			</p>
+			<p><label for="toggleAnimation"><input id="toggleAnimation" type="checkbox" checked>Toggle Animation</label></p>
+			</div>
+		</div>
+		
+		<div class="clear"></div>
+	</div>
+
+</body>
+</html>
