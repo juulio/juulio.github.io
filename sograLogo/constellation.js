@@ -66,14 +66,14 @@ window.onload = function () {
       particles = [],
       // numParticles = window.innerHeight / 30,
       // minDist = window.innerWidth / 5,
-      numParticles = 10,
+      numParticles = 17,
       minDist = 50,
       springAmount = 0.0000000005;//particle's speed
 
   // canvas.width = window.innerWidth;
   // canvas.height = window.innerHeight;
-  canvas.width = 400;
-  canvas.height = 150;
+  canvas.width = 250;
+  canvas.height = 100;
 
 
   for (var size, particle, i = 0; i < numParticles; i++) {
@@ -141,8 +141,9 @@ window.onload = function () {
     particles.forEach(move);
     particles.forEach(draw);
 
-    context.font="70px sans-serif";
+    // context.font="100 70px sans-serif";
+    context.font= " 100 70px 'Alegreya Sans', sans-serif";
     context.fillStyle = "#707070";
-    context.fillText("so gra",80,70);
+    context.fillText("so gra",30,60);
   }());
 };
