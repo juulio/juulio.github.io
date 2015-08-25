@@ -134,9 +134,34 @@ window.onload = function () {
     particle.draw(context);
   }
 
+  function fadeOutRectangle(x, y, w, h, r, g, b) {
+      var steps = 50,
+          dr = (255 - r) / steps,
+          dg = (255 - g) / steps,
+          db = (255 - b) / steps,
+          i = 0,
+          interval = setInterval(function() {
+              ctx.fillStyle = 'rgb(' + Math.round(r + dr * i) + ','
+                                     + Math.round(g + dg * i) + ','
+                                     + Math.round(b + db * i) + ')';
+              ctx.fillRect(x, y, w, h);
+              i++;
+              if(i === steps) {
+                  clearInterval(interval);
+              }
+          }, 30);
+  }
+
   (function drawFrame () {
     window.requestAnimationFrame(drawFrame, canvas);
     context.clearRect(0, 0, canvas.width, canvas.height);
+
+    // La llamada a este método da error permanente, traba Chrome
+    //fadeOutRectangle(0, 0, 200, 150, 123, 213, 50);
+
+    // context.rect(0,0,250,100);
+    // context.fillStyle="#C0C0C0";
+    // context.fill();
 
     particles.forEach(move);
     particles.forEach(draw);
