@@ -30,12 +30,12 @@ function drawBranch(treeDepth, angle) {
 
 // Resolver usando setTransform   http://www.w3schools.com/tags/canvas_settransform.asp
 // https://www.safaribooksonline.com/blog/2012/04/26/html5-canvas-games-tracking-transformation-matrices/
-    ofPushMatrix();
-    ctx.rotate(newLeftAngle); //ofRotate(newLeftAngle);
+    //ofPushMatrix();
+    context.rotate(newLeftAngle); //ofRotate(newLeftAngle);
 
     drawLeaf(treeDepth, newLeftAngle);
-    ofPopMatrix();
-    ctx.rotate(-newLeftAngle); //ofRotate(-newAngle);
+    //ofPopMatrix();
+    context.rotate(-newLeftAngle); //ofRotate(-newAngle);
     drawLeaf(treeDepth, newAngle);
 }
 
@@ -45,26 +45,27 @@ function drawLeaf(treeDepth, angle) {
         leafSize = 20;
 
     //appInfo += ofToString(leafLength)+"\n";
-    ofTranslate(0,-leafLength);
+    context.translate(0,-leafLength);
 
     if(treeDepth<5) {
-        ofSetLineWidth(1);
-        ofSetColor(0, 100, 0);
+        context.lineWidth = 1;
+        context.strokeStyle = "rgb(0, 100, 0)";
     }
     else {
-        ofSetLineWidth(3);
-        ofSetColor(92, 51, 23);
+        context.lineWidth = 3;
+        context.strokeStyle = "rgb(92, 51, 23)";
     }
-    ofLine(0,leafLength,0,0);
+    drawLine(0,leafLength,0,0);
 
 
     if(treeDepth == 0) {
-        ofEnableAlphaBlending();
-        ofSetColor(ofRandom(255),0,0,15);
+        // ofEnableAlphaBlending();
+        context.strokeStyle = "rgb(ofRandom(255),0,0,15)";
 
-        if (ofRandom(100) > 0) {
-            ofFill();
-            ofEllipse(0,0,leafSize,leafSize);
+        if (getRandomInt(0, 100) > 0) {
+            // ofFill();
+            // ofEllipse(0,0,leafSize,leafSize);
+            drawDot(0, 0, 5, "#000", 3);
         }
     }
     if(treeDepth>0){
