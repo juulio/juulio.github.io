@@ -12,42 +12,42 @@ var canvas = document.getElementById('canvas'),
 // function: drawTrunk: draws the trunk from the initial starting point. This is not part of the recursive process.
 //   drawTrunk(DEPTH, rotationAngle);
 //--------------------------------------------------------------
-function drawTrunk(depth, angle) {
+function drawTrunk(treeDepth, angle) {
     drawLine(startingPointX, startingPointY, startingPointX, canvas.height);
-
-    // context.translate = ofTranslate
-
-    // ofTranslate(startingPointX, startingPointY);
-    // //ofSetLineWidth(depth*4);
+    context.translate(startingPointX, startingPointY);
+    // //ofSetLineWidth(treeDepth*4);
     // ofSetLineWidth(3);
     // ofSetColor(92, 51, 23);
     // ofLine(0,ofGetHeight(),0,0);
-    // drawBranch(depth, angle);
+    drawBranch(treeDepth, angle);
 }
 
 //--------------------------------------------------------------
-function drawBranch(depth, angle) {
+function drawBranch(treeDepth, angle) {
     var newAngle = angle + angleOffset,
-            randomOffset = ofRandom(0.17),
-            newLeftAngle = angle + randomOffset + angleOffset;
+        randomOffset = getRandomInt(0, 0.17),
+        newLeftAngle = angle + randomOffset + angleOffset;
 
+// Resolver usando setTransform   http://www.w3schools.com/tags/canvas_settransform.asp
+// https://www.safaribooksonline.com/blog/2012/04/26/html5-canvas-games-tracking-transformation-matrices/
     ofPushMatrix();
-    ofRotate(newLeftAngle);
-    drawLeaf(depth, newLeftAngle);
+    ctx.rotate(newLeftAngle); //ofRotate(newLeftAngle);
+
+    drawLeaf(treeDepth, newLeftAngle);
     ofPopMatrix();
-    ofRotate(-newAngle);
-    drawLeaf(depth, newAngle);
+    ctx.rotate(-newLeftAngle); //ofRotate(-newAngle);
+    drawLeaf(treeDepth, newAngle);
 }
 
 //--------------------------------------------------------------
-function drawLeaf(depth, angle) {
-    var leafLength = lineLength*depth,
+function drawLeaf(treeDepth, angle) {
+    var leafLength = lineLength*treeDepth,
         leafSize = 20;
 
     //appInfo += ofToString(leafLength)+"\n";
     ofTranslate(0,-leafLength);
 
-    if(depth<5) {
+    if(treeDepth<5) {
         ofSetLineWidth(1);
         ofSetColor(0, 100, 0);
     }
@@ -58,7 +58,7 @@ function drawLeaf(depth, angle) {
     ofLine(0,leafLength,0,0);
 
 
-    if(depth == 0) {
+    if(treeDepth == 0) {
         ofEnableAlphaBlending();
         ofSetColor(ofRandom(255),0,0,15);
 
@@ -67,8 +67,8 @@ function drawLeaf(depth, angle) {
             ofEllipse(0,0,leafSize,leafSize);
         }
     }
-    if(depth>0){
-        drawBranch(depth-1, angle);
+    if(treeDepth>0){
+        drawBranch(treeDepth-1, angle);
     }
 }
 
