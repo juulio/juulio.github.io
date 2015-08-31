@@ -7,21 +7,22 @@ var canvas = document.getElementById('canvas'),
     startingPointX = canvas.width/2,
     startingPointY = canvas.height-150;
 
-    console.log(startingPointX);
-    console.log(startingPointY);
-
 
 //-----------------------------------------------------------------------------------------------------------------
 // function: drawTrunk: draws the trunk from the initial starting point. This is not part of the recursive process.
 //   drawTrunk(DEPTH, rotationAngle);
 //--------------------------------------------------------------
 function drawTrunk(depth, angle) {
-    ofTranslate(startingPointX, startingPointY);
-    //ofSetLineWidth(depth*4);jejej
-    ofSetLineWidth(3);
-    ofSetColor(92, 51, 23);
-    ofLine(0,ofGetHeight(),0,0);
-    drawBranch(depth, angle);
+    drawLine(startingPointX, startingPointY, startingPointX, canvas.height);
+
+    // context.translate = ofTranslate
+
+    // ofTranslate(startingPointX, startingPointY);
+    // //ofSetLineWidth(depth*4);
+    // ofSetLineWidth(3);
+    // ofSetColor(92, 51, 23);
+    // ofLine(0,ofGetHeight(),0,0);
+    // drawBranch(depth, angle);
 }
 
 //--------------------------------------------------------------
@@ -75,7 +76,7 @@ function drawLeaf(depth, angle) {
     window.requestAnimationFrame(drawFrame, canvas);
     context.clearRect(0, 0, canvas.width, canvas.height);
 
-    //drawTrunk(DEPTH, rotationAngle);
+    drawTrunk(treeDepth, rotationAngle);
 }());
 //-----------------------------------------------------------------------------------------------------------------
 // function: animateFractalTree: animates the tree's recursive process. The tree will go as deep as treeDepth.
