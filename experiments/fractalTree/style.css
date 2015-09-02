@@ -38,6 +38,10 @@ table {
 
 .canvasContainer {
     width: 800px;
-    margin: 0 auto;    
+    margin: 0 auto;
     border: solid 1px red;
+}
+
+#treeCanvas {
+  display: block;
 }
