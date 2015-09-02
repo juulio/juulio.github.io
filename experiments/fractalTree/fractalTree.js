@@ -1,6 +1,6 @@
 var canvas = document.getElementById('canvas'),
     context = canvas.getContext('2d'),
-    treeDepth = 10,
+    treeDepth = 5,
     rotationAngle = 10.0,
     lineLength = 8,
     angleOffset = 2,
@@ -12,15 +12,16 @@ var canvas = document.getElementById('canvas'),
 // function: drawTrunk: draws the trunk from the initial starting point. This is not part of the recursive process.
 //   drawTrunk(DEPTH, rotationAngle);
 //--------------------------------------------------------------
-function drawTrunk(treeDepth, angle) {
+(function drawTrunk() {
+    context.lineWidth = 6;
     drawLine(startingPointX, startingPointY, startingPointX, canvas.height);
     context.translate(startingPointX, startingPointY);
     // //ofSetLineWidth(treeDepth*4);
     // ofSetLineWidth(3);
     // ofSetColor(92, 51, 23);
     // ofLine(0,ofGetHeight(),0,0);
-    drawBranch(treeDepth, angle);
-}
+    drawBranch(treeDepth, rotationAngle);
+}());
 
 //--------------------------------------------------------------
 function drawBranch(treeDepth, angle) {
@@ -30,11 +31,14 @@ function drawBranch(treeDepth, angle) {
 
 // Resolver usando setTransform   http://www.w3schools.com/tags/canvas_settransform.asp
 // https://www.safaribooksonline.com/blog/2012/04/26/html5-canvas-games-tracking-transformation-matrices/
-    //ofPushMatrix();
-    context.rotate(newLeftAngle); //ofRotate(newLeftAngle);
 
+    //ofPushMatrix();
+
+    context.rotate(newLeftAngle); //ofRotate(newLeftAngle);
     drawLeaf(treeDepth, newLeftAngle);
+
     //ofPopMatrix();
+
     context.rotate(-newLeftAngle); //ofRotate(-newAngle);
     drawLeaf(treeDepth, newAngle);
 }
@@ -65,7 +69,7 @@ function drawLeaf(treeDepth, angle) {
         if (getRandomInt(0, 100) > 0) {
             // ofFill();
             // ofEllipse(0,0,leafSize,leafSize);
-            drawDot(0, 0, 5, "#000", 3);
+            drawDot(0, 0, 5, "#0010A5", 1);
         }
     }
     if(treeDepth>0){
@@ -73,12 +77,13 @@ function drawLeaf(treeDepth, angle) {
     }
 }
 
-(function drawFrame () {
-    window.requestAnimationFrame(drawFrame, canvas);
-    context.clearRect(0, 0, canvas.width, canvas.height);
+// (function drawFrame () {
+//     window.requestAnimationFrame(drawFrame, canvas);
+//     context.clearRect(0, 0, canvas.width, canvas.height);
+//
+//     drawTrunk(treeDepth, rotationAngle);
+// }());
 
-    drawTrunk(treeDepth, rotationAngle);
-}());
 //-----------------------------------------------------------------------------------------------------------------
 // function: animateFractalTree: animates the tree's recursive process. The tree will go as deep as treeDepth.
 // TOOD: animation will show each step unitl it reaches treeDepth. Steps will increase each loop cycle. Then it'll remain as is and move the leafs a bit.
