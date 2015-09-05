@@ -23,7 +23,7 @@ window.onload = function(){
         divergence = 10 + Math.round(Math.random()*50);
 
         // Every branch will be 0.5 - 0.75 times shorter than the previous one, with two decimal points.
-        reduction = Math.round(50 + Math.random()*25)/100;
+        reduction = Math.round(50 + Math.random()*20)/100;
 
         // Width of the branch/trunk
         line_width = 10;
