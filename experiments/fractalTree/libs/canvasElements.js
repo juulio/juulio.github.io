@@ -26,3 +26,10 @@ function drawLine(x1,y1,x2,y2) {
 function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
+
+
+// Taken from the book Javascript Supercharged Graphics.
+// Degrees to radians. degToRad = function(deg) {
+return deg * (Math.PI/180); };
+// Radians to degrees. radToDeg = function(rad) {
+return rad * (180/Math.PI); };
