@@ -28,7 +28,7 @@ function getRandomInt(min, max) {
 }
 
 
-// Taken from the book Javascript Supercharged Graphics.
+//ok c Taken from the book Javascript Supercharged Graphics.
 // Degrees to radians. degToRad = function(deg) {
 return deg * (Math.PI/180); };
 // Radians to degrees. radToDeg = function(rad) {

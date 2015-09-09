@@ -5,7 +5,7 @@ window.onload = function(){
     var drawTree = function (ctx, startX, startY, length, angle, depth, branchWidth) {
         var rand = Math.random,
             newLength, newAngle, newDepth,
-            maxBranch = 3,
+            maxBranch = 4,
             endX, endY,
             maxAngle = 2 * Math.PI / 4,
             subBranches, lenShrink;
@@ -16,6 +16,9 @@ window.onload = function(){
         ctx.moveTo(startX, startY);
         endX = startX + length * Math.cos(angle);
         endY = startY + length * Math.sin(angle);
+
+        // console.log(endX + ' ' + endY);
+
         ctx.lineCap = 'round';
         ctx.lineWidth = branchWidth;
         ctx.lineTo(endX, endY);
@@ -33,17 +36,19 @@ window.onload = function(){
 
         // Reduce the branch recursion level.
         newDepth = depth - 1;
+
         // If the recursion level has reached zero, then the branch grows no more.
         if (!newDepth) {
             return;
         }
 
-        // Make current branch split into a random number of new branches (max 3).
+        // Make current branch split into a random number of new branches.
         // Add in some random lengths, widths, and angles for a more natural look.
         subBranches = (rand() * (maxBranch - 1)) + 1;
 
         // Reduce the width of the new branches.
         branchWidth *= 0.7;
+
         // Recursively call drawTree for the new branches with new values.
         for (var i = 0; i < subBranches; i++) {
             newAngle = angle + rand() * maxAngle - maxAngle * 0.5;
@@ -52,5 +57,5 @@ window.onload = function(){
         }
     }
 
-    drawTree(ctx, 320, 470, 60, -Math.PI / 2, 12, 12);
+    drawTree(ctx, 320, 470, 70, -Math.PI / 2, 8, 72);
 }
