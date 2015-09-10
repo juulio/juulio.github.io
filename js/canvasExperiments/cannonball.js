@@ -7,14 +7,6 @@ var cannonball = cannonball || {};
 (function (context) {
 
     /***
-     * Global Variables
-     */
-    vars = {
-
-
-    };
-
-    /***
      * Init all required functions
      */
     function init () {
@@ -146,12 +138,14 @@ var cannonball = cannonball || {};
                       draw: function () {
                           ctx.save();
                           ctx.lineWidth = 2;
-                          // Origin will be bottom-center of barrel. ctx.translate(that.x, that.y);
-                          // Apply the rotation previously calculated in the // move() method.
+                          // Origin will be bottom-center of barrel.
+                          ctx.translate(that.x, that.y);
+                          // Apply the rotation previously calculated in the move() method.
                           ctx.rotate(angle);
                           // Draw a rectangular 'barrel'.
                           ctx.strokeRect(0, -5, 50, 10);
-                          // Draw 'wheel' at bottom of cannon. ctx.moveTo(0, 0);
+                          // Draw 'wheel' at bottom of cannon.
+                          ctx.moveTo(0, 0);
                           ctx.beginPath();
                           ctx.arc(0, 0, 15, 0, Math.PI * 2, true);
                           ctx.fill();
@@ -218,7 +212,8 @@ var cannonball = cannonball || {};
               gameObjectsFresh = [];
 
               for(var i=0;i<gameObjects.length;i++) {
-                  gameObjects[i].move(); gameObjects[i].draw();
+                  gameObjects[i].move();
+                  gameObjects[i].draw();
                   if ( gameObjects[i].removeMe === false) {
                       gameObjectsFresh.push(gameObjects[i]);
                   }
