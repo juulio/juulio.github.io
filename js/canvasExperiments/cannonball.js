@@ -21,7 +21,8 @@ var cannonball = cannonball || {};
       console.log('Cannonball code');
 
       var gameObjects = [],
-          canvas = document.getElementById('canvas'), ctx = canvas.getContext('2d');
+          canvas = document.getElementById('canvas'),
+          ctx = canvas.getContext('2d');
 
           var vector2d = function (x, y) {
               var vec = {
@@ -179,7 +180,28 @@ var cannonball = cannonball || {};
                   return that;
           };
 
-          var drawSkyAndGrass = function(x, y) {
+          // Draws a blue sky and grass, with the horizon in the middle of the canvas.
+          // Drawn as semitransparent to give the illusion of blurring on moving objects.
+          var drawSkyAndGrass = function() {
+              ctx.save();
+              // Set transparency.
+              ctx.globalAlpha = 0.4;
+              // Create a CanvasGradient object in linGrad.
+              // The gradient line is defined from the top to the bottom of the canvas.
+              var linGrad = ctx.createLinearGradient(0, 0, 0, canvas.height);
+              // Start off with sky blue at the top.
+              linGrad.addColorStop(0, '#00BFFF');
+              // Fade to white in the middle.
+              linGrad.addColorStop(0.5, 'white');
+              // Green for the top of the grass.
+              linGrad.addColorStop(0.5, '#55dd00');
+              // Fade to white at the bottom.
+              linGrad.addColorStop(1, 'white');
+              // Use the CanvasGradient object as the fill style.
+              ctx.fillStyle = linGrad;
+              // Finally, fill a rectangle the same size as the canvas.
+              ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.restore();
           };
 
           // Add an initial cannon to the game objects list.
