@@ -8,8 +8,39 @@ Back in 2014, I wrote a recursive program that draws a fractal binary tree. My i
 
 <img src="{{ "/img/2015set/beniceEquationFractalBinaryTree.png" | prepend: site.url }}" alt="Benice Equation Fractal Tree" />
 
-I had a hard time understanding how to create a recursive function that worked properly with openframeworks loops. The way to make it work was to use a frame rate of 1 frame per second ofSetFrameRate(1) on the setup function and add an int number that defines the amount of iterations as a limit.
+I had a hard time understanding how to create a recursive function that worked properly with openframeworks "game loop". The way to make it work was to use a frame rate of 1 frame per second ofSetFrameRate(1) on the setup function and add an int number that defines the amount of iterations as a limit.
+
 Here are some interesting screenshots that happened on the way.
+
+<img src="{{ "/img/2015set/fractal-06set2014-001.png" | prepend: site.url }}" alt="openframeworks fractal binary tree" />
+
+<img src="{{ "/img/2015set/fractal-06set2014-002.png" | prepend: site.url }}" alt="openframeworks fractal binary tree" />
+
+<img src="{{ "/img/2015set/fractal-06set2014-003.png" | prepend: site.url }}" alt="openframeworks fractal binary tree" />
+
+<img src="{{ "/img/2015set/fractal-06set2014-004.png" | prepend: site.url }}" alt="openframeworks fractal binary tree" />
+
+<img src="{{ "/img/2015set/fractal-13set2014-000.png" | prepend: site.url }}" alt="openframeworks fractal binary tree" />
+
+<img src="{{ "/img/2015set/fractal-13set2014-001.png" | prepend: site.url }}" alt="openframeworks fractal binary tree" />
+
+<img src="{{ "/img/2015set/fractal-16set2014-001.png" | prepend: site.url }}" alt="openframeworks fractal binary tree" />
+
+<img src="{{ "/img/2015set/fractal-16set2014-002.png" | prepend: site.url }}" alt="openframeworks fractal binary tree" />
+
+<img src="{{ "/img/2015set/fractal-16set2014-003.png" | prepend: site.url }}" alt="openframeworks fractal binary tree" />
+
+<img src="{{ "/img/2015set/fractal-16set2014-004.png" | prepend: site.url }}" alt="openframeworks fractal binary tree" />
+
+<img src="{{ "/img/2015set/fractal-16set2014-005.png" | prepend: site.url }}" alt="openframeworks fractal binary tree" />
+
+<img src="{{ "/img/2015set/fractal-18set2014-001.png" | prepend: site.url }}" alt="openframeworks fractal binary tree" />
+
+<img src="{{ "/img/2015set/fractal-18set2014-002.png" | prepend: site.url }}" alt="openframeworks fractal binary tree" />
+
+Here’s my ofApp.cpp code from September 1th, 2014 – 100% working.
+1 frame per second. Each frame is one level of the tree, so it’ll grow more complex each frame.
+
 
 {% highlight c++ %}
 #include "ofApp.h"
