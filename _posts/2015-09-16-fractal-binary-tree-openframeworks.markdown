@@ -6,6 +6,10 @@ categories: jekyll update
 ---
 Back in 2014, I wrote a recursive program that draws a fractal binary tree. My initial goal was to draw something like this:
 
+<img src="/img/2015set/beniceEquationFractalBinaryTree.png" alt="Benice Equation Fractal Tree" />
+
+I had a hard time understanding how to create a recursive function that worked properly with openframeworks loops. The way to make it work was to use a frame rate of 1 frame per second ofSetFrameRate(1) on the setup function and add an int number that defines the amount of iterations as a limit.
+Here are some interesting screenshots that are happening on the way.
 {% highlight ruby %}
 def print_hi(name)
   puts "Hi, #{name}"
