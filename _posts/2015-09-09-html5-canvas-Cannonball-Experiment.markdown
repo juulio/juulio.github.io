@@ -6,6 +6,7 @@ categories: post
 ---
 <p>This is a code example taken from the book Supercharged JavaScript Graphics by Raffaelle Cecco</p>
 <p>This code shows how to use Vectors in a Cannonball Shooting simulation. Please click and move the mouse pointer to set the direction where the Cannonball will be thrown.</p>
+<p>There is not a single image on this experiment. Everything is drawn using the HTML 5 Canvas API. The sky and the grass are Canvas gradients ( context.createLinearGradient(x0,y0,x1,y1); )</p>
 
 <canvas id = "canvas" width = "640" height = "480" style="border:1px solid"> No HTML5 Canvas detected!
 </canvas>
