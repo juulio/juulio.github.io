@@ -10,7 +10,6 @@ var cannonball = cannonball || {};
      * Init all required functions
      */
     function init () {
-      console.log('Cannonball code');
 
       var gameObjects = [],
           canvas = document.getElementById('canvas'),

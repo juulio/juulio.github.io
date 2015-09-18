@@ -18,7 +18,7 @@ var homePage = homePage || {};
      * Init all required functions
      */
     function init () {
-      console.log('This javascript code will be executed on all pages');
+    //   console.log('This javascript code will be executed on all pages');
     }
 
     init();
