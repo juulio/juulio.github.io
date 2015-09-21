@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
+
+<url>
+  <loc>http://juulio.github.io/</loc>
+  <lastmod>2015-09-21T17:35:58+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://juulio.github.io/about/</loc>
+  <lastmod>2015-09-21T17:35:58+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://juulio.github.io/jekyll/update/2015/09/16/fractal-binary-tree-openframeworks.html</loc>
+  <lastmod>2015-09-21T17:35:58+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://juulio.github.io/jekyll/update/2015/09/16/animated-dots-openframeworks.html</loc>
+  <lastmod>2015-09-21T17:35:58+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://juulio.github.io/post/2015/09/09/html5-canvas-Rocket-Simulation-Experiment.html</loc>
+  <lastmod>2015-09-21T17:35:58+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://juulio.github.io/post/2015/09/09/html5-canvas-Cannonball-Experiment.html</loc>
+  <lastmod>2015-09-21T17:35:58+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+</urlset>
