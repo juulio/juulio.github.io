@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "HTML5 Canvas - Rocket Simulation Experiment"
-date:   2015-09-09 17:14
+date:   2015-09-18 12:14
 categories: post
 ---
 <p>This is a code example taken from the <b>Supercharged JavaScript Graphics</b> book by Raffaelle Cecco.</p>
