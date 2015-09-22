@@ -13,10 +13,16 @@
 .site-title {
     font-size: 26px;
     line-height: 56px;
-    letter-spacing: -1px;
+    letter-spacing: 1px;
     margin-bottom: 0;
     float: left;
     color: #fff;
+}
+
+span.site-title {
+    color: #D0D0D0;
+    font-size: 15px;
+    margin-left: 35px;
 }
 
 .site-nav {
