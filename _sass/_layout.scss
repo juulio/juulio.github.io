@@ -250,13 +250,14 @@ span.site-title {
     font-size: 15px;
     border-radius: 3px;
     letter-spacing: 2px;
-    background-color: #2a7ae2;
-    border: solid 4px #2a7ae2;
+    background-color: #7D3219;
+    border: solid 4px #7D3219;
     // border-right: solid 8px #2a7ae2;
     // border-left: solid 6px #2a7ae2;
 
     &:hover {
-        color: #2a7ae2;
+        color: #7D3219;
+        border-color: #fff;
         background-color: #fff;
     }
 }
