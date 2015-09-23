@@ -8,6 +8,12 @@
     background-color: #2a7ae2;
     // Positioning context for the mobile navigation icon
     position: relative;
+
+    .wrapper {
+        @include media-query($on-palm) {
+            padding-bottom: 1em;
+        }
+    }
 }
 
 .site-title {
@@ -17,12 +23,22 @@
     margin-bottom: 0;
     float: left;
     color: #fff;
+
+    @include media-query($on-palm) {
+        float: none;
+        display: block;
+    }
 }
 
 span.site-title {
     color: #D0D0D0;
     font-size: 15px;
     margin-left: 35px;
+
+    @include media-query($on-palm) {
+        margin-left: 0;
+        line-height: 1.5em;
+    }
 }
 
 .site-nav {
