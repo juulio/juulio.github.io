@@ -11,7 +11,8 @@ var fractalBinaryTree = fractalBinaryTree || {};
      */
     function init () {
         var canvas = document.getElementById('canvas'),
-            ctx = canvas.getContext('2d');
+            ctx = canvas.getContext('2d'),
+            button = document.getElementsByClassName("fractalTreeButton");
 
         var drawTree = function (ctx, startX, startY, length, angle, depth, branchWidth) {
             var rand = Math.random,
@@ -71,7 +72,13 @@ var fractalBinaryTree = fractalBinaryTree || {};
             }
         }
 
+        button[0].onclick = function(){
+            ctx.clearRect(0,0,canvas.width, canvas.height);
+            drawTree(ctx, 320, 470, 70, -Math.PI / 2, 8, 72);
+        };
+
         drawTree(ctx, 320, 470, 70, -Math.PI / 2, 8, 72);
+
     }
 
     init();
