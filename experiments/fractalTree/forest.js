@@ -10,7 +10,7 @@ var fractalsForest = fractalsForest || {};
 	var canvas = document.getElementById('canvas'),
 	    context = canvas.getContext('2d');
         // button = document.getElementsByClassName("fractalTreeButton");
-		
+
 	/***************************************
 	 * Begin Code for First Fractal Tree */
 
@@ -21,7 +21,7 @@ var fractalsForest = fractalsForest || {};
 		if (depth != 0){
 			var x2 = x1 + (cos(angle) * depth * BRANCH_LENGTH);
 			var y2 = y1 + (sin(angle) * depth * BRANCH_LENGTH);
-			
+
 			drawLine(context, x1, y1, x2, y2, depth);
 			drawFirstTree(context, x2, y2, angle - random(15,20), depth - 1);
 			drawFirstTree(context, x2, y2, angle + random(15,20), depth - 1);
@@ -30,8 +30,8 @@ var fractalsForest = fractalsForest || {};
 
 	function drawLine(context, x1, y1, x2, y2, thickness){
 		context.fillStyle   = '#000';
-		if(thickness > 6)	
-			context.strokeStyle = 'rgb(139,126, 102)'; //Brown		
+		if(thickness > 6)
+			context.strokeStyle = 'rgb(139,126, 102)'; //Brown
 		else
 			context.strokeStyle = 'rgb(34,139,34)'; //Green
 
@@ -61,7 +61,7 @@ var fractalsForest = fractalsForest || {};
 	function random(min, max){
 		return min + Math.floor(Math.random()*(max+1-min));
 	}
-	 
+
 	/**************************************
 	* Begin Code for Second Fractal Tree */
 
@@ -73,7 +73,7 @@ var fractalsForest = fractalsForest || {};
 			var topRightX = startX + Math.random() * changeX;
 			var topRightY = startY - Math.random() * changeY;
 
-			var topLeftX = startX - Math.random() * changeX;  
+			var topLeftX = startX - Math.random() * changeX;
 			var topLeftY = startY - Math.random() * changeY;
 
 			// draw right branch
@@ -158,15 +158,41 @@ var fractalsForest = fractalsForest || {};
         }
     }
 
+	/*******************************************
+	* Begin Code for Background Grass and Sky */
+	var drawSkyAndGrass = function(ctx) {
+		ctx.save();
+		// Set transparency.
+		ctx.globalAlpha = 0.4;
+		// Create a CanvasGradient object in linGrad.
+		// The gradient line is defined from the top to the bottom of the canvas.
+		var linGrad = ctx.createLinearGradient(0, 0, 0, canvas.height);
+		// Start off with sky blue at the top.
+		linGrad.addColorStop(0, '#00BFFF');
+		// Fade to white in the middle.
+		linGrad.addColorStop(0.5, 'white');
+		// Green for the top of the grass.
+		linGrad.addColorStop(0.5, '#55dd00');
+		// Fade to white at the bottom.
+		linGrad.addColorStop(1, 'white');
+		// Use the CanvasGradient object as the fill style.
+		ctx.fillStyle = linGrad;
+		// Finally, fill a rectangle the same size as the canvas.
+		ctx.fillRect(0, 0, canvas.width, canvas.height);
+		  ctx.restore();
+	};
 	/*****************************************
 	 * Call the functions to draw the Trees */
     function init () {
-        
+
+		drawSkyAndGrass(context);
+
 		drawSecondTree(canvas.width*0.3, canvas.height, 50, 0);
 
 		drawFirstTree(context, context.canvas.width*0.6, 600, -90, 9);
-        
+
         drawThirdTree(context, 320, 470, 70, -Math.PI / 2, 8, 72);
+
     }
 
     init();
