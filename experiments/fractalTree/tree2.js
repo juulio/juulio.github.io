@@ -1,5 +1,5 @@
 window.onload = function(){
-    var canvas = document.getElementById("treeCanvas"),
+    var canvas = document.getElementById("canvas"),
         ctx = canvas.getContext("2d"),
         windowWidth = window.innerWidth,
         windowHeight = window.innerHeight;
