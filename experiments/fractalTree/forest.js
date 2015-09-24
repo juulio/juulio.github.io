@@ -13,8 +13,7 @@ var fractalsForest = fractalsForest || {};
 
 	/***************************************
 	 * Begin Code for First Fractal Tree */
-
-	function drawFirstTree(context, x1, y1, angle, depth){
+	var drawFirstTree = function (x1, y1, angle, depth){
 
 		var BRANCH_LENGTH = random(0, 20);
 
@@ -22,50 +21,50 @@ var fractalsForest = fractalsForest || {};
 			var x2 = x1 + (cos(angle) * depth * BRANCH_LENGTH);
 			var y2 = y1 + (sin(angle) * depth * BRANCH_LENGTH);
 
-			drawLine(context, x1, y1, x2, y2, depth);
-			drawFirstTree(context, x2, y2, angle - random(15,20), depth - 1);
-			drawFirstTree(context, x2, y2, angle + random(15,20), depth - 1);
+			drawLine(x1, y1, x2, y2, depth);
+			drawFirstTree(x2, y2, angle - random(15,20), depth - 1);
+			drawFirstTree(x2, y2, angle + random(15,20), depth - 1);
 		}
-	}
-
-	function drawLine(context, x1, y1, x2, y2, thickness){
-		context.fillStyle   = '#000';
-		if(thickness > 6)
-			context.strokeStyle = 'rgb(139,126, 102)'; //Brown
-		else
-			context.strokeStyle = 'rgb(34,139,34)'; //Green
-
-		context.lineWidth = thickness * 1.5;
-		context.beginPath();
-
-		context.moveTo(x1,y1);
-		context.lineTo(x2, y2);
-
-		context.closePath();
-		context.stroke();
-	}
 
 
-	function cos (angle) {
-		return Math.cos(deg_to_rad(angle));
-	}
+		function drawLine(x1, y1, x2, y2, thickness){
+			context.fillStyle   = '#000';
+			if(thickness > 6)
+				context.strokeStyle = 'rgb(139,126, 102)'; //Brown
+			else
+				context.strokeStyle = 'rgb(34,139,34)'; //Green
 
-	function sin (angle) {
-		return Math.sin(deg_to_rad(angle));
-	}
+			context.lineWidth = thickness * 1.5;
+			context.beginPath();
 
-	function deg_to_rad(angle){
-		return angle*(Math.PI/180.0);
-	}
+			context.moveTo(x1,y1);
+			context.lineTo(x2, y2);
 
-	function random(min, max){
-		return min + Math.floor(Math.random()*(max+1-min));
-	}
+			context.closePath();
+			context.stroke();
+		}
+
+
+		function cos (angle) {
+			return Math.cos(deg_to_rad(angle));
+		}
+
+		function sin (angle) {
+			return Math.sin(deg_to_rad(angle));
+		}
+
+		function deg_to_rad(angle){
+			return angle*(Math.PI/180.0);
+		}
+
+		function random(min, max){
+			return min + Math.floor(Math.random()*(max+1-min));
+		}
+	};
 
 	/**************************************
 	* Begin Code for Second Fractal Tree */
-
-	function drawSecondTree(startX, startY, trunkWidth, level) {
+	var drawSecondTree = function(startX, startY, trunkWidth, level) {
 		if(level < 12) {
 			var changeX = 100 / (level + 1);
 			var changeY = 200 / (level + 1);
@@ -76,6 +75,12 @@ var fractalsForest = fractalsForest || {};
 			var topLeftX = startX - Math.random() * changeX;
 			var topLeftY = startY - Math.random() * changeY;
 
+			if(level < 9) {
+				context.strokeStyle = '#493D26';
+			}
+			else {
+				context.strokeStyle = '#006400';
+			}
 			// draw right branch
 			context.beginPath();
 			context.moveTo(startX + trunkWidth / 4, startY);
@@ -95,12 +100,11 @@ var fractalsForest = fractalsForest || {};
 			drawSecondTree(topRightX, topRightY, trunkWidth * 0.7, level + 1);
 			drawSecondTree(topLeftX, topLeftY, trunkWidth * 0.7, level + 1);
 		}
-	}
-
+	};
 
 	/**************************************
 	* Begin Code for Third Fractal Tree */
-	var drawThirdTree = function (ctx, startX, startY, length, angle, depth, branchWidth) {
+	var drawThirdTree = function (startX, startY, length, angle, depth, branchWidth) {
         var rand = Math.random,
             newLength,
             newAngle,
@@ -113,27 +117,27 @@ var fractalsForest = fractalsForest || {};
 
         // Draw a branch, leaning either to the left or right (depending on angle).
         // First branch (the trunk) is drawn straight up (angle = 1.571 radians)
-        ctx.beginPath();
-        ctx.moveTo(startX, startY);
+        context.beginPath();
+        context.moveTo(startX, startY);
         endX = startX + length * Math.cos(angle);
         endY = startY + length * Math.sin(angle);
 
         // console.log(endX + ' ' + endY);
 
-        ctx.lineCap = 'round';
-        ctx.lineWidth = branchWidth;
-        ctx.lineTo(endX, endY);
+        context.lineCap = 'round';
+        context.lineWidth = branchWidth;
+        context.lineTo(endX, endY);
 
         // If we are near the end branches, make them green to look like leaves.
         if (depth <= 2) {
-            ctx.strokeStyle = 'rgb(0,' + (((rand() * 64) + 128) >> 0) + ',0)';
+            context.strokeStyle = 'rgb(0,' + (((rand() * 64) + 128) >> 0) + ',0)';
         }
         // Otherwise, choose a random brownish color.
         else {
-            ctx.strokeStyle = 'rgb(' + (((rand() * 64) + 64) >> 0) + ',50,25)';
+            context.strokeStyle = 'rgb(' + (((rand() * 64) + 64) >> 0) + ',50,25)';
         }
 
-        ctx.stroke();
+        context.stroke();
 
         // Reduce the branch recursion level.
         newDepth = depth - 1;
@@ -154,19 +158,19 @@ var fractalsForest = fractalsForest || {};
         for (var i = 0; i < subBranches; i++) {
             newAngle = angle + rand() * maxAngle - maxAngle * 0.5;
             newLength = length * (0.7 + rand() * 0.3);
-            drawThirdTree(ctx, endX, endY, newLength, newAngle, newDepth, branchWidth);
+            drawThirdTree(endX, endY, newLength, newAngle, newDepth, branchWidth);
         }
     }
 
 	/*******************************************
 	* Begin Code for Background Grass and Sky */
-	var drawSkyAndGrass = function(ctx) {
-		ctx.save();
+	var drawSkyAndGrass = function() {
+		context.save();
 		// Set transparency.
-		ctx.globalAlpha = 0.4;
+		context.globalAlpha = 0.4;
 		// Create a CanvasGradient object in linGrad.
 		// The gradient line is defined from the top to the bottom of the canvas.
-		var linGrad = ctx.createLinearGradient(0, 0, 0, canvas.height);
+		var linGrad = context.createLinearGradient(0, 0, 0, canvas.height);
 		// Start off with sky blue at the top.
 		linGrad.addColorStop(0, '#00BFFF');
 		// Fade to white in the middle.
@@ -176,22 +180,23 @@ var fractalsForest = fractalsForest || {};
 		// Fade to white at the bottom.
 		linGrad.addColorStop(1, 'white');
 		// Use the CanvasGradient object as the fill style.
-		ctx.fillStyle = linGrad;
+		context.fillStyle = linGrad;
 		// Finally, fill a rectangle the same size as the canvas.
-		ctx.fillRect(0, 0, canvas.width, canvas.height);
-		  ctx.restore();
+		context.fillRect(0, 0, canvas.width, canvas.height);
+		  context.restore();
 	};
+
 	/*****************************************
 	 * Call the functions to draw the Trees */
     function init () {
 
-		drawSkyAndGrass(context);
+		drawSkyAndGrass();
 
-		drawSecondTree(canvas.width*0.3, canvas.height, 50, 0);
+		drawFirstTree(context.canvas.width*0.7, 600, -90, 9);
 
-		drawFirstTree(context, context.canvas.width*0.6, 600, -90, 9);
+		drawSecondTree(canvas.width*0.15, canvas.height, 50, 0);
 
-        drawThirdTree(context, 320, 470, 70, -Math.PI / 2, 8, 72);
+        drawThirdTree(canvas.width*0.46, canvas.height, 70, -Math.PI / 2, 8, 72);
 
     }
 
