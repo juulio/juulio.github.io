@@ -9,7 +9,7 @@ var fractalsForest = fractalsForest || {};
 
 	var canvas = document.getElementById('canvas'),
 	    context = canvas.getContext('2d');
-        // button = document.getElementsByClassName("fractalTreeButton");
+        button = document.getElementsByClassName("fractalTreeButton");
 
 	/***************************************
 	 * Begin Code for First Fractal Tree */
@@ -198,6 +198,20 @@ var fractalsForest = fractalsForest || {};
 
         drawThirdTree(canvas.width*0.46, canvas.height, 70, -Math.PI / 2, 8, 72);
 
+		/************************************
+		* Begin Code for Regenerate Button */
+		button[0].onclick = function(){
+			// First clear the whole canvas area.
+			context.clearRect(0,0,canvas.width, canvas.height);
+
+			drawSkyAndGrass();
+
+			drawFirstTree(context.canvas.width*0.7, 600, -90, 9);
+
+			drawSecondTree(canvas.width*0.15, canvas.height, 50, 0);
+
+			drawThirdTree(canvas.width*0.46, canvas.height, 70, -Math.PI / 2, 8, 72);
+		}
     }
 
     init();
