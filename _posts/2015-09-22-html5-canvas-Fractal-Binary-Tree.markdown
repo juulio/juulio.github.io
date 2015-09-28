@@ -9,7 +9,6 @@ categories: post
 <p>I just modified a few parameters to make the branches look thicker.</p<
 <p>Click <span class="fractalTreeButton">this button</span> to re-generate the tree.</p>
 
-
 <canvas id="canvas" width = "640" height = "480" style="border:1px solid"> No HTML5 Canvas detected!
 </canvas>
 <script src="/js/canvasExperiments/jsFractalBinaryTree01.js"></script>
