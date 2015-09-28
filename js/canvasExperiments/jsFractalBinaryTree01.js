@@ -39,8 +39,8 @@ var fractalBinaryTree = fractalBinaryTree || {};
             ctx.lineTo(endX, endY);
 
             // If we are near the end branches, make them green to look like leaves.
-            if (depth <= 2) {
-                ctx.strokeStyle = 'rgb(0,' + (((rand() * 64) + 128) >> 0) + ',0)';
+            if (depth <= 1) {
+                ctx.strokeStyle = 'rgba(0,' + (((rand() * 64) + 128) >> 0) + ',0,0.8)';
             }
             // Otherwise, choose a random brownish color.
             else {
