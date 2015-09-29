@@ -7,10 +7,8 @@ var fractalTree = fractalTree || {};
 (function (context) {
 
     var canvas = document.getElementById('canvas'),
-        context = canvas.getContext('2d'),
-        angleOffset = 2,
-        i = 0;
-
+        context = canvas.getContext('2d');
+        
     function random(min, max){
 		return min + Math.floor(Math.random()*(max+1-min));
 	}
@@ -34,70 +32,40 @@ var fractalTree = fractalTree || {};
         context.stroke();
     }
 
+    function drawDot(x,y,r,lineWidth) {
+        context.beginPath();
+        context.arc(x, y, r, 0, 2*Math.PI, false);
+        context.lineWidth = lineWidth;
+        context.stroke();
+    }
+
     var drawFourthTree = function(x1, y1, angle, treeDepth, lineLength){
+        var x2 = x1 + (cos(angle) * treeDepth * lineLength),
+            y2 = y1 + (sin(angle) * treeDepth * lineLength);
 
         if(treeDepth !=0) {
-
-            var x2 = x1 + (cos(angle) * treeDepth * lineLength),
-                y2 = y1 + (sin(angle) * treeDepth * lineLength);
-
             treeDepth--;
-            lineLength*=0.8;
 
             drawLine(x1, y1, x2, y2);
 
-            drawFourthTree(x2, y2, angle - random(15,20), treeDepth, lineLength);
-            drawFourthTree(x2, y2, angle + random(15,20), treeDepth, lineLength);
+            drawFourthTree(x2, y2, angle - random(20,26), treeDepth, lineLength);
+            drawFourthTree(x2, y2, angle + random(30,58), treeDepth, lineLength);
+        }
+        else {
+            context.strokeStyle = 'rgb(' + random(0,255) +',' + random(0,255) +'    ,34)';
+            drawDot(x2, y2, 6, 2);
+            context.strokeStyle = '#000000';
         }
     };
 
     function init(){
 
-        drawFourthTree(canvas.width/2, canvas.height-150, -90, 13, 8);
+        drawFourthTree(canvas.width/2, canvas.height-150, -90, 8, 10);
     }
 
     init();
 
 }(fractalTree));
-
-
-
-
-
-//-----------------------------------------------------------------------------------------------------------------
-// function: drawTrunk: draws the trunk from the initial starting point. This is not part of the recursive process.
-//   drawTrunk(DEPTH, rotationAngle);
-//--------------------------------------------------------------
-// (function drawTrunk() {
-//     context.lineWidth = 6;
-//     drawLine(startingPointX, startingPointY, startingPointX, canvas.height);
-//     context.translate(startingPointX, startingPointY);
-//     // //ofSetLineWidth(treeDepth*4);
-//     // ofSetLineWidth(3);
-//     // ofSetColor(92, 51, 23);
-//     // ofLine(0,ofGetHeight(),0,0);
-//     drawBranch(treeDepth, rotationAngle);
-// }());
-
-//--------------------------------------------------------------
-function drawBranch(treeDepth, angle) {
-    var newAngle = angle + angleOffset,
-        randomOffset = getRandomInt(0, 0.17),
-        newLeftAngle = angle + randomOffset + angleOffset;
-
-// Resolver usando setTransform   http://www.w3schools.com/tags/canvas_settransform.asp
-// https://www.safaribooksonline.com/blog/2012/04/26/html5-canvas-games-tracking-transformation-matrices/
-
-    //ofPushMatrix();
-
-    context.rotate(newLeftAngle); //ofRotate(newLeftAngle);
-    drawLeaf(treeDepth, newLeftAngle);
-
-    //ofPopMatrix();
-
-    context.rotate(-newLeftAngle); //ofRotate(-newAngle);
-    drawLeaf(treeDepth, newAngle);
-}
 
 //--------------------------------------------------------------
 function drawLeaf(treeDepth, angle) {
@@ -132,15 +100,3 @@ function drawLeaf(treeDepth, angle) {
         drawBranch(treeDepth-1, angle);
     }
 }
-
-// (function drawFrame () {
-//     window.requestAnimationFrame(drawFrame, canvas);
-//     context.clearRect(0, 0, canvas.width, canvas.height);
-//
-//     drawTrunk(treeDepth, rotationAngle);
-// }());
-
-//-----------------------------------------------------------------------------------------------------------------
-// function: animateFractalTree: animates the tree's recursive process. The tree will go as deep as treeDepth.
-// TOOD: animation will show each step unitl it reaches treeDepth. Steps will increase each loop cycle. Then it'll remain as is and move the leafs a bit.
-// animateFractalTree(drawTrunk(frameNumber, rotationAngle));
