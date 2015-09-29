@@ -44,7 +44,6 @@ var fractalsForest = fractalsForest || {};
 			context.stroke();
 		}
 
-
 		function cos (angle) {
 			return Math.cos(deg_to_rad(angle));
 		}
@@ -65,6 +64,7 @@ var fractalsForest = fractalsForest || {};
 	/**************************************
 	* Begin Code for Second Fractal Tree */
 	var drawSecondTree = function(startX, startY, trunkWidth, level) {
+		console.log(level);
 		if(level < 12) {
 			var changeX = 100 / (level + 1);
 			var changeY = 200 / (level + 1);
@@ -208,9 +208,9 @@ var fractalsForest = fractalsForest || {};
 
 			drawFirstTree(context.canvas.width*0.7, 600, -90, 9);
 
-			drawSecondTree(canvas.width*0.15, canvas.height, 50, 0);
+			// drawSecondTree(canvas.width*0.15, canvas.height, 50, 0);
 
-			drawThirdTree(canvas.width*0.46, canvas.height, 70, -Math.PI / 2, 8, 72);
+			// drawThirdTree(canvas.width*0.46, canvas.height, 70, -Math.PI / 2, 8, 72);
 		}
     }
 

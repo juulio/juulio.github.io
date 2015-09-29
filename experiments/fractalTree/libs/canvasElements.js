@@ -37,3 +37,15 @@ degToRad = function(deg) {
 radToDeg = function(rad) {
     return rad * (180/Math.PI);
 };
+
+function cos (angle) {
+    return Math.cos(deg_to_rad(angle));
+}
+
+function sin (angle) {
+    return Math.sin(deg_to_rad(angle));
+}
+
+function deg_to_rad(angle){
+    return angle*(Math.PI/180.0);
+}
