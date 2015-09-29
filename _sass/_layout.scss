@@ -261,7 +261,7 @@ span.site-title {
 
 // Button to re-generate Fractal Binary Tree
 .fractalTreeButton {
-    padding: 0 9px;
+    padding: 0 10px;
     margin: 0 5px;
     color: #fff;
     cursor: pointer;
@@ -269,13 +269,14 @@ span.site-title {
     border-radius: 6px;
     letter-spacing: 2px;
     background-color: #F80000;
-    border: solid 4px #F80000;
+    border: solid 2px #F80000;
     // border-right: solid 8px #2a7ae2;
     // border-left: solid 6px #2a7ae2;
 
-    &:hover {
+    &:hover,
+    &:focus {
         color: #F80000;
-        border-color: #fff;
+        border-width: 2px;
         background-color: #fff;
     }
 }
