@@ -216,7 +216,7 @@ var fractalsForest = fractalsForest || {};
 		context.fillStyle = linGrad;
 		// Finally, fill a rectangle the same size as the canvas.
 		context.fillRect(0, 0, canvas.width, canvas.height);
-		 
+
 		context.restore();
 	};
 
@@ -227,11 +227,15 @@ var fractalsForest = fractalsForest || {};
 
 		drawFirstTree(context.canvas.width*0.66, 600, -90, 9);
 
+		drawFirstTree(context.canvas.width*0.2, 500, -90, 6);
+
+		drawFirstTree(context.canvas.width*0.36, 500, -90, 8);
+
 		drawSecondTree(canvas.width*0.15, canvas.height, 50, 0);
 
         drawThirdTree(canvas.width*0.46, canvas.height, 70, -Math.PI / 2, 8, 72);
 
-        drawFourthTree(canvas.width*0.75, canvas.height, -90, 8, 6);		
+        drawFourthTree(canvas.width*0.75, canvas.height, -90, 8, 6);
 	}
 
 	/*****************************************
