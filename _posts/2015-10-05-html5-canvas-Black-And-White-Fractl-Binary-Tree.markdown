@@ -6,7 +6,7 @@ categories: post
 ---
 <p>After a lot of struggling, I finally found a way to translate my openframeworks code to create a Fractal Binary Tree using Canvas + javascript</p>
 <p>My main problem was figuring out a way to use something like ofPushMatrix and ofPopMatrix functions. I used Canvas' context.save( ) and context.restore( ) functions to achieve the same results.</p>
-<p>This tree is created using a Recursive function that takes parameters such as branch lenght, angle, depth and line width.<p>
+<p>This tree is created using a Recursive function that takes parameters such as branch length, angle, depth and line width.<p>
 
 <p>Here's my javascript code. Please feel free to take it, use it, modify it, improve it and make beautiful trees.</p>
 
