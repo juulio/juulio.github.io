@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>HTML5 Canvas JS Test</title>
+  <title>HTML5 Canvas - Fractal Binary Tree</title>
 </head>
 
 <body style="margin:0">
@@ -33,16 +33,16 @@
         var canvas = document.getElementById('canvas'),
             context = canvas.getContext('2d'),
             canvasHalfWidth = canvas.width/2,
-            fractalProportion = 0.7,
+            fractalProportion = 0.8,
             branchLength = 50,
-            angle = 45 * Math.PI / 180;
+            angle = 30 * Math.PI / 180;
 
-        context.lineWidth = 1;
-
-        function drawTree(startX, startY, branchLength, angle, depth){
+        // Recursive Fractal Function
+        function drawTree(startX, startY, branchLength, angle, depth, lineWidth){
+            context.lineWidth = lineWidth;
             context.translate(startX, startY);
 
-            drawLine(0, 0, 0, -branchLength); // Draw Trunk
+            drawLine(0, 0, 0, -branchLength);
 
             //--------------------------------
 
@@ -50,15 +50,16 @@
                 depth--;
                 context.translate(0, -branchLength);
 
-                branchLength *= fractalProportion;
                 angle += fractalProportion;
+                lineWidth *= fractalProportion;
+                branchLength *= fractalProportion;
 
                 context.save();
 
                 // Draw Right Branch
                 context.rotate(angle * Math.PI / 180);
                 //drawLine(x1, y1, x2, y2);
-                drawTree(0, 0, branchLength, angle, depth);
+                drawTree(0, 0, branchLength, angle, depth, lineWidth);
 
 
                 context.restore();
@@ -67,14 +68,14 @@
                 // Draw Left Branch
                 context.rotate(-angle * Math.PI / 180);
                 //drawLine(x1, y1, x2, y2);
-                drawTree(0, 0, branchLength, angle, depth);
+                drawTree(0, 0, branchLength, angle, depth, lineWidth);
                 context.restore();
             }
         }
 
         function init(){
 
-            drawTree(canvasHalfWidth, canvas.height, 75, 45, 13);
+            drawTree(canvasHalfWidth, canvas.height, 70, 25, 10, 14);
 
         }
 
