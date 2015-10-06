@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>HTML5 Canvas JS Test</title>
+</head>
+
+<body style="margin:0">
+    <canvas id="canvas" width="400" height="300" style="border:1px solid;margin:0 auto;display:block;"> No HTML5 Canvas detected!
+    </canvas>
+
+    <script type="text/javascript">
+
+        function drawLine(x1, y1, x2, y2){
+            context.beginPath();
+
+            context.moveTo(x1,y1);
+            context.lineTo(x2, y2);
+
+            context.closePath();
+            context.stroke();
+        }
+
+        function drawDot(x,y,r) {
+            context.beginPath();
+            context.arc(x, y, r, 0, 2*Math.PI, false);
+            context.stroke();
+        }
+
+        // Initial Setup
+        var canvas = document.getElementById('canvas'),
+            context = canvas.getContext('2d'),
+            canvasHalfWidth = canvas.width/2,
+            fractalProportion = 0.7,
+            branchLength = 50,
+            angle = 45 * Math.PI / 180;
+
+        context.lineWidth = 1;
+
+        function drawTree(startX, startY, branchLength, angle, depth){
+            context.translate(startX, startY);
+
+            drawLine(0, 0, 0, -branchLength); // Draw Trunk
+
+            //--------------------------------
+
+            if(depth > 0 ){
+                depth--;
+                context.translate(0, -branchLength);
+
+                branchLength *= fractalProportion;
+                angle += fractalProportion;
+
+                context.save();
+
+                // Draw Right Branch
+                context.rotate(angle * Math.PI / 180);
+                //drawLine(x1, y1, x2, y2);
+                drawTree(0, 0, branchLength, angle, depth);
+
+
+                context.restore();
+                context.save();
+
+                // Draw Left Branch
+                context.rotate(-angle * Math.PI / 180);
+                //drawLine(x1, y1, x2, y2);
+                drawTree(0, 0, branchLength, angle, depth);
+                context.restore();
+            }
+        }
+
+        function init(){
+
+            drawTree(canvasHalfWidth, canvas.height, 75, 45, 13);
+
+        }
+
+        init();
+
+    </script>
+</body>
+
+</html>
