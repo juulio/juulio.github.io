@@ -23,7 +23,7 @@ var osc1 = new osc(),
     osc2 = new osc(),
     osc3 = new osc(),
     horizon = h * 0.5;
-    count = 40,
+    count = 50,
     step = Math.ceil(w / count),
     //points = new Array(count);
     buffer = new ArrayBuffer(count * 4),
@@ -31,7 +31,7 @@ var osc1 = new osc(),
 
 osc1.max = h * 0.7;
 
-osc2.max = 35;
+osc2.max = 1;
 osc2.speed = 0.03;
 
 osc2.max = 20;
@@ -44,7 +44,7 @@ function fill() {
 }
 fill();
 
-ctx.lineWidth = 20;
+ctx.lineWidth = 2;
 ctx.strokeStyle = '#fff';
 ctx.fillStyle = 'rgba(50, 50, 80, 0.1)';
 
