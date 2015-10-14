@@ -9,12 +9,13 @@ function canvasApp(){
 
     // Create the Canvas Element
     var theCanvas = document.createElement("canvas");
+    theCanvas.width = 600;
+    theCanvas.height = 400;
+
     document.body.appendChild(theCanvas);
     document.body.style.margin = 0;
 
     // Apply basic styles to the Canvas Element
-    theCanvas.style.width = '600px';
-    theCanvas.style.height = '400px';
     theCanvas.style.border = 'solid 1px red';
     theCanvas.style.display = 'block';
     theCanvas.style.margin = '0 auto';
