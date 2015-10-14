@@ -1,6 +1,6 @@
 var canvas = document.createElement("canvas");
-canvas.width = 600;
-canvas.height = 400;
+canvas.width = 800;
+canvas.height = 100;
 
 document.body.appendChild(canvas);
 document.body.style.margin = 0;
@@ -34,7 +34,7 @@ osc1.max = h * 0.7;
 osc2.max = 1;
 osc2.speed = 0.03;
 
-osc2.max = 20;
+osc2.max = 60;
 osc2.speed = 0.015;
 
 function fill() {
