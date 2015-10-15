@@ -1,9 +1,11 @@
 var canvas = document.createElement("canvas");
+    headerElement = document.getElementsByClassName('site-header')[0];
+
 canvas.width = 800;
 canvas.height = 40;
 
-document.body.appendChild(canvas);
-document.body.style.margin = 0;
+// document.body.appendChild(canvas);
+headerElement.appendChild(canvas);
 
 // Apply basic styles to the Canvas Element
 canvas.style.display = 'block';
