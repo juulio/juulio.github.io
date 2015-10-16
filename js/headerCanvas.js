@@ -1,5 +1,7 @@
 var canvas = document.createElement("canvas");
-    headerElement = document.getElementsByClassName('site-header')[0];
+    headerElement = document.getElementsByClassName('site-header')[0],
+    wrapperElement = document.getElementsByClassName('wrapper')[0],
+    wrapperWidth = wrapperElement.offsetWidth;
 
 canvas.width = 800;
 canvas.height = 40;
