@@ -3,10 +3,10 @@ var canvas = document.createElement("canvas");
     wrapperElement = document.getElementsByClassName('wrapper')[0],
     wrapperWidth = wrapperElement.offsetWidth;
 
-canvas.width = 800;
+canvas.width = wrapperWidth;
 canvas.height = 40;
 
-// document.body.appendChild(canvas);
+// Append the canvas element to the DOM
 headerElement.appendChild(canvas);
 
 // Apply basic styles to the Canvas Element
@@ -17,11 +17,15 @@ canvas.style.margin = '0 auto';
 var ctx = canvas.getContext('2d'),
     w, h;
 
-canvas.width = w = 800 * 0.98;
+canvas.width = w = wrapperWidth * 0.98;
 canvas.height = h = 40 * 0.9;
 
-// canvas.width = w = 800;
-// canvas.height = h = 100;
+var addText = function(){
+    ctx.font = "18px Arial";
+    ctx.fillStyle = '#828282';
+    ctx.fillText("juulio - Computer Graphics",30,25);
+};
+
 
 var osc1 = new osc(),
     // osc2 = new osc(),
@@ -50,12 +54,8 @@ function fill() {
 }
 fill();
 
-ctx.lineWidth = 2;
+ctx.lineWidth = 1;
 ctx.strokeStyle = '#FFFFFF';
-// ctx.fillStyle = 'rgba(50, 50, 80, 0.1)';
-// ctx.fillStyle = 'rgba(255, 255, 255, 0.2)';
-ctx.fillStyle = 'rgba(42, 122, 226, 0.2)';
-
 
 function loop() {
 
@@ -71,8 +71,11 @@ function loop() {
     points[count - 1] = mixer(osc1);
 
     //ctx.clearRect(0, 0, w, h);
+    ctx.fillStyle = 'rgba(0,0,0, 0.05)';
     ctx.fillRect(0, 0, w, h);
-
+    
+    addText();
+    
     /// render wave
     ctx.beginPath();
     ctx.moveTo(0, points[0]);
@@ -83,16 +86,16 @@ function loop() {
 
     ctx.stroke();
 
+    
     requestAnimationFrame(loop);
 }
-loop();
 
 /// oscillator object
 function osc() {
 
     this.variation = 0.4;
     this.max = 150;
-    this.speed = 0.02;
+    this.speed = 0.007;
 
     var me = this,
         a = 0,
@@ -130,3 +133,6 @@ function mixer() {
 
     return sum / d + horizon;
 }
+
+// Begin loop header animation
+loop();
