@@ -195,12 +195,11 @@ var fractalsForest = fractalsForest || {};
         }
     };
 
-
 	/**************************************
 	* Begin Code for Fifth Fractal Tree */
     var drawFifthTree = function(startX, startY, branchLength, angle, depth, lineWidth){
 		var canvasHalfWidth = canvas.width/2,
-        fractalProportion = 0.8;
+        fractalProportion = 0.7;
 
         context.lineWidth = lineWidth;
         context.translate(startX, startY);
@@ -274,6 +273,7 @@ var fractalsForest = fractalsForest || {};
 		drawFourthTree(canvas.width*0.75, canvas.height, -90, 8, 6);
 
 		drawFifthTree(canvas.width*0.1, canvas.height, 70, 25, 10, 14);
+
 	}
 
 	/*****************************************
@@ -283,12 +283,12 @@ var fractalsForest = fractalsForest || {};
 
 		/************************************
 		* Begin Code for Regenerate Button */
-		button[0].onclick = function(){
-			// First clear the whole canvas area.
-			context.clearRect(0,0,canvas.width, canvas.height);
-
-			generateFractalsForest();
-		}
+		// button[0].onclick = function(){
+		// 	// First clear the whole canvas area.
+		// 	context.clearRect(0,0,canvas.width, canvas.height);
+		//
+		// 	generateFractalsForest();
+		// }
     }
 
     init();
