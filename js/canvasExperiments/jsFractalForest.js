@@ -195,6 +195,45 @@ var fractalsForest = fractalsForest || {};
         }
     };
 
+
+	/**************************************
+	* Begin Code for Fifth Fractal Tree */
+    var drawFifthTree = function(startX, startY, branchLength, angle, depth, lineWidth){
+		var canvasHalfWidth = canvas.width/2,
+        fractalProportion = 0.8;
+
+        context.lineWidth = lineWidth;
+        context.translate(startX, startY);
+
+        drawLine(0, 0, 0, -branchLength);
+
+        if(depth > 0 ){
+			context.save();
+            depth--;
+            context.translate(0, -branchLength);
+
+            angle += fractalProportion;
+            lineWidth *= fractalProportion;
+            branchLength *= fractalProportion;
+
+            context.save();
+            // Draw Right Branch
+            context.rotate(angle * Math.PI / 180);
+            //drawLine(x1, y1, x2, y2);
+            drawFifthTree(0, 0, branchLength, angle, depth, lineWidth);
+            context.restore();
+
+            context.save();
+            // Draw Left Branch
+            context.rotate(-angle * Math.PI / 180);
+            //drawLine(x1, y1, x2, y2);
+            drawFifthTree(0, 0, branchLength, angle, depth, lineWidth);
+            context.restore();
+
+			context.restore();
+        }
+    };
+
 	/*******************************************
 	* Begin Code for Background Grass and Sky */
 	var drawSkyAndGrass = function() {
@@ -223,19 +262,20 @@ var fractalsForest = fractalsForest || {};
 	/*************************************************
 	 * Call the functions to generate all the Trees */
 	var generateFractalsForest = function(){
+
 		drawSkyAndGrass();
 
 		drawFirstTree(context.canvas.width*0.66, 600, -90, 9);
 
 		drawFirstTree(context.canvas.width*0.2, 500, -90, 6);
 
-		drawFirstTree(context.canvas.width*0.36, 500, -90, 8);
-
 		drawSecondTree(canvas.width*0.15, canvas.height, 50, 0);
 
-        drawThirdTree(canvas.width*0.46, canvas.height, 70, -Math.PI / 2, 8, 72);
+		drawThirdTree(canvas.width*0.46, canvas.height, 70, -Math.PI / 2, 8, 72);
 
-        drawFourthTree(canvas.width*0.75, canvas.height, -90, 8, 6);
+		drawFourthTree(canvas.width*0.75, canvas.height, -90, 8, 6);
+
+		drawFifthTree(canvas.width*0.1, canvas.height, 70, 25, 10, 14);
 	}
 
 	/*****************************************
