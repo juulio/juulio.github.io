@@ -3,8 +3,8 @@ var canvas = document.createElement("canvas");
     wrapperElement = document.getElementsByClassName('wrapper')[0],
     wrapperWidth = wrapperElement.offsetWidth;
 
-canvas.width = wrapperWidth;
-canvas.height = 40;
+canvas.width = 300;
+canvas.height = 60;
 
 // Append the canvas element to the DOM
 headerElement.appendChild(canvas);
@@ -17,8 +17,8 @@ canvas.style.margin = '0 auto';
 var ctx = canvas.getContext('2d'),
     w, h;
 
-canvas.width = w = wrapperWidth * 0.98;
-canvas.height = h = 40 * 0.9;
+canvas.width = w = 300 * 0.98;
+canvas.height = h = 60 * 0.9;
 
 
 var osc1 = new osc(),
@@ -66,6 +66,7 @@ function loop() {
 
     //ctx.clearRect(0, 0, w, h);
     ctx.fillStyle = 'rgba(253,253,253, 0.05)';
+    ctx.fillStyle = 'rgba(255,255,255, 0.09)';
     ctx.fillRect(0, 0, w, h);
 
     /// render wave

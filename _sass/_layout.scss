@@ -19,7 +19,7 @@
 .site-title {
     float: left;
     color: #000;
-    font-size: 58px;
+    font-size: 3.3em;
     margin-bottom: 0;
     line-height: 1.3;
     font-family: 'Vollkorn', serif;
@@ -27,6 +27,7 @@
     @include media-query($on-palm) {
         float: none;
         display: block;
+        font-size: 2em;
     }
 }
 
@@ -286,5 +287,4 @@ span.site-title {
 //Styles for Home Page
 .home h2 {
     margin-bottom: 0;
-    line-height: 0.2em;
 }
