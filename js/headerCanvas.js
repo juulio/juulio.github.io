@@ -1,5 +1,5 @@
 var canvas = document.createElement("canvas");
-    headerElement = document.getElementsByClassName('site-header')[0],
+    headerElement = document.getElementsByClassName('header-inner-wrapper')[0],
     wrapperElement = document.getElementsByClassName('wrapper')[0],
     wrapperWidth = wrapperElement.offsetWidth;
 
@@ -19,12 +19,6 @@ var ctx = canvas.getContext('2d'),
 
 canvas.width = w = wrapperWidth * 0.98;
 canvas.height = h = 40 * 0.9;
-
-var addText = function(){
-    ctx.font = "18px Arial";
-    ctx.fillStyle = '#828282';
-    ctx.fillText("juulio - Computer Graphics",30,25);
-};
 
 
 var osc1 = new osc(),
@@ -55,7 +49,7 @@ function fill() {
 fill();
 
 ctx.lineWidth = 1;
-ctx.strokeStyle = '#FFFFFF';
+ctx.strokeStyle = '#000';
 
 function loop() {
 
@@ -71,11 +65,9 @@ function loop() {
     points[count - 1] = mixer(osc1);
 
     //ctx.clearRect(0, 0, w, h);
-    ctx.fillStyle = 'rgba(0,0,0, 0.05)';
+    ctx.fillStyle = 'rgba(253,253,253, 0.05)';
     ctx.fillRect(0, 0, w, h);
-    
-    addText();
-    
+
     /// render wave
     ctx.beginPath();
     ctx.moveTo(0, points[0]);
@@ -86,7 +78,7 @@ function loop() {
 
     ctx.stroke();
 
-    
+
     requestAnimationFrame(loop);
 }
 
