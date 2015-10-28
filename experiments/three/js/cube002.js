@@ -1,6 +1,7 @@
 // revolutions per second
 var angularSpeed = 0.1,
-	lastTime = 0;
+	lastTime = 0,
+	cubeVerticaDirection = 'up';
 
 // this function is executed on each animation frame
 function animate(){
@@ -11,6 +12,22 @@ function animate(){
 	cube.rotation.y += angleChange;
 	cube.rotation.x += angleChange;
 	cube.rotation.z += angleChange;
+
+	if (cubeVerticaDirection == 'up'){
+		cube.position.y += 1.5;
+
+		if (cube.position.y > 350){
+			cubeVerticaDirection = 'down';
+		}
+	}
+	else {
+		if(cubeVerticaDirection == 'down'){
+			cube.position.y -= 1.5;
+			if (cube.position.y < -350){
+				cubeVerticaDirection = 'up'
+			}
+		}
+	}
 
 	lastTime = time;
 
@@ -39,8 +56,6 @@ camera.position.z = 500;
 
 cube.overdraw = true;
 cube.rotation.x = Math.PI * 0.1;
-
-
 
 directionalLight.position.set(1, 1, 1).normalize();
 
