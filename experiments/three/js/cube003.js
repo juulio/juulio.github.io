@@ -8,9 +8,9 @@ var boxColor = { color : 0 };
 var target = { color : 255 };
 var tween = new TWEEN.Tween(boxColor).to(target, 2000);
 
-tween.onUpdate(function(){
-	console.log(boxColor);
-});
+// tween.onUpdate(function(){
+// 	console.log(boxColor);
+// });
 
 tween.start();
 
@@ -62,7 +62,8 @@ var scene = new THREE.Scene();
 var ambientLight = new THREE.AmbientLight(0x000044);
 var directionalLight = new THREE.DirectionalLight(0xffffff);
 var cube = new THREE.Mesh(new THREE.BoxGeometry(200, 200, 200), new THREE.MeshLambertMaterial({
-	color: 'blue'
+	// color: '#0000FF'
+	color: boxColor
 }));
 
 camera.position.z = 500;
