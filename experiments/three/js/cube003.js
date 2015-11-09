@@ -21,7 +21,7 @@ var boxColor = {
 	};
 
 var tween = new TWEEN.Tween(boxColor).to(targetColor, 2000);
-var tweenBack = new TWEEN.Tween(boxColor).to(tweenBackColor, 2000);
+var tweenBack = new TWEEN.Tween(targetColor).to(boxColor, 2000);
 
 tween.start();
 
