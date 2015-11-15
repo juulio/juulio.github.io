@@ -95,13 +95,13 @@ var treeWithParticles = treeWithParticles || {};
     /***********************************************
     * Update function: constantly modifies values */
     var update = function(){
+        growTree(canvas.width*0.5, canvas.height, -90, 3, 26);
 
         requestAnimationFrame(update);
     }
 	/*****************************************
 	 * Init */
     function init () {
-        growTree(canvas.width*0.5, canvas.height, -90, 3, 26);
 
         update();
     }
