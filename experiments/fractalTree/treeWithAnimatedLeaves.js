@@ -69,7 +69,7 @@ var treeWithParticles = treeWithParticles || {};
     }
 
     /**************************************
-    * Begin Code for Fourth Fractal Tree */
+    * Function that grows a Fractal Tree */
     var growTree = function(x1, y1, angle, treeDepth, lineLength){
         var x2 = x1 + (cos(angle) * treeDepth * lineLength),
             y2 = y1 + (sin(angle) * treeDepth * lineLength);
@@ -92,19 +92,47 @@ var treeWithParticles = treeWithParticles || {};
         }
     };
 
+    /**************************************
+    * Function that limits the frame rate */
+    var limitLoop = function (fn, fps) {
+
+        // Use var then = Date.now(); if you
+        // don't care about targetting < IE9
+        var then = new Date().getTime();
+
+        // custom fps, otherwise fallback to 60
+        fps = fps || 60;
+        var interval = 1000 / fps;
+
+        return (function loop(time){
+            requestAnimationFrame(loop);
+
+            // again, Date.now() if it's available
+            var now = new Date().getTime();
+            var delta = now - then;
+
+            if (delta > interval) {
+                // Update time
+                // now - (delta % interval) is an improvement over just
+                // using then = now, which can end up lowering overall fps
+                then = now - (delta % interval);
+
+                // call the fn
+                fn();
+            }
+        }(0));
+    };
+
     /***********************************************
     * Update function: constantly modifies values */
-    var update = function(){
+    var drawScreen = function(){
         context.clearRect(0, 0, canvas.width, canvas.height);
         growTree(canvas.width*0.5, canvas.height, -90, 5, 26);
-
-        requestAnimationFrame(update);
     }
 	/*****************************************
 	 * Init */
     function init () {
-
-        update();
+        limitLoop( drawScreen, 10);
     }
 
     init();
