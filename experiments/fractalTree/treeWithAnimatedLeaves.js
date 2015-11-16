@@ -1,10 +1,6 @@
-// TODO:Agregar alguna librería de partículas, preferíblemente particles.js
-// TODO: Agreger dat.gui. Ver ejemplos de particles.js en github https://github.com/VincentGarreau/particles.js/
-
-
-/* Tree with Particles - juulio.github.io
+/* Tree with Animated Leaves - juulio.github.io
 * Julio Del Valle - Costa Rica */
-var treeWithParticles = treeWithParticles || {};
+var treeWithAnimatedLeaves = treeWithAnimatedLeaves || {};
 
 (function (context) {
 
@@ -41,6 +37,7 @@ var treeWithParticles = treeWithParticles || {};
     function random(min, max){
         return min + Math.floor(Math.random()*(max+1-min));
     }
+
     /**************************************
     * Draw a Line from (x1,y1) to (x2,y1) */
     function drawLine(x1, y1, x2, y2, thickness){
@@ -68,29 +65,6 @@ var treeWithParticles = treeWithParticles || {};
        context.stroke();
     }
 
-    /**************************************
-    * Function that grows a Fractal Tree */
-    var growTree = function(x1, y1, angle, treeDepth, lineLength){
-        var x2 = x1 + (cos(angle) * treeDepth * lineLength),
-            y2 = y1 + (sin(angle) * treeDepth * lineLength);
-
-        if(treeDepth !=0) {
-            treeDepth--;
-            context.strokeStyle = 'rgb(0,0,0)';
-
-            drawLine(x1, y1, x2, y2, 1);
-
-            growTree(x2, y2, angle - random(20,26), treeDepth, lineLength);
-            growTree(x2, y2, angle + random(30,58), treeDepth, lineLength);
-        }
-        else {
-            context.strokeStyle = 'rgb(' + random(0,255) +',' + random(0,255) +'    ,34)';
-            drawDot(x2+1, y2, 8, 2);
-            drawDot(x2+4, y2+2, 5, 1);
-            drawDot(x2-7, y2+9, 6, 2);
-            drawDot(x2+2, y2-3, 3, 3);
-        }
-    };
 
     /**************************************
     * Function that limits the frame rate */
@@ -123,8 +97,32 @@ var treeWithParticles = treeWithParticles || {};
         }(0));
     };
 
+    /**************************************
+    * Function that grows a Fractal Tree */
+    var growTree = function(x1, y1, angle, treeDepth, lineLength){
+        var x2 = x1 + (cos(angle) * treeDepth * lineLength),
+            y2 = y1 + (sin(angle) * treeDepth * lineLength);
+
+        if(treeDepth !=0) {
+            treeDepth--;
+            context.strokeStyle = 'rgb(0,0,0)';
+
+            drawLine(x1, y1, x2, y2, 1);
+
+            growTree(x2, y2, angle - random(20,26), treeDepth, lineLength);
+            growTree(x2, y2, angle + random(30,58), treeDepth, lineLength);
+        }
+        else {
+            context.strokeStyle = 'rgb(' + random(0,255) +',' + random(0,255) +'    ,34)';
+            drawDot(x2+1, y2, 8, 2);
+            drawDot(x2+4, y2+2, 5, 1);
+            drawDot(x2-7, y2+9, 6, 2);
+            drawDot(x2+2, y2-3, 3, 3);
+        }
+    };
+
     /***********************************************
-    * Update function: constantly modifies values */
+    * Draws all the elements on the screen */
     var drawScreen = function(){
         context.clearRect(0, 0, canvas.width, canvas.height);
         growTree(canvas.width*0.5, canvas.height, -90, 5, 26);
@@ -132,9 +130,9 @@ var treeWithParticles = treeWithParticles || {};
 	/*****************************************
 	 * Init */
     function init () {
-        limitLoop( drawScreen, 10);
+        limitLoop( drawScreen, 60);
     }
 
     init();
 
-}(treeWithParticles));
+}(treeWithAnimatedLeaves));
