@@ -65,6 +65,12 @@ var treeWithAnimatedLeaves = treeWithAnimatedLeaves || {};
        context.stroke();
     }
 
+    var movingLeaf = function(x, y){
+        var posX = x + random(0,7),
+            posY = y + random(0,4);
+
+        drawDot(posX, posY, 5, 2);
+    };
 
     /**************************************
     * Function that limits the frame rate */
@@ -101,7 +107,8 @@ var treeWithAnimatedLeaves = treeWithAnimatedLeaves || {};
     * Function that grows a Fractal Tree */
     var growTree = function(x1, y1, angle, treeDepth, lineLength){
         var x2 = x1 + (cos(angle) * treeDepth * lineLength),
-            y2 = y1 + (sin(angle) * treeDepth * lineLength);
+            y2 = y1 + (sin(angle) * treeDepth * lineLength),
+            leaf;
 
         if(treeDepth !=0) {
             treeDepth--;
@@ -114,10 +121,11 @@ var treeWithAnimatedLeaves = treeWithAnimatedLeaves || {};
         }
         else {
             context.strokeStyle = 'rgb(' + random(0,255) +',' + random(0,255) +'    ,34)';
-            drawDot(x2+1, y2, 8, 2);
-            drawDot(x2+4, y2+2, 5, 1);
-            drawDot(x2-7, y2+9, 6, 2);
-            drawDot(x2+2, y2-3, 3, 3);
+            // drawDot(x2+1, y2, 8, 2);
+            leaf = new movingLeaf(x2, y2);
+            // drawDot(x2+4, y2+2, 5, 1);
+            // drawDot(x2-7, y2+9, 6, 2);
+            // drawDot(x2+2, y2-3, 3, 3);
         }
     };
 
@@ -125,14 +133,10 @@ var treeWithAnimatedLeaves = treeWithAnimatedLeaves || {};
     * Draws all the elements on the screen */
     var drawScreen = function(){
         context.clearRect(0, 0, canvas.width, canvas.height);
-        growTree(canvas.width*0.5, canvas.height, -90, 5, 26);
+        growTree(canvas.width*0.5, canvas.height, -90, 3, 20);
     }
 	/*****************************************
-	 * Init */
-    function init () {
-        limitLoop( drawScreen, 60);
-    }
-
-    init();
-
+	 * Init all Functions */
+    //  limitLoop( drawScreen, 60);
+     drawScreen();
 }(treeWithAnimatedLeaves));
