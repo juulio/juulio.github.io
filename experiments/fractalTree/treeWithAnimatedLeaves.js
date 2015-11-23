@@ -63,7 +63,7 @@ var growTree = function(x1, y1, angle, treeDepth, lineLength){
 
         context.strokeStyle = 'rgb(' + canvasElements.getRandomInt(0,255) +',' + canvasElements.getRandomInt(0,255) +'    ,34)';
 
-    if(treeDepth >0) {
+    if(treeDepth > 0) {
         treeDepth--;
 
         canvasElements.drawLine(x1, y1, x2, y2, context);
@@ -72,10 +72,11 @@ var growTree = function(x1, y1, angle, treeDepth, lineLength){
         growTree(x2, y2, angle + canvasElements.getRandomInt(30,58), treeDepth, lineLength);
     }
     else {
-        // console.log(x2 + ' ' + y2);
-        Leaf.posX = x2;
-        Leaf.posY = y2;
-        leaves.push(Leaf);
+        console.log('x2: ' + x2 + '     ' + 'y2: ' + y2);
+        canvasElements.drawDot(x2,y2, 5, '#000', 2, context);
+        // Leaf.posX = x2;
+        // Leaf.posY = y2;
+        // leaves.push(Leaf);
     }
 };
 
@@ -91,9 +92,8 @@ var animateLeaves = function(){
 * Draws all the elements on the screen */
 var drawScreen = function(){
     context.clearRect(0, 0, canvas.width, canvas.height);
-    growTree(canvas.width*0.5, canvas.height, -90, 3, 20);
-
-    animateLeaves();
+    growTree(canvas.width*0.5, canvas.height, -90, 1, 20);
+    // animateLeaves();
 };
 
 drawScreen();
