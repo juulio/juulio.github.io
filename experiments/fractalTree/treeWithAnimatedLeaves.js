@@ -1,142 +1,143 @@
 /* Tree with Animated Leaves - juulio.github.io
 * Julio Del Valle - Costa Rica */
-var treeWithAnimatedLeaves = treeWithAnimatedLeaves || {};
 
-(function (context) {
+// Create the Canvas Element
+var canvas = document.createElement("canvas"),
+    context = canvas.getContext("2d");
 
-    // Create the Canvas Element
-    var canvas = document.createElement("canvas");
-        canvas.width = 600;
-        canvas.height = 400;
+document.body.appendChild(canvas);
 
-    document.body.appendChild(canvas);
-    document.body.style.margin = 0;
+// Apply Basic styles to the Canvas Element
+document.body.style.margin = 0;
 
-    // Apply basic styles to the Canvas Element
-    canvas.style.border = 'solid 1px red';
-    canvas.style.display = 'block';
-    canvas.style.margin = '0 auto';
+canvas.width = 450;
+canvas.height = 300;
+canvas.style.border = 'solid 1px red';
+canvas.style.display = 'block';
+canvas.style.margin = '0 auto';
 
-    var context = canvas.getContext("2d"),
-        button = document.getElementsByClassName("fractalTreeButton");
 
-    /***************************************
-     * Utiliy Functions */
-    function cos (angle) {
-    	return Math.cos(deg_to_rad(angle));
+/**********************
+ Create Leaves array */
+var leaves = [];
+
+// var Leaf = (function() {
+//
+//     var _posX,
+//         _posY,
+//         _variaton = canvasElements.getRandomInt(-5,5);
+//
+//     function Leaf (posX, posY) {
+//         _posX = posX;
+//         _posY = posY;
+//     }
+//
+//     Leaf.prototype.run = function() {
+//         posX += this.variation;
+//         canvasElements.drawDot(this.posX, this.posY, 5, 2);
+//     }
+//
+//     return Leaf;
+// })();
+
+var Leaf = {
+    posX : 0,
+    posY : 0,
+
+    run : function(){
+        this.update();
+        this.draw();
+    },
+    update : function(){
+        this.posX += canvasElements.getRandomInt(-5,5);
+        this.posY += canvasElements.getRandomInt(-5,5);
+    },
+    draw : function(){
+        canvasElements.drawDot(this.posX, this.posY, 5, 2, 2, context);
     }
+};
 
-    function sin (angle) {
-        return Math.sin(deg_to_rad(angle));
+var growTree = function(x1, y1, angle, treeDepth, lineLength){
+    var x2 = x1 + (canvasElements.cos(angle) * treeDepth * lineLength),
+        y2 = y1 + (canvasElements.sin(angle) * treeDepth * lineLength);
+
+        context.strokeStyle = 'rgb(' + canvasElements.getRandomInt(0,255) +',' + canvasElements.getRandomInt(0,255) +'    ,34)';
+
+    if(treeDepth >0) {
+        treeDepth--;
+
+        canvasElements.drawLine(x1, y1, x2, y2, context);
+
+        growTree(x2, y2, angle - canvasElements.getRandomInt(20,26), treeDepth, lineLength);
+        growTree(x2, y2, angle + canvasElements.getRandomInt(30,58), treeDepth, lineLength);
     }
-
-    function deg_to_rad(angle){
-        return angle*(Math.PI/180.0);
+    else {
+        // console.log(x2 + ' ' + y2);
+        Leaf.posX = x2;
+        Leaf.posY = y2;
+        leaves.push(Leaf);
     }
+};
 
-    function random(min, max){
-        return min + Math.floor(Math.random()*(max+1-min));
+var animateLeaves = function(){
+    for(var i =0;i<leaves.length;i++){
+        leaves[i].run();
     }
+}
+/***********************************************
+* Draws all the elements on the screen */
+var drawScreen = function(){
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    growTree(canvas.width*0.5, canvas.height, -90, 3, 20);
 
-    /**************************************
-    * Draw a Line from (x1,y1) to (x2,y1) */
-    function drawLine(x1, y1, x2, y2, thickness){
-    	// if(thickness > 6)
-    	// 	context.strokeStyle = 'rgb(139,126,102)'; //Brown
-    	// else
-    	// 	context.strokeStyle = 'rgb(34,139,34)'; //Green
+    animateLeaves();
+};
 
-    	context.lineWidth = thickness * 1.5;
-    	context.beginPath();
+drawScreen();
 
-    	context.moveTo(x1,y1);
-    	context.lineTo(x2, y2);
 
-    	context.closePath();
-    	context.stroke();
-    }
 
-    /**************************************
-    * Draw a Dot on (x,y) with Radius r */
-    function drawDot(x,y,r,lineWidth) {
-       context.beginPath();
-       context.arc(x, y, r, 0, 2*Math.PI, false);
-       context.lineWidth = lineWidth;
-       context.stroke();
-    }
 
-    var movingLeaf = function(x, y){
-        var posX = x + random(0,7),
-            posY = y + random(0,4);
-
-        drawDot(posX, posY, 5, 2);
-    };
-
-    /**************************************
-    * Function that limits the frame rate */
-    var limitLoop = function (fn, fps) {
-
-        // Use var then = Date.now(); if you
-        // don't care about targetting < IE9
-        var then = new Date().getTime();
-
-        // custom fps, otherwise fallback to 60
-        fps = fps || 60;
-        var interval = 1000 / fps;
-
-        return (function loop(time){
-            requestAnimationFrame(loop);
-
-            // again, Date.now() if it's available
-            var now = new Date().getTime();
-            var delta = now - then;
-
-            if (delta > interval) {
-                // Update time
-                // now - (delta % interval) is an improvement over just
-                // using then = now, which can end up lowering overall fps
-                then = now - (delta % interval);
-
-                // call the fn
-                fn();
-            }
-        }(0));
-    };
-
-    /**************************************
-    * Function that grows a Fractal Tree */
-    var growTree = function(x1, y1, angle, treeDepth, lineLength){
-        var x2 = x1 + (cos(angle) * treeDepth * lineLength),
-            y2 = y1 + (sin(angle) * treeDepth * lineLength),
-            leaf;
-
-        if(treeDepth !=0) {
-            treeDepth--;
-            context.strokeStyle = 'rgb(0,0,0)';
-
-            drawLine(x1, y1, x2, y2, 1);
-
-            growTree(x2, y2, angle - random(20,26), treeDepth, lineLength);
-            growTree(x2, y2, angle + random(30,58), treeDepth, lineLength);
-        }
-        else {
-            context.strokeStyle = 'rgb(' + random(0,255) +',' + random(0,255) +'    ,34)';
-            // drawDot(x2+1, y2, 8, 2);
-            leaf = new movingLeaf(x2, y2);
-            // drawDot(x2+4, y2+2, 5, 1);
-            // drawDot(x2-7, y2+9, 6, 2);
-            // drawDot(x2+2, y2-3, 3, 3);
-        }
-    };
-
-    /***********************************************
-    * Draws all the elements on the screen */
-    var drawScreen = function(){
-        context.clearRect(0, 0, canvas.width, canvas.height);
-        growTree(canvas.width*0.5, canvas.height, -90, 3, 20);
-    }
-	/*****************************************
-	 * Init all Functions */
-    //  limitLoop( drawScreen, 60);
-     drawScreen();
-}(treeWithAnimatedLeaves));
+/*******************************************
+ Fractal Binary Tree with Animated Leaves */
+// var treeWithAnimatedLeaves = {
+//
+//     /**************************************
+//     * Function that grows a Fractal Tree */
+//     growTree : function(x1, y1, angle, treeDepth, lineLength){
+//         var x2 = x1 + (canvasElements.cos(angle) * treeDepth * lineLength),
+//             y2 = y1 + (canvasElements.sin(angle) * treeDepth * lineLength);
+//
+//         if(treeDepth !=0) {
+//             treeDepth--;
+//             context.strokeStyle = 'rgb(0,0,0)';
+//
+//             canvasElements.drawLine(x1, y1, x2, y2, context);
+//
+//             this.growTree(x2, y2, angle - canvasElements.getRandomInt(20,26), treeDepth, lineLength);
+//             this.growTree(x2, y2, angle + canvasElements.getRandomInt(30,58), treeDepth, lineLength);
+//         }
+//         else {
+//             context.strokeStyle = 'rgb(' + canvasElements.getRandomInt(0,255) +',' + canvasElements.getRandomInt(0,255) +'    ,34)';
+//             // drawDot(x2+1, y2, 8, 2);
+//             // drawLine(x1, y1, x2, y2, 1);
+//
+//             var newLeaf = Leaf(x2, y2)
+//             newLeaf.run();
+//             leaves.push(newLeaf);
+//         }
+//     },
+//
+//     /***********************************************
+//     * Draws all the elements on the screen */
+//     drawScreen : function(){
+//         context.clearRect(0, 0, canvas.width, canvas.height);
+//         this.growTree(canvas.width*0.5, canvas.height, -90, 2, 20);
+//     }
+//
+//     /*****************************************
+// 	 * Init all Functions */
+//     //  drawScreen();
+// };
+//
+// treeWithAnimatedLeaves.drawScreen();

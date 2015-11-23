@@ -1,82 +1,94 @@
-/***
-* Draws a dot, centered on x,y coordinates
-*/
-function drawDot(x,y,r,color,lineWidth) {
-    context.beginPath();
-    context.arc(x, y, r, 0, 2*Math.PI, false);
-    context.lineWidth = lineWidth;
-    context.strokeStyle = color;
-    context.stroke();
-}
+/* Canvas frequently used functions- juulio.github.io
+* Julio Del Valle - Costa Rica */
 
-/***
-* Draws a line
-*/
-function drawLine(x1,y1,x2,y2) {
-    context.beginPath();
-    context.moveTo(x1,y1);
-    context.lineTo(x2,y2);
-    context.stroke();
-}
+var canvasElements = {
 
-/** (Taken from MDN https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random)
- * Returns a random integer between min (inclusive) and max (inclusive)
- * Using Math.round() will give you a non-uniform distribution!
- */
-function getRandomInt(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-}
+    /********************************************
+    * Draws a dot, centered on x,y coordinates */
+    drawDot : function(x,y,r,color,lineWidth, canvasContext) {
+        canvasContext.beginPath();
+        canvasContext.arc(x, y, r, 0, 2*Math.PI, false);
+        canvasContext.lineWidth = lineWidth;
+        canvasContext.strokeStyle = color;
+        canvasContext.stroke();
+    },
+
+    /****************************************
+    * Draws a line from (x1,y1) to (x2,y2) */
+    drawLine : function(x1,y1,x2,y2, canvasContext) {
+        canvasContext.beginPath();
+        canvasContext.moveTo(x1,y1);
+        canvasContext.lineTo(x2,y2);
+        canvasContext.closePath();
+        canvasContext.stroke();
+    },
+
+    /****************************************************************************
+    * Taken from Mozilla Ddeveloper Network
+    * https://developer.mozilla.org/en-US/
+    * Returns a random integer between min (inclusive) and max (inclusive) */
+    getRandomInt : function(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    },
 
 
-//ok c Taken from the book Javascript Supercharged Graphics.
-// Degrees to radians.
-degToRad = function(deg) {
-    return deg * (Math.PI/180);
-};
-// Radians to degrees.
-radToDeg = function(rad) {
-    return rad * (180/Math.PI);
-};
+    /**************************************
+    * Taken from the book Javascript Supercharged Graphics.
+    * Takes a Degre value and returns Radians. */
+    degToRad : function(deg) {
+        return deg * (Math.PI/180);
+    },
 
-function cos (angle) {
-    return Math.cos(deg_to_rad(angle));
-}
+    /**************************************
+    * Taken from the book Javascript Supercharged Graphics.
+    * Takes a Radian value and returns Degrees. */
+    radToDeg : function(rad) {
+        return rad * (180/Math.PI);
+    },
 
-function sin (angle) {
-    return Math.sin(deg_to_rad(angle));
-}
+    /*******************************************
+    * Returns Cos function from a given angle */
+    cos : function(angle) {
+        return Math.cos(this.degToRad(angle));
+    },
 
-function deg_to_rad(angle){
-    return angle*(Math.PI/180.0);
-}
+    /*******************************************
+    * Returns Sin function from a given angle */
+    sin : function(angle) {
+        return Math.sin(this.degToRad(angle));
+    },
 
-/**************************************
-* Function that limits the frame rate */
-var limitLoop = function (fn, fps) {
 
-    // Use var then = Date.now(); if you
-    // don't care about targetting < IE9
-    var then = new Date().getTime();
 
-    // custom fps, otherwise fallback to 60
-    fps = fps || 60;
-    var interval = 1000 / fps;
+    /**************************************
+    * Function that limits the frame rate */
+    limitLoop : function (fn, fps) {
 
-    return (function loop(time){
-        requestAnimationFrame(loop);
+        // Use var then = Date.now(); if you
+        // don't care about targetting < IE9
+        var then = new Date().getTime();
 
-        // again, Date.now() if it's available
-        var now = new Date().getTime();
-        var delta = now - then;
+        // custom fps, otherwise fallback to 60
+        fps = fps || 60;
+        var interval = 1000 / fps;
 
-        if (delta > interval) {
-            // Update time
-            // now - (delta % interval) is an improvement over just
-            // using then = now, which can end up lowering overall fps
-            then = now - (delta % interval);
+        return (function loop(time){
+            requestAnimationFrame(loop);
 
-            // call the fn
-            fn();
-        }
-    }(0));
+            // again, Date.now() if it's available
+            var now = new Date().getTime();
+            var delta = now - then;
+
+            if (delta > interval) {
+                // Update time
+                // now - (delta % interval) is an improvement over just
+                // using then = now, which can end up lowering overall fps
+                then = now - (delta % interval);
+
+                // call the fn
+                fn();
+            }
+        }(0));
+    }
+
 };
