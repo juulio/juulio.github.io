@@ -82,6 +82,9 @@ var growTree = function(x1, y1, angle, treeDepth, lineLength){
 var animateLeaves = function(){
     for(var i =0;i<leaves.length;i++){
         leaves[i].run();
+        console.log('posX :' + leaves[i].posX);
+        console.log('posY :' + leaves[i].posY);
+        console.log('-----------------------');
     }
 }
 /***********************************************
