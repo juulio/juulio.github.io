@@ -10,8 +10,8 @@ document.body.appendChild(canvas);
 // Apply Basic styles to the Canvas Element
 document.body.style.margin = 0;
 
-canvas.width = 350;
-canvas.height = 300;
+canvas.width = 650;
+canvas.height = 700;
 canvas.style.border = 'solid 1px #000';
 canvas.style.display = 'block';
 canvas.style.margin = '0 auto';
@@ -100,7 +100,7 @@ var animateLeaves = function(){
 /***********************************************
 * Draws all the elements on the screen */
 var drawScreen = function(){
-    growTree(canvas.width*0.5, canvas.height, -90, 3, 20);
+    growTree(canvas.width*0.5, canvas.height, -90, 6, 20);
     animateLeaves();
 };
 
