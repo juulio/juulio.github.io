@@ -82,8 +82,8 @@ var animateLeaves = function(){
         _y;
 
     for(var i=0;i<leaves.length;i++){
-        _x = leaves[i]._x + canvasElements.getRandomInt(-5,5);
-        _y = leaves[i]._y + canvasElements.getRandomInt(-5,5);
+        _x = leaves[i]._x + canvasElements.getRandomInt(-3,3);
+        _y = leaves[i]._y + canvasElements.getRandomInt(-3,3);
 
 
         // context.clearRect(_posX-5, _posY-5, _posX+5, _posY+5);
@@ -91,7 +91,7 @@ var animateLeaves = function(){
 
 
         // canvasElements.drawDot(_posX, _posY, 5, 'rgba(255, 0, 0, 0.1)', 2, context);
-        canvasElements.drawDot(_x, _y, 3, 'rgba(0,0,0,1)', 2, context);
+        canvasElements.drawDot(_x, _y, 7, 'rgba(0,0,0,1)', 2, context);
     }
 
 
