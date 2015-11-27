@@ -10,7 +10,7 @@ document.body.appendChild(canvas);
 // Apply Basic styles to the Canvas Element
 document.body.style.margin = 0;
 
-canvas.width = 450;
+canvas.width = 350;
 canvas.height = 300;
 canvas.style.border = 'solid 1px red';
 canvas.style.display = 'block';
@@ -20,42 +20,6 @@ canvas.style.margin = '0 auto';
 /**********************
  Create Leaves array */
 var leaves = [];
-
-// var Leaf = (function() {
-//
-//     var _posX,
-//         _posY,
-//         _variaton = canvasElements.getRandomInt(-5,5);
-//
-//     function Leaf (posX, posY) {
-//         _posX = posX;
-//         _posY = posY;
-//     }
-//
-//     Leaf.prototype.run = function() {
-//         posX += this.variation;
-//         canvasElements.drawDot(this.posX, this.posY, 5, 2);
-//     }
-//
-//     return Leaf;
-// })();
-
-var Leaf = {
-    posX : 0,
-    posY : 0
-
-    // run : function(){
-    //     this.update();
-    //     this.draw();
-    // },
-    // update : function(){
-    //     this.posX += canvasElements.getRandomInt(-5,5);
-    //     this.posY += canvasElements.getRandomInt(-5,5);
-    // },
-    // draw : function(){
-    //     canvasElements.drawDot(this.posX, this.posY, 5, 2, 2, context);
-    // }
-};
 
 var growTree = function(x1, y1, angle, treeDepth, lineLength){
     var x2 = x1 + (canvasElements.cos(angle) * treeDepth * lineLength),
@@ -83,13 +47,16 @@ var growTree = function(x1, y1, angle, treeDepth, lineLength){
 
 var animateLeaves = function(){
     context.clearRect(0, 0, canvas.width, canvas.height);
+
+    growTree(canvas.width*0.5, canvas.height, -90, 3, 20);
+    
     var _posX,
         _posY;
     for(var i =0;i<leaves.length;i++){
         _posX = leaves[i].posX + canvasElements.getRandomInt(-5,5);
         _posY = leaves[i].posY + canvasElements.getRandomInt(-5,5);
 
-        canvasElements.drawDot(_posX, _posY, 5, '#000', 2, context);
+        canvasElements.drawDot(_posX, _posY, 5, '#000000', 2, context);
     }
 
     requestAnimationFrame(animateLeaves);
@@ -97,7 +64,6 @@ var animateLeaves = function(){
 /***********************************************
 * Draws all the elements on the screen */
 var drawScreen = function(){
-    growTree(canvas.width*0.5, canvas.height, -90, 3, 20);
     animateLeaves();
 };
 
