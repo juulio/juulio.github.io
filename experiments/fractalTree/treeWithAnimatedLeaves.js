@@ -26,9 +26,11 @@ var branches = [],
 
 /**************************************************************************************************************
 * Recursive function that generates the fracal tree and stores the values on the branches and leaves arrays  */
-var growTree = function(x1, y1, angle, treeDepth, lineLength){
-    var x2 = x1 + (canvasElements.cos(angle) * treeDepth * lineLength),
-        y2 = y1 + (canvasElements.sin(angle) * treeDepth * lineLength),
+var growTree = function(x1, y1, angle, treeDepth){
+
+    var BRANCH_LENGTH = canvasElements.getRandomInt(2, 20),
+        x2 = x1 + (canvasElements.cos(angle) * treeDepth * BRANCH_LENGTH),
+        y2 = y1 + (canvasElements.sin(angle) * treeDepth * BRANCH_LENGTH),
         branch = {
             _x1 : 0,
             _y1 : 0,
@@ -38,24 +40,29 @@ var growTree = function(x1, y1, angle, treeDepth, lineLength){
         leaf = {
             _x : 0,
             _y : 0
-        },
-        amountOfBranches = canvasElements.getRandomInt(2,4);
+        };
 
     if(treeDepth > 0) {
-        treeDepth--;
+
+        if(treeDepth > 3){
+            branchColor = 'rgb(139,126,102)'; //Brown
+        }
+        else {
+            branchColor = 'rgb(34,139,34)'; //Green
+        }
 
         branch._x1 = x1;
         branch._y1 = y1;
         branch._x2 = x2;
         branch._y2 = y2;
+        branch.color = branchColor;
+        branch.thickness = treeDepth*1.5;
         branches.push(branch);
 
-        for(var i=0;i<amountOfBranches;i++){
-            growTree(x2, y2, angle + canvasElements.getRandomInt(-45,30), treeDepth, lineLength);
-        }
-        // growTree(x2, y2, angle + canvasElements.getRandomInt(-55,-6), treeDepth, lineLength);
-        // growTree(x2, y2, angle + canvasElements.getRandomInt(-25,-6), treeDepth, lineLength);
-        // growTree(x2, y2, angle + canvasElements.getRandomInt(30,58), treeDepth, lineLength);
+        treeDepth--;
+
+        growTree(x2, y2, angle + canvasElements.getRandomInt(-20, -1), treeDepth);
+        growTree(x2, y2, angle + canvasElements.getRandomInt(20, 40), treeDepth);
     }
     else {
         leaf._x = x2;
@@ -73,7 +80,6 @@ var drawTree = function(){
         _y2;
 
     context.lineWidth = 3;
-    context.strokeStyle = 'rgb(' + canvasElements.getRandomInt(0,255) +',' + canvasElements.getRandomInt(0,255) +'    ,34)';
 
     for(var i=0;i<branches.length;i++){
         _x1 = branches[i]._x1;
@@ -81,6 +87,8 @@ var drawTree = function(){
         _x2 = branches[i]._x2;
         _y2 = branches[i]._y2;
 
+        context.strokeStyle = branches[i].color;
+        context.lineWidth = branches[i].thickness;
         canvasElements.drawLine(_x1, _y1, _x2, _y2, context);
     }
 }
@@ -91,8 +99,9 @@ var drawTree = function(){
 // shape = 1 : square
 // shape = 2 : triangle
 var drawLeaf = function(x, y, radius, color, lineWidth, canvasContext, shape, size){
+    context.strokeStyle = color;
     if (shape == 0){
-        canvasElements.drawDot(x, y, size, 'rgba(0,0,0,1)', 2, context);
+        canvasElements.drawDot(x, y, size, 2, context);
     }
     if (shape == 1){
         canvasContext.rect(x, y, size, size);
@@ -112,14 +121,17 @@ var animateLeaves = function(){
     var _x,
         _y,
         shape = 0,
-        size = 2;
+        size = 5,
+        // leafColor = 'rgb(' + canvasElements.getRandomInt(0,255) +',' + canvasElements.getRandomInt(0,255) +'    ,34)';
+        leafColor = 'rgb(255, 165, 0)';
 
     for(var i=0;i<leaves.length;i++){
         _x = leaves[i]._x + canvasElements.getRandomInt(-3,3);
         _y = leaves[i]._y + canvasElements.getRandomInt(-3,3);
         shape = canvasElements.getRandomInt(0,2);
 
-        drawLeaf(_x, _y, 7, 'rgba(0,0,0,1)', 2, context, shape, size);
+        // drawLeaf(_x, _y, 7, 'rgba(0,0,0,1)', 2, context, shape, size);
+        drawLeaf(_x, _y, 7, leafColor, 2, context, shape, size);
     }
 
 
@@ -128,7 +140,7 @@ var animateLeaves = function(){
 /***********************************************
 * Draws all the elements on the screen */
 var drawScreen = function(){
-    growTree(canvas.width*0.5, canvas.height, -90, 5, 15);
+    growTree(canvas.width*0.5, canvas.height, -90, 7);
     animateLeaves();
 };
 

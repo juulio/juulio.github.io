@@ -5,17 +5,16 @@ var canvasElements = {
 
     /********************************************
     * Draws a dot, centered on x,y coordinates */
-    drawDot : function(x,y,r,color,lineWidth, canvasContext) {
+    drawDot : function(x,y,r,lineWidth, canvasContext) {
         canvasContext.beginPath();
         canvasContext.arc(x, y, r, 0, 2*Math.PI, false);
         canvasContext.lineWidth = lineWidth;
-        canvasContext.strokeStyle = color;
         canvasContext.stroke();
     },
 
     /****************************************
     * Draws a line from (x1,y1) to (x2,y2) */
-    drawLine : function(x1,y1,x2,y2, canvasContext) {
+    drawLine : function(x1,y1,x2,y2, canvasContext, color) {
         canvasContext.beginPath();
         canvasContext.moveTo(x1,y1);
         canvasContext.lineTo(x2,y2);

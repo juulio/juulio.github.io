@@ -57,7 +57,7 @@ var fractalsForest = fractalsForest || {};
 	 * Begin Code for First Fractal Tree */
 	var drawFirstTree = function (x1, y1, angle, depth){
 
-		var BRANCH_LENGTH = random(0, 13);
+		var BRANCH_LENGTH = random(2, 12);
 
 		if (depth != 0){
 			var x2 = x1 + (cos(angle) * depth * BRANCH_LENGTH);
@@ -71,8 +71,9 @@ var fractalsForest = fractalsForest || {};
 			}
 
 			drawLine(x1, y1, x2, y2, depth);
-			drawFirstTree(x2, y2, angle - random(15,20), depth - 1);
-			drawFirstTree(x2, y2, angle + random(15,20), depth - 1);
+			depth--;
+			drawFirstTree(x2, y2, angle - random(15,20), depth);
+			drawFirstTree(x2, y2, angle + random(15,20), depth);
 		}
 	};
 
