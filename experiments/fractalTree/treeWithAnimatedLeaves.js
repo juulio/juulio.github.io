@@ -1,6 +1,8 @@
 /* Tree with Animated Leaves - juulio.github.io
 * Julio Del Valle - Costa Rica */
 
+// The amount of branches is a random value between 2 and 4.
+
 // Create the Canvas Element
 var canvas = document.createElement("canvas"),
     context = canvas.getContext("2d");
@@ -17,7 +19,7 @@ canvas.style.display = 'block';
 canvas.style.margin = '0 auto';
 
 
-/**********************
+/****************
  Create Arrays */
 var branches = [],
     leaves = [];
@@ -37,8 +39,7 @@ var growTree = function(x1, y1, angle, treeDepth, lineLength){
             _x : 0,
             _y : 0
         },
-        amountOfLeaves = canvasElements.getRandomInt(2,4);
-        // context.strokeStyle = 'rgb(' + canvasElements.getRandomInt(0,255) +',' + canvasElements.getRandomInt(0,255) +'    ,34)';
+        amountOfBranches = canvasElements.getRandomInt(2,4);
 
     if(treeDepth > 0) {
         treeDepth--;
@@ -49,7 +50,7 @@ var growTree = function(x1, y1, angle, treeDepth, lineLength){
         branch._y2 = y2;
         branches.push(branch);
 
-        for(var i=0;i<amountOfLeaves;i++){
+        for(var i=0;i<amountOfBranches;i++){
             growTree(x2, y2, angle + canvasElements.getRandomInt(-45,30), treeDepth, lineLength);
         }
         // growTree(x2, y2, angle + canvasElements.getRandomInt(-55,-6), treeDepth, lineLength);
@@ -70,6 +71,9 @@ var drawTree = function(){
         _y1,
         _x2,
         _y2;
+
+    context.lineWidth = 3;
+    context.strokeStyle = 'rgb(' + canvasElements.getRandomInt(0,255) +',' + canvasElements.getRandomInt(0,255) +'    ,34)';
 
     for(var i=0;i<branches.length;i++){
         _x1 = branches[i]._x1;

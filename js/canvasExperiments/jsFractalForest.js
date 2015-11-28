@@ -264,7 +264,7 @@ var fractalsForest = fractalsForest || {};
 
 		drawSkyAndGrass();
 
-		drawFirstTree(context.canvas.width*0.66, 600, -90, 9);
+		drawFirstTree(context.canvas.width*0.66, canvas.height, -90, 8);
 
 		drawSecondTree(canvas.width*0.19, canvas.height, 50, 0);
 
@@ -273,7 +273,6 @@ var fractalsForest = fractalsForest || {};
 		drawFourthTree(canvas.width*0.75, canvas.height, -90, 8, 6);
 
 		drawFifthTree(canvas.width*0.1, canvas.height, 70, 25, 10, 14);
-
 	}
 
 	/*****************************************
