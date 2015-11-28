@@ -23,11 +23,11 @@ var canvasElements = {
         canvasContext.stroke();
     },
 
-    drawTriangle : function(x, y, canvasContext) {
+    drawTriangle : function(x, y, size, canvasContext) {
         canvasContext.beginPath();
         canvasContext.moveTo(x, y);
-        canvasContext.lineTo(x, y+5);
-        canvasContext.lineTo(x+5, y+5);
+        canvasContext.lineTo(x, y+size);
+        canvasContext.lineTo(x+size, y+size);
         canvasContext.closePath();
         canvasContext.stroke();
     },
