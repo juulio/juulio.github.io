@@ -23,6 +23,15 @@ var canvasElements = {
         canvasContext.stroke();
     },
 
+    drawTriangle : function(x, y, canvasContext) {
+        canvasContext.beginPath();
+        canvasContext.moveTo(x, y);
+        canvasContext.lineTo(x, y+5);
+        canvasContext.lineTo(x+5, y+5);
+        canvasContext.closePath();
+        canvasContext.stroke();
+    },
+
     /****************************************************************************
     * Taken from Mozilla Ddeveloper Network
     * https://developer.mozilla.org/en-US/

@@ -10,8 +10,8 @@ document.body.appendChild(canvas);
 // Apply Basic styles to the Canvas Element
 document.body.style.margin = 0;
 
-canvas.width = 650;
-canvas.height = 700;
+canvas.width = 500;
+canvas.height = 550;
 canvas.style.border = 'solid 1px #000';
 canvas.style.display = 'block';
 canvas.style.margin = '0 auto';
@@ -73,25 +73,39 @@ var drawTree = function(){
     }
 }
 
+// drawLeaf(_x, _y, 7, 'rgba(0,0,0,1)', 2, context, shape);
+// drawDot : function(x,y,r,color,lineWidth, canvasContext) {
+// shape = 0 : circle
+// shape = 1 : square
+// shape = 2 : triangle
+var drawLeaf = function(x, y, radius, color, lineWidth, canvasContext, shape){
+    if (shape == 0){
+        canvasElements.drawDot(x, y, 7, 'rgba(0,0,0,1)', 2, context);
+    }
+    if (shape == 1){
+        canvasContext.rect(x, y, 10, 10);
+        canvasContext.stroke();
+    }
+    if (shape == 2){
+        canvasElements.drawTriangle(x, y, context);
+    }
+}
+
 var animateLeaves = function(){
     context.clearRect(0, 0, canvas.width, canvas.height);
     drawTree();
 
-
     var _x,
-        _y;
+        _y,
+        shape = 0;
 
     for(var i=0;i<leaves.length;i++){
+        shape = canvasElements.getRandomInt(0,2);
         _x = leaves[i]._x + canvasElements.getRandomInt(-3,3);
         _y = leaves[i]._y + canvasElements.getRandomInt(-3,3);
 
-
-        // context.clearRect(_posX-5, _posY-5, _posX+5, _posY+5);
-        // context.clearRect(_x-5, _y-5, _x+5, _y+5);
-
-
-        // canvasElements.drawDot(_posX, _posY, 5, 'rgba(255, 0, 0, 0.1)', 2, context);
-        canvasElements.drawDot(_x, _y, 7, 'rgba(0,0,0,1)', 2, context);
+        // canvasElements.drawDot(_posX,k _posY, 5, 'rgba(255, 0, 0, 0.1)', 2, context);
+        drawLeaf(_x, _y, 7, 'rgba(0,0,0,1)', 2, context, shape);
     }
 
 
