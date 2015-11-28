@@ -57,7 +57,7 @@ var fractalsForest = fractalsForest || {};
 	 * Begin Code for First Fractal Tree */
 	var drawFirstTree = function (x1, y1, angle, depth){
 
-		var BRANCH_LENGTH = random(0, 20);
+		var BRANCH_LENGTH = random(0, 13);
 
 		if (depth != 0){
 			var x2 = x1 + (cos(angle) * depth * BRANCH_LENGTH);
@@ -245,9 +245,9 @@ var fractalsForest = fractalsForest || {};
 		// Start off with sky blue at the top.
 		linGrad.addColorStop(0, '#00BFFF');
 		// Fade to white in the middle.
-		linGrad.addColorStop(0.5, 'white');
+		linGrad.addColorStop(0.3, 'white');
 		// Green for the top of the grass.
-		linGrad.addColorStop(0.5, '#55dd00');
+		linGrad.addColorStop(0.7, '#55dd00');
 		// Fade to white at the bottom.
 		linGrad.addColorStop(1, 'white');
 		// Use the CanvasGradient object as the fill style.
@@ -264,9 +264,9 @@ var fractalsForest = fractalsForest || {};
 
 		drawSkyAndGrass();
 
-		drawFirstTree(context.canvas.width*0.66, canvas.height, -90, 8);
+		drawFirstTree(context.canvas.width*0.7, canvas.height-280, -90, 9);
 
-		drawSecondTree(canvas.width*0.19, canvas.height, 50, 0);
+		drawSecondTree(canvas.width*0.19, canvas.height-240, 25, 1);
 
 		drawThirdTree(canvas.width*0.46, canvas.height, 70, -Math.PI / 2, 8, 72);
 
