@@ -13,7 +13,7 @@ document.body.appendChild(canvas);
 document.body.style.margin = 0;
 
 canvas.width = 500;
-canvas.height = 350;
+canvas.height = 400;
 canvas.style.border = 'solid 1px #000';
 canvas.style.display = 'block';
 canvas.style.margin = '0 auto';
@@ -146,7 +146,7 @@ var animateLeaves = function(){
 /***********************************************
 * Draws all the elements on the screen */
 var drawScreen = function(){
-    growTree(canvas.width*0.5, canvas.height, -90, 8);
+    growTree(canvas.width*0.5, canvas.height, -90, 6);
     // console.log(leaves);
     animateLeaves();
 };
