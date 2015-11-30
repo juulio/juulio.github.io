@@ -10,3 +10,7 @@ github_username:  juulio
 
 # Build settings
 markdown: kramdown
+
+# Experiments folder listing
+collections:
+- experiments
