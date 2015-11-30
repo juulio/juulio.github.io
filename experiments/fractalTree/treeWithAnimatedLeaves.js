@@ -64,6 +64,7 @@ var growTree = function(x1, y1, angle, treeDepth){
         leaf._x = x2;
         leaf._y = y2;
         leaf._shape = canvasElements.getRandomInt(0,2);
+        leaf._shape = 2;
         leaf._startingAngle = canvasElements.getRandomInt(0,360);
         leaves.push(leaf);
     }
@@ -97,7 +98,9 @@ var drawTree = function(){
 // shape = 1 : square
 // shape = 2 : triangle
 var drawLeaf = function(x, y, radius, color, lineWidth, canvasContext, shape, size){
+    var rotationAngle = 0;
     context.strokeStyle = color;
+
     if (shape == 0){
         canvasElements.drawDot(x, y, size, 2, context);
     }
@@ -106,7 +109,12 @@ var drawLeaf = function(x, y, radius, color, lineWidth, canvasContext, shape, si
         canvasContext.stroke();
     }
     if (shape == 2){
+        // alert('hola');
+        // rotationAngle = canvasElements.getRandomInt(0,100);
+        // console.log(rotationAngle);
+        // context.rotate(rotationAngle*Math.PI/180);
         canvasElements.drawTriangle(x, y, size, context);
+        // context.rotate(-rotationAngle*Math.PI/180);
     }
 }
 
@@ -119,12 +127,11 @@ var animateLeaves = function(){
     var _x,
         _y,
         shape = 0,
-        size = 9,
+        size = 19,
         // leafColor = 'rgb(' + canvasElements.getRandomInt(0,255) +',' + canvasElements.getRandomInt(0,255) +'    ,34)';
         leafColor = 'rgb(255, 165, 0)',
         radius = 7,
-        rotationAngle = 0,
-        shape = 0;
+        rotationAngle = 0;
 
     for(var i=0;i<leaves.length;i++){
         // _x = leaves[i]._x + canvasElements.getRandomInt(-2,2)*0.6;

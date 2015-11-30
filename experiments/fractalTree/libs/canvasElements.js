@@ -23,12 +23,16 @@ var canvasElements = {
     },
 
     drawTriangle : function(x, y, size, canvasContext) {
+        var rotationAngle = this.getRandomInt(0,360);
+
         canvasContext.beginPath();
+        canvasContext.rotate(rotationAngle*Math.PI/180);
         canvasContext.moveTo(x, y);
         canvasContext.lineTo(x, y+size);
         canvasContext.lineTo(x+size, y+size);
         canvasContext.closePath();
         canvasContext.stroke();
+        canvasContext.rotate(-rotationAngle*Math.PI/180);
     },
 
     /****************************************************************************
