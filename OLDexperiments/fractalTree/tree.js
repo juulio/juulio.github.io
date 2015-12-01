@@ -82,13 +82,8 @@ var fractalTree = fractalTree || {};
     }
 
     function init(){
-        var button = document.getElementsByClassName("fractalTreeButton");
-        button[0].onclick = function(){
-            // First clear the whole canvas area.
-            context.clearRect(0,0,canvas.width, canvas.height);
-
-            drawTree(canvasHalfWidth, canvas.height, 70, 25, 1, 14);    
-        }
+        context.clearRect(0,0,canvas.width, canvas.height);
+        drawTree(canvasHalfWidth, canvas.height, 70, 25, 6, 14);    
     }
 
     init();
