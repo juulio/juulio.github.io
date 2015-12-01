@@ -4,7 +4,7 @@ title: Experiments
 permalink: /experiments/
 ---
 <ul>
-{% for experiment in site.experiments limit:3 %}
+{% for experiment in site.experiments %}
       <li>
         Experiment Title: {{ experiment.title }}
         <br />

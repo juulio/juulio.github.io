@@ -13,4 +13,6 @@ markdown: kramdown
 
 # Experiments folder listing
 collections:
-- experiments
+  - experiments
+#output: true
+#permalink: /experiments/:path/
