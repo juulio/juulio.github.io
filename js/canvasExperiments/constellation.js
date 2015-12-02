@@ -72,7 +72,7 @@ window.onload = function () {
 
   // canvas.width = window.innerWidth;
   // canvas.height = window.innerHeight;
-  canvas.width = 250;
+  canvas.width = 500;
   canvas.height = 100;
 
 
@@ -156,19 +156,8 @@ window.onload = function () {
     window.requestAnimationFrame(drawFrame, canvas);
     context.clearRect(0, 0, canvas.width, canvas.height);
 
-    // La llamada a este método da error permanente, traba Chrome
-    //fadeOutRectangle(0, 0, 200, 150, 123, 213, 50);
-
-    // context.rect(0,0,250,100);
-    // context.fillStyle="#C0C0C0";
-    // context.fill();
-
     particles.forEach(move);
     particles.forEach(draw);
 
-    // context.font="100 70px sans-serif";
-    context.font= " 100 70px 'Alegreya Sans', sans-serif";
-    context.fillStyle = "#707070";
-    context.fillText("so gra",30,60);
   }());
 };
