@@ -3,7 +3,7 @@ layout: page
 title: Experiments
 permalink: /experiments/
 ---
-<ul>
+<ul class="experiments">
 {% for experiment in site.experiments %}
       <li>
         <a href="{{ experiment.url }}">{{ experiment.title }}</a>

@@ -284,7 +284,17 @@ span.site-title {
     }
 }
 
-//Styles for Home Page
+// Styles for Home Page
 .home h2 {
     margin-bottom: 0;
+}
+
+// Styles for Experiments Page
+.experiments {
+    color: #546A6D;
+    list-style-type: circle;
+
+    p {
+        font-size: 12px;
+    }
 }
