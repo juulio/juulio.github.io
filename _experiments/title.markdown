@@ -6,3 +6,5 @@ permalink: /title-particles
 ---
 
 <h1>This is the Title with Particles</h1>
+
+<script src="js/a"></script>

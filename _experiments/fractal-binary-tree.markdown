@@ -9,4 +9,4 @@ permalink: /fractal-binary-tree/
 
 <canvas id="canvas" width="500" height="400"></canvas>
 
-<script type="text/javascript" src="canvasExperiments/fractal-binary-tree.js"></script>
+<script type="text/javascript" src="/js/canvasExperiments/fractal-binary-tree.js"></script>
