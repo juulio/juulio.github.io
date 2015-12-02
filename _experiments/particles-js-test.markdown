@@ -9,4 +9,4 @@ permalink: /particles-js-test/
 
 <script src="/js/libs/particles.min.js"></script>
 <script src="/js/libs/canvasElements.js"></script>
-<script src="/js/canvasExperiments/app.js"></script>
+<script src="/js/canvasExperiments/particlesJsTest.js"></script>
