@@ -7,7 +7,7 @@
 
 
     /***
-     * Global Variables 
+     * Global Variables
      */
     var vars = {
         canvas : {},
@@ -93,7 +93,7 @@
 			y1 = vars.linesBetweenDots[i+1],
 			x2 = vars.linesBetweenDots[i+2],
 			y2 = vars.linesBetweenDots[i+3];
-	
+
 			drawLine(x1, y1, x2, y2);
 		}
     }
@@ -138,18 +138,13 @@
 		function resizeCanvas() {
 		        headerCanvas.width = window.innerWidth;
 		        /**
-		         * Your drawings need to be inside this function otherwise they will be reset when 
+		         * Your drawings need to be inside this function otherwise they will be reset when
 		         * you resize the browser window and the canvas goes will be cleared.
 		         */
-		        drawStuff(); 
+		        // drawStuff();
 		}
 
 		resizeCanvas();
-
-
-		function drawStuff() {
-	        
-		}
 
 		// Animate the headerCanvas elements
 		function animateHeaderCanvas() {
@@ -164,7 +159,7 @@
 		}
 
 		animateHeaderCanvas();
-    	
+
     }
 
     function init(){
