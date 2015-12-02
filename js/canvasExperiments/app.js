@@ -1,16 +1,4 @@
-(function($, win, title) {
-
-    function render() {
-
-        title.render();
-
-        requestAnimationFrame(render);
-    }
-
-    $(win).ready(function() {
-
-        title.init($('.title'));
-        render();
-    });
-
-})(this.jQuery, window, window.Title);
+/* particlesJS.load(@dom-id, @path-json, @callback (optional)); */
+particlesJS.load('particles-js', '../js/canvasExperiments/particles.json', function() {
+  console.log('callback - particles.js config loaded');
+});
