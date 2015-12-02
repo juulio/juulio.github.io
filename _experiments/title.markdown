@@ -12,4 +12,3 @@ permalink: /title-particles/
 <script src="/js/libs/threex.domevents.js"></script>
 <script src="/js/libs/TweenMax.js"></script>
 <script src="/js/canvasExperiments/title.js"></script>
-<script src="/js/canvasExperiments/app.js"></script>
