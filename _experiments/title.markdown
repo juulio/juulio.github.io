@@ -13,4 +13,3 @@ permalink: /title-particles/
 <script src="/js/libs/TweenMax.js"></script>
 <script src="/js/canvasExperiments/title.js"></script>
 <script src="/js/canvasExperiments/app.js"></script>
-<script src="/js/canvasExperiments/fractal-binary-tree.js"></script>
