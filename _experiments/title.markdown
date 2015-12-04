@@ -5,7 +5,7 @@ description: Moving Particles that generate a given text.
 permalink: /title-particles/
 ---
 
-<div class="title"><h1 class="headline" style="font-size: 70px; color: red;">lots of particles</h1></div>
+<div class="title"><h1 class="headline" style="font-size: 180px; color: red;">Particles</h1></div>
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script src="/js/libs/three.min.js"></script>
