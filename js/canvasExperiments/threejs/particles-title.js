@@ -72,7 +72,6 @@ window.Title = (function(win, $, TweenMax, THREEx) {
         setTimeout(finished, 3000);
         offset.x = lastX;
         camera.position.x = lastX / 2 + 20;
-
     }
 
     function setupBaseScene() {

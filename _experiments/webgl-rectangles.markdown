@@ -35,6 +35,8 @@ void main() {
 </script>
 
 <script type="text/javascript" src="../js/canvasExperiments/webgl/Common/webgl-utils.js"></script>
+<script type="text/javascript" src="../js/canvasExperiments/webgl/Common/initShaders.js"></script>
+<script type="text/javascript" src="../js/canvasExperiments/webgl/Common/MV.js"></script>
 <script type="text/javascript" src="../js/canvasExperiments/webgl/rectangles.js"></script>
 
 <canvas id="canvas" width="400" height="300"></canvas>
