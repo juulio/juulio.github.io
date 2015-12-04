@@ -5,10 +5,10 @@ description: Moving Particles that generate a given text.
 permalink: /title-particles/
 ---
 
-<div class="title"><h1 class="headline" style="font-size: 180px; color: red;">Particles</h1></div>
+<div class="title"><h1 class="headline" style="font-size: 180px; color: #000000;">Particles</h1></div>
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script src="/js/libs/three.min.js"></script>
 <script src="/js/libs/threex.domevents.js"></script>
 <script src="/js/libs/TweenMax.js"></script>
-<script src="/js/canvasExperiments/particles-title.js"></script>
+<script src="/js/canvasExperiments/threejs/particles-title.js"></script>
