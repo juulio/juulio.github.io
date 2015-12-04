@@ -10,6 +10,7 @@ window.Title = (function(win, $, TweenMax, THREEx) {
 
     function init($element) {
         $el = $element;
+        console.log($el);
         setupBaseScene();
         addLights();
         $('.headline').hide();
