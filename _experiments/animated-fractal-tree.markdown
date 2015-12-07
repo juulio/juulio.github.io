@@ -1,6 +1,16 @@
+---
+layout: page
+title: Animated Fractal Tree
+description: A Javascript generated fractal tree that animates its growth
+permalink: /animated-fractal-tree/
+---
+
+
+// This code was created by Jorge Mario Murillo - Costa Rica.
 <canvas id="canvas" width="740" height="480" style="border:1px solid"></canvas><br/><br/>
 <button onclick="startGrowing()">Grow</button>
 <button onclick="stop()">Stop</button>
+
 <script>
 var a = 1000;
 var t = 1;
