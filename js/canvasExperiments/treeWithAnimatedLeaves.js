@@ -156,7 +156,7 @@ var drawScreen = function(){
     growTree(canvas.width*0.5, canvas.height, -90, 6);
     context.clearRect(0, 0, canvas.width, canvas.height);
     drawTree();
-    // animateLeaves();
+    animateLeaves();
 };
 
 drawScreen();
