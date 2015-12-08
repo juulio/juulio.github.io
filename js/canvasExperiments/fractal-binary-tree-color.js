@@ -22,27 +22,26 @@ var branches = [],
     leaves = [],
     contadorDeHojas = 0,
     deg_to_rad = Math.PI / 180.0,
-    depth = 6;
+    depth = 4;
 
-
-
-
-
-function drawLine(x1, y1, x2, y2, brightness){
+function drawLine(x1, y1, x2, y2){
   context.moveTo(x1, y1);
   context.lineTo(x2, y2);
 }
 
 function drawTree(x1, y1, angle, depth){
+    var leafRadius = 7;
+
     if (depth !== 0){
         var x2 = x1 + (Math.cos(angle * deg_to_rad) * depth * 10.0);
         var y2 = y1 + (Math.sin(angle * deg_to_rad) * depth * 10.0);
-        drawLine(x1, y1, x2, y2, depth);
+        drawLine(x1, y1, x2, y2);
 
-        drawTree(x2, y2, angle - 20, depth - 1);
-        drawTree(x2, y2, angle + 20, depth - 1);
+        drawTree(x2, y2, angle - 60, depth - 1);
+        drawTree(x2, y2, angle + 60, depth - 1);
     }
     if(depth == 1) {
+        context.arc(x2, y2, leafRadius, 0, 2*Math.PI, false);
         contadorDeHojas++;
     }
 }
