@@ -16,11 +16,9 @@ context.fillStyle = '#000';
 context.lineWidth = 1;
 
 
-
 /************************************************/
-var // contadorDeHojas = 0,
-    deg_to_rad = Math.PI / 180.0,
-    depth = 7;
+var deg_to_rad = Math.PI / 180.0,
+    depth = 4;
 
 function drawLine(x1, y1, x2, y2){
     context.moveTo(x1, y1);
@@ -31,8 +29,8 @@ function drawTree(x1, y1, angle, depth){
     var leafRadius = 7;
 
     if (depth !== 0){
-        var x2 = x1 + (Math.cos(angle * deg_to_rad) * depth * 6.0);
-        var y2 = y1 + (Math.sin(angle * deg_to_rad) * depth * 6.0);
+        var x2 = x1 + (Math.cos(angle * deg_to_rad) * depth * 28.0);
+        var y2 = y1 + (Math.sin(angle * deg_to_rad) * depth * 28.0);
         drawLine(x1, y1, x2, y2);
 
         drawTree(x2, y2, angle - 26, depth - 1);
@@ -40,7 +38,7 @@ function drawTree(x1, y1, angle, depth){
     }
     if(depth == 1) {
         // drawLeaf(x2-20, y2-20, canvasElements.getRandomInt(0, 360));
-        drawLeaf(x2-20, y2-20, 20);
+        drawLeaf(x2, y2, 40, 40, canvasElements.getRandomInt(0, 360));
     }
 }
 
@@ -51,17 +49,18 @@ function drawLeaf(x, y, imageWidth, imageHeight, rotationAngle) {
         context.translate(x, y);
         context.rotate(rotationAngle*Math.PI/180);
         context.drawImage(imageObj, (imageWidth/2) * (-1), (imageHeight/2) * (-1));
+        context.rotate(-rotationAngle*Math.PI/180);
+        context.translate(-x, -y);
     };
 
     imageObj.src = 'http://juulio.github.io/img/2015dic/leaf-02.png';
 }
 
 
-// context.beginPath();
-// drawTree(250, 400, -90, depth);
-// context.closePath();
-// context.stroke();
-// console.log(contadorDeHojas);
+context.beginPath();
+drawTree(250, 400, -90, depth);
+context.closePath();
+context.stroke();
 
-canvasElements.drawDot(200, 200, 10, 1, context);
-drawLeaf(200, 200, 40, 40, 270);
+// canvasElements.drawDot(200, 200, 10, 1, context);
+// drawLeaf(200, 200, 40, 40, 270);
