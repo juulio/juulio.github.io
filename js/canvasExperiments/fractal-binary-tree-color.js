@@ -47,7 +47,7 @@ function drawTree(x1, y1, angle, depth){
         // context.closePath();
         // context.stroke();
 
-        drawLeaf(x2, y2, canvasElements.getRandomInt(0, 360));
+        drawLeaf(x2-20, y2-20, canvasElements.getRandomInt(0, 360));
 
         // contadorDeHojas++;
     }
