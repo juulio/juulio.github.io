@@ -1,6 +1,10 @@
 // Create the Canvas Element
 var canvas = document.createElement("canvas"),
     context = canvas.getContext("2d");
+    context = canvas.getContext("2d");
+    context = canvas.getContext("2d");
+    context = canvas.getContext("2d");
+    context = canvas.getContext("2d");
 
 document.body.appendChild(canvas);
 
@@ -20,7 +24,11 @@ context.lineWidth = 1;
  Create Arrays */
 var branches = [],
     leaves = [],
-    contadorDeHojas = 0,
+    leaves = [],
+    leaves = [],
+    leaves = [],
+    leaves = [],
+    // contadorDeHojas = 0,
     deg_to_rad = Math.PI / 180.0,
     depth = 4;
 
@@ -36,8 +44,8 @@ function drawTree(x1, y1, angle, depth){
     var leafRadius = 7;
 
     if (depth !== 0){
-        var x2 = x1 + (Math.cos(angle * deg_to_rad) * depth * 10.0);
-        var y2 = y1 + (Math.sin(angle * deg_to_rad) * depth * 10.0);
+        var x2 = x1 + (Math.cos(angle * deg_to_rad) * depth * 25.0);
+        var y2 = y1 + (Math.sin(angle * deg_to_rad) * depth * 25.0);
         drawLine(x1, y1, x2, y2);
 
         drawTree(x2, y2, angle - 60, depth - 1);
@@ -48,7 +56,7 @@ function drawTree(x1, y1, angle, depth){
         context.arc(x2, y2, leafRadius, 0, 2*Math.PI, false);
         context.closePath();
         context.stroke();
-        contadorDeHojas++;
+        // contadorDeHojas++;
     }
 }
 
@@ -56,8 +64,83 @@ function drawTree(x1, y1, angle, depth){
 drawTree(250, 400, -90, depth);
 // context.closePath();
 // context.stroke();
-console.log(contadorDeHojas);
+// console.log(contadorDeHojas);
 
+drawLeaf();
+
+function drawLeaf() {
+    context.fillStyle="rgb(195,32,37)";
+context.beginPath();
+context.moveTo(16,22);
+context.bezierCurveTo(16,22,16,22,17,22);
+context.bezierCurveTo(17,22,17,22,19,22);
+context.lineTo(21,22);
+context.lineTo(22,21);
+context.lineTo(23,20);
+context.bezierCurveTo(24,20,24,19,25,19);
+context.bezierCurveTo(25,18,27,17,27,17);
+context.lineTo(27,17);
+context.bezierCurveTo(28,16,30,15,30,15);
+context.lineTo(31,15);
+context.bezierCurveTo(32,14,33,14,34,14);
+context.bezierCurveTo(34,14,35,14,35,13);
+context.bezierCurveTo(36,13,38,12,39,12);
+context.bezierCurveTo(39,13,39,13,40,12);
+context.bezierCurveTo(41,12,41,12,42,12);
+context.bezierCurveTo(43,12,43,12,43,12);
+context.bezierCurveTo(44,12,44,12,45,12);
+context.bezierCurveTo(47,12,48,12,48,13);
+context.bezierCurveTo(48,13,48,13,49,13);
+context.bezierCurveTo(50,13,51,14,52,14);
+context.lineTo(52,14);
+context.bezierCurveTo(52,15,52,15,53,15);
+context.bezierCurveTo(54,15,56,16,56,16);
+context.lineTo(56,16);
+context.bezierCurveTo(56,17,56,17,57,17);
+context.bezierCurveTo(58,17,59,18,59,18);
+context.lineTo(59,18);
+context.bezierCurveTo(59,19,59,19,60,19);
+context.bezierCurveTo(61,20,61,20,61,20);
+context.bezierCurveTo(61,21,61,21,62,21);
+context.lineTo(63,21);
+context.bezierCurveTo(64,21,64,22,63,23);
+context.bezierCurveTo(63,23,62,24,61,24);
+context.lineTo(61,25);
+context.bezierCurveTo(61,25,60,26,59,26);
+context.bezierCurveTo(59,26,59,26,59,27);
+context.bezierCurveTo(59,27,59,27,57,28);
+context.bezierCurveTo(57,28,57,28,57,29);
+context.bezierCurveTo(57,29,57,29,56,29);
+context.bezierCurveTo(56,30,54,30,53,30);
+context.bezierCurveTo(53,31,53,31,53,31);
+context.lineTo(53,31);
+context.bezierCurveTo(52,32,51,32,50,32);
+context.bezierCurveTo(49,32,49,32,49,33);
+context.bezierCurveTo(48,33,48,33,47,33);
+context.bezierCurveTo(47,33,46,33,45,33);
+context.bezierCurveTo(45,33,45,33,44,33);
+context.lineTo(44,34);
+context.lineTo(43,34);
+context.bezierCurveTo(42,34,41,33,41,33);
+context.bezierCurveTo(40,33,40,33,40,33);
+context.lineTo(39,33);
+context.bezierCurveTo(39,33,37,33,36,32);
+context.bezierCurveTo(35,32,35,32,35,32);
+context.lineTo(34,32);
+context.bezierCurveTo(34,32,33,32,32,31);
+context.bezierCurveTo(31,31,31,31,31,31);
+context.bezierCurveTo(30,31,29,30,28,30);
+context.bezierCurveTo(28,30,28,30,27,29);
+context.bezierCurveTo(27,29,25,28,23,26);
+context.bezierCurveTo(22,26,22,25,21,25);
+context.lineTo(21,25);
+context.lineTo(19,25);
+context.bezierCurveTo(17,25,17,25,16,24);
+context.bezierCurveTo(16,24,16,24,16,23);
+context.bezierCurveTo(16,23,16,23,16,22);
+context.lineTo(16,22);
+context.fill();
+}
 
 
 
