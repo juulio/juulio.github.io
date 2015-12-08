@@ -20,7 +20,7 @@ context.lineWidth = 1;
 /************************************************/
 var // contadorDeHojas = 0,
     deg_to_rad = Math.PI / 180.0,
-    depth = 4;
+    depth = 7;
 
 function drawLine(x1, y1, x2, y2){
     context.beginPath();
@@ -34,12 +34,12 @@ function drawTree(x1, y1, angle, depth){
     var leafRadius = 7;
 
     if (depth !== 0){
-        var x2 = x1 + (Math.cos(angle * deg_to_rad) * depth * 25.0);
-        var y2 = y1 + (Math.sin(angle * deg_to_rad) * depth * 25.0);
+        var x2 = x1 + (Math.cos(angle * deg_to_rad) * depth * 6.0);
+        var y2 = y1 + (Math.sin(angle * deg_to_rad) * depth * 6.0);
         drawLine(x1, y1, x2, y2);
 
-        drawTree(x2, y2, angle - 60, depth - 1);
-        drawTree(x2, y2, angle + 60, depth - 1);
+        drawTree(x2, y2, angle - 26, depth - 1);
+        drawTree(x2, y2, angle + 26, depth - 1);
     }
     if(depth == 1) {
         // context.beginPath();
