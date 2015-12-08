@@ -25,8 +25,11 @@ var branches = [],
     depth = 4;
 
 function drawLine(x1, y1, x2, y2){
-  context.moveTo(x1, y1);
-  context.lineTo(x2, y2);
+    context.beginPath();
+    context.moveTo(x1, y1);
+    context.lineTo(x2, y2);
+    context.closePath();
+    context.stroke();
 }
 
 function drawTree(x1, y1, angle, depth){
@@ -41,15 +44,18 @@ function drawTree(x1, y1, angle, depth){
         drawTree(x2, y2, angle + 60, depth - 1);
     }
     if(depth == 1) {
+        context.beginPath();
         context.arc(x2, y2, leafRadius, 0, 2*Math.PI, false);
+        context.closePath();
+        context.stroke();
         contadorDeHojas++;
     }
 }
 
-context.beginPath();
+// context.beginPath();
 drawTree(250, 400, -90, depth);
-context.closePath();
-context.stroke();
+// context.closePath();
+// context.stroke();
 console.log(contadorDeHojas);
 
 
