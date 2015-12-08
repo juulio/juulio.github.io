@@ -22,7 +22,8 @@ canvas.style.margin = '0 auto';
 /****************
  Create Arrays */
 var branches = [],
-    leaves = [];
+    leaves = [],
+    contadorDeHojas = 0;
 
 /************************************
  Rotaton angle for circular motion */
@@ -31,14 +32,14 @@ var branches = [],
 /**************************************************************************************************************
 * Recursive function that generates the fracal tree and stores the values on the branches and leaves arrays  */
 var growTree = function(x1, y1, angle, treeDepth){
-
-    var BRANCH_LENGTH = canvasElements.getRandomInt(2, 20),
-        x2 = x1 + (canvasElements.cos(angle) * treeDepth * BRANCH_LENGTH),
-        y2 = y1 + (canvasElements.sin(angle) * treeDepth * BRANCH_LENGTH),
+    var BRANCH_LENGTH = canvasElements.getRandomInt(5,16),
         branch = {},
         leaf = {};
 
-    if(treeDepth > 0) {
+    if(treeDepth != 0) {
+
+        var x2 = x1 + (canvasElements.cos(angle) * treeDepth * BRANCH_LENGTH),
+            y2 = y1 + (canvasElements.sin(angle) * treeDepth * BRANCH_LENGTH);
 
         if(treeDepth > 3){
             branchColor = 'rgb(139,126,102)'; //Brown
@@ -57,16 +58,26 @@ var growTree = function(x1, y1, angle, treeDepth){
 
         treeDepth--;
 
+        if(treeDepth == 1){
+            leaf._x = x2;
+            leaf._y = y2;
+            leaf._shape = canvasElements.getRandomInt(0,2);
+            leaf._shape = 2;
+            leaf._startingAngle = canvasElements.getRandomInt(0,360);
+            leaves.push(leaf);
+        }
+
         growTree(x2, y2, angle + canvasElements.getRandomInt(-20, -1), treeDepth);
         growTree(x2, y2, angle + canvasElements.getRandomInt(20, 40), treeDepth);
     }
-    else {
-        leaf._x = x2;
-        leaf._y = y2;
-        leaf._shape = canvasElements.getRandomInt(0,2);
-        leaf._shape = 2;
-        leaf._startingAngle = canvasElements.getRandomInt(0,360);
-        leaves.push(leaf);
+    if(treeDepth == 0){
+        contadorDeHojas++;
+        // leaf._x = x2;
+        // leaf._y = y2;
+        // leaf._shape = canvasElements.getRandomInt(0,2);
+        // leaf._shape = 2;
+        // leaf._startingAngle = canvasElements.getRandomInt(0,360);
+        // leaves.push(leaf);
     }
 };
 
@@ -76,19 +87,29 @@ var drawTree = function(){
     var _x1,
         _y1,
         _x2,
-        _y2;
+        _y2,
+        branch,
+        leaf;
 
     context.lineWidth = 3;
 
     for(var i=0;i<branches.length;i++){
-        _x1 = branches[i]._x1;
-        _y1 = branches[i]._y1;
-        _x2 = branches[i]._x2;
-        _y2 = branches[i]._y2;
+        branch =branches[i];
+        _x1 = branch._x1;
+        _y1 = branch._y1;
+        _x2 = branch._x2;
+        _y2 = branch._y2;
 
-        context.strokeStyle = branches[i].color;
-        context.lineWidth = branches[i].thickness;
+        context.strokeStyle = branch.color;
+        context.lineWidth = branch.thickness;
         canvasElements.drawLine(_x1, _y1, _x2, _y2, context);
+    }
+
+    for(var j=0;j<leaves.length;j++){
+        leaf = leaves[j];
+        _x1 = leaf._x;
+        _y1 = leaf._y;
+        drawLeaf(_x1, _y1, leaf.radius, '#000', 2, context, 0, 4);
     }
 }
 
@@ -153,10 +174,49 @@ var animateLeaves = function(){
 /***********************************************
 * Draws all the elements on the screen */
 var drawScreen = function(){
-    growTree(canvas.width*0.5, canvas.height, -90, 6);
+    growTree(canvas.width*0.5, canvas.height, -90, 2);
+    console.log(leaves.length);
     context.clearRect(0, 0, canvas.width, canvas.height);
     drawTree();
-    animateLeaves();
+    // animateLeaves();
 };
 
 drawScreen();
+
+
+/*
+
+OJO Este código funciona perfecto. Tomado de http://rosettacode.org/wiki/Fractal_tree#JavaScript
+
+var contadorDeHojas = 0;
+context.fillStyle = '#000';
+context.lineWidth = 1;
+ 
+var deg_to_rad = Math.PI / 180.0;
+var depth = 6;
+ 
+function drawLine(x1, y1, x2, y2, brightness){
+  context.moveTo(x1, y1);
+  context.lineTo(x2, y2);
+}
+ 
+function drawTree2(x1, y1, angle, depth){
+    if (depth !== 0){
+        var x2 = x1 + (Math.cos(angle * deg_to_rad) * depth * 10.0);
+        var y2 = y1 + (Math.sin(angle * deg_to_rad) * depth * 10.0);
+        drawLine(x1, y1, x2, y2, depth);
+
+        drawTree2(x2, y2, angle - 20, depth - 1);
+        drawTree2(x2, y2, angle + 20, depth - 1);
+    }
+    if(depth == 1) {
+        contadorDeHojas++;
+    }
+}
+ 
+context.beginPath();
+drawTree2(250, 400, -90, depth);
+context.closePath();
+context.stroke();
+console.log(contadorDeHojas);
+*/
