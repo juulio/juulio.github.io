@@ -174,7 +174,7 @@ var animateLeaves = function(){
 /***********************************************
 * Draws all the elements on the screen */
 var drawScreen = function(){
-    growTree(canvas.width*0.5, canvas.height, -90, 2);
+    growTree(canvas.width*0.5, canvas.height, -90, 6);
     console.log(leaves.length);
     context.clearRect(0, 0, canvas.width, canvas.height);
     drawTree();
@@ -191,15 +191,15 @@ OJO Este código funciona perfecto. Tomado de http://rosettacode.org/wiki/Fracta
 var contadorDeHojas = 0;
 context.fillStyle = '#000';
 context.lineWidth = 1;
- 
+
 var deg_to_rad = Math.PI / 180.0;
 var depth = 6;
- 
+
 function drawLine(x1, y1, x2, y2, brightness){
   context.moveTo(x1, y1);
   context.lineTo(x2, y2);
 }
- 
+
 function drawTree2(x1, y1, angle, depth){
     if (depth !== 0){
         var x2 = x1 + (Math.cos(angle * deg_to_rad) * depth * 10.0);
@@ -213,7 +213,7 @@ function drawTree2(x1, y1, angle, depth){
         contadorDeHojas++;
     }
 }
- 
+
 context.beginPath();
 drawTree2(250, 400, -90, depth);
 context.closePath();

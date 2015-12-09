@@ -16,28 +16,44 @@ context.fillStyle = '#000';
 context.lineWidth = 1;
 
 
-/************************************************/
+/******************************
+ Set the Tree's variables up */
 var deg_to_rad = Math.PI / 180.0,
-    depth = 4;
+    depth = 10;
 
 function drawLine(x1, y1, x2, y2){
+    context.beginPath();
     context.moveTo(x1, y1);
     context.lineTo(x2, y2);
+    context.stroke();
+    context.closePath();
 }
 
 function drawTree(x1, y1, angle, depth){
-    var leafRadius = 7;
+    var leafRadius = 7,
+        branchColor = '',
+        leafProbabilty = canvasElements.getRandomInt(0,1);
+
 
     if (depth !== 0){
-        var x2 = x1 + (Math.cos(angle * deg_to_rad) * depth * 28.0);
-        var y2 = y1 + (Math.sin(angle * deg_to_rad) * depth * 28.0);
+        if(depth > 3){
+            branchColor = 'rgb(100,69,19)'; //Brown
+        }
+        else {
+            branchColor = 'rgb(143,154,90)'; //Green
+        }
+
+        context.strokeStyle = branchColor;
+
+        var x2 = x1 + (Math.cos(angle * deg_to_rad) * depth * 6.0);
+        var y2 = y1 + (Math.sin(angle * deg_to_rad) * depth * 7.0);
+        context.lineWidth = depth*1.6;
         drawLine(x1, y1, x2, y2);
 
-        drawTree(x2, y2, angle - 26, depth - 1);
-        drawTree(x2, y2, angle + 26, depth - 1);
+        drawTree(x2, y2, angle - canvasElements.getRandomInt(18,21), depth - 1);
+        drawTree(x2, y2, angle + canvasElements.getRandomInt(19,23), depth - 1);
     }
-    if(depth == 1) {
-        // drawLeaf(x2-20, y2-20, canvasElements.getRandomInt(0, 360));
+    if(depth == 1 && leafProbabilty == 1) {
         drawLeaf(x2, y2, 40, 40, canvasElements.getRandomInt(0, 360));
     }
 }
@@ -56,11 +72,4 @@ function drawLeaf(x, y, imageWidth, imageHeight, rotationAngle) {
     imageObj.src = 'http://juulio.github.io/img/2015dic/leaf-02.png';
 }
 
-
-context.beginPath();
 drawTree(250, 400, -90, depth);
-context.closePath();
-context.stroke();
-
-// canvasElements.drawDot(200, 200, 10, 1, context);
-// drawLeaf(200, 200, 40, 40, 270);
