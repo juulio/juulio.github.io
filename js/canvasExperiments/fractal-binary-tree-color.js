@@ -7,7 +7,7 @@ document.body.appendChild(canvas);
 document.body.style.margin = 0;
 
 canvas.width = 500;
-canvas.height = 400;
+canvas.height = 600;
 canvas.style.border = 'solid 1px #000';
 canvas.style.display = 'block';
 canvas.style.margin = '0 auto';
@@ -19,7 +19,7 @@ context.lineWidth = 1;
 /******************************
  Set the Tree's variables up */
 var deg_to_rad = Math.PI / 180.0,
-    depth = 4;
+    depth = 12;
 
 function drawLine(x1, y1, x2, y2){
     context.beginPath();
@@ -45,13 +45,13 @@ function drawTree(x1, y1, angle, depth){
 
         context.strokeStyle = branchColor;
 
-        var x2 = x1 + (Math.cos(angle * deg_to_rad) * depth * 16.0);
-        var y2 = y1 + (Math.sin(angle * deg_to_rad) * depth * 20.0);
+        var x2 = x1 + (Math.cos(angle * deg_to_rad) * depth * 4.0);
+        var y2 = y1 + (Math.sin(angle * deg_to_rad) * depth * 7.0);
         context.lineWidth = depth*1.6;
         drawLine(x1, y1, x2, y2);
 
-        drawTree(x2, y2, angle - canvasElements.getRandomInt(32,39), depth - 1);
-        drawTree(x2, y2, angle + canvasElements.getRandomInt(40,45), depth - 1);
+        drawTree(x2, y2, angle - canvasElements.getRandomInt(11, 17), depth - 1);
+        drawTree(x2, y2, angle + canvasElements.getRandomInt(5, 19), depth - 1);
     }
     // if(depth == 1 && leafProbabilty == 1) {
     if(depth == 1) {
@@ -230,4 +230,4 @@ function drawLeaf01(x, y, angle) {
     context.translate(-x, -y);
 }
 
-drawTree(250, 400, -90, depth);
+drawTree(250, 600, -90, depth);
