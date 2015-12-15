@@ -35,14 +35,15 @@ function drawTree(x1, y1, angle, depth){
         }
 
         context.strokeStyle = branchColor;
+        depth--;
 
         var x2 = x1 + (Math.cos(angle * deg_to_rad) * depth * 5.0);
         var y2 = y1 + (Math.sin(angle * deg_to_rad) * depth * 6.0);
         context.lineWidth = depth*1.6;
         canvasElements.drawLine(x1, y1, x2, y2, context, branchColor);
 
-        drawTree(x2, y2, angle - canvasElements.getRandomInt(18, 20), depth - 1);
-        drawTree(x2, y2, angle + canvasElements.getRandomInt(5, 30), depth - 1);
+        drawTree(x2, y2, angle - canvasElements.getRandomInt(18, 20), depth);
+        drawTree(x2, y2, angle + canvasElements.getRandomInt(5, 30), depth);
     }
     if(depth == 1 && leafProbabilty == 1) {
         var rotationAngle = canvasElements.getRandomInt(0, 360);
