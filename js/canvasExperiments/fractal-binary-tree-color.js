@@ -19,21 +19,12 @@ context.lineWidth = 1;
 /******************************
  Set the Tree's variables up */
 var deg_to_rad = Math.PI / 180.0,
-    depth = 10;
-
-function drawLine(x1, y1, x2, y2){
-    context.beginPath();
-    context.moveTo(x1, y1);
-    context.lineTo(x2, y2);
-    context.stroke();
-    context.closePath();
-}
+    depth = 7;
 
 function drawTree(x1, y1, angle, depth){
-    var leafRadius = 7,
+    var leafSize = 4,
         branchColor = '',
         leafProbabilty = canvasElements.getRandomInt(0,1);
-
 
     if (depth !== 0){
         if(depth > 3){
@@ -48,7 +39,7 @@ function drawTree(x1, y1, angle, depth){
         var x2 = x1 + (Math.cos(angle * deg_to_rad) * depth * 4.0);
         var y2 = y1 + (Math.sin(angle * deg_to_rad) * depth * 7.0);
         context.lineWidth = depth*1.6;
-        drawLine(x1, y1, x2, y2);
+        canvasElements.drawLine(x1, y1, x2, y2, context, branchColor);
 
         drawTree(x2, y2, angle - canvasElements.getRandomInt(18, 20), depth - 1);
         drawTree(x2, y2, angle + canvasElements.getRandomInt(5, 30), depth - 1);
@@ -56,36 +47,33 @@ function drawTree(x1, y1, angle, depth){
     // if(depth == 1 && leafProbabilty == 1) {
     if(depth == 1) {
         var rotationAngle = canvasElements.getRandomInt(0, 360);
-        drawLeaf01(x2, y2, rotationAngle);
-
-
-
-
-        // drawLeaf(x2, y2, 40, 40, canvasElements.getRandomInt(0, 360));
-        // drawLeafFatJo(50, 50, 'rgba(0,0,0,0)', 1, context);
-        // context.translate(x2-40, y2-40);
-        // context.rotate(90*Math.PI/180);
-        // drawLine(0, 0, 80, 0);
-        // drawLeafFatJo(x2, y2, 'rgba(0,0,0,0)', 1, context);
-        // drawLeafFatJoSvg(x2, y2, 50);
-        // context.rotate(-90*Math.PI/180);
-        // context.translate(-(x2-40), -(y2-40));
+        drawLeaf(x2, y2, rotationAngle, leafSize);
     }
 }
 
-function drawLeaf(x, y, imageWidth, imageHeight, rotationAngle) {
-    var imageObj = new Image();
 
-    imageObj.onload = function() {
-        context.translate(x, y);
-        context.rotate(rotationAngle*Math.PI/180);
-        context.drawImage(imageObj, (imageWidth/2) * (-1), (imageHeight/2) * (-1));
-        context.rotate(-rotationAngle*Math.PI/180);
-        context.translate(-x, -y);
-    };
+function drawLeaf(x, y, angle, scale) {
+    
+    context.translate(x, y);
+    context.rotate(angle);
+    context.beginPath();
 
-    imageObj.src = 'http://juulio.github.io/img/2015dic/leaf-02.png';
+    context.moveTo(0,0);
+    context.lineTo(scale*5, scale*-10);
+    context.lineTo(scale*15,scale*-5);
+    context.lineTo(scale*20, scale*0);
+    context.lineTo(scale*15, scale*5);
+    context.lineTo(scale*5, scale*10);
+
+    context.closePath();
+    context.stroke();
+    context.rotate(-angle);
+    context.translate(-x, -y);
 }
+
+drawTree(250, 500, -90, depth);
+
+/*
 leafColor = 'rgba(0,0,0,0)';
 
 var drawLeafFatJo = function(x, y, leafColor, scale, ctx) {
@@ -211,23 +199,5 @@ function drawLeafFatJoSvg(x, y, rotationAngle) {
 
     img.src = url;
 }
+*/
 
-function drawLeaf01(x, y, angle) {
-    context.translate(x, y);
-    context.rotate(angle);
-    context.beginPath();
-
-    context.moveTo(0,0);
-    context.lineTo(5, -10);
-    context.lineTo(15, -5);
-    context.lineTo(20, 0);
-    context.lineTo(15, 5);
-    context.lineTo(5, 10);
-
-    context.closePath();
-    context.stroke();
-    context.rotate(-angle);
-    context.translate(-x, -y);
-}
-
-drawTree(250, 500, -90, depth);
