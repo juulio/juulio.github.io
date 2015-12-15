@@ -19,10 +19,10 @@ context.lineWidth = 1;
 /******************************
  Set the Tree's variables up */
 var deg_to_rad = Math.PI / 180.0,
-    depth = 7;
+    depth = 11;
 
 function drawTree(x1, y1, angle, depth){
-    var leafSize = 4,
+    var leafSize = 2,
         branchColor = '',
         leafProbabilty = canvasElements.getRandomInt(0,1);
 
@@ -36,21 +36,19 @@ function drawTree(x1, y1, angle, depth){
 
         context.strokeStyle = branchColor;
 
-        var x2 = x1 + (Math.cos(angle * deg_to_rad) * depth * 4.0);
-        var y2 = y1 + (Math.sin(angle * deg_to_rad) * depth * 7.0);
+        var x2 = x1 + (Math.cos(angle * deg_to_rad) * depth * 5.0);
+        var y2 = y1 + (Math.sin(angle * deg_to_rad) * depth * 6.0);
         context.lineWidth = depth*1.6;
         canvasElements.drawLine(x1, y1, x2, y2, context, branchColor);
 
         drawTree(x2, y2, angle - canvasElements.getRandomInt(18, 20), depth - 1);
         drawTree(x2, y2, angle + canvasElements.getRandomInt(5, 30), depth - 1);
     }
-    // if(depth == 1 && leafProbabilty == 1) {
-    if(depth == 1) {
+    if(depth == 1 && leafProbabilty == 1) {
         var rotationAngle = canvasElements.getRandomInt(0, 360);
         drawLeaf(x2, y2, rotationAngle, leafSize);
     }
 }
-
 
 function drawLeaf(x, y, angle, scale) {
     
@@ -59,13 +57,31 @@ function drawLeaf(x, y, angle, scale) {
     context.beginPath();
 
     context.moveTo(0,0);
-    context.lineTo(scale*5, scale*-10);
-    context.lineTo(scale*15,scale*-5);
-    context.lineTo(scale*20, scale*0);
-    context.lineTo(scale*15, scale*5);
-    context.lineTo(scale*5, scale*10);
+
+    // Leaf #1
+    // context.lineTo(scale*5, scale*-10);
+    // context.lineTo(scale*15,scale*-5);
+    // context.lineTo(scale*20, scale*0);
+    // context.lineTo(scale*15, scale*5);
+    // context.lineTo(scale*5, scale*10);
+
+    // Leaf #2
+    context.lineTo(scale*0, scale*-1);
+    context.lineTo(scale*2,scale*-3);
+    context.lineTo(scale*4, scale*-1);
+    context.lineTo(scale*6, scale*-3);
+    context.lineTo(scale*8, scale*-1);
+    context.lineTo(scale*10, scale*0);
+
+    context.lineTo(scale*8, scale*1);
+    context.lineTo(scale*6, scale*3);
+    context.lineTo(scale*4, scale*1);
+    context.lineTo(scale*2, scale*3);
+    context.lineTo(scale*0, scale*1);
+    context.lineTo(scale*0, scale*0);
 
     context.closePath();
+    context.fill();
     context.stroke();
     context.rotate(-angle);
     context.translate(-x, -y);
