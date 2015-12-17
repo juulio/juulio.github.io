@@ -10,4 +10,4 @@ categories: post canvas
 
 <canvas id="canvas" width = "740" height = "700" style="border:1px solid"> No HTML5 Canvas detected!
 </canvas>
-<script src="/js/canvasExperiments/jsFractalForest.js"></script>
+<script src="/js/canvasExperiments/fractalForest.js"></script>
