@@ -162,6 +162,7 @@ var fractalsForest = fractalsForest || {};
         fractalProportion = 0.7;
 
         context.lineWidth = lineWidth;
+		context.save();
         context.translate(startX, startY);
 
         canvasElements.drawLine(0, 0, 0, -branchLength, context);
@@ -189,12 +190,77 @@ var fractalsForest = fractalsForest || {};
 
 			context.restore();
         }
+        context.restore();
     };
 
     /*************************************
 	* Begin Code for Fifth Fractal Tree */
-    // var drawSixthTree = function(startX, startY, branchLength, angle, depth, lineWidth){
-    // };
+    var drawSixthTree = function(x, y, angle, depth){
+
+		var drawLeaf = function(x, y, angle, scale, alpha) {
+			context.translate(x, y);
+			context.rotate(angle);
+			context.beginPath();
+
+			context.moveTo(0,0);
+
+			context.lineTo(scale*0, scale*-1);
+			context.lineTo(scale*2,scale*-3);
+			context.lineTo(scale*4, scale*-1);
+			context.lineTo(scale*6, scale*-3);
+			context.lineTo(scale*8, scale*-1);
+			context.lineTo(scale*10, scale*0);
+
+			context.lineTo(scale*8, scale*1);
+			context.lineTo(scale*6, scale*3);
+			context.lineTo(scale*4, scale*1);
+			context.lineTo(scale*2, scale*3);
+			context.lineTo(scale*0, scale*1);
+			context.lineTo(scale*0, scale*0);
+
+			context.closePath();
+			context.fillStyle = 'rgba(143,154,90,' + alpha + ')';
+			context.strokeStyle = 'rgb(25, 66, 0)';
+			context.fill();
+
+			context.stroke();
+			context.rotate(-angle);
+			context.translate(-x, -y);
+		};
+
+	    var alpha = 0.3,
+	        leafSize = 1,
+	        roationAngle = 0,
+	        branchColor = '',
+	        leafProbabilty = canvasElements.getRandomInt(0,1);
+
+	    if (depth !== 0){
+	        if(depth > 3){
+	            branchColor = 'rgb(100,69,19)'; //Brown
+	        }
+	        else {
+	            branchColor = 'rgb(143,154,90)'; //Green
+	        }
+
+	        context.strokeStyle = branchColor;
+	        depth--;
+
+	        var x2 = x + (Math.cos(canvasElements.degToRad(angle)) * depth * 5.0);
+	        var y2 = y + (Math.sin(canvasElements.degToRad(angle)) * depth * 6.0);
+	        context.lineWidth = depth*1.6;
+	        canvasElements.drawLine(x, y, x2, y2, context, branchColor);
+
+	        drawSixthTree(x2, y2, angle - canvasElements.getRandomInt(18, 20), depth);
+	        drawSixthTree(x2, y2, angle + canvasElements.getRandomInt(5, 30), depth);
+	    }
+	    if(depth == 1 && leafProbabilty == 1) {
+	        rotationAngle = canvasElements.getRandomInt(0, 360);
+	        alpha = canvasElements.getRandomArbitrary(0.3, 1);
+	        leafSize = canvasElements.getRandomInt(0, 3);
+
+	        drawLeaf(x2, y2, rotationAngle, leafSize, alpha);
+	    }
+    };
 
 	/*******************************************
 	* Begin Code for Background Grass and Sky */
@@ -211,8 +277,6 @@ var fractalsForest = fractalsForest || {};
 		linGrad.addColorStop(0.3, 'white');
 		// Green for the top of the grass.
 		linGrad.addColorStop(0.7, '#55dd00');
-		// Fade to white at the bottom.
-		linGrad.addColorStop(1, 'white');
 		// Use the CanvasGradient object as the fill style.
 		context.fillStyle = linGrad;
 		// Finally, fill a rectangle the same size as the canvas.
@@ -227,15 +291,18 @@ var fractalsForest = fractalsForest || {};
 
 		drawSkyAndGrass();
 
-		drawFirstTree(context.canvas.width*0.7, canvas.height-280, -90, 9);
+		drawFirstTree(context.canvas.width*0.3, canvas.height, -90, 11);
 
-		drawSecondTree(canvas.width*0.19, canvas.height-240, 25, 1);
+		drawSecondTree(canvas.width*0.15, canvas.height, 22, 1);
 
-		drawThirdTree(canvas.width*0.46, canvas.height, 70, -Math.PI / 2, 8, 72);
+		drawThirdTree(canvas.width*0.6, canvas.height, 95, -Math.PI / 2, 7, 35);
 
-		drawFourthTree(canvas.width*0.75, canvas.height, -90, 8, 6);
+		drawFourthTree(canvas.width*0.79, canvas.height, -90, 8, 6);
 
-		drawFifthTree(canvas.width*0.1, canvas.height, 70, 25, 10, 14);
+		drawFifthTree(canvas.width*0.66, canvas.height, 70, 25, 8, 14);
+
+		drawSixthTree(canvas.width*0.43, canvas.height, -90, 11);
+
 	}
 
 	/*****************************************
