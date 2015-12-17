@@ -1,12 +1,12 @@
 ---
 layout: post
 title:  "HTML5 Canvas - Fractals Forest"
-date:   2015-09-27 22:10
+date:   2015-12-16 23:10
 categories: post canvas
 ---
-<p>After looking for some javascript Fractal Binary Tree examples I mixed them together to create what I call a Fractals Forest.</p>
-<p>The idea is to use random values to create several Fractal Binary Trees and draw them using javascript on HTML5 Canvas.</p>
-<!-- <p>Click <span class="fractalTreeButton">this button</span> to re-generate the forest.</p> -->
+<p>This is my Fractals Forest. It shows 6 different fractal trees, recursively generated using only javascript and HTML5 Canvas. I'll post my javascript code soon!</p>
+
+<p>Click <span class="fractalTreeButton">here</span> to re-generate the forest.</p>
 
 <canvas id="canvas" width="740" height="600" style="border:1px solid"> No HTML5 Canvas detected!
 </canvas>

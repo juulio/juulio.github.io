@@ -312,12 +312,12 @@ var fractalsForest = fractalsForest || {};
 
 		/************************************
 		* Begin Code for Regenerate Button */
-		// button[0].onclick = function(){
-		// 	// First clear the whole canvas area.
-		// 	context.clearRect(0,0,canvas.width, canvas.height);
-		//
-		// 	generateFractalsForest();
-		// }
+		button[0].onclick = function(){
+			// First clear the whole canvas area.
+			context.clearRect(0,0,canvas.width, canvas.height);
+		
+			generateFractalsForest();
+		}
     }
 
     init();
