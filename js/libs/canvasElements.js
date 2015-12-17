@@ -14,11 +14,13 @@ var canvasElements = {
 
     /****************************************
     * Draws a line from (x1,y1) to (x2,y2) */
-    drawLine : function(x1, y1, x2, y2, canvasContext, color) {
+    drawLine : function(x1, y1, x2, y2, canvasContext, color, lineWidth) {
         canvasContext.beginPath();
         canvasContext.moveTo(x1,y1);
         canvasContext.lineTo(x2,y2);
         canvasContext.closePath();
+        canvasContext.lineWidth = lineWidth;
+        canvasContext.strokeStyle = color;
         canvasContext.stroke();
     },
 
