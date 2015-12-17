@@ -22,8 +22,8 @@ var deg_to_rad = Math.PI / 180.0,
     depth = 11;
 
 function drawTree(x1, y1, angle, depth){
-    var leafSize = 1,
-        leafType = 1,
+    var alpha = 0.3,
+        leafSize = 1,
         roationAngle = 0,
         branchColor = '',
         leafProbabilty = canvasElements.getRandomInt(0,1);
@@ -49,14 +49,14 @@ function drawTree(x1, y1, angle, depth){
     }
     if(depth == 1 && leafProbabilty == 1) {
         rotationAngle = canvasElements.getRandomInt(0, 360);
-        leafType = canvasElements.getRandomInt(1, 2);
+        alpha = canvasElements.getRandomArbitrary(0.3, 1);
         leafSize = canvasElements.getRandomInt(0, 3);
 
-        drawLeaf(x2, y2, rotationAngle, leafSize, 2);
+        drawLeaf(x2, y2, rotationAngle, leafSize, alpha);
     }
 }
 
-function drawLeaf(x, y, angle, scale, type) {
+function drawLeaf(x, y, angle, scale, alpha) {
     
     context.translate(x, y);
     context.rotate(angle);
@@ -64,33 +64,22 @@ function drawLeaf(x, y, angle, scale, type) {
 
     context.moveTo(0,0);
 
-    if(type == 1) { // Leaf #1
-        context.lineTo(scale*5, scale*-10);
-        context.lineTo(scale*15,scale*-5);
-        context.lineTo(scale*20, scale*0);
-        context.lineTo(scale*15, scale*5);
-        context.lineTo(scale*5, scale*10);
-    }
-    else {
-        if(type == 2) { // Leaf #2
-            context.lineTo(scale*0, scale*-1);
-            context.lineTo(scale*2,scale*-3);
-            context.lineTo(scale*4, scale*-1);
-            context.lineTo(scale*6, scale*-3);
-            context.lineTo(scale*8, scale*-1);
-            context.lineTo(scale*10, scale*0);
+    context.lineTo(scale*0, scale*-1);
+    context.lineTo(scale*2,scale*-3);
+    context.lineTo(scale*4, scale*-1);
+    context.lineTo(scale*6, scale*-3);
+    context.lineTo(scale*8, scale*-1);
+    context.lineTo(scale*10, scale*0);
 
-            context.lineTo(scale*8, scale*1);
-            context.lineTo(scale*6, scale*3);
-            context.lineTo(scale*4, scale*1);
-            context.lineTo(scale*2, scale*3);
-            context.lineTo(scale*0, scale*1);
-            context.lineTo(scale*0, scale*0);
-        }
-    }
-
+    context.lineTo(scale*8, scale*1);
+    context.lineTo(scale*6, scale*3);
+    context.lineTo(scale*4, scale*1);
+    context.lineTo(scale*2, scale*3);
+    context.lineTo(scale*0, scale*1);
+    context.lineTo(scale*0, scale*0);
+    
     context.closePath();
-    context.fillStyle = 'rgba(143,154,90,0.6)';
+    context.fillStyle = 'rgba(143,154,90,' + alpha + ')';
     context.strokeStyle = 'rgb(25, 66, 0)';
     context.fill();
 
@@ -100,3 +89,11 @@ function drawLeaf(x, y, angle, scale, type) {
 }
 
 drawTree(250, 500, -90, depth);
+
+
+// Leaf #1
+// context.lineTo(scale*5, scale*-10);
+// context.lineTo(scale*15,scale*-5);
+// context.lineTo(scale*20, scale*0);
+// context.lineTo(scale*15, scale*5);
+// context.lineTo(scale*5, scale*10);

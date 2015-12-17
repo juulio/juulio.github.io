@@ -43,6 +43,11 @@ var canvasElements = {
         return Math.floor(Math.random() * (max - min + 1)) + min;
     },
 
+    /****************************************************************************
+     * Returns a random number between min (inclusive) and max (exclusive) */
+    getRandomArbitrary : function(min, max) {
+        return Math.random() * (max - min) + min;
+    },
 
     /**************************************
     * Taken from the book Javascript Supercharged Graphics.
