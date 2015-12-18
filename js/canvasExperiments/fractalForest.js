@@ -9,7 +9,8 @@ var fractalsForest = fractalsForest || {};
 
 	var canvas = document.getElementById('canvas'),
 	    context = canvas.getContext('2d');
-        button = document.getElementsByClassName("fractalTreeButton");
+        button = document.getElementsByClassName("fractalTreeButton"),
+		generalDepth = 1;
 
 	/***************************************
 	 * Begin Code for First Fractal Tree */
@@ -71,14 +72,16 @@ var fractalsForest = fractalsForest || {};
 			context.lineCap = 'round';
 			context.stroke();
 
-			drawSecondTree(topRightX, topRightY, trunkWidth * 0.7, level + 1);
-			drawSecondTree(topLeftX, topLeftY, trunkWidth * 0.7, level + 1);
+			level++;
+
+			drawSecondTree(topRightX, topRightY, trunkWidth * 0.7, level);
+			drawSecondTree(topLeftX, topLeftY, trunkWidth * 0.7, level);
 		}
 	};
 
 	/**************************************
 	* Begin Code for Third Fractal Tree */
-	var drawThirdTree = function (startX, startY, length, angle, depth, branchWidth) {
+	var drawThirdTree = function (startX, startY, length, angle, branchWidth, depth) {
         var rand = Math.random,
             newLength,
             newAngle,
@@ -102,7 +105,7 @@ var fractalsForest = fractalsForest || {};
 
         // If we are near the end branches, make them green to look like leaves.
         if (depth <= 2) {
-            context.strokeStyle = 'rgb(0,' + (((rand() * 64) + 128) >> 0) + ',0)';
+            context.strokeStyle = 'rgba(0,' + (((rand() * 64) + 128) >> 0) + ',0, 0.6)';
         }
         // Otherwise, choose a random brownish color.
         else {
@@ -130,13 +133,13 @@ var fractalsForest = fractalsForest || {};
         for (var i = 0; i < subBranches; i++) {
             newAngle = angle + rand() * maxAngle - maxAngle * 0.5;
             newLength = length * (0.7 + rand() * 0.3);
-            drawThirdTree(endX, endY, newLength, newAngle, newDepth, branchWidth);
+            drawThirdTree(endX, endY, newLength, newAngle, branchWidth, newDepth);
         }
     }
 
 	/**************************************
 	* Begin Code for Fourth Fractal Tree */
- 	var drawFourthTree = function(x1, y1, angle, treeDepth, lineLength){
+ 	var drawFourthTree = function(x1, y1, angle, lineLength, treeDepth){
         var x2 = x1 + (canvasElements.cos(angle) * treeDepth * lineLength),
             y2 = y1 + (canvasElements.sin(angle) * treeDepth * lineLength),
             branchColor = 'rgb(0,0,0)';
@@ -146,8 +149,8 @@ var fractalsForest = fractalsForest || {};
 
             canvasElements.drawLine(x1, y1, x2, y2, context, branchColor, 1);
 
-            drawFourthTree(x2, y2, angle -canvasElements.getRandomInt(20,26), treeDepth, lineLength);
-            drawFourthTree(x2, y2, angle +canvasElements.getRandomInt(30,58), treeDepth, lineLength);
+            drawFourthTree(x2, y2, angle -canvasElements.getRandomInt(20,26), lineLength, treeDepth);
+            drawFourthTree(x2, y2, angle +canvasElements.getRandomInt(30,58), lineLength, treeDepth);
         }
         else {
             context.strokeStyle = 'rgb(' +canvasElements.getRandomInt(0,255) +',' +canvasElements.getRandomInt(0,255) +'    ,34)';
@@ -157,7 +160,7 @@ var fractalsForest = fractalsForest || {};
 
 	/*************************************
 	* Begin Code for Fifth Fractal Tree */
-    var drawFifthTree = function(startX, startY, branchLength, angle, depth, lineWidth){
+    var drawFifthTree = function(startX, startY, branchLength, angle, lineWidth, depth){
 		var canvasHalfWidth = canvas.width/2,
         fractalProportion = 0.7;
 
@@ -179,13 +182,13 @@ var fractalsForest = fractalsForest || {};
             context.save();
             // Draw Right Branch
             context.rotate(angle * Math.PI / 180);
-            drawFifthTree(0, 0, branchLength, angle, depth, lineWidth);
+            drawFifthTree(0, 0, branchLength, angle, lineWidth, depth);
             context.restore();
 
             context.save();
             // Draw Left Branch
             context.rotate(-angle * Math.PI / 180);
-            drawFifthTree(0, 0, branchLength, angle, depth, lineWidth);
+            drawFifthTree(0, 0, branchLength, angle, lineWidth, depth);
             context.restore();
 
 			context.restore();
@@ -322,17 +325,17 @@ var fractalsForest = fractalsForest || {};
 
 		drawSkyAndGrass();
 
-		// drawFirstTree(context.canvas.width*0.3, canvas.height, -90, 11);
-		//
-		// drawSecondTree(canvas.width*0.15, canvas.height, 22, 1);
-		//
-		// drawThirdTree(canvas.width*0.6, canvas.height, 95, -Math.PI / 2, 7, 35);
-		//
-		// drawFourthTree(canvas.width*0.79, canvas.height, -90, 8, 6);
-		//
-		// drawFifthTree(canvas.width*0.66, canvas.height, 70, 25, 8, 14);
+		drawFirstTree(context.canvas.width*0.3, canvas.height, -90, generalDepth);
 
-		drawSixthTree(canvas.width*0.43, canvas.height, -90, 9);
+		drawSecondTree(canvas.width*0.15, canvas.height, 22, generalDepth);
+
+		drawThirdTree(canvas.width*0.6, canvas.height, 95, -Math.PI / 2, 35, generalDepth);
+
+		drawFourthTree(canvas.width*0.79, canvas.height, -90, 6, generalDepth);
+
+		drawFifthTree(canvas.width*0.66, canvas.height, 70, 25, 14, generalDepth);
+
+		drawSixthTree(canvas.width*0.43, canvas.height, -90, generalDepth);
 
 	}
 
@@ -344,6 +347,8 @@ var fractalsForest = fractalsForest || {};
 		/************************************
 		* Begin Code for Regenerate Button */
 		button[0].onclick = function(){
+			generalDepth++;
+			console.log(generalDepth);
 			// Clear the whole canvas area.
 			context.clearRect(0,0,canvas.width, canvas.height);
 
