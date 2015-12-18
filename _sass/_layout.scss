@@ -267,6 +267,7 @@ span.site-title {
     padding: 0 10px;
     margin: 0 5px;
     color: #fff;
+    outline: none;
     cursor: pointer;
     font-size: 15px;
     border-radius: 6px;
@@ -276,8 +277,9 @@ span.site-title {
     // border-right: solid 8px #2a7ae2;
     // border-left: solid 6px #2a7ae2;
 
-    &:hover,
-    &:focus {
+    // &:hover,
+    // &:focus {
+    &:active {
         color: #F80000;
         border-width: 2px;
         background-color: #fff;

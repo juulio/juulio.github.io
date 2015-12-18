@@ -6,11 +6,20 @@ var fractalsForest = fractalsForest || {};
 
 (function (context) {
 
-
-	var canvas = document.getElementById('canvas'),
-	    context = canvas.getContext('2d');
-        button = document.getElementsByClassName("fractalTreeButton"),
+	var canvas = document.createElement("canvas"),
+	    context = canvas.getContext("2d"),
 		generalDepth = 1;
+		button = document.getElementsByClassName("fractalTreeButton"),
+
+	document.body.appendChild(canvas);
+	document.body.style.margin = 0;
+
+	canvas.width = 740;
+	canvas.height = 500;
+	canvas.style.border = 'solid 1px #000';
+	canvas.style.display = 'block';
+	canvas.style.margin = '0 auto';
+
 
 	/***************************************
 	 * Begin Code for First Fractal Tree */
@@ -350,7 +359,7 @@ var fractalsForest = fractalsForest || {};
 			if (generalDepth >= 12) {
 				generalDepth = 1;
 			}
-			
+
 			generalDepth++;
 			document.getElementsByClassName('treeDepthLevel')[0].textContent = generalDepth;
 			// Clear the whole canvas area.
