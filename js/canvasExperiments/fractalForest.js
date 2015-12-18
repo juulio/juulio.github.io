@@ -347,8 +347,12 @@ var fractalsForest = fractalsForest || {};
 		/************************************
 		* Begin Code for Regenerate Button */
 		button[0].onclick = function(){
+			if (generalDepth >= 12) {
+				generalDepth = 1;
+			}
+			
 			generalDepth++;
-			console.log(generalDepth);
+			document.getElementsByClassName('treeDepthLevel')[0].textContent = generalDepth;
 			// Clear the whole canvas area.
 			context.clearRect(0,0,canvas.width, canvas.height);
 

@@ -4,9 +4,9 @@ title:  "HTML5 Canvas - Fractals Forest"
 date:   2015-12-16 23:10
 categories: post canvas
 ---
-<p>This is my Fractals Forest. It shows 6 different fractal trees, recursively generated using only javascript and HTML5 Canvas. I'll post my javascript code soon!</p>
+<p>Welcome to my Fractals Forest. It shows 6 different fractal trees, recursively generated using only javascript and HTML5 Canvas.</p>
 
-<p>Click <span class="fractalTreeButton">here</span> to re-generate the forest.</p>
+<p>To make the trees grow, click <span class="fractalTreeButton">THIS</span> button. Tree Depth Level: <span class="treeDepthLevel">1</span></p>
 
 <canvas id="canvas" width="740" height="600" style="border:1px solid"> No HTML5 Canvas detected!
 </canvas>
