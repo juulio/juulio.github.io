@@ -10,11 +10,11 @@ var fractalsForest = fractalsForest || {};
 	    context = canvas.getContext("2d"),
 		generalDepth = 1;
 		button = document.getElementsByClassName("fractalTreeButton"),
+		postContentElement = document.getElementsByClassName('post-content')[0];
 
-	document.body.appendChild(canvas);
-	document.body.style.margin = 0;
+	postContentElement.appendChild(canvas);
 
-	canvas.width = 740;
+	canvas.width = document.getElementsByClassName('post-content')[0].offsetWidth;
 	canvas.height = 500;
 	canvas.style.border = 'solid 1px #000';
 	canvas.style.display = 'block';
@@ -286,8 +286,8 @@ var fractalsForest = fractalsForest || {};
 	        context.strokeStyle = branchColor;
 	        depth--;
 
-	        var x2 = x + (Math.cos(canvasElements.degToRad(angle)) * depth * 12.0);
-	        var y2 = y + (Math.sin(canvasElements.degToRad(angle)) * depth * 8.0);
+	        var x2 = x + (Math.cos(canvasElements.degToRad(angle)) * depth * 10.0);
+	        var y2 = y + (Math.sin(canvasElements.degToRad(angle)) * depth * 6.0);
 	        branchThickness = depth*1.6;
 	        drawBranch(x, y, x2, y2, context, branchThickness, branchColor);
 
@@ -338,7 +338,7 @@ var fractalsForest = fractalsForest || {};
 
 		drawSecondTree(canvas.width*0.15, canvas.height, 22, generalDepth);
 
-		drawThirdTree(canvas.width*0.6, canvas.height, 95, -Math.PI / 2, 35, generalDepth);
+		drawThirdTree(canvas.width*0.6, canvas.height, 60, -Math.PI / 2, 25, generalDepth);
 
 		drawFourthTree(canvas.width*0.79, canvas.height, -90, 6, generalDepth);
 
