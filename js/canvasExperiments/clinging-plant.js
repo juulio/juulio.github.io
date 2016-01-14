@@ -15,49 +15,42 @@ canvas.style.margin = '0 auto';
 context.fillStyle = '#000';
 context.lineWidth = 1;
 
-// "Height" or space between Columns will be determined by the Leaves' height
-spaceBetweenRows = 25;
-
-/*************************
- Draw The Clingng Plant */
-function drawClingingPlant(x, y, plantColumns, plantRows, spaceBetweenColumns){
+/**************************************************
+ Recursive function that draws The Clingng Plant */
+function recursiveDrawClingingPlant(x, y, plantColumns, plantRows, spaceBetweenRows, spaceBetweenColumns, firstIteration){
     var dotHorizontalPos = 0,
         dotVerticalPos = spaceBetweenRows,
         leftMostPoint = x-(((plantColumns-1)*spaceBetweenColumns)/2);
     
-    canvasElements.drawDot(x, y, 3, 2, context);
-    
-    context.save();
-    context.translate(leftMostPoint,y);
+    if(firstIteration) {
+        // Draw the initial dot, starting point
+        canvasElements.drawDot(x, y, 3, 2, context);
+        
+        var lineLeftPoint = leftMostPoint;
 
-    for(var i=0; i<plantRows; i++){
-
-        context.save();
-        context.translate(0, dotVerticalPos);
-
-        dotHorizontalPos = 0;
-
-        for(var j=0; j<plantColumns; j++){
-            if(i<plantRows-1){
-                canvasElements.drawLine(dotHorizontalPos, 0, dotHorizontalPos, spaceBetweenRows, context, '#000', 1);
-            }
-
-            canvasElements.drawDot(dotHorizontalPos, 0, 3, 2, context);
-            dotHorizontalPos += spaceBetweenColumns;
+        // Draw the diagonal lines that connect the starting point with the clinging plant
+        for(var k=0; k<plantColumns; k++){
+            canvasElements.drawLine(x, y, lineLeftPoint, y+spaceBetweenRows, context, '#000', 1)
+            lineLeftPoint += spaceBetweenColumns;
         }
+    }
+    
+    dotHorizontalPos = leftMostPoint;
+    y+=spaceBetweenRows;
 
-        dotVerticalPos += spaceBetweenRows;
-        context.restore();
+    for(var j=0; j<plantColumns; j++){
+        if(plantRows>1) {
+            canvasElements.drawLine(dotHorizontalPos, y, dotHorizontalPos, y+spaceBetweenRows, context, '#000', 1);
+        }
+        canvasElements.drawDot(dotHorizontalPos, y, 3, 2, context);
+        dotHorizontalPos += spaceBetweenColumns;
     }
 
-    context.restore();
+    plantRows--;
 
-    var lineLeftPoint = leftMostPoint;
-
-    for(var k=0; k<plantColumns; k++){
-        canvasElements.drawLine(x, y, lineLeftPoint, y+spaceBetweenRows, context, '#000', 1)
-        lineLeftPoint += spaceBetweenColumns;
+    if(plantRows>0) {
+        recursiveDrawClingingPlant(x, y, plantColumns, plantRows, spaceBetweenRows, spaceBetweenColumns, false);
     }
 }
 
-drawClingingPlant(canvas.width/2, 20, 5, 9, 30);
+recursiveDrawClingingPlant(canvas.width/2, 20, 12, 15, 25, 20, true);
