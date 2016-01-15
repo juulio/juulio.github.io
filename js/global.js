@@ -19,9 +19,11 @@ var homePage = homePage || {};
      */
     function init () {
         var isHome = document.getElementsByClassName('home');
-        console.log(isHome);
         if(isHome.length>0) {
-
+            /********************************************************
+             Initial code to create and set up the Canvas Element. */
+            canvasElements.createCanvasElement('home');
+            var canvas = canvasElements.canvas;
         }
     }
 
