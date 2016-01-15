@@ -18,7 +18,11 @@ var homePage = homePage || {};
      * Init all required functions
      */
     function init () {
-    //   console.log('This javascript code will be executed on all pages');
+        var isHome = document.getElementsByClassName('home');
+        console.log(isHome);
+        if(isHome.length>0) {
+
+        }
     }
 
     init();
