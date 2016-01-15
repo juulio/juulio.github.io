@@ -37,6 +37,40 @@ var canvasElements = {
         canvasContext.rotate(-rotationAngle*Math.PI/180);
     },
 
+    /******************************************************
+    * Draws a tree leaf at (x,y) rotated at angle degrees*/
+    drawLeaf: function(x, y, angle, scale, alpha, canvasContext) {
+
+        canvasContext.save();
+        canvasContext.translate(x, y);
+        canvasContext.rotate(angle*Math.PI/180);// Convert degreess to radians
+        canvasContext.beginPath();
+
+        canvasContext.moveTo(0,0);
+
+        canvasContext.lineTo(scale*0, scale*-1);
+        canvasContext.lineTo(scale*2,scale*-3);
+        canvasContext.lineTo(scale*4, scale*-1);
+        canvasContext.lineTo(scale*6, scale*-3);
+        canvasContext.lineTo(scale*8, scale*-1);
+        canvasContext.lineTo(scale*10, scale*0);
+
+        canvasContext.lineTo(scale*8, scale*1);
+        canvasContext.lineTo(scale*6, scale*3);
+        canvasContext.lineTo(scale*4, scale*1);
+        canvasContext.lineTo(scale*2, scale*3);
+        canvasContext.lineTo(scale*0, scale*1);
+        canvasContext.lineTo(scale*0, scale*0);
+
+        canvasContext.closePath();
+        canvasContext.fillStyle = 'rgba(143,154,90,' + alpha + ')';
+        canvasContext.strokeStyle = 'rgb(25, 66, 0)';
+        canvasContext.fill();
+
+        canvasContext.stroke();
+        canvasContext.restore();
+    },
+
     /****************************************************************************
     * Taken from Mozilla Ddeveloper Network
     * https://developer.mozilla.org/en-US/

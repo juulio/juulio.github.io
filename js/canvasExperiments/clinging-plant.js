@@ -1,5 +1,5 @@
-/************************************************
- Create and set the Canvas Element up. */
+/********************************************************
+ Initial code to create and set up the Canvas Element. */
 var canvas = document.createElement("canvas"),
     context = canvas.getContext("2d");
 
@@ -15,37 +15,35 @@ canvas.style.margin = '0 auto';
 context.fillStyle = '#000';
 context.lineWidth = 1;
 
-/**************************************************
- Recursive function that draws The Clingng Plant */
+/***************************************************
+ Recursive function that draws The Clinging Plant */
 function recursiveDrawClingingPlant(x, y, plantColumns, plantRows, spaceBetweenRows, spaceBetweenColumns, firstIteration){
     var dotHorizontalPos = 0,
         dotVerticalPos = spaceBetweenRows,
         leftMostPoint = x-(((plantColumns-1)*spaceBetweenColumns)/2);
-    
+
     if(firstIteration) {
         // Draw the initial dot, starting point
         canvasElements.drawDot(x, y, 3, 2, context);
-        
+
         var lineLeftPoint = leftMostPoint;
 
         // Draw the diagonal lines that connect the starting point with the clinging plant
         for(var k=0; k<plantColumns; k++){
-            canvasElements.drawLine(x, y, lineLeftPoint, y+spaceBetweenRows, context, '#000', 1)
+            canvasElements.drawLine(x, y, lineLeftPoint, y+spaceBetweenRows, context, 'rgb(107, 114, 66)', 1)
             lineLeftPoint += spaceBetweenColumns;
         }
     }
-    
+
     dotHorizontalPos = leftMostPoint;
     y+=spaceBetweenRows;
 
     for(var j=0; j<plantColumns; j++){
-        if(plantRows>1) {
-            canvasElements.drawLine(dotHorizontalPos, y, dotHorizontalPos, y+spaceBetweenRows, context, '#000', 1);
-        }
-        canvasElements.drawDot(dotHorizontalPos, y, 3, 2, context);
+        canvasElements.drawLeaf(dotHorizontalPos, y, canvasElements.getRandomInt(50, 130), 3, 0.6, context);
         dotHorizontalPos += spaceBetweenColumns;
     }
 
+    spaceBetweenColumns+=0.7;
     plantRows--;
 
     if(plantRows>0) {
@@ -53,4 +51,4 @@ function recursiveDrawClingingPlant(x, y, plantColumns, plantRows, spaceBetweenR
     }
 }
 
-recursiveDrawClingingPlant(canvas.width/2, 20, 12, 15, 25, 20, true);
+recursiveDrawClingingPlant(canvas.width/2, 20, 12, 18, 22, 10, true);
