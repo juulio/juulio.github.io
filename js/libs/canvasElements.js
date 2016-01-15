@@ -7,8 +7,10 @@ var canvasElements = {
 
     /******************************************************
     * Adds the Canvas Element to the '.post-content' div */
-    createCanvasElement : function(){
-        document.getElementsByClassName('post-content')[0].appendChild(this.canvas);
+    createCanvasElement : function(canvasContainer){
+        var divElement = document.getElementsByClassName(canvasContainer)[0];
+        divElement.insertBefore(this.canvas, divElement.childNodes[0]);
+        // document.getElementsByClassName(canvasContainer)[0].appendChild(this.canvas);
         document.body.style.margin = 0;
 
         this.context = this.canvas.getContext("2d");
