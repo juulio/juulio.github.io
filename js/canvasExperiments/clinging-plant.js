@@ -1,6 +1,7 @@
 /********************************************************
  Initial code to create and set up the Canvas Element. */
-canvasElements.createCanvasElement();
+canvasElements.createCanvasElement('post-content');
+var canvas = canvasElements.canvas;
 
 /***************************************************
  Recursive function that draws The Clinging Plant */
@@ -25,4 +26,4 @@ function recursiveDrawClingingPlant(x, y, plantColumns, plantRows, spaceBetweenR
     }
 }
 
-recursiveDrawClingingPlant(canvasElements.canvas.width/2, 20, 9, 18, 22, 6);
+recursiveDrawClingingPlant(canvas.width/2, 20, 9, 18, 22, 6);
