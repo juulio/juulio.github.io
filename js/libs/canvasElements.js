@@ -2,6 +2,21 @@
 * Julio Del Valle - Costa Rica */
 
 var canvasElements = {
+    canvas : document.createElement("canvas"),
+    context : '',
+
+    /******************************************************
+    * Adds the Canvas Element to the '.post-content' div */
+    createCanvasElement : function(){
+        document.getElementsByClassName('post-content')[0].appendChild(this.canvas);
+        document.body.style.margin = 0;
+
+        this.context = this.canvas.getContext("2d");
+        this.canvas.width = 500;
+        this.canvas.height = 500;
+        this.canvas.style.display = 'block';
+        this.canvas.style.margin = '0 auto';
+    },
 
     /********************************************
     * Draws a dot, centered on x,y coordinates */
@@ -24,6 +39,8 @@ var canvasElements = {
         canvasContext.stroke();
     },
 
+    /********************
+    * Draws a triangle */
     drawTriangle : function(x, y, size, canvasContext) {
         var rotationAngle = this.getRandomInt(0,360);
 
@@ -39,36 +56,36 @@ var canvasElements = {
 
     /******************************************************
     * Draws a tree leaf at (x,y) rotated at angle degrees*/
-    drawLeaf: function(x, y, angle, scale, alpha, canvasContext) {
+    drawLeaf: function(x, y, angle, scale, alpha) {
 
-        canvasContext.save();
-        canvasContext.translate(x, y);
-        canvasContext.rotate(angle*Math.PI/180);// Convert degreess to radians
-        canvasContext.beginPath();
+        this.context.save();
+        this.context.translate(x, y);
+        this.context.rotate(angle*Math.PI/180);// Convert degreess to radians
+        this.context.beginPath();
 
-        canvasContext.moveTo(0,0);
+        this.context.moveTo(0,0);
 
-        canvasContext.lineTo(scale*0, scale*-1);
-        canvasContext.lineTo(scale*2,scale*-3);
-        canvasContext.lineTo(scale*4, scale*-1);
-        canvasContext.lineTo(scale*6, scale*-3);
-        canvasContext.lineTo(scale*8, scale*-1);
-        canvasContext.lineTo(scale*10, scale*0);
+        this.context.lineTo(scale*0, scale*-1);
+        this.context.lineTo(scale*2,scale*-3);
+        this.context.lineTo(scale*4, scale*-1);
+        this.context.lineTo(scale*6, scale*-3);
+        this.context.lineTo(scale*8, scale*-1);
+        this.context.lineTo(scale*10, scale*0);
 
-        canvasContext.lineTo(scale*8, scale*1);
-        canvasContext.lineTo(scale*6, scale*3);
-        canvasContext.lineTo(scale*4, scale*1);
-        canvasContext.lineTo(scale*2, scale*3);
-        canvasContext.lineTo(scale*0, scale*1);
-        canvasContext.lineTo(scale*0, scale*0);
+        this.context.lineTo(scale*8, scale*1);
+        this.context.lineTo(scale*6, scale*3);
+        this.context.lineTo(scale*4, scale*1);
+        this.context.lineTo(scale*2, scale*3);
+        this.context.lineTo(scale*0, scale*1);
+        this.context.lineTo(scale*0, scale*0);
 
-        canvasContext.closePath();
-        canvasContext.fillStyle = 'rgba(143,154,90,' + alpha + ')';
-        canvasContext.strokeStyle = 'rgb(25, 66, 0)';
-        canvasContext.fill();
+        this.context.closePath();
+        this.context.fillStyle = 'rgba(143,154,90,' + alpha + ')';
+        this.context.strokeStyle = 'rgb(25, 66, 0)';
+        this.context.fill();
 
-        canvasContext.stroke();
-        canvasContext.restore();
+        this.context.stroke();
+        this.context.restore();
     },
 
     /****************************************************************************
