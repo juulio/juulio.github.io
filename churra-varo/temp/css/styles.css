@@ -1,0 +1,496 @@
+	/* http://meyerweb.com/eric/tools/css/reset/
+ v2.0 | 20110126
+ License: none (public domain)
+ */
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+	font-family: "Times New Roman", Times, serif;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after, q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+.clear {
+	clear: both;
+}
+body {
+	background: transparent url(../img/patternBg.jpg) left top repeat;
+}
+/*---------------------------------------------------------------------------------
+ * ------------------------------------------------------------------------------*/
+/*------------------------------------------------------------------
+ * Custom Fonts */
+@font-face {
+	font-family: TrajanPro-Bold;
+	src: url(../fonts/TrajanPro-Bold.otf);
+}
+@font-face {
+	font-family: TrajanPro-Regular;
+	src: url(../fonts/TrajanPro-Regular.otf);
+}
+/*------------------------------------------------------------------
+ * Home */
+section {
+	width: 560px;
+	padding: 0 50px 35px;
+	background: #FFFFFF;
+	margin: 20px auto 0;
+	border: solid 1px #d6d6d6;
+}
+/*------------------------------------------------------------------*/
+header {
+	text-align: center;
+	padding-top: 15px;
+	padding-bottom: 25px;
+}
+
+header h1 {
+	color: #cec3b3;
+	font-size: 250%;
+	font-weight: normal;
+	letter-spacing: 0.09em;
+	font-family: TrajanPro-Regular;
+}
+
+header h1 span {
+	font-size: 130%;
+	font-family: TrajanPro-Regular;
+} 
+
+header h2 {
+	color: #676767;
+	font-size: 80%;
+	letter-spacing: 0.6em;
+	font-family: TrajanPro-Regular;
+}
+
+ul#menu {
+	width: 560px;
+	height: 26px;
+	margin-bottom: 30px;
+	border-top: solid 1px #EFEFEF;
+	border-bottom: solid 1px #EFEFEF;
+}
+
+ul#menu li {
+	float: left;
+	font-size: 80%;
+	padding-top: 8px;
+	font-weight: bold;
+	margin-right: 50px;
+}
+
+ul#menu li.last {
+	margin-right: 0;
+}
+
+ul#menu li a {
+	font-family: TrajanPro-Regular;
+}
+
+a {
+	color: #909090;
+}
+
+ul#menu li a.active {
+	color: #9084b9;
+	text-decoration: underline;
+}
+
+ul#menu li a:hover,
+footer a:hover {
+	color: #9084b9;
+	text-decoration: underline;
+}
+
+/*------------------------------------------------------------------*/
+#heroHome {
+	width: 521px;
+	height: 242px;
+	margin: 15px auto;
+	background: transparent url(../img/hero.jpg) left top no-repeat;
+}
+
+.foto {
+	width: 521px;
+	height: 301px;
+	margin: 0 auto;
+}
+
+.fotoHome {
+	background: transparent url(../img/fotoHome.jpg) left top no-repeat;
+}
+
+.fotoListaRegalos {
+	background: transparent url(../img/heroListaDeRegalos.jpg) left top no-repeat;
+}
+
+.fotoInvitacion {
+	background: transparent url(../img/heroInvitacion.jpg) left top no-repeat;
+}
+/*------------------------------------------------------------------*/
+#content {
+	padding: 0 15px;
+}
+
+.column {
+	float: left;
+	width: 245px;
+}
+
+.leftColumn {
+	margin-right: 30px;
+}
+
+.letra {
+	float: left;
+	width: 81px;
+	height: 81px;
+	margin-right: 15px;
+	margin-bottom: 10px;
+}
+
+#letraC {
+	background: transparent url(../img/letraC.png) left top no-repeat;
+}
+
+#letraD {
+	background: transparent url(../img/letraD.png) left top no-repeat;
+}
+
+#letraH {
+	background: transparent url(../img/letraH.png) left top no-repeat;
+}
+
+#content p {
+	color: #999999;
+	font-size: 85%;
+	line-height: 20px;
+	text-align: justify;
+	margin-bottom: 20px;
+	font-family: "Times New Roman", Times, serif;
+}
+
+/*------------------------------------------------------------------*/
+footer {
+	color: #999999;
+	font-size: 75%;
+	margin: 20px 0 10px;
+	text-align: center;
+	letter-spacing: 7px;
+	font-family: "Times New Roman", Times, serif;
+}
+
+footer a {
+	font-family: "Times New Roman", Times, serif;
+}
+
+/*------------------------------------------------------------------
+ * LA BODA ---------------------------------------------------------
+ *----------------------------------------------------------------*/
+#heroLaBoda {
+	width: 528px;
+	height: 313px;
+	margin: 0 auto 23px;
+	background: transparent url(../img/heroLaBoda.jpg) left top no-repeat;
+}
+
+#content h3 {
+	border: 0;
+	font-size: 80%;
+	color: #676767;
+	background: none;
+	margin: 35px 0 20px;
+	font-family: TrajanPro-Regular;
+}
+
+.textoLaBoda {
+	padding-left: 15px;
+}
+
+.textoLaBoda span {
+	font-weight: bold;
+}
+
+.textoLaBoda a {
+	color: #6dcff6;
+}
+/*---------------------------------------------------------------------------------
+ * ESTILOS PARA NUESTRO VIAJE
+ *  ------------------------------------------------------------------------------*/
+#mapNuestroViaje {
+	width: 520px;
+	height: 302px;
+	background: transparent url(../img/mapViaje.jpg) left top no-repeat;
+}
+/*---------------------------------------------------------------------------------
+ * ESTILOS PARA LA LISTA DE REGALOS lista.php
+ *  ------------------------------------------------------------------------------*/
+.formulario {
+	display: none;
+}
+
+#content .ui-accordion .ui-accordion-content {
+	border: 0;
+	padding: 0;
+}
+
+#content h3.ui-accordion-header {
+	margin: 6px 0 0;
+}
+
+.tablaListaRegalos {
+	width: 100%;
+}
+
+.tablaListaRegalos  tr:nth-child(even) {
+	background-color: #f0f0f0;
+}
+
+.tablaListaRegalos td,
+.tablaListaRegalos td span {
+	color: #999999;
+	font-size: 90%;
+	line-height: 28px;
+	font-family: "Times New Roman", Times, serif;
+}
+
+.tablaListaRegalos>tbody>tr>td {
+	padding-left: 20px;
+}
+
+.tablaListaRegalos td span {
+	padding-left: 10px;
+	border-left: solid 1px #999999;
+}
+
+.tablaListaRegalos td span:hover {
+	color: #bf9fe5;
+	cursor: pointer;
+	text-decoration: underline;
+}
+/*---------------------------------------------------------------------------------
+ * ESTILOS PARA LA INVITACION invitacion.html
+ *  ------------------------------------------------------------------------------*/
+#padresContainer {
+	padding: 7px 0;
+	margin-bottom: 30px;
+	border-top: solid 1px #EFEFEF;
+	border-bottom: solid 1px #EFEFEF;
+}
+
+#invitacion h2 {
+	color: #676767;
+	font-size: 75%;
+	line-height: 15px;
+	letter-spacing: 0.2em;
+	font-family: TrajanPro-Regular;
+}
+
+.padres {
+	width: 275px;
+}
+
+.left {
+	float: left;
+}
+
+.right {
+	float: right;
+}
+
+.padres.left {
+	text-align: left;
+}
+
+.padres.right {
+	text-align: right;
+}
+
+#heroInvitacion {
+	width: 520px;
+	height: 300px;
+	margin: 15px auto;
+	background: transparent url(../img/heroInvitacion.jpg) left top no-repeat;
+}
+
+#invitacion #content p {
+	padding-left: 15px;
+}
+
+#invitacion #content h3 {
+	margin: 30px 0 10px;
+}
+
+#rsvp {
+	width: 80px;
+	margin: 0 auto;
+}
+/*---------------------------------------------------------------------------------
+ * ESTILOS PARA LOS FORMULARIOS
+ *  ------------------------------------------------------------------------------*/
+#formularioWrapper {
+	width: 561px;
+	display: none;
+	padding: 30px;
+	position: relative;
+	font-size: 85%;
+	line-height: 17px;
+}
+
+#formularioInnerWrapper {
+	padding: 15px 65px;
+	background-color: #FFFFFF;
+}
+
+#formularioInnerContainer {
+	color: #999999;
+}
+
+#formularioInnerContainer p {
+	line-height: 18px;
+	margin-bottom: 15px;
+}
+
+.formularioColumnaIzquierda {
+	float: left;
+	width: 125px;
+	text-align: right;
+	margin: 5px 15px 15px 0;
+}
+
+.formularioColumnaDerecha {
+	float: left;
+	width: 330px;
+}
+
+textarea#mensajeParaNovios,
+.formularioColumnaDerecha input {
+	width: 330px;
+	padding: 3px;
+	color: #999999;
+	font-size: 100%;
+	border-radius: 4px;
+	border: solid 1px #c8c8c8;
+	background-color: #faf9fb;
+	font-family: "Times New Roman", Times, serif;
+}
+
+textarea#mensajeParaNovios {
+	resize: none;
+	height: 100px;
+	overflow: auto;
+}
+
+#formularioOpcionesSeleccionadas span {
+	margin-left: 40px;
+}
+
+.botones {
+	border: 0;
+	color: #999999;
+	padding: 0 8px;
+	font-size: 15px;
+	cursor: pointer;
+	text-align: center;
+	text-transform: uppercase;
+	text-decoration: underline;
+	background-color: transparent;
+	border-left: solid 1px #999999;
+	border-right: solid 1px #999999;
+	font-family: "Times New Roman", Times, serif;
+}
+
+.botones:hover {
+	color: #9084b9;
+}
+
+.enviar {
+	margin-right: 40px;
+}
+
+#regaloSeleccionado {
+	width: 100%;
+	margin: 20px 0;
+	padding: 10px 0;
+	text-align: center;
+	background-color: #faf9fb;
+}
+
+#montoADepositar {
+	font-weight: bold;
+	text-decoration: underline;
+}
+
+#formularioInnerContainer h3 {
+	color: #cec3b3;
+	font-size: 230%;
+	text-align: center;
+	margin-bottom: 15px;
+	font-family: TrajanPro-Regular;
+}
+
+#botonesContainer {
+	text-align: center;
+}
+
+/* Email has been sent - Lighbtox */
+#sentWrapper {
+	display: none;
+	font-size: 85%;
+	color: #999999;
+	line-height: 17px;
+	text-align: center;
+}
+
+/*---------------------------------------------------------------------------------
+ * ESTILOS PARA AYUDA/CONTACTO ayuda.html
+ *  ------------------------------------------------------------------------------*/
+.tituloContacto {
+	letter-spacing: 7px;
+}
+
+.listaCategorias {
+	padding-left: 35px;
+	color: #999999;
+	font-size: 85%;
+	line-height: 20px;
+}
+
+.listaCategorias li {
+	padding-left: 2em;
+	line-height: 24px;
+	font-family: TrajanPro-Regular;
+	background: transparent url(../img/flecha.png) left center no-repeat;
+}
