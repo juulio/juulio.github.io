@@ -131,12 +131,12 @@ var homePage = homePage || {};
         	        context.strokeStyle = branchColor;
         	        depth--;
 
-        	        var x2 = x + (Math.cos(canvasElements.degToRad(angle)) * depth * 6.0);
-        	        var y2 = y + (Math.sin(canvasElements.degToRad(angle)) * depth * 11.0);
+        	        var x2 = x + (Math.cos(canvasElements.degToRad(angle)) * depth * 4.0);
+        	        var y2 = y + (Math.sin(canvasElements.degToRad(angle)) * depth * 10.0);
         	        branchThickness = depth*1.6;
         	        drawBranch(x, y, x2, y2, context, branchThickness, branchColor);
 
-        	        drawFractalTree(x2, y2, angle - canvasElements.getRandomInt(10, 14), depth);
+        	        drawFractalTree(x2, y2, angle - canvasElements.getRandomInt(16, 19), depth);
         	        drawFractalTree(x2, y2, angle + canvasElements.getRandomInt(9, 12), depth);
         	    }
 
@@ -151,7 +151,7 @@ var homePage = homePage || {};
             };
 
             drawFractalTree(canvas.width*0.4, canvas.height, -90, 10);
-            recursiveDrawClingingPlant(canvas.width/2, 20, 9, 18, 22, 6);
+            recursiveDrawClingingPlant(canvas.width/2, 30, 8, 19, 22, 4);
         }
     }
 
