@@ -19,17 +19,45 @@ var homePage = homePage || {};
      */
     function init () {
         var isHome = document.getElementsByClassName('home');
+
         if(isHome.length>0) {
             /********************************************************
              Initial code to create and set up the Canvas Element. */
-            canvasElements.createCanvasElement('home');
-            var canvas = canvasElements.canvas,
+             var homeElementWidth = isHome[0].offsetWidth;
+
+             canvasElements.createCanvasElement('home', homeElementWidth, 600);
+             var canvas = canvasElements.canvas,
                 context = canvas.getContext("2d");
+
+            canvas.style.marginBottom = '20px';
+
+            /*******************************************
+            * Draw a Background Grass and Sky (Gradient) */
+            var drawSkyAndGrass = function() {
+                context.save();
+                // Set transparency.
+                context.globalAlpha = 0.2;
+                // Create a CanvasGradient object in linGrad.
+                // The gradient line is defined from the top to the bottom of the canvas.
+                var linGrad = context.createLinearGradient(0, 0, 0, canvas.height);
+                // Start off with sky blue at the top.
+                linGrad.addColorStop(0, '#00BFFF');
+                // Fade to white in the middle.
+                linGrad.addColorStop(0.45, 'white');
+                // Green for the top of the grass.
+                linGrad.addColorStop(0.85, '#55dd00');
+                // Use the CanvasGradient object as the fill style.
+                context.fillStyle = linGrad;
+                // Finally, fill a rectangle the same size as the canvas.
+                context.fillRect(0, 0, canvas.width, canvas.height);
+
+                context.restore();
+            };
 
 
             /***************************************************
              Recursive function that draws The Clinging Plant */
-            function recursiveDrawClingingPlant(x, y, plantColumns, plantRows, spaceBetweenRows, spaceBetweenColumns){
+            var recursiveDrawClingingPlant = function(x, y, plantColumns, plantRows, spaceBetweenRows, spaceBetweenColumns){
                 var dotHorizontalPos = 0,
                     dotVerticalPos = spaceBetweenRows,
                     leftMostPoint = x-(((plantColumns-1)*spaceBetweenColumns)/2);
@@ -46,7 +74,7 @@ var homePage = homePage || {};
                 plantRows--;
 
                 if(plantRows>0) {
-                    recursiveDrawClingingPlant(x, y, plantColumns, plantRows, spaceBetweenRows, spaceBetweenColumns, false);
+                    recursiveDrawClingingPlant(x, y, plantColumns, plantRows, spaceBetweenRows, spaceBetweenColumns);
                 }
             }
 
@@ -54,20 +82,13 @@ var homePage = homePage || {};
         	* Begin Code for Fractal Tree */
             var drawFractalTree = function(x, y, angle, depth){
 
-        		var drawBranch = function(x1, y1, x2, y2, context, thickness, color) {
+        		var drawBranch = function(x1, y1, x2, y2, thickness, color) {
         			context.beginPath();
         	        context.moveTo(x1,y1);
         			context.lineTo(x2,y2);
-        			// context.lineTo(x1+thickness,y1);
-        			// context.lineTo(x1+thickness,y2);
-        			// context.lineTo(x1,y2);
-        			//
-        			// context.closePath();
-        			context.lineWidth = thickness;
-        			// context.fillStyle = '#8ED6FF';
-        			//
-        			// context.fill();
+                    context.closePath();
         			context.strokeStyle = color;
+                    context.lineWidth = thickness;
         			context.stroke();
         		};
 
@@ -94,7 +115,7 @@ var homePage = homePage || {};
 
         			context.closePath();
 
-        			context.lineWidth = 2;
+        			context.lineWidth = 1;
         			context.fillStyle = 'rgba(143,154,90,' + alpha + ')';
         			context.strokeStyle = 'rgb(25, 66, 0)';
         			context.fill();
@@ -110,12 +131,12 @@ var homePage = homePage || {};
         	        context.arc(x, y, radius, 0, 2*Math.PI, false);
         			context.fillStyle = 'rgba(255,153,0,' + alpha + ')';
         	        context.fill();
+                    context.lineWidth = 1;
         			context.stroke();
         		};
 
         	    var alpha = 0.3,
         	        leafSize = 1,
-        			branchThickness = 1,
         	        roationAngle = 0,
         	        branchColor = '',
         	        leafProbabilty = canvasElements.getRandomArbitrary(0,1);
@@ -132,12 +153,12 @@ var homePage = homePage || {};
         	        depth--;
 
         	        var x2 = x + (Math.cos(canvasElements.degToRad(angle)) * depth * 4.0);
-        	        var y2 = y + (Math.sin(canvasElements.degToRad(angle)) * depth * 10.0);
-        	        branchThickness = depth*1.6;
-        	        drawBranch(x, y, x2, y2, context, branchThickness, branchColor);
+        	        var y2 = y + (Math.sin(canvasElements.degToRad(angle)) * depth * 13.0);
+        	        branchThickness = depth*2.4;
+        	        drawBranch(x, y, x2, y2, branchThickness, branchColor);
 
-        	        drawFractalTree(x2, y2, angle - canvasElements.getRandomInt(16, 19), depth);
-        	        drawFractalTree(x2, y2, angle + canvasElements.getRandomInt(9, 12), depth);
+        	        drawFractalTree(x2, y2, angle - canvasElements.getRandomInt(24, 26), depth);
+        	        drawFractalTree(x2, y2, angle + canvasElements.getRandomInt(20, 22), depth);
         	    }
 
         	    if(depth == 1 && leafProbabilty > 0.2) {
@@ -150,8 +171,22 @@ var homePage = homePage || {};
         	    }
             };
 
-            drawFractalTree(canvas.width*0.4, canvas.height, -90, 10);
-            recursiveDrawClingingPlant(canvas.width/2, 30, 8, 19, 22, 4);
+            /********************************************
+             * Initial Variables to set environment up */
+            var plantRows = 19,
+                spaceBetweenRows = 22,
+                canvasWidth = canvas.width,
+                canvasHeight = canvas.height,
+                treeStartingX = canvasWidth*0.3,
+                clinginPlantStartingX = treeStartingX*1.3,
+                clinginPlantHeight = plantRows*spaceBetweenRows,
+                clinginPlantStartingY = canvasHeight - clinginPlantHeight;
+
+            drawSkyAndGrass();
+
+            drawFractalTree(treeStartingX, canvas.height, -90, 10);
+
+            recursiveDrawClingingPlant(clinginPlantStartingX, clinginPlantStartingY, 8, plantRows, spaceBetweenRows, 4);
         }
     }
 

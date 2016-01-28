@@ -7,15 +7,15 @@ var canvasElements = {
 
     /******************************************************
     * Adds the Canvas Element to the '.post-content' div */
-    createCanvasElement : function(canvasContainer){
+    createCanvasElement : function(canvasContainer, canvasWidth, canvasHeight){
         var divElement = document.getElementsByClassName(canvasContainer)[0];
         divElement.insertBefore(this.canvas, divElement.childNodes[0]);
         // document.getElementsByClassName(canvasContainer)[0].appendChild(this.canvas);
         document.body.style.margin = 0;
 
         this.context = this.canvas.getContext("2d");
-        this.canvas.width = 500;
-        this.canvas.height = 500;
+        this.canvas.width = canvasWidth;
+        this.canvas.height = canvasHeight;
         this.canvas.style.display = 'block';
         this.canvas.style.margin = '0 auto';
     },
