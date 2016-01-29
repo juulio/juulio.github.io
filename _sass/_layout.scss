@@ -19,9 +19,9 @@
 .site-title {
     float: left;
     color: $text-color;
-    font-size: 3em;
+    font-size: 1.9em;
     margin-bottom: 0;
-    line-height: 1.3;
+    line-height: $base-line-height;
     font-family: 'Aladin', serif;
 
     @include media-query($on-palm) {
@@ -44,7 +44,7 @@ span.site-title {
 
 .site-nav {
     float: right;
-    line-height: 56px;
+    line-height: 38px;
 
     .menu-icon {
         display: none;
