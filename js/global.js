@@ -35,21 +35,20 @@ var homePage = homePage || {};
             * Draw a Background Grass and Sky (Gradient) */
             var drawSkyAndGrass = function() {
                 context.save();
-                // Set transparency.
+
                 context.globalAlpha = 0.2;
-                // Create a CanvasGradient object in linGrad.
-                // The gradient line is defined from the top to the bottom of the canvas.
+                // First create a CanvasGradient object.
                 var linGrad = context.createLinearGradient(0, 0, 0, canvas.height);
-                // Start off with sky blue at the top.
-                linGrad.addColorStop(0, '#00BFFF');
-                // Fade to white in the middle.
-                linGrad.addColorStop(0.45, 'white');
-                // Green for the top of the grass.
-                linGrad.addColorStop(0.85, '#55dd00');
-                // Use the CanvasGradient object as the fill style.
+
+                linGrad.addColorStop(0, '#00BFFF'); // Light Blue
+
+                linGrad.addColorStop(0.45, 'white'); // White in the middle
+
+                linGrad.addColorStop(0.85, '#55dd00'); // Green
+
                 context.fillStyle = linGrad;
-                // Finally, fill a rectangle the same size as the canvas.
-                context.fillRect(0, 0, canvas.width, canvas.height);
+
+                context.fillRect(0, 0, canvas.width, canvas.height);// The canvas and the gradient have the same area
 
                 context.restore();
             };

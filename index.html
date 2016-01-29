@@ -7,6 +7,33 @@ layout: default
   <!-- <h1 class="page-heading">Posts</h1> -->
 
   <ul class="post-list">
+    <p>Since we have many beautiful forests in Costa Rica, I decided to create my own, code-genereated forest. Everything you see on the above Canvas are dots and lines, generated with javascript code. No images were used to create on my digital forest, I'm planning on keeping it like that.</p>
+    <p>Since 2013 I began researching about fractals and the ways to implement them first using openframeworks and then I moved to javascript. Javascript makes it easier to share things directly on the browser. Whenever possible, I try to use plain javascript.</p>
+    <p>After repeating code lots of times and reusing my own code snippets, I wrote my own javascript library for the things I need. So far (January 2015) it draws the basic things on the screen for me and renders the Canvas.</p>
+    <p>There are 3 main components on this Canvas: The background, the trees and the clinging plant. All of them were created using only javascript, looking for examples on the web, learning the HTML5 Canvas API (super cool and interesting by the way)</p>
+    <p>The background has two main areas: the sky and the grass. It was generated using Canvas gradients on a function called "drawSkyAndGrass".</p>
+
+    {% highlight javascript %}
+    var drawSkyAndGrass = function() {
+        context.save();
+
+        context.globalAlpha = 0.2;
+        // First create a CanvasGradient object.
+        var linGrad = context.createLinearGradient(0, 0, 0, canvas.height);
+
+        linGrad.addColorStop(0, '#00BFFF'); Light Blue
+
+        linGrad.addColorStop(0.45, 'white'); // White in the middle
+
+        linGrad.addColorStop(0.85, '#55dd00'); // Green
+
+        context.fillStyle = linGrad;
+
+        context.fillRect(0, 0, canvas.width, canvas.height);// The canvas and the gradient have the same area
+
+        context.restore();
+    };
+    {% endhighlight %}
     {% for post in site.posts %}
       <li>
         <h2>
