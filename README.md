@@ -7,7 +7,7 @@ My goal is to show several computer graphics examples, fractal trees and code-wr
 
 This blog was built using Jekyll and github pages.
 
-####  ,_,
-#### (.,.)
-#### (   )
-#####-"-"---------------------------####
+,_,  
+(.,.)  
+(   )  
+-"-"----------------
