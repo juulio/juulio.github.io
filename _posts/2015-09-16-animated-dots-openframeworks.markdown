@@ -1,0 +1,31 @@
+---
+layout: post
+title:  "Animated Dots Experiment - openframeworks"
+date:   2015-09-16 16:23:14
+categories: jekyll update
+---
+Objective: using a transparent png image as a mask, move some dots inside of it. I’m using a wild cat image and I’m planning to move the dots on its skin inside of it.
+
+How to show a transparent png image on openframeworks?
+Use  ofEnableAlphaBlending();
+First you must enable it and then use a color so it’ll render transparently. In the basic case (has worked for me), just add setColor(255);
+
+Steps taken:
+1- Created a new openframeworks project using the “project Generator” exe file, located on the projectGenerator folder. It’s called “movingDots”.
+
+2- Open the movingDots project on the apps\myApps\movingDots folder. Click the movingDots workspace file or hit Ctrl + O
+
+3- On the testApp.cpp file, declare 3 ofImage elements:
+
+ofImage catBackground;
+ofImage catMask;
+ofImage dots;
+
+Project's actual status: an empty cat with no moving dots.
+<img src="{{ "/img/2015set/catStatus.png" | prepend: site.url }}" alt="openframeworks animated dots" />
+
+Something that happened on the way: super cool cat dots!
+<img src="{{ "/img/2015set/catOnlyDots.png" | prepend: site.url }}" alt="openframeworks animated dots" />
+
+Platform: Windows 8, openframeworks 0.7.4
+IDE: CodeBlocks
