@@ -142,57 +142,96 @@
     var pyramidVertexPositionBuffer;
     var pyramidVertexColorBuffer;
 
-    var pyramid2VertexPositionBuffer;
-    var pyramid2VertexColorBuffer;
-
     function initBuffers() {
       // First Pramid
       pyramidVertexPositionBuffer = gl.createBuffer();
       gl.bindBuffer(gl.ARRAY_BUFFER, pyramidVertexPositionBuffer);
       var vertices = [
-          // Front face
+          // Top Front face
            0.0,  0.5,  0.0,
           -1.0, -1.0,  1.0,
            1.0, -1.0,  1.0,
 
-          // Right face
+          // Top Right face
            0.0,  0.5,  0.0,
            1.0, -1.0,  1.0,
            1.0, -1.0, -1.0,
 
-          // Back face
+          // Top Back face
            0.0,  0.5,  0.0,
            1.0, -1.0, -1.0,
           -1.0, -1.0, -1.0,
 
-          // Left face
+          // Top Left face
            0.0,  0.5,  0.0,
           -1.0, -1.0, -1.0,
+          -1.0, -1.0,  1.0,
+
+          // Bottom Front face
+           0.0, -4.0,  0.0,
+          -1.0, -1.0,  1.0,
+           1.0, -1.0,  1.0,
+
+          // Bottom Right face
+           0.0, -4.0,  0.0,
+           1.0, -1.0,  1.0,
+           1.0, -1.0, -1.0,
+
+          // Bottom Back face
+           0.0, -4.0,  0.0,
+           1.0, -1.0, -1.0,
+          -1.0, -1.0, -1.0,
+
+          // Bottom Left face
+           0.0, -4.0,  0.0,
+          -1.0, -1.0, -1.0,
           -1.0, -1.0,  1.0
+
+
       ];
       gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
       pyramidVertexPositionBuffer.itemSize = 3;
-      pyramidVertexPositionBuffer.numItems = 12;
+      pyramidVertexPositionBuffer.numItems = 24;
 
       pyramidVertexColorBuffer = gl.createBuffer();
       gl.bindBuffer(gl.ARRAY_BUFFER, pyramidVertexColorBuffer);
       var colors = [
-          // Front face
+          // Top Front face
           1.0, 0.0, 0.0, 1.0,
           0.0, 1.0, 0.0, 1.0,
           0.0, 0.0, 1.0, 1.0,
 
-          // Right face
+          // Top Right face
           1.0, 0.0, 0.0, 1.0,
           0.0, 0.0, 1.0, 1.0,
           0.0, 1.0, 0.0, 1.0,
 
-          // Back face
+          // Top Back face
           1.0, 0.0, 0.0, 1.0,
           0.0, 1.0, 0.0, 1.0,
           0.0, 0.0, 1.0, 1.0,
 
-          // Left face
+          // Top Left face
+          1.0, 0.0, 0.0, 1.0,
+          0.0, 0.0, 1.0, 1.0,
+          0.0, 1.0, 0.0, 1.0,
+
+          // Bottom Front face
+          1.0, 0.0, 0.0, 1.0,
+          0.0, 1.0, 0.0, 1.0,
+          0.0, 0.0, 1.0, 1.0,
+
+          // Bottom Right face
+          1.0, 0.0, 0.0, 1.0,
+          0.0, 0.0, 1.0, 1.0,
+          0.0, 1.0, 0.0, 1.0,
+
+          // Bottom Back face
+          1.0, 0.0, 0.0, 1.0,
+          0.0, 1.0, 0.0, 1.0,
+          0.0, 0.0, 1.0, 1.0,
+
+          // Bottom Left face
           1.0, 0.0, 0.0, 1.0,
           0.0, 0.0, 1.0, 1.0,
           0.0, 1.0, 0.0, 1.0
@@ -200,61 +239,6 @@
       gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(colors), gl.STATIC_DRAW);
       pyramidVertexColorBuffer.itemSize = 4;
       pyramidVertexColorBuffer.numItems = 12;
-
-      // 2nd Pyramid
-      pyramid2VertexPositionBuffer = gl.createBuffer();
-      gl.bindBuffer(gl.ARRAY_BUFFER, pyramid2VertexPositionBuffer);
-      var vertices = [
-          // Front face
-           0.0,  -5.0,  0.0,
-          -1.0, -1.0,  1.0,
-           1.0, -1.0,  1.0,
-
-          // Right face
-           0.0,  -5.0,  0.0,
-           1.0, -1.0,  1.0,
-           1.0, -1.0, -1.0,
-
-          // Back face
-           0.0,  -5.0,  0.0,
-           1.0, -1.0, -1.0,
-          -1.0, -1.0, -1.0,
-
-          // Left face
-           0.0,  -5.0,  0.0,
-          -1.0, -1.0, -1.0,
-          -1.0, -1.0,  1.0
-      ];
-      gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
-      pyramid2VertexPositionBuffer.itemSize = 3;
-      pyramid2VertexPositionBuffer.numItems = 12;
-
-      pyramid2VertexColorBuffer = gl.createBuffer();
-      gl.bindBuffer(gl.ARRAY_BUFFER, pyramid2VertexColorBuffer);
-      var colors = [
-          // Front face
-          1.0, 0.0, 0.0, 1.0,
-          0.0, 1.0, 0.0, 1.0,
-          0.0, 0.0, 1.0, 1.0,
-
-          // Right face
-          1.0, 0.0, 0.0, 1.0,
-          0.0, 0.0, 1.0, 1.0,
-          0.0, 1.0, 0.0, 1.0,
-
-          // Back face
-          1.0, 0.0, 0.0, 1.0,
-          0.0, 1.0, 0.0, 1.0,
-          0.0, 0.0, 1.0, 1.0,
-
-          // Left face
-          1.0, 0.0, 0.0, 1.0,
-          0.0, 0.0, 1.0, 1.0,
-          0.0, 1.0, 0.0, 1.0
-      ];
-      gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(colors), gl.STATIC_DRAW);
-      pyramid2VertexColorBuffer.itemSize = 4;
-      pyramid2VertexColorBuffer.numItems = 12;
     }
 
 
@@ -282,23 +266,6 @@
 
         setMatrixUniforms();
         gl.drawArrays(gl.TRIANGLES, 0, pyramidVertexPositionBuffer.numItems);
-
-        mvPopMatrix();
-
-        // 2nd Pyramid
-        // mat4.translate(mvMatrix, mvMatrix, [-1.5, 0.0, -2.0]);
-
-        mvPushMatrix();
-        mat4.rotate(mvMatrix, mvMatrix, degToRad(rPyramid), [0, 1, 0]);
-
-        gl.bindBuffer(gl.ARRAY_BUFFER, pyramid2VertexPositionBuffer);
-        gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, pyramid2VertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0);
-
-        gl.bindBuffer(gl.ARRAY_BUFFER, pyramid2VertexColorBuffer);
-        gl.vertexAttribPointer(shaderProgram.vertexColorAttribute, pyramidVertexColorBuffer.itemSize, gl.FLOAT, false, 0, 0);
-
-        setMatrixUniforms();
-        gl.drawArrays(gl.TRIANGLES, 0, pyramid2VertexPositionBuffer.numItems);
 
         mvPopMatrix();
     }
