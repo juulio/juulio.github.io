@@ -269,9 +269,9 @@ var fractalsForest = fractalsForest || {};
 		// Start off with sky blue at the top.
 		linGrad.addColorStop(0, '#00BFFF');
 		// Fade to white in the middle.
-		linGrad.addColorStop(0.6, 'white');
+		linGrad.addColorStop(0.6, '#F0E68C');
 		// Green for the top of the grass.
-		linGrad.addColorStop(0.85, '#99ff99');
+		linGrad.addColorStop(0.75, '#99ff99');
 		// Use the CanvasGradient object as the fill style.
 		context.fillStyle = linGrad;
 		// Finally, fill a rectangle the same size as the canvas.
