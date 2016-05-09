@@ -6,22 +6,14 @@ var fractalsForest = fractalsForest || {};
 
 (function (context) {
 
-	var canvas = document.createElement("canvas"),
-	    context = canvas.getContext("2d"),
-		generalDepth = 1;
-		button = document.getElementsByClassName("fractalTreeButton"),
-		postContentElement = document.getElementsByTagName('article')[0].querySelectorAll('section')[0],
-		paragraphs = postContentElement.children[0]	;
+		var generalDepth = 1,
+		button = document.getElementsByClassName("fractalTreeButton");
 
-	postContentElement.insertBefore(canvas, paragraphs);
-
-	canvas.width = document.getElementsByTagName('article')[0].offsetWidth;
-	console.log(canvas.width);
-	canvas.height = 500;
-	canvas.style.border = 'solid 1px #000';
-	canvas.style.display = 'block';
-	canvas.style.margin = '0 auto';
-
+	/***************************************
+	Create and set up the Canvas Element. */
+	canvasElements.createCanvasElement('post-content', 700, 600);
+	var canvas = canvasElements.canvas,
+			context = canvas.getContext("2d");
 
 	/***************************************
 	 * Begin Code for First Fractal Tree */

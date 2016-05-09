@@ -17,11 +17,9 @@ var homePage = homePage || {};
     var isHome = document.getElementsByClassName('home');
 
     if(isHome.length>0) {
-      /********************************************************
-      Initial code to create and set up the Canvas Element. */
-      var homeElementWidth = isHome[0].offsetWidth;
+      /***************************************
+      Create and set up the Canvas Element. */
 
-      // canvasElements.createCanvasElement('home', homeElementWidth, 600);
       canvasElements.createCanvasElement('home', 700, 600);
       var canvas = canvasElements.canvas,
           context = canvas.getContext("2d");
