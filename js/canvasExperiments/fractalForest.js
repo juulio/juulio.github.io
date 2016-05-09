@@ -232,7 +232,7 @@ var fractalsForest = fractalsForest || {};
         canvasElements.drawLine(0, 0, 0, -branchLength, context);
 
         if(depth > 0 ){
-			context.save();
+            context.save();
             depth--;
             context.translate(0, -branchLength);
 
@@ -269,9 +269,9 @@ var fractalsForest = fractalsForest || {};
 		// Start off with sky blue at the top.
 		linGrad.addColorStop(0, '#00BFFF');
 		// Fade to white in the middle.
-		linGrad.addColorStop(0.3, 'white');
+		linGrad.addColorStop(0.6, 'white');
 		// Green for the top of the grass.
-		linGrad.addColorStop(0.7, '#55dd00');
+		linGrad.addColorStop(0.85, '#99ff99');
 		// Use the CanvasGradient object as the fill style.
 		context.fillStyle = linGrad;
 		// Finally, fill a rectangle the same size as the canvas.
