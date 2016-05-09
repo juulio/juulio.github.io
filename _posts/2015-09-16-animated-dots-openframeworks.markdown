@@ -22,10 +22,10 @@ ofImage catMask;
 ofImage dots;
 
 Project's actual status: an empty cat with no moving dots.
-<img src="{{ "/img/2015set/catStatus.png" | prepend: site.url }}" alt="openframeworks animated dots" />
+<img src="{{ "/images/2015set/catStatus.png" | prepend: site.url }}" alt="openframeworks animated dots" />
 
 Something that happened on the way: super cool cat dots!
-<img src="{{ "/img/2015set/catOnlyDots.png" | prepend: site.url }}" alt="openframeworks animated dots" />
+<img src="{{ "/images/2015set/catOnlyDots.png" | prepend: site.url }}" alt="openframeworks animated dots" />
 
 Platform: Windows 8, openframeworks 0.7.4
 IDE: CodeBlocks
