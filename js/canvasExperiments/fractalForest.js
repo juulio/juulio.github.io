@@ -198,7 +198,7 @@ var fractalsForest = fractalsForest || {};
         newLength = length * (0.7 + rand() * 0.3);
         drawThirdTree(endX, endY, newLength, newAngle, branchWidth, newDepth);
     }
-    }
+  }
 
 	/**************************************
 	* Begin Code for Fourth Fractal Tree */
@@ -293,7 +293,7 @@ var fractalsForest = fractalsForest || {};
 		drawSkyAndGrass();
 
 		drawFirstTree(context.canvas.width*0.23, canvas.height-215, -90, generalDepth);
-		drawThirdTree(canvas.width*0.6, canvas.height-110, 40, -Math.PI / 2, 20, generalDepth);
+		drawThirdTree(canvas.width*0.6, canvas.height-130, 40, -Math.PI / 2, 20, generalDepth);
 		drawFifthTree(canvas.width*0.12, canvas.height-30, 40, 25, 11, generalDepth);
 		drawSecondTree(canvas.width*0.4, canvas.height, -90, generalDepth);
 		drawFourthTree(canvas.width*0.74, canvas.height-40, -90, 4, generalDepth);
