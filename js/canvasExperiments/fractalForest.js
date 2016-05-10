@@ -6,8 +6,8 @@ var fractalsForest = fractalsForest || {};
 
 (function (context) {
 
-		var generalDepth = 1,
-		button = document.getElementsByClassName("fractalTreeButton");
+	var generalDepth = 1,
+			button = document.getElementsByClassName("fractalTreeButton");
 
 	/***************************************
 	Create and set up the Canvas Element. */
@@ -42,8 +42,7 @@ var fractalsForest = fractalsForest || {};
 
 	/*************************************
 	* Begin Code for Fifth Fractal Tree */
-    var drawSecondTree = function(x, y, angle, depth){
-
+  var drawSecondTree = function(x, y, angle, depth){
 		var drawBranch = function(x1, y1, x2, y2, context, thickness, color) {
 			context.beginPath();
 	        context.moveTo(x1,y1);
@@ -97,48 +96,48 @@ var fractalsForest = fractalsForest || {};
 		var drawFruit = function(x, y, alpha) {
 			var radius = canvasElements.getRandomArbitrary(0,7)
 			context.beginPath();
-	        context.arc(x, y, radius, 0, 2*Math.PI, false);
+			context.arc(x, y, radius, 0, 2*Math.PI, false);
 			context.fillStyle = 'rgba(255,153,0,' + alpha + ')';
-	        context.fill();
+			context.fill();
 			context.stroke();
 		};
 
-	    var alpha = 0.3,
-	        leafSize = 1,
-			branchThickness = 1,
-	        roationAngle = 0,
-	        branchColor = '',
-	        leafProbabilty = canvasElements.getRandomArbitrary(0,1);
+		var alpha = 0.3,
+				leafSize = 1,
+				branchThickness = 1,
+				roationAngle = 0,
+				branchColor = '',
+				leafProbabilty = canvasElements.getRandomArbitrary(0,1);
 
-	    if (depth !== 0){
-	        if(depth > 3){
-	            branchColor = 'rgb(100,69,19)'; //Brown
-	        }
-	        else {
-	            branchColor = 'rgb(143,154,90)'; //Green
-	        }
+	  if (depth !== 0){
+			if(depth > 3){
+			    branchColor = 'rgb(100,69,19)'; //Brown
+			}
+			else {
+			    branchColor = 'rgb(143,154,90)'; //Green
+			}
 
-	        context.strokeStyle = branchColor;
-	        depth--;
+			context.strokeStyle = branchColor;
+			depth--;
 
-	        var x2 = x + (Math.cos(canvasElements.degToRad(angle)) * depth * 10.0);
-	        var y2 = y + (Math.sin(canvasElements.degToRad(angle)) * depth * 6.0);
-	        branchThickness = depth*1.6;
-	        drawBranch(x, y, x2, y2, context, branchThickness, branchColor);
+			var x2 = x + (Math.cos(canvasElements.degToRad(angle)) * depth * 10.0);
+			var y2 = y + (Math.sin(canvasElements.degToRad(angle)) * depth * 6.0);
+			branchThickness = depth*1.6;
+			drawBranch(x, y, x2, y2, context, branchThickness, branchColor);
 
-	        drawSecondTree(x2, y2, angle - canvasElements.getRandomInt(15, 19), depth);
-	        drawSecondTree(x2, y2, angle + canvasElements.getRandomInt(9, 21), depth);
-	    }
+			drawSecondTree(x2, y2, angle - canvasElements.getRandomInt(15, 19), depth);
+			drawSecondTree(x2, y2, angle + canvasElements.getRandomInt(9, 21), depth);
+	  }
 
-	    if(depth == 1 && leafProbabilty > 0.2) {
-	        rotationAngle = canvasElements.getRandomInt(0, 360);
-	        alpha = canvasElements.getRandomArbitrary(0.3, 1);
-	        leafSize = canvasElements.getRandomInt(0, 3);
+	  if(depth == 1 && leafProbabilty > 0.2) {
+	      rotationAngle = canvasElements.getRandomInt(0, 360);
+	      alpha = canvasElements.getRandomArbitrary(0.3, 1);
+	      leafSize = canvasElements.getRandomInt(0, 3);
 
-			drawFruit(x2, y2, alpha);
-	        drawLeaf(x2, y2, rotationAngle, leafSize, alpha);
-	    }
-    };
+		drawFruit(x2, y2, alpha);
+	  	drawLeaf(x2, y2, rotationAngle, leafSize, alpha);
+	  }
+  };
 
 	/**************************************
 	* Begin Code for Third Fractal Tree */
@@ -170,7 +169,10 @@ var fractalsForest = fractalsForest || {};
         }
         // Otherwise, choose a random brownish color.
         else {
-            context.strokeStyle = 'rgb(' + (((rand() * 64) + 64) >> 0) + ',50,25)';
+						var color = 'rgb(' + (((rand() * 64) + 84) >> 0) + ',100,25)';
+						// context.strokeStyle = 'rgb(' + (((rand() * 64) + 84) >> 0) + ',50,25)';
+						color = 'rgb(60,105,105)';
+						context.strokeStyle = color;
         }
 
         context.stroke();
@@ -221,41 +223,41 @@ var fractalsForest = fractalsForest || {};
 
 	/*************************************
 	* Begin Code for Fifth Fractal Tree */
-    var drawFifthTree = function(startX, startY, branchLength, angle, lineWidth, depth){
+  var drawFifthTree = function(startX, startY, branchLength, angle, lineWidth, depth){
 		var canvasHalfWidth = canvas.width/2,
         fractalProportion = 0.7;
 
-        context.lineWidth = lineWidth;
+    context.lineWidth = lineWidth;
 		context.save();
-        context.translate(startX, startY);
+    context.translate(startX, startY);
 
-        canvasElements.drawLine(0, 0, 0, -branchLength, context);
+    canvasElements.drawLine(0, 0, 0, -branchLength, context);
 
-        if(depth > 0 ){
-            context.save();
-            depth--;
-            context.translate(0, -branchLength);
+		if(depth > 0 ){
+	    context.save();
+	    depth--;
+	    context.translate(0, -branchLength);
 
-            angle += fractalProportion;
-            lineWidth *= fractalProportion;
-            branchLength *= fractalProportion;
+	    angle += fractalProportion;
+	    lineWidth *= fractalProportion;
+	    branchLength *= fractalProportion;
 
-            context.save();
-            // Draw Right Branch
-            context.rotate(angle * Math.PI / 180);
-            drawFifthTree(0, 0, branchLength, angle, lineWidth, depth);
-            context.restore();
+	    context.save();
+	    // Draw Right Branch
+	    context.rotate(angle * Math.PI / 180);
+	    drawFifthTree(0, 0, branchLength, angle, lineWidth, depth);
+	    context.restore();
 
-            context.save();
-            // Draw Left Branch
-            context.rotate(-angle * Math.PI / 180);
-            drawFifthTree(0, 0, branchLength, angle, lineWidth, depth);
-            context.restore();
+	    context.save();
+	    // Draw Left Branch
+	    context.rotate(-angle * Math.PI / 180);
+	    drawFifthTree(0, 0, branchLength, angle, lineWidth, depth);
+	    context.restore();
 
 			context.restore();
-        }
-        context.restore();
-    };
+		}
+		context.restore();
+  };
 
 	/*******************************************
 	* Begin Code for Background Grass and Sky */
@@ -281,7 +283,7 @@ var fractalsForest = fractalsForest || {};
 	};
 
 	/*************************************************
-	 * Call the functions to generate all the Trees */
+	* Call the functions to generate all the Trees */
 	var generateFractalsForest = function(){
 		drawSkyAndGrass();
 
@@ -293,8 +295,8 @@ var fractalsForest = fractalsForest || {};
 	}
 
 	/*****************************************
-	 * Init */
-    function init () {
+	* Init */
+  function init () {
 		generateFractalsForest();
 
 		/************************************
@@ -311,8 +313,8 @@ var fractalsForest = fractalsForest || {};
 
 			generateFractalsForest();
 		}
-    }
+  }
 
-    init();
+  init();
 
 }(fractalsForest));
