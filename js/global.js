@@ -6,10 +6,6 @@ var homePage = homePage || {};
 
 (function (context) {
 
-  /* Global Variables */
-    vars = {
-  };
-
   /***************************************
   Create and set up the Canvas Element. */
 
@@ -18,7 +14,7 @@ var homePage = homePage || {};
       context = canvas.getContext("2d"),
       generalDepth = 10;
 
-  canvas.style.marginBottom = '20px';
+  canvas.style.margin = '0';
 
   /***************************************
 	 * Begin Code for First Fractal Tree */

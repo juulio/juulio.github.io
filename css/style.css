@@ -936,40 +936,41 @@
 /* Header */
 
 	#header {
-		background-color: #1f1815;
-		background-attachment: scroll,								fixed;
-		background-image: url("images/overlay.png"), url("../images/bg.jpg");
-		background-position: top left,							top left;
+		/*background-color: #1f1815;*/
+		/*background-attachment: scroll,								fixed;*/
+		/*background-image: url("images/overlay.png"), url("../images/bg.jpg");*/
+		/*background-position: top left,							top left;
 		background-repeat: repeat,								no-repeat;
-		background-size: auto,								auto 100%;
-		color: rgba(255, 255, 255, 0.5);
-		height: 100%;
+		background-size: auto,								auto 100%;*/
+		/*color: rgba(255, 255, 255, 0.5);*/
+		top: 0;
 		left: 0;
-		padding: 8em 4em 0 0;
+		width: 20%;
+		height: 100%;
 		position: fixed;
 		text-align: right;
-		top: 0;
-		width: 35%;
+		padding: 8em 4em 0 0;
+		border-right: solid 2px gray;
 	}
 
-		#header strong, #header b {
+		/*#header strong, #header b {
 			color: #ffffff;
-		}
+		}*/
 
 		#header h2, #header h3, #header h4, #header h5, #header h6 {
-			color: #ffffff;
+			/*color: #ffffff;*/
 		}
 
 		#header h1 {
 			color: rgba(255, 255, 255, 0.5);
 			font-size: 1.35em;
 			line-height: 1.75em;
-			margin: 0;
+			margin: 0 0 20px;
 		}
 
 		#header h2 {
-			font-size: 1.1em;
-			color: rgba(255, 255, 255, 0.5);
+			font-size: 1em;
+			/*color: rgba(255, 255, 255, 0.5);*/
 		}
 
 		#header .image.avatar {
@@ -1274,4 +1275,9 @@
 .fractalTreeButton {
 	color: red;
 	cursor: pointer;
+}
+
+/* Custom Styles */
+#main.home {
+	padding: 0;
 }
