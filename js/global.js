@@ -426,9 +426,17 @@ var homePage = homePage || {};
 
       drawSkyAndGrass();
 
-      drawFirstTree(context.canvas.width*0.23, canvas.height-215, -90, generalDepth);
-  		drawThirdTree(canvas.width*0.6, canvas.height-130, 40, -Math.PI / 2, 20, generalDepth);
-  		drawFifthTree(canvas.width*0.12, canvas.height-30, 40, 25, 11, generalDepth);
+      drawFirstTree(context.canvas.width*0.14, canvas.height-215, -90, generalDepth);
+  		drawThirdTree(canvas.width*0.6, canvas.height-200, 40, -Math.PI / 2, 20, generalDepth);
+
+      drawFifthTree(canvas.width*0.10, canvas.height-60, 39, 45, 11, generalDepth);
+  		drawFifthTree(canvas.width*0.06, canvas.height-80, 42, 21, 11, generalDepth);
+      drawFifthTree(canvas.width*0.05, canvas.height-16, 35, 20, 10, generalDepth);
+      drawFifthTree(canvas.width*0.13, canvas.height-30, 50, 16, 11, generalDepth);
+      drawFifthTree(canvas.width*0.15, canvas.height-30, 41, 29, 11, generalDepth);
+      drawFifthTree(canvas.width*0.08, canvas.height-12, 32, 25, 11, generalDepth);
+      drawFifthTree(canvas.width*0.58, canvas.height-12, 62, 29, 11, generalDepth);
+
   		drawSecondTree(canvas.width*0.4, canvas.height, -90, generalDepth);
   		drawFourthTree(canvas.width*0.74, canvas.height-40, -90, 4, generalDepth);
 
