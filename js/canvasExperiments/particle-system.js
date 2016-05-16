@@ -38,7 +38,7 @@ var particle = function(dotSpeed, dotRadius, rotationRadius, centerPoint){
 
   var theDot;
   // this.angle = canvasElements.getRandomInt(0, 6.28);
-  this.angle = Math.floor(Math.random() * (6.28 - 0 + 1)) + 0;
+  this.angle = Math.random() * (6.28 - 0 + 1);
 
   this.run = function(){
     this.update();
@@ -47,6 +47,7 @@ var particle = function(dotSpeed, dotRadius, rotationRadius, centerPoint){
 
   this.update = function(){
     this.rotationRadius -= this.dotSpeed;
+    // console.log(this.rotationRadius);
   };
 
   this.draw = function(){
@@ -71,6 +72,15 @@ var particle = function(dotSpeed, dotRadius, rotationRadius, centerPoint){
     context.restore();
   };
 
+  // Is the Particle alive or dead?
+  this.isDead = function(){
+    if (this.rotationRadius <= 0.0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
 };
 
 
@@ -86,12 +96,11 @@ var particleSystem = function(systemCenterPoint){
     var dotRadius, rotationRadius, dotSpeed;
     var movingDot;
 
-
     for(var i=0;i<particlesQuantity;i++) {
       // dotSpeed = canvasElements.getRandomInt(0.01, 0.6);
-      dotSpeed = Math.floor(Math.random() * (0.6 - 0.01 + 1)) + 0.01;
-      dotRadius = 5;
-      rotationRadius = 100;
+      dotSpeed = Math.random() * (0.4 - 0.2 + 1) + 0.2;
+      dotRadius = 1;
+      rotationRadius = systemOuterRadius;
 
       movingDot = new particle(dotSpeed, dotRadius, rotationRadius, this.systemCenterPoint);
       particles.push(movingDot);
@@ -103,15 +112,28 @@ var particleSystem = function(systemCenterPoint){
     for (var a=0;a<particles.length;a++){
       var particle = particles[a];
       particle.run();
+
+      if(particle.isDead()) {
+        particles.splice(a, 1);
+      }
     }
   }
 
 };
 
+/*************************************************************
+  Draw Outer Circle as reference */
+function drawOuterCircle(){
+  context.beginPath();
+  context.arc(250, 250, systemOuterRadius, 0, 2*Math.PI, false);
+  context.lineWidth = 1;
+  context.stroke();
+}
 
 /*************************************************************
   Init */
-var particlesQuantity = 100,
+var particlesQuantity = 900,
+    systemOuterRadius = 250,
     systemCenter = new point2D(250, 250);
     ps = new particleSystem(systemCenter);
 
@@ -130,6 +152,8 @@ function update() {
 /*************************************************************
   DrawScreen */
 function drawScreen(){
+  drawOuterCircle();
+
   ps.run();
 }
 
