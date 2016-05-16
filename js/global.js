@@ -8,9 +8,8 @@ var homePage = homePage || {};
 
   /***************************************
   Create and set up the Canvas Element. */
-  var canvasWidth = $('#main').innerWidth();
-      canvasWidth -= (canvasWidth*0.2);
-  canvasElements.createCanvasElement('home', canvasWidth, 600);
+
+
   var canvas = canvasElements.canvas,
       context = canvas.getContext("2d"),
       generalDepth = 10;
@@ -412,6 +411,10 @@ var homePage = homePage || {};
 
     if(isHome.length>0) {
 
+      var canvasWidth = $('#main').innerWidth();
+          canvasWidth -= (canvasWidth*0.2);
+
+      canvasElements.createCanvasElement('home', canvasWidth, 600);
 
       /********************************************
       * Initial Variables to set environment up */
