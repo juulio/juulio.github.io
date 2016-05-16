@@ -1,11 +1,13 @@
 ---
-layout: page
+layout: default
 title: About
 permalink: /about/
 ---
 
-Julio Del Valle.<br />
-I write javascript that creates cool Graphics Experiments<br />
-Costa Rica.
+<div id="main" class="experiments">
+  Julio Del Valle.<br />
+  I write javascript that creates cool Graphics Experiments<br />
+  Costa Rica.
 
-Created using [github.com/jekyll/jekyll](https://github.com/jekyll/jekyll)
+  Created using <a href="https://github.com/jekyll/jekyll" target="_blank">Jekyll</a> & <a href="https://pages.github.com/" target="_blank">Github Pages</a>
+</div>
