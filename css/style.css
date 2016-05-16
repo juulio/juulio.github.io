@@ -1281,3 +1281,9 @@
 #main.home {
 	padding: 0;
 }
+
+.post {
+	margin-left: 20%;
+	padding: 2em 4em 4em 1em;
+	width: calc(100% - 35%);
+}
