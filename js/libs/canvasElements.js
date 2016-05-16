@@ -132,8 +132,6 @@ var canvasElements = {
         return Math.sin(this.degToRad(angle));
     },
 
-
-
     /**************************************
     * Function that limits the frame rate */
     limitLoop : function (fn, fps) {
