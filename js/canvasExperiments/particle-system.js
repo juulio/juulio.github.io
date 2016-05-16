@@ -91,6 +91,18 @@ var particleSystem = function(systemCenterPoint){
 
   var particles = [];
 
+//------------------------------------------------------------------------
+  dotSpeed = Math.random() * (0.4 - 0.2 + 1) + 0.2;
+  dotRadius = 1;
+  rotationRadius = systemOuterRadius;
+
+  this.addParticle = function(){
+      particles.push(new particle(dotSpeed, dotRadius, rotationRadius, this.systemCenterPoint));
+  }
+
+
+
+//------------------------------------------------------------------------
   // Adds dotCount particles to the Array
   this.addParticles = function(){
     var dotRadius, rotationRadius, dotSpeed;
@@ -132,12 +144,12 @@ function drawOuterCircle(){
 
 /*************************************************************
   Init */
-var particlesQuantity = 900,
+var particlesQuantity = 1200,
     systemOuterRadius = 250,
     systemCenter = new point2D(250, 250);
     ps = new particleSystem(systemCenter);
 
-ps.addParticles();
+// ps.addParticles();
 
 /*************************************************************
   Update */
@@ -155,6 +167,7 @@ function drawScreen(){
   drawOuterCircle();
 
   ps.run();
+  ps.addParticle();
 }
 
 /*************************************************************
