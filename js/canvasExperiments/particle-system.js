@@ -7,14 +7,10 @@ var canvas = document.createElement("canvas"),
 canvasContainerEl.appendChild(canvas);
 document.body.style.margin = 0;
 
-canvas.width = 500;
-canvas.height = 500;
-canvas.style.border = 'solid 1px #000';
+canvas.width = 400;
+canvas.height = 400;
 canvas.style.display = 'block';
 canvas.style.margin = '0 auto';
-
-// context.fillStyle = '#000';
-context.lineWidth = 1;
 
 /******************************************************************
  Begin code for Particle System */
@@ -27,15 +23,22 @@ var point2D = function(x, y){
 };
 
 /******************************************************************
- Particle Class Definition */
-var particle = function(dotSpeed, dotRadius, rotationRadius, centerPoint){
+ Particle Class Definition
+ Particles can be
+ - outer (circular motion)
+ - inner (move towards the centers)
+ */
+var particle = function(dotSpeed, dotRadius, rotationRadius, centerPoint, particleType){
   this.dotSpeed = dotSpeed;
   this.dotRadius = dotRadius;
   this.rotationRadius = rotationRadius;
   this.centerPoint = centerPoint;
+  this.particleType = particleType;
+
+  // Angle to define the particle's starting position on the outer circle
+  this.angle = Math.random() * (6.28 - 0 + 1);
 
   var theDot;
-  this.angle = Math.random() * (6.28 - 0 + 1);
 
   this.run = function(){
     this.update();
@@ -43,31 +46,46 @@ var particle = function(dotSpeed, dotRadius, rotationRadius, centerPoint){
   };
 
   this.update = function(){
-    this.rotationRadius -= this.dotSpeed;
+    // Update for inner particles. Movement towardes the center.
+    if(this.particleType == 0){
+      this.rotationRadius -= this.dotSpeed;
+    }
+    else {
+      // Update angle for outer particles. Circular Motion.
+      if(this.particleType == 1){
+        if(this.angle<360) {
+          this.angle+=this.dotSpeed;
+        }
+        else {
+          this.angle=0;
+        }
+      }
+    }
   };
 
+
   this.draw = function(){
-    var initial_pos_x, initial_pos_y, randomR, randomColor;
+    var pos_x, pos_y, randomR, randomColor;
     context.save();
 
       context.translate(this.centerPoint.x, this.centerPoint.y);
 
-      initial_pos_x = Math.cos(this.angle)*this.rotationRadius;
-      initial_pos_y = Math.sin(this.angle)*this.rotationRadius;
+      pos_x = Math.cos(this.angle)*this.rotationRadius;
+      pos_y = Math.sin(this.angle)*this.rotationRadius;
 
-      theDot = new point2D(initial_pos_x, initial_pos_y);
+      theDot = new point2D(pos_x, pos_y);
 
       // Draw moving dot
       randomR = Math.floor(Math.random() * (255 - 200) + 200);
       randomG = Math.floor(Math.random() * (140 - 60) + 60);
       randomB = Math.floor(Math.random() * (80 - 20) + 20);
       // randomColor = 'rgba(' + randomR + ',' + randomG +',122,0.6)';
-      randomColor = 'rgba(255,' + randomG +',' + randomB +',0.6)';
+      randomColor = 'rgba(255,' + randomG +',' + randomB +',0.8)';
 
       context.strokeStyle = randomColor;
       context.beginPath();
-      context.arc(initial_pos_x, initial_pos_y, this.dotRadius, 0, 2*Math.PI, false);
-      context.lineWidth = 1;
+      context.arc(pos_x, pos_y, this.dotRadius, 0, 2*Math.PI, false);
+      context.lineWidth = 3;
       context.stroke();
 
     context.restore();
@@ -86,17 +104,19 @@ var particle = function(dotSpeed, dotRadius, rotationRadius, centerPoint){
 
 
 /******************************************************************
- Particle System Class Definition */
+  Particle System Class Definition */
 var particleSystem = function(systemCenterPoint){
   this.systemCenterPoint = systemCenterPoint;
   this.particles = []
 
-  dotRadius = 1;
-  rotationRadius = systemOuterRadius;
+  var dotRadius = 1,
+      rotationRadius = systemOuterRadius;
 
   this.addParticle = function(){
-    var dotSpeed = Math.random() * (0.7 - 0.008) + 0.008;
-    this.particles.push(new particle(dotSpeed, dotRadius, rotationRadius, this.systemCenterPoint));
+    var dotSpeed = Math.random() * (0.7 - 0.008) + 0.008,
+        particleType = Math.round(Math.random());
+
+    this.particles.push(new particle(dotSpeed, dotRadius, rotationRadius, this.systemCenterPoint, particleType));
   }
 
   // Call run method of each movingDot
@@ -117,15 +137,15 @@ var particleSystem = function(systemCenterPoint){
   Draw Outer Circle as reference */
 function drawOuterCircle(){
   context.beginPath();
-  context.arc(250, 250, systemOuterRadius, 0, 2*Math.PI, false);
+  context.arc(200, 200, systemOuterRadius, 0, 2*Math.PI, false);
   context.lineWidth = 1;
   context.stroke();
 }
 
 /******************************************************************
   Init */
-var systemOuterRadius = 90,
-    systemCenter = new point2D(250, 250);
+var systemOuterRadius = 80,
+    systemCenter = new point2D(200, 200);
     ps = new particleSystem(systemCenter);
 
 /******************************************************************
@@ -144,7 +164,7 @@ function drawScreen(){
   // drawOuterCircle();
 
   ps.run();
-  if(ps.particles.length<700){
+  if(ps.particles.length<1000){
     ps.addParticle();
   }
 }
