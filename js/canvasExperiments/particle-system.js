@@ -25,16 +25,16 @@ var point2D = function(x, y){
 /******************************************************************
  Particle Class Definition
  Particles can be
- - outer (circular motion)
- - inner (move towards the centers)
+ Type = 0 outer (circular motion)
+ Type = 1 inner (move towards the centers)
  */
-var particle = function(dotSpeed, dotRadius, rotationRadius, centerPoint, particleType){
+var particle = function(dotSpeed, dotRadius, rotationRadius, centerPoint, particleType, particleColor){
   this.dotSpeed = dotSpeed;
   this.dotRadius = dotRadius;
   this.rotationRadius = rotationRadius;
   this.centerPoint = centerPoint;
   this.particleType = particleType;
-
+  this.particleColor = particleColor;
   // Angle to define the particle's starting position on the outer circle
   this.angle = Math.random() * (6.28 - 0 + 1);
 
@@ -50,19 +50,11 @@ var particle = function(dotSpeed, dotRadius, rotationRadius, centerPoint, partic
     if(this.particleType == 0){
       this.rotationRadius -= this.dotSpeed/3;
     }
-    else {
-      // Update angle for outer particles. Circular Motion.
-      if(this.particleType == 1){
-        if(this.angle<360) {
-          this.angle+=this.dotSpeed/700;
-        }
-        else {
-          this.angle=0;
-        }
-      }
+    // Update angle for outer particles. Circular Motion.
+    if(this.particleType == 1){
+      this.angle+=this.dotSpeed/100;
     }
   };
-
 
   this.draw = function(){
     var pos_x, pos_y, randomR, randomColor;
@@ -76,13 +68,7 @@ var particle = function(dotSpeed, dotRadius, rotationRadius, centerPoint, partic
       theDot = new point2D(pos_x, pos_y);
 
       // Draw moving dot
-      randomR = Math.floor(Math.random() * (255 - 200) + 200);
-      randomG = Math.floor(Math.random() * (140 - 60) + 60);
-      randomB = Math.floor(Math.random() * (80 - 20) + 20);
-      // randomColor = 'rgba(' + randomR + ',' + randomG +',122,0.6)';
-      randomColor = 'rgba(255,' + randomG +',' + randomB +',0.8)';
-
-      context.strokeStyle = randomColor;
+      context.strokeStyle = this.particleColor;
       context.beginPath();
       context.arc(pos_x, pos_y, this.dotRadius, 0, 2*Math.PI, false);
       context.lineWidth = 3;
@@ -93,13 +79,16 @@ var particle = function(dotSpeed, dotRadius, rotationRadius, centerPoint, partic
 
   // Is the Particle alive or dead?
   this.isDead = function(){
-    if (this.rotationRadius <= 0.0) {
+    if ( this.particleType == 0 && this.rotationRadius <= 0.0) {
       return true;
-    } else {
+    }
+    if ( this.particleType == 1 && this.angle >= 6.28 ) {
+      return true;
+    }
+    else {
       return false;
     }
   }
-
 };
 
 
@@ -113,10 +102,19 @@ var particleSystem = function(systemCenterPoint){
       rotationRadius = systemOuterRadius;
 
   this.addParticle = function(){
-    var dotSpeed = Math.random() * (0.7 - 0.008) + 0.008,
-        particleType = Math.round(Math.random());
+    var dotSpeed = Math.random() * (0.7 - 0.05) + 0.05,
+        particleType = Math.round(Math.random()),
+        randomR = Math.floor(Math.random() * (255 - 200) + 200),
+        randomG = Math.floor(Math.random() * (200 - 10) + 10),
+        randomB = Math.floor(Math.random() * (80 - 20) + 20),
+        randomA = Math.random(),
+        particleColor = 'rgba(' + randomR + ',' + randomG + ',' + randomB + ',' + randomA + ')';
 
-    this.particles.push(new particle(dotSpeed, dotRadius, rotationRadius, this.systemCenterPoint, particleType));
+    if(particleType == 0){
+      rotationRadius = Math.random() * (90 - 70) + 70;
+    }
+
+    this.particles.push(new particle(dotSpeed, dotRadius, rotationRadius, this.systemCenterPoint, particleType, particleColor));
   }
 
   // Call run method of each movingDot
@@ -132,7 +130,6 @@ var particleSystem = function(systemCenterPoint){
   }
 
 };
-
 
 var systemOuterRadius = 80,
     systemCenter = new point2D(200, 200);
@@ -153,7 +150,8 @@ function update() {
 function drawScreen(){
   ps.run();
   // console.log(ps.particles.length);
-  if(ps.particles.length<300){
+  // if(ps.particles.length<6){
+  if(ps.particles.length<900){
     ps.addParticle();
   }
 }
