@@ -92,14 +92,16 @@ var particleSystem = function(systemCenterPoint){
   var particles = [];
 
 //------------------------------------------------------------------------
-  dotSpeed = Math.random() * (0.9 - 0.00002 + 1) + 0.00002;
-  dotRadius = 1;
-  rotationRadius = systemOuterRadius;
+
+      dotRadius = 1;
+      rotationRadius = systemOuterRadius;
 
   this.addParticle = function(){
-      particles.push(new particle(dotSpeed, dotRadius, rotationRadius, this.systemCenterPoint));
-      // OJO q no pasa de 180 partículas
-      console.log(particles.length);
+    var dotSpeed = Math.random() * (0.9 - 0.00002) + 0.00002;
+    particles.push(new particle(dotSpeed, dotRadius, rotationRadius, this.systemCenterPoint));
+    // console.log(dotSpeed);
+    // OJO q no pasa de 180 partículas
+    console.log(particles.length);
   }
 
 
