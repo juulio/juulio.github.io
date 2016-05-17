@@ -13,22 +13,20 @@ canvas.style.border = 'solid 1px #000';
 canvas.style.display = 'block';
 canvas.style.margin = '0 auto';
 
-context.fillStyle = '#000';
+// context.fillStyle = '#000';
 context.lineWidth = 1;
 
 /******************************************************************
  Begin code for Particle System */
 
-/****************************
+/******************************************************************
  Point2D Class Definition  */
 var point2D = function(x, y){
   this.x = x;
   this.y = y;
 };
 
-// var a = new point2D(1, 2);
-
-/*************************************************************
+/******************************************************************
  Particle Class Definition */
 var particle = function(dotSpeed, dotRadius, rotationRadius, centerPoint){
   this.dotSpeed = dotSpeed;
@@ -37,7 +35,6 @@ var particle = function(dotSpeed, dotRadius, rotationRadius, centerPoint){
   this.centerPoint = centerPoint;
 
   var theDot;
-  // this.angle = canvasElements.getRandomInt(0, 6.28);
   this.angle = Math.random() * (6.28 - 0 + 1);
 
   this.run = function(){
@@ -47,11 +44,10 @@ var particle = function(dotSpeed, dotRadius, rotationRadius, centerPoint){
 
   this.update = function(){
     this.rotationRadius -= this.dotSpeed;
-    // console.log(this.rotationRadius);
   };
 
   this.draw = function(){
-    var initial_pos_x, initial_pos_y;
+    var initial_pos_x, initial_pos_y, randomR, randomColor;
     context.save();
 
       context.translate(this.centerPoint.x, this.centerPoint.y);
@@ -62,8 +58,13 @@ var particle = function(dotSpeed, dotRadius, rotationRadius, centerPoint){
       theDot = new point2D(initial_pos_x, initial_pos_y);
 
       // Draw moving dot
-      context.fillStyle = "#000000";
-      // canvasElements.drawDot(initial_pos_x, initial_pos_y, this.dotRadius, 1, context)
+      randomR = Math.floor(Math.random() * (255 - 200) + 200);
+      randomG = Math.floor(Math.random() * (140 - 60) + 60);
+      randomB = Math.floor(Math.random() * (80 - 20) + 20);
+      // randomColor = 'rgba(' + randomR + ',' + randomG +',122,0.6)';
+      randomColor = 'rgba(255,' + randomG +',' + randomB +',0.6)';
+
+      context.strokeStyle = randomColor;
       context.beginPath();
       context.arc(initial_pos_x, initial_pos_y, this.dotRadius, 0, 2*Math.PI, false);
       context.lineWidth = 1;
@@ -84,59 +85,35 @@ var particle = function(dotSpeed, dotRadius, rotationRadius, centerPoint){
 };
 
 
-/*************************************************************
+/******************************************************************
  Particle System Class Definition */
 var particleSystem = function(systemCenterPoint){
   this.systemCenterPoint = systemCenterPoint;
+  this.particles = []
 
-  var particles = [];
-
-//------------------------------------------------------------------------
-
-      dotRadius = 1;
-      rotationRadius = systemOuterRadius;
+  dotRadius = 1;
+  rotationRadius = systemOuterRadius;
 
   this.addParticle = function(){
-    var dotSpeed = Math.random() * (0.7 - 0.001) + 0.001;
-    particles.push(new particle(dotSpeed, dotRadius, rotationRadius, this.systemCenterPoint));
-    // console.log(dotSpeed);
-    // OJO q no pasa de 180 partículas
-    console.log(particles.length);
-  }
-
-
-//------------------------------------------------------------------------
-  // Adds dotCount particles to the Array
-  this.addParticles = function(){
-    var dotRadius, rotationRadius, dotSpeed;
-    var movingDot;
-
-    for(var i=0;i<particlesQuantity;i++) {
-      // dotSpeed = canvasElements.getRandomInt(0.01, 0.6);
-      dotSpeed = Math.random() * (0.4 - 0.01 + 1) + 0.01;
-      dotRadius = 1;
-      rotationRadius = systemOuterRadius;
-
-      movingDot = new particle(dotSpeed, dotRadius, rotationRadius, this.systemCenterPoint);
-      particles.push(movingDot);
-    }
+    var dotSpeed = Math.random() * (0.7 - 0.008) + 0.008;
+    this.particles.push(new particle(dotSpeed, dotRadius, rotationRadius, this.systemCenterPoint));
   }
 
   // Call run method of each movingDot
   this.run = function(){
-    for (var a=0;a<particles.length;a++){
-      var particle = particles[a];
+    for (var a=0;a<this.particles.length;a++){
+      var particle = this.particles[a];
       particle.run();
 
       if(particle.isDead()) {
-        particles.splice(a, 1);
+        this.particles.splice(a, 1);
       }
     }
   }
 
 };
 
-/*************************************************************
+/******************************************************************
   Draw Outer Circle as reference */
 function drawOuterCircle(){
   context.beginPath();
@@ -145,16 +122,13 @@ function drawOuterCircle(){
   context.stroke();
 }
 
-/*************************************************************
+/******************************************************************
   Init */
-var particlesQuantity = 1200,
-    systemOuterRadius = 250,
+var systemOuterRadius = 90,
     systemCenter = new point2D(250, 250);
     ps = new particleSystem(systemCenter);
 
-// ps.addParticles();
-
-/*************************************************************
+/******************************************************************
   Update */
 function update() {
   requestAnimationFrame(update);
@@ -164,15 +138,17 @@ function update() {
 }
 
 
-/*************************************************************
+/******************************************************************
   DrawScreen */
 function drawScreen(){
-  drawOuterCircle();
+  // drawOuterCircle();
 
   ps.run();
-  ps.addParticle();
+  if(ps.particles.length<700){
+    ps.addParticle();
+  }
 }
 
-/*************************************************************
+/******************************************************************
   Init the render loop*/
   update();
