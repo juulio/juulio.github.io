@@ -48,13 +48,13 @@ var particle = function(dotSpeed, dotRadius, rotationRadius, centerPoint, partic
   this.update = function(){
     // Update for inner particles. Movement towardes the center.
     if(this.particleType == 0){
-      this.rotationRadius -= this.dotSpeed;
+      this.rotationRadius -= this.dotSpeed/3;
     }
     else {
       // Update angle for outer particles. Circular Motion.
       if(this.particleType == 1){
         if(this.angle<360) {
-          this.angle+=this.dotSpeed;
+          this.angle+=this.dotSpeed/700;
         }
         else {
           this.angle=0;
@@ -133,17 +133,7 @@ var particleSystem = function(systemCenterPoint){
 
 };
 
-/******************************************************************
-  Draw Outer Circle as reference */
-function drawOuterCircle(){
-  context.beginPath();
-  context.arc(200, 200, systemOuterRadius, 0, 2*Math.PI, false);
-  context.lineWidth = 1;
-  context.stroke();
-}
 
-/******************************************************************
-  Init */
 var systemOuterRadius = 80,
     systemCenter = new point2D(200, 200);
     ps = new particleSystem(systemCenter);
@@ -161,10 +151,9 @@ function update() {
 /******************************************************************
   DrawScreen */
 function drawScreen(){
-  // drawOuterCircle();
-
   ps.run();
-  if(ps.particles.length<1000){
+  // console.log(ps.particles.length);
+  if(ps.particles.length<300){
     ps.addParticle();
   }
 }
