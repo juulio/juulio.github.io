@@ -97,7 +97,7 @@ var particleSystem = function(systemCenterPoint){
       rotationRadius = systemOuterRadius;
 
   this.addParticle = function(){
-    var dotSpeed = Math.random() * (0.9 - 0.00002) + 0.00002;
+    var dotSpeed = Math.random() * (0.7 - 0.001) + 0.001;
     particles.push(new particle(dotSpeed, dotRadius, rotationRadius, this.systemCenterPoint));
     // console.log(dotSpeed);
     // OJO q no pasa de 180 partículas

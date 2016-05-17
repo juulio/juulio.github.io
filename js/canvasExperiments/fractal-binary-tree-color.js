@@ -57,7 +57,7 @@ function drawTree(x1, y1, angle, depth){
 }
 
 function drawLeaf(x, y, angle, scale, alpha) {
-    
+
     context.translate(x, y);
     context.rotate(angle);
     context.beginPath();
@@ -77,7 +77,7 @@ function drawLeaf(x, y, angle, scale, alpha) {
     context.lineTo(scale*2, scale*3);
     context.lineTo(scale*0, scale*1);
     context.lineTo(scale*0, scale*0);
-    
+
     context.closePath();
     context.fillStyle = 'rgba(143,154,90,' + alpha + ')';
     context.strokeStyle = 'rgb(25, 66, 0)';
@@ -89,6 +89,7 @@ function drawLeaf(x, y, angle, scale, alpha) {
 }
 
 drawTree(250, 500, -90, depth);
+
 
 
 // Leaf #1
