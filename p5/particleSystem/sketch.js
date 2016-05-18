@@ -15,11 +15,10 @@ function setup(){
 
 function draw(){
   background(255, 255, 255);
-  stroke(0);
 
   ps.run();
   // if(ps.particles.length<2){
-  if(ps.particles.length<1000){
+  if(ps.particles.length<200){
     ps.addParticle();
   }
   particlesQuantity = ps.particles.length;
@@ -70,13 +69,14 @@ function Particle(dotSpeed, dotRadius, rotationRadius, centerPoint, particleType
       translate(pos_x, pos_y, 0);
       // Rotate not working nor visible
       // rotateX(radians(this.angle));
+      rotateZ(radians(this.angle*2000));
 
       // Lighting works properly
       // ambientLight(this.particleColor.r, this.particleColor.g, this.particleColor.b);
       // specularMaterial(250);
 
       texture(img);
-      box(7, 7, 7);
+      box(8, 8, 8);
     pop();
   };
 
