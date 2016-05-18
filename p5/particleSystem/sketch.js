@@ -6,7 +6,7 @@ var systemOuterRadius = 450,
     img;
 
 function preload(){
-  img = loadImage('sun01.png');
+  img = loadImage('sun02.png');
 }
 
 function setup(){
@@ -19,7 +19,7 @@ function draw(){
 
   ps.run();
   // if(ps.particles.length<2){
-  if(ps.particles.length<4000){
+  if(ps.particles.length<1000){
     ps.addParticle();
   }
   particlesQuantity = ps.particles.length;
@@ -68,11 +68,15 @@ function Particle(dotSpeed, dotRadius, rotationRadius, centerPoint, particleType
 
     push();
       translate(pos_x, pos_y, 0);
+      // Rotate not working nor visible
+      // rotateX(radians(this.angle));
+
+      // Lighting works properly
       // ambientLight(this.particleColor.r, this.particleColor.g, this.particleColor.b);
       // specularMaterial(250);
 
       texture(img);
-      box(3, 3, 3);
+      box(7, 7, 7);
     pop();
   };
 
@@ -101,7 +105,7 @@ function ParticleSystem(systemCenterPoint) {
       rotationRadius = systemOuterRadius;
 
   this.addParticle = function(){
-    var dotSpeed = Math.random() * (0.3 - 0.05) + 0.05,
+    var dotSpeed = Math.random() * (0.8 - 0.05) + 0.05,
         particleType = Math.round(Math.random()),
         particleColor = {
           r : Math.floor(Math.random() * (255 - 250) + 250),
@@ -110,7 +114,7 @@ function ParticleSystem(systemCenterPoint) {
         }
 
     if(particleType == 0){
-      rotationRadius = Math.random() * (400 - 300) + 300;
+      rotationRadius = Math.random() * (240 - 200) + 200;
     //  rotationRadius = Math.random() * (90 - 70) + 70;
     //  rotationRadius = Math.random() * (systemOuterRadius - (systemOuterRadius-50) + (systemOuterRadius-50));
     }
