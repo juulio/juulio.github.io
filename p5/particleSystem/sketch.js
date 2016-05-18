@@ -1,21 +1,25 @@
 
-var systemOuterRadius = 150,
+var systemOuterRadius = 450,
     systemCenter = p5.Vector(200, 200),
     ps = new ParticleSystem(systemCenter),
-    particlesQuantity = 0;
+    particlesQuantity = 0,
+    img;
+
+function preload(){
+  img = loadImage('sun01.png');
+}
 
 function setup(){
   createCanvas(300, 300, WEBGL);
-  stroke(0);
 }
 
 function draw(){
   background(255, 255, 255);
+  stroke(0);
 
   ps.run();
-  // if(ps.particles.length<6){
-  // console.log(ps.particles.length);
-  if(ps.particles.length<3000){
+  // if(ps.particles.length<2){
+  if(ps.particles.length<4000){
     ps.addParticle();
   }
   particlesQuantity = ps.particles.length;
@@ -59,18 +63,16 @@ function Particle(dotSpeed, dotRadius, rotationRadius, centerPoint, particleType
 
   this.draw = function(){
     var pos_x, pos_y;
-    //  translate(this.centerPoint.x, this.centerPoint.y);
-    //  translate(systemCenter.x, systemCenter.y)
     pos_x = Math.cos(this.angle)*this.rotationRadius;
     pos_y = Math.sin(this.angle)*this.rotationRadius;
 
-    stroke(this.particleColor);
-    stroke(255,0,0);
-    // console.log(this.particleColor);
-    // rgba(243,130,53,0.6831208037328766)
     push();
       translate(pos_x, pos_y, 0);
-      box(3, 3, 1);
+      // ambientLight(this.particleColor.r, this.particleColor.g, this.particleColor.b);
+      // specularMaterial(250);
+
+      texture(img);
+      box(3, 3, 3);
     pop();
   };
 
@@ -99,17 +101,16 @@ function ParticleSystem(systemCenterPoint) {
       rotationRadius = systemOuterRadius;
 
   this.addParticle = function(){
-    var dotSpeed = Math.random() * (0.7 - 0.05) + 0.05,
+    var dotSpeed = Math.random() * (0.3 - 0.05) + 0.05,
         particleType = Math.round(Math.random()),
-        randomR = Math.floor(Math.random() * (255 - 200) + 200),
-        randomG = Math.floor(Math.random() * (200 - 10) + 10),
-        randomB = Math.floor(Math.random() * (80 - 20) + 20),
-        randomA = Math.random(),
-        // particleColor = 'rgba(' + randomR + ',' + randomG + ',' + randomB + ',' + randomA + ')';
-        particleColor = 'rgb(' + randomR + ',' + randomG + ',' + randomB + ')';
+        particleColor = {
+          r : Math.floor(Math.random() * (255 - 250) + 250),
+          g : Math.floor(Math.random() * (150 - 140) + 140),
+          b : Math.floor(Math.random() * (100 - 90) + 90)
+        }
 
     if(particleType == 0){
-      rotationRadius = Math.random() * (200 - 100) + 100;
+      rotationRadius = Math.random() * (400 - 300) + 300;
     //  rotationRadius = Math.random() * (90 - 70) + 70;
     //  rotationRadius = Math.random() * (systemOuterRadius - (systemOuterRadius-50) + (systemOuterRadius-50));
     }
