@@ -6,6 +6,7 @@ var systemOuterRadius = 150,
 
 function setup(){
   createCanvas(300, 300, WEBGL);
+  stroke(0);
 }
 
 function draw(){
@@ -64,6 +65,7 @@ function Particle(dotSpeed, dotRadius, rotationRadius, centerPoint, particleType
     pos_y = Math.sin(this.angle)*this.rotationRadius;
 
     stroke(this.particleColor);
+    stroke(255,0,0);
     // console.log(this.particleColor);
     // rgba(243,130,53,0.6831208037328766)
     push();
