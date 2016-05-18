@@ -1,8 +1,8 @@
 
 var systemOuterRadius = 150,
     systemCenter = p5.Vector(200, 200),
-    ps = new ParticleSystem(systemCenter);
-
+    ps = new ParticleSystem(systemCenter),
+    particlesQuantity = 0;
 
 function setup(){
   createCanvas(300, 300, WEBGL);
@@ -17,6 +17,7 @@ function draw(){
   if(ps.particles.length<30000){
     ps.addParticle();
   }
+  particlesQuantity = ps.particles.length;
 }
 
 /*******************************************************************************
@@ -102,7 +103,8 @@ function ParticleSystem(systemCenterPoint) {
         randomG = Math.floor(Math.random() * (200 - 10) + 10),
         randomB = Math.floor(Math.random() * (80 - 20) + 20),
         randomA = Math.random(),
-        particleColor = 'rgba(' + randomR + ',' + randomG + ',' + randomB + ',' + randomA + ')';
+        // particleColor = 'rgba(' + randomR + ',' + randomG + ',' + randomB + ',' + randomA + ')';
+        particleColor = 'rgb(' + randomR + ',' + randomG + ',' + randomB + ')';
 
     if(particleType == 0){
       rotationRadius = Math.random() * (200 - 100) + 100;
