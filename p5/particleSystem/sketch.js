@@ -14,7 +14,7 @@ function draw(){
   ps.run();
   // if(ps.particles.length<6){
   // console.log(ps.particles.length);
-  if(ps.particles.length<30000){
+  if(ps.particles.length<3000){
     ps.addParticle();
   }
   particlesQuantity = ps.particles.length;
@@ -48,7 +48,7 @@ function Particle(dotSpeed, dotRadius, rotationRadius, centerPoint, particleType
   this.update = function(){
     // Update for inner particles. Movement towardes the center.
     if(this.particleType == 0){
-      this.rotationRadius -= this.dotSpeed/3;
+      this.rotationRadius -= this.dotSpeed/2;
     }
     // Update angle for outer particles. Circular Motion.
     if(this.particleType == 1){
@@ -68,7 +68,7 @@ function Particle(dotSpeed, dotRadius, rotationRadius, centerPoint, particleType
     // rgba(243,130,53,0.6831208037328766)
     push();
       translate(pos_x, pos_y, 0);
-      box(1, 1, 1);
+      box(3, 3, 1);
     pop();
   };
 
