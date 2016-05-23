@@ -83,8 +83,8 @@ function drawTriangleStrip(){
 
 	var triangleStripGeometry = new THREE.Geometry();
 
-		for(var y=rows; y > 0; y-- ) {
-	    for(var x=0; x < cols; x++ ) {
+	for(var y=rows; y > 0; y-- ) {
+		for(var x=0; x < cols; x++ ) {
 
 				vector = new THREE.Vector3(x, y, z);
 				triangleStripGeometry.vertices.push(vector);
@@ -95,12 +95,12 @@ function drawTriangleStrip(){
 				// console.log('(' + triangleStripGeometry.vertices[x].x + ', ' + triangleStripGeometry.vertices[x].y + ', ' + triangleStripGeometry.vertices[x].z+ ')');
 				// console.log(x);
 	    }
-			console.log(y);
+			// console.log(y);
 
 			// console.log(triangleStripGeometry.vertices.length);
 
 	  }
-
+		console.log(triangleStripGeometry.vertices.length);
 		// alert('hola');
 
 	// triangleStripGeometry.vertices.push(new THREE.Vector3(0.0, 0.0, 0.0));
