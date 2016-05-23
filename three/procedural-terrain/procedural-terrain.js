@@ -14,24 +14,10 @@ var rows = h /scl;
 var flying = 0;
 var terrain = [cols];
 
-var cols = 3;
-var rows = 10;
+var cols = 6;
+var rows = 5;
 
  // terrain = [cols][rows];
-
-// var drawSquare = function(x, y, rectWidth, rectHeight){
-//   var rectShape = new THREE.Shape();
-//   // rectShape.moveTo( 0, 0 );
-//   rectShape.moveTo( x, y );
-//   rectShape.lineTo( rectWidth, 0 );
-//   rectShape.lineTo( rectWidth, rectHeight );
-//   rectShape.lineTo( 0, rectHeight );
-//   rectShape.lineTo( x, y );
-//
-//   var rectGeom = new THREE.ShapeGeometry( rectShape );
-//   var rectMesh = new THREE.Mesh( rectGeom, new THREE.MeshBasicMaterial( { color: 0xff0000, wireframe: true } ) ) ;
-//   scene.add( rectMesh );
-// }
 
 //-------------------------------------------------
 // This function is executed on each animation frame
@@ -57,31 +43,6 @@ function animate(){
   var w = 15;
   var h = 15;
 
-  // rectShape = new THREE.Shape();
-  // var x =0, y=0;
-  //
-  // rectShape.moveTo( x, y );
-  // rectShape.lineTo( w, y );
-  // rectShape.lineTo( w, h );
-  // rectShape.lineTo( x, h );
-  //
-  // var rectGeom = new THREE.ShapeGeometry( rectShape );
-  // var rectMesh = new THREE.Mesh( rectGeom, new THREE.MeshBasicMaterial( { color: 0xff0000, wireframe: true } ) ) ;
-  // scene.add( rectMesh );
-  //
-  // rectShape = new THREE.Shape();
-  // var x =16, y=16;
-  //
-  // rectShape.moveTo( x, y );
-  // rectShape.lineTo( 0, w );
-  // rectShape.lineTo( h, w );
-  // rectShape.lineTo( h, 0 );
-  // rectShape.lineTo( 0, 0 );
-  //
-  // var rectGeom = new THREE.ShapeGeometry( rectShape );
-  // var rectMesh = new THREE.Mesh( rectGeom, new THREE.MeshBasicMaterial( { color: 0xff0000, wireframe: true } ) ) ;
-  // scene.add( rectMesh );
-
   drawScene();
 
 	// request new frame
@@ -93,7 +54,7 @@ function animate(){
 var renderer = new THREE.WebGLRenderer();
 renderer.setClearColor( 0x000000 );
 // renderer.setSize(window.innerWidth, window.innerHeight);
-renderer.setSize(500, 500);
+renderer.setSize(600, 700);
 document.body.appendChild(renderer.domElement);
 
 //-------------------------------------------------
@@ -106,33 +67,51 @@ var directionalLight = new THREE.DirectionalLight(0xffffff);
 
 //-------------------------------------------------
 function drawScene(){
-  // drawSquare();
 	drawTriangleStrip();
-
-  for(var y=0; y<rows; y++ ) {
-    // //   var xoff = 0;
-    for(var x=0; x<cols; x++ ) {
-    //     drawSquare(x, y, 20, 20);
-    // //     // xoff += 0.1;
-    // console.log('out');
-
-      }
-    // yoff += 0.1;
-  }
 }
 
 //-------------------------------------------------
+var cols = 6;
+var rows = 5;
+
+var cols = 4;
+var rows = 2;
+
 function drawTriangleStrip(){
+	var a, b, x, y, vector;
+	var z = 0;
+
 	var triangleStripGeometry = new THREE.Geometry();
-	triangleStripGeometry.vertices.push(new THREE.Vector3(0.0, 0.0, 0.0));
-	triangleStripGeometry.vertices.push(new THREE.Vector3(0.0, 0.-1, 0.0));
-	triangleStripGeometry.vertices.push(new THREE.Vector3(1.0, 0.0, 0.0));
-	triangleStripGeometry.vertices.push(new THREE.Vector3(1.0, -1.0, 0.0));
-	triangleStripGeometry.vertices.push(new THREE.Vector3(2.0, 0.0, 0.0));
-	triangleStripGeometry.vertices.push(new THREE.Vector3(2.0, -1.0, 0.0));
-	triangleStripGeometry.vertices.push(new THREE.Vector3(3.0, 0.0, 0.0));
-	triangleStripGeometry.vertices.push(new THREE.Vector3(3.0, -1.0, 0.0));
-	triangleStripGeometry.vertices.push(new THREE.Vector3(4.0, 0.0, 0.0));
+
+		for(var y=rows; y > 0; y-- ) {
+	    for(var x=0; x < cols; x++ ) {
+
+				vector = new THREE.Vector3(x, y, z);
+				triangleStripGeometry.vertices.push(vector);
+
+				vector = new THREE.Vector3(x, y-1, z);
+				triangleStripGeometry.vertices.push(vector);
+
+				// console.log('(' + triangleStripGeometry.vertices[x].x + ', ' + triangleStripGeometry.vertices[x].y + ', ' + triangleStripGeometry.vertices[x].z+ ')');
+				// console.log(x);
+	    }
+			console.log(y);
+
+			// console.log(triangleStripGeometry.vertices.length);
+
+	  }
+
+		// alert('hola');
+
+	// triangleStripGeometry.vertices.push(new THREE.Vector3(0.0, 0.0, 0.0));
+	// triangleStripGeometry.vertices.push(new THREE.Vector3(0.0, 0.-1, 0.0));
+	// triangleStripGeometry.vertices.push(new THREE.Vector3(1.0, 0.0, 0.0));
+	// triangleStripGeometry.vertices.push(new THREE.Vector3(1.0, -1.0, 0.0));
+	// triangleStripGeometry.vertices.push(new THREE.Vector3(2.0, 0.0, 0.0));
+	// triangleStripGeometry.vertices.push(new THREE.Vector3(2.0, -1.0, 0.0));
+	// triangleStripGeometry.vertices.push(new THREE.Vector3(3.0, 0.0, 0.0));
+	// triangleStripGeometry.vertices.push(new THREE.Vector3(3.0, -1.0, 0.0));
+	// triangleStripGeometry.vertices.push(new THREE.Vector3(4.0, 0.0, 0.0));
 
 	triangleStripGeometry.faces.push(new THREE.Face3(0, 1, 2));
 	triangleStripGeometry.faces.push(new THREE.Face3(2, 1, 3));
@@ -146,55 +125,15 @@ function drawTriangleStrip(){
 	var triangleStripMateriL = new THREE.MeshBasicMaterial({
 		color:0xFFFFFF,
 		wireframe:true
-		// vertex_colors:true
 	});
 
 	var triangleStripMesh = new THREE.Mesh(triangleStripGeometry, triangleStripMateriL);
 	triangleStripMesh.drawMode = THREE.TriangleStripDrawMode;
-	triangleStripMesh.position.set(0.0, 0.0, 3.0);
+	triangleStripMesh.position.set(-4.0, 0.0, 3.0);
 	scene.add(triangleStripMesh);
 }
 
-//-------------------------------------------------
-function drawSquare() {
-  var squareGeometry = new THREE.Geometry();
-  squareGeometry.vertices.push(new THREE.Vector3(-1.0,  1.0, 0.0));
-  squareGeometry.vertices.push(new THREE.Vector3( 1.0,  1.0, 0.0));
-  squareGeometry.vertices.push(new THREE.Vector3( 1.0,  -1.0, 0.0));
-  squareGeometry.vertices.push(new THREE.Vector3( -1.0, -1.0, 0.0));
-  // squareGeometry.faces.push(new THREE.Face3(0, 1, 2));
-	// squareGeometry.faces.push(new THREE.Face3(0, 2, 3));
-  squareGeometry.faces.push(new THREE.Face3(0, 1, 3));
-
-  var squareMaterial = new THREE.MeshBasicMaterial({
-    color:0xFFFFFF,
-    side:THREE.DoubleSide
-  });
-
-  var squareMesh = new THREE.Mesh(squareGeometry, squareMaterial);
-  squareMesh.position.set(0.0, 0.0, 4.0);
-  scene.add(squareMesh);
-}
-//-------------------------------------------------
-// Triangle
-// var triangleGeometry = new THREE.Geometry();
-// triangleGeometry.vertices.push(new THREE.Vector3( 0.0,  0.0, 0.0));
-// triangleGeometry.vertices.push(new THREE.Vector3( 1.0,  0.0, 0.0));
-// triangleGeometry.vertices.push(new THREE.Vector3( 0.0, -1.0, 0.0));
-// triangleGeometry.faces.push(new THREE.Face3(0, 1, 2));
-//
-// var triangleMaterial = new THREE.MeshBasicMaterial({
-//   color:0xFFFFFF,
-//   side:THREE.DoubleSide
-// });
-//``
-// var triangleMesh = new THREE.Mesh(triangleGeometry, triangleMaterial);
-// triangleMesh.position.set(0.0, 0.0, 4.0);
-// scene.add(triangleMesh);
-
 camera.position.z = 10;
-
-
 
 //-------------------------------------------------
 // Lighting
