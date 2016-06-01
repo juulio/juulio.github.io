@@ -38,8 +38,6 @@ var particle = function(dotSpeed, dotRadius, rotationRadius, centerPoint, partic
   // Angle to define the particle's starting position on the outer circle
   this.angle = Math.random() * (6.28 - 0 + 1);
 
-  var theDot;
-
   this.run = function(){
     this.update();
     this.draw();
@@ -65,9 +63,6 @@ var particle = function(dotSpeed, dotRadius, rotationRadius, centerPoint, partic
       pos_x = Math.cos(this.angle)*this.rotationRadius;
       pos_y = Math.sin(this.angle)*this.rotationRadius;
 
-      theDot = new point2D(pos_x, pos_y);
-
-      // Draw moving dot
       context.strokeStyle = this.particleColor;
       context.beginPath();
       context.arc(pos_x, pos_y, this.dotRadius, 0, 2*Math.PI, false);
@@ -122,7 +117,6 @@ var particleSystem = function(systemCenterPoint){
     for (var a=0;a<this.particles.length;a++){
       var particle = this.particles[a];
       particle.run();
-
       if(particle.isDead()) {
         this.particles.splice(a, 1);
       }
@@ -132,7 +126,7 @@ var particleSystem = function(systemCenterPoint){
 };
 
 var systemOuterRadius = 80,
-    systemCenter = new point2D(200, 200);
+    systemCenter = new point2D(200, 200),
     ps = new particleSystem(systemCenter);
 
 /******************************************************************
@@ -140,18 +134,15 @@ var systemOuterRadius = 80,
 function update() {
   requestAnimationFrame(update);
   context.clearRect(0, 0, canvas.width, canvas.height);
-
   drawScreen();
 }
-
 
 /******************************************************************
   DrawScreen */
 function drawScreen(){
   ps.run();
-  // console.log(ps.particles.length);
   // if(ps.particles.length<6){
-  if(ps.particles.length<900){
+  if(ps.particles.length<100){
     ps.addParticle();
   }
 }
