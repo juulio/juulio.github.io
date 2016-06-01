@@ -30,13 +30,14 @@ var point2D = function(x, y){
  Type = 0 inner (move from the center to the outside)
  Type = 1 outer (circular motion)
  */
-var particle = function(dotSpeed, dotRadius, rotationRadius, centerPoint, particleType, particleColor){
+var particle = function(dotSpeed, dotRadius, rotationRadius, centerPoint, particleType, particleR, particleG, particleB, particleAlpha){
   this.dotSpeed = dotSpeed;
   this.dotRadius = dotRadius;
   this.rotationRadius = rotationRadius;
   this.centerPoint = centerPoint;
   this.particleType = particleType;
-  this.particleColor = particleColor;
+	this.particleAlpha = particleAlpha;
+
   // Angle to define the particle's starting position on the outer circle
   this.angle = Math.random() * (6.28 - 0 + 1);
 
@@ -49,10 +50,13 @@ var particle = function(dotSpeed, dotRadius, rotationRadius, centerPoint, partic
   this.update = function(){
       this.rotationRadius += this.dotSpeed/15;
 			this.angle+=this.dotSpeed/100;
+			this.particleAlpha-=0.04/systemOuterRadius;
   };
 
   this.draw = function(){
-    var pos_x, pos_y, randomR, randomColor;
+    var pos_x, pos_y,
+				particleColor = 'rgba(' + particleR + ',' + particleG + ',' + particleB + ',' + this.particleAlpha + ')';
+
     context.save();
 
       context.translate(this.centerPoint.x, this.centerPoint.y);
@@ -60,7 +64,7 @@ var particle = function(dotSpeed, dotRadius, rotationRadius, centerPoint, partic
       pos_x = Math.cos(this.angle)*this.rotationRadius;
       pos_y = Math.sin(this.angle)*this.rotationRadius;
 
-      context.strokeStyle = this.particleColor;
+      context.strokeStyle = particleColor;
       context.beginPath();
       context.arc(pos_x, pos_y, this.dotRadius, 0, 2*Math.PI, false);
       context.lineWidth = 1;
@@ -71,10 +75,8 @@ var particle = function(dotSpeed, dotRadius, rotationRadius, centerPoint, partic
 
   // Is the Particle alive or dead?
   this.isDead = function(){
-    if ( this.particleType == 0 && this.rotationRadius <= 0.0) {
-      return true;
-    }
-    if ( this.particleType == 1 && this.angle >= 6.28 ) {
+
+		if ( this.particleAlpha <= 0) {
       return true;
     }
     else {
@@ -100,13 +102,12 @@ var particleSystem = function(systemCenterPoint){
         randomR = Math.floor(Math.random() * (255 - 200) + 200),
         randomG = Math.floor(Math.random() * (200 - 10) + 10),
         randomB = Math.floor(Math.random() * (80 - 20) + 20),
-        randomA = 1,
-        particleColor = 'rgba(' + randomR + ',' + randomG + ',' + randomB + ',' + randomA + ')';
+        Alpha = 1;
 
-    this.particles.push(new particle(dotSpeed, dotRadius, 0, this.systemCenterPoint, particleType, particleColor));
+    this.particles.push(new particle(dotSpeed, dotRadius, 0, this.systemCenterPoint, particleType, randomR, randomG, randomB, Alpha));
   }
 
-  // Call run method of each movingDot
+  // Call run method of each particle
   this.run = function(){
     for (var a=0;a<this.particles.length;a++){
       var particle = this.particles[a];
@@ -119,7 +120,7 @@ var particleSystem = function(systemCenterPoint){
 
 };
 
-var systemOuterRadius = 50,
+var systemOuterRadius = 60,
     systemCenter = new point2D(200, 200),
     ps = new particleSystem(systemCenter);
 
@@ -135,8 +136,14 @@ function update() {
   DrawScreen */
 function drawScreen(){
   ps.run();
-  // if(ps.particles.length<6){
-  if(ps.particles.length<4000){
+
+
+	context.beginPath();
+	context.arc(systemCenter.x, systemCenter.y, systemOuterRadius, 0, 2*Math.PI, false);
+	context.lineWidth = 1;
+	context.stroke();
+
+  if(ps.particles.length<100){
     ps.addParticle();
   }
 }
