@@ -84,7 +84,7 @@ var particle = function(dotSpeed, dotRadius, rotationRadius, centerPoint, partic
       context.strokeStyle = this.particleColor;
 
       for (var i=0;i<this.previousPositions.length;i++){
-        drawDot(this.previousPositions[i].x, this.previousPositions[i].y, this.dotRadius, 2);
+        drawDot(this.previousPositions[i].x, this.previousPositions[i].y, this.dotRadius, 0.4);
       }
 
     context.restore();
@@ -113,11 +113,11 @@ var particleSystem = function(systemCenterPoint){
       rotationRadius = systemOuterRadius;
 
   this.addParticle = function(){
-    var dotSpeed = Math.random() * (0.7 - 0.05) + 0.05,
+    var dotSpeed = Math.random() * (0.4 - 0.05) + 0.05,
 				// particleType = Math.round(Math.random()),
         particleType = 0,
-        randomR = Math.floor(Math.random() * (255 - 200) + 200),
-        randomG = Math.floor(Math.random() * (200 - 10) + 10),
+        randomR = Math.floor(Math.random() * (255 - 160) + 160),
+        randomG = Math.floor(Math.random() * (200 - 5) + 5),
         randomB = Math.floor(Math.random() * (80 - 20) + 20),
         Alpha = 1;
 
@@ -156,13 +156,9 @@ function update() {
 function drawScreen(){
   ps.run();
 
+  drawDot(systemCenter.x, systemCenter.y, systemOuterRadius, 0.1);
 
-	context.beginPath();
-	context.arc(systemCenter.x, systemCenter.y, systemOuterRadius, 0, 2*Math.PI, false);
-	context.lineWidth = 1;
-	context.stroke();
-
-  if(ps.particles.length<40){
+  if(ps.particles.length<140){
     ps.addParticle();
   }
 }
