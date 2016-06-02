@@ -42,12 +42,7 @@ var particle = function(dotSpeed, dotRadius, rotationRadius, centerPoint, partic
   this.angle = Math.random() * (6.28 - 0 + 1);
 
   // Array to store the last 5 positions to draw particle trail
-  this.previousPositions = [5];
-
-  this.position = function(x, y) {
-    this.x = x;
-    this.y = y;
-  };
+  this.previousPositions = [];
 
   this.run = function(){
     this.update();
@@ -61,17 +56,34 @@ var particle = function(dotSpeed, dotRadius, rotationRadius, centerPoint, partic
     this.particleAlpha-=0.04/systemOuterRadius;
     this.particleColor =  'rgba(' + particleR + ',' + particleG + ',' + particleB + ',' + this.particleAlpha + ')';
 
-    this.position.x = Math.cos(this.angle)*this.rotationRadius;
-    this.position.y = Math.sin(this.angle)*this.rotationRadius;
+    position.x = Math.cos(this.angle)*this.rotationRadius;
+    position.y = Math.sin(this.angle)*this.rotationRadius;
+
+    if(this.previousPositions.length >= 5) {
+      this.previousPositions.pop();
+    }
+
+    var actualPosition = new position(this.position.x, this.position.y);
+    this.previousPositions.push(actualPosition);
+    console.log(this.previousPositions[0]);
   };
 
   this.draw = function(){
     context.save();
 
       context.translate(this.centerPoint.x, this.centerPoint.y);
-      context.strokeStyle = this.particleColor;
       context.beginPath();
-      context.arc(this.position.x, this.position.y, this.dotRadius, 0, 2*Math.PI, false);
+      // context.arc(this.position.x, this.position.y, this.dotRadius, 0, 2*Math.PI, false);
+      
+      if(this.previousPositions.length >= 5) {
+        context.lineTo(this.previousPositions[0].x, this.previousPositions[0].y);
+        context.lineTo(this.previousPositions[1].x, this.previousPositions[1].y);
+        context.lineTo(this.previousPositions[2].x, this.previousPositions[2].y);
+        context.lineTo(this.previousPositions[3].x, this.previousPositions[3].y);
+        context.lineTo(this.previousPositions[4].x, this.previousPositions[4].y);
+      }
+
+      context.strokeStyle = this.particleColor;
       context.lineWidth = 1;
       context.stroke();
 
@@ -148,10 +160,15 @@ function drawScreen(){
 	context.lineWidth = 1;
 	context.stroke();
 
-  if(ps.particles.length<800){
+  if(ps.particles.length<1){
     ps.addParticle();
   }
 }
+
+var position = function(x, y) {
+  this.x = x;
+  this.y = y;
+};
 
 /******************************************************************
   Init the render loop*/
