@@ -8,6 +8,8 @@ var canvasElements = {
     /******************************************************
     * Adds the Canvas Element to the '.post-content' div */
     createCanvasElement : function(canvasContainer, canvasWidth, canvasHeight){
+        canvasContainer = 'home';
+
         var divElement = document.getElementsByClassName(canvasContainer)[0];
         divElement.insertBefore(this.canvas, divElement.childNodes[0]);
         // document.getElementsByClassName(canvasContainer)[0].appendChild(this.canvas);
@@ -129,8 +131,6 @@ var canvasElements = {
     sin : function(angle) {
         return Math.sin(this.degToRad(angle));
     },
-
-
 
     /**************************************
     * Function that limits the frame rate */

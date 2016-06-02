@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: post
 title: Animated Fractal Path
 description: Particles that move follolwing a Fractal generated path
 permalink: /animated-fractal-path/

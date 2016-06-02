@@ -12,4 +12,4 @@ categories: post
 
 <p>So, here's how my folder structure usually looks. Remember there are many ways to do this and You should use the one that works better for you.</p>
 
-<p><img src="{{ "/img/2015set/projectFolderStructure.png" | prepend: site.url }}" alt="Project Folders Structure" /></p>
+<p><img src="{{ "/images/2015set/projectFolderStructure.png" | prepend: site.url }}" alt="Project Folders Structure" /></p>
