@@ -37,9 +37,17 @@ var particle = function(dotSpeed, dotRadius, rotationRadius, centerPoint, partic
   this.centerPoint = centerPoint;
   this.particleType = particleType;
 	this.particleAlpha = particleAlpha;
-
+  
   // Angle to define the particle's starting position on the outer circle
   this.angle = Math.random() * (6.28 - 0 + 1);
+
+  // Array to store the last 5 positions to draw particle trail
+  this.previousPositions = [5];
+
+  this.position = function(x, y) {
+    this.x = x;
+    this.y = y;
+  };
 
   this.run = function(){
     this.update();
@@ -48,25 +56,22 @@ var particle = function(dotSpeed, dotRadius, rotationRadius, centerPoint, partic
 
   // update particle position. Circular motion from the center towards outside
   this.update = function(){
-      this.rotationRadius += this.dotSpeed/15;
-			this.angle+=this.dotSpeed/100;
-			this.particleAlpha-=0.04/systemOuterRadius;
+    this.rotationRadius += this.dotSpeed/15;
+    this.angle+=this.dotSpeed/100;
+    this.particleAlpha-=0.04/systemOuterRadius;
+    this.particleColor =  'rgba(' + particleR + ',' + particleG + ',' + particleB + ',' + this.particleAlpha + ')';
+
+    this.position.x = Math.cos(this.angle)*this.rotationRadius;
+    this.position.y = Math.sin(this.angle)*this.rotationRadius;
   };
 
   this.draw = function(){
-    var pos_x, pos_y,
-				particleColor = 'rgba(' + particleR + ',' + particleG + ',' + particleB + ',' + this.particleAlpha + ')';
-
     context.save();
 
       context.translate(this.centerPoint.x, this.centerPoint.y);
-
-      pos_x = Math.cos(this.angle)*this.rotationRadius;
-      pos_y = Math.sin(this.angle)*this.rotationRadius;
-
-      context.strokeStyle = particleColor;
+      context.strokeStyle = this.particleColor;
       context.beginPath();
-      context.arc(pos_x, pos_y, this.dotRadius, 0, 2*Math.PI, false);
+      context.arc(this.position.x, this.position.y, this.dotRadius, 0, 2*Math.PI, false);
       context.lineWidth = 1;
       context.stroke();
 
@@ -143,7 +148,7 @@ function drawScreen(){
 	context.lineWidth = 1;
 	context.stroke();
 
-  if(ps.particles.length<100){
+  if(ps.particles.length<800){
     ps.addParticle();
   }
 }
