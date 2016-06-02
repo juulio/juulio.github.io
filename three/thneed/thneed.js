@@ -25,6 +25,15 @@ var point2D = function(x, y){
 };
 
 /******************************************************************
+ Function to draw a Dot at a given (x,y) and radius  */
+var drawDot = function(x, y, r, lineWidth) {
+  context.beginPath();
+  context.arc(x, y, r, 0, 2*Math.PI, false);
+  context.lineWidth = lineWidth;
+  context.stroke();
+};
+
+/******************************************************************
  Particle Class Definition
  Particles can be
  Type = 0 inner (move from the center to the outside)
@@ -42,7 +51,7 @@ var particle = function(dotSpeed, dotRadius, rotationRadius, centerPoint, partic
   // Angle to define the particle's starting position on the outer circle
   this.angle = Math.random() * (6.28 - 0 + 1);
 
-  // Array to store the last 5 positions to draw particle trail
+  // Array to store the last positions to draw particle trail
   this.previousPositions = [];
 
   this.run = function(){
@@ -53,44 +62,30 @@ var particle = function(dotSpeed, dotRadius, rotationRadius, centerPoint, partic
   // update particle position. Circular motion from the center towards outside
   this.update = function(){
     this.rotationRadius += this.dotSpeed/15;
-    this.angle+=this.dotSpeed/100;
-    // this.particleAlpha-=0.04/systemOuterRadius;
+    this.angle+=this.dotSpeed/7;
+    this.particleAlpha-=0.03/systemOuterRadius;
     this.particleColor =  'rgba(' + particleR + ',' + particleG + ',' + particleB + ',' + this.particleAlpha + ')';
 
     this.position = new point2D(Math.cos(this.angle)*this.rotationRadius, Math.sin(this.angle)*this.rotationRadius);
 
-    if(this.previousPositions.length >= 5) {
+    if(this.previousPositions.length >= 15) {
       this.previousPositions.pop();
     }
 
-    this.previousPositions.push(new point2D(this.position.x, this.position.y));
+    this.previousPositions.unshift(new point2D(this.position.x, this.position.y));
   };
 
+  // draw each particle according to the updated values
   this.draw = function(){
     context.save();
 
       context.translate(this.centerPoint.x, this.centerPoint.y);
-      context.beginPath();
-      context.arc(this.position.x, this.position.y, this.dotRadius, 0, 2*Math.PI, false);
-
-      if(this.previousPositions.length >= 5) {
-        console.log(this.previousPositions);
-        // context.lineTo(this.previousPositions[0].x, this.previousPositions[0].y);
-        // context.lineTo(this.previousPositions[1].x, this.previousPositions[1].y);
-        // context.lineTo(this.previousPositions[2].x, this.previousPositions[2].y);
-        // context.lineTo(this.previousPositions[3].x, this.previousPositions[3].y);
-        // context.lineTo(this.previousPositions[4].x, this.previousPositions[4].y);
-        context.arc(this.previousPositions[0].x, this.previousPositions[0].y, this.dotRadius, 0, 2*Math.PI, false);
-        context.arc(this.previousPositions[1].x, this.previousPositions[1].y, this.dotRadius, 0, 2*Math.PI, false);
-        context.arc(this.previousPositions[2].x, this.previousPositions[2].y, this.dotRadius, 0, 2*Math.PI, false);
-        context.arc(this.previousPositions[3].x, this.previousPositions[3].y, this.dotRadius, 0, 2*Math.PI, false);
-        context.arc(this.previousPositions[4].x, this.previousPositions[4].y, this.dotRadius, 0, 2*Math.PI, false);
-
-      }
 
       context.strokeStyle = this.particleColor;
-      context.lineWidth = 3;
-      context.stroke();
+
+      for (var i=0;i<this.previousPositions.length;i++){
+        drawDot(this.previousPositions[i].x, this.previousPositions[i].y, this.dotRadius, 2);
+      }
 
     context.restore();
   };
@@ -142,6 +137,8 @@ var particleSystem = function(systemCenterPoint){
 
 };
 
+/******************************************************************
+  Global Variables */
 var systemOuterRadius = 60,
     systemCenter = new point2D(200, 200),
     ps = new particleSystem(systemCenter);
@@ -165,7 +162,7 @@ function drawScreen(){
 	context.lineWidth = 1;
 	context.stroke();
 
-  if(ps.particles.length<1){
+  if(ps.particles.length<40){
     ps.addParticle();
   }
 }
