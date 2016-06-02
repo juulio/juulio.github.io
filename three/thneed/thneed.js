@@ -37,7 +37,8 @@ var particle = function(dotSpeed, dotRadius, rotationRadius, centerPoint, partic
   this.centerPoint = centerPoint;
   this.particleType = particleType;
 	this.particleAlpha = particleAlpha;
-  
+  this.posisition;
+
   // Angle to define the particle's starting position on the outer circle
   this.angle = Math.random() * (6.28 - 0 + 1);
 
@@ -53,19 +54,16 @@ var particle = function(dotSpeed, dotRadius, rotationRadius, centerPoint, partic
   this.update = function(){
     this.rotationRadius += this.dotSpeed/15;
     this.angle+=this.dotSpeed/100;
-    this.particleAlpha-=0.04/systemOuterRadius;
+    // this.particleAlpha-=0.04/systemOuterRadius;
     this.particleColor =  'rgba(' + particleR + ',' + particleG + ',' + particleB + ',' + this.particleAlpha + ')';
 
-    position.x = Math.cos(this.angle)*this.rotationRadius;
-    position.y = Math.sin(this.angle)*this.rotationRadius;
+    this.position = new point2D(Math.cos(this.angle)*this.rotationRadius, Math.sin(this.angle)*this.rotationRadius);
 
     if(this.previousPositions.length >= 5) {
       this.previousPositions.pop();
     }
 
-    var actualPosition = new position(this.position.x, this.position.y);
-    this.previousPositions.push(actualPosition);
-    console.log(this.previousPositions[0]);
+    this.previousPositions.push(new point2D(this.position.x, this.position.y));
   };
 
   this.draw = function(){
@@ -73,18 +71,25 @@ var particle = function(dotSpeed, dotRadius, rotationRadius, centerPoint, partic
 
       context.translate(this.centerPoint.x, this.centerPoint.y);
       context.beginPath();
-      // context.arc(this.position.x, this.position.y, this.dotRadius, 0, 2*Math.PI, false);
-      
+      context.arc(this.position.x, this.position.y, this.dotRadius, 0, 2*Math.PI, false);
+
       if(this.previousPositions.length >= 5) {
-        context.lineTo(this.previousPositions[0].x, this.previousPositions[0].y);
-        context.lineTo(this.previousPositions[1].x, this.previousPositions[1].y);
-        context.lineTo(this.previousPositions[2].x, this.previousPositions[2].y);
-        context.lineTo(this.previousPositions[3].x, this.previousPositions[3].y);
-        context.lineTo(this.previousPositions[4].x, this.previousPositions[4].y);
+        console.log(this.previousPositions);
+        // context.lineTo(this.previousPositions[0].x, this.previousPositions[0].y);
+        // context.lineTo(this.previousPositions[1].x, this.previousPositions[1].y);
+        // context.lineTo(this.previousPositions[2].x, this.previousPositions[2].y);
+        // context.lineTo(this.previousPositions[3].x, this.previousPositions[3].y);
+        // context.lineTo(this.previousPositions[4].x, this.previousPositions[4].y);
+        context.arc(this.previousPositions[0].x, this.previousPositions[0].y, this.dotRadius, 0, 2*Math.PI, false);
+        context.arc(this.previousPositions[1].x, this.previousPositions[1].y, this.dotRadius, 0, 2*Math.PI, false);
+        context.arc(this.previousPositions[2].x, this.previousPositions[2].y, this.dotRadius, 0, 2*Math.PI, false);
+        context.arc(this.previousPositions[3].x, this.previousPositions[3].y, this.dotRadius, 0, 2*Math.PI, false);
+        context.arc(this.previousPositions[4].x, this.previousPositions[4].y, this.dotRadius, 0, 2*Math.PI, false);
+
       }
 
       context.strokeStyle = this.particleColor;
-      context.lineWidth = 1;
+      context.lineWidth = 3;
       context.stroke();
 
     context.restore();
@@ -164,11 +169,6 @@ function drawScreen(){
     ps.addParticle();
   }
 }
-
-var position = function(x, y) {
-  this.x = x;
-  this.y = y;
-};
 
 /******************************************************************
   Init the render loop*/
