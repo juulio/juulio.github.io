@@ -16,33 +16,32 @@ var particleSystemCenter,
   geometry,
   material,
   camera,
-  scene,
-  mesh;
+  scene;
 
  //---------------------------------------------------------
 // Init
 function init(){
 
-  // 0. Set the required global variables
+  // 0. Set amount of particles
+  particleCount = 1;
+
+  // 1. Set the required global variables
   particleSystemCenter = new THREE.Vector3(0, 0, 0);
 
-  // 1. Create renderer object for THREE.js
+  // 2. Create renderer object for THREE.js
   renderer = new THREE.WebGLRenderer();
-  renderer.setClearColor( 0x000000);
+  renderer.setClearColor(0x000000);
   renderer.setSize(window.innerWidth, window.innerHeight);
 
-  // 2. Create scene object
+  // 3. Create scene object
   scene = new THREE.Scene();
 
-  // 3. Create camera object
+  // 4. Create camera object
   camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 1000);
-  camera.position.z = 10;
+  camera.position.z = 50;
 
-  // 4. Create particles Geometry
+  // 5. Create particles Geometry
   particles = new THREE.Geometry();
-
-  // 5. Set amount of particles
-  particleCount = 1;
 
   // 6. Set material
   textureLoader = new THREE.TextureLoader();
@@ -97,7 +96,6 @@ function init(){
 // Animated: this function is executed each animation frame
 function animate(){
   requestAnimationFrame(animate);
-
   // add some rotation to the system
   // particleSystem.rotation.y += 0.01;
   // particleSystem.rotation.x += 0.01;
@@ -115,15 +113,16 @@ function animate(){
     // }
 
     // update the velocity with a splat of randomniz
-    // particle.velocity.y -= Math.random() * .00001;
+    // particle.velocity.y -= Math.random() * .001;
 
     // and the position
+    // console.log(particle.velocity);
     particle.add( particle.velocity);
+    console.log(particle.y);
   }
 
-  // flag to the particle system
-  // that we've changed its vertices.
-  // particleSystem.geometry.__dirtyVertices = true;
+  // flag to the particle system that we've changed its vertices.
+  particleSystem.verticesNeedUpdate = true;
 
   //draw
   renderer.render( scene, camera );
