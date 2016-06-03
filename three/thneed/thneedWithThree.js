@@ -23,7 +23,7 @@ var particleSystemCenter,
 function init(){
 
   // 1. Set amount of particles
-  particleCount = 20;
+  particleCount = 50;
 
   // 2. Create renderer object for THREE.js
   renderer = new THREE.WebGLRenderer();
@@ -47,7 +47,7 @@ function init(){
     color: 0xFFFFFF,
     size: 1,
     map: textureLoader.load('particle.png'),
-    blending: THREE.AdditiveBlending,
+    // blending: THREE.AdditiveBlending,
     transparent: true
   });
 
@@ -58,7 +58,7 @@ function init(){
     particle = new THREE.Vector3(posX, 0, 0);
 
     // create a velocity vector
-    velY = Math.random() * (0.004 - 0.005) + 0.005;
+    velY = Math.random() * (0.003 - 0.004) + 0.004;
     particle.velocity = new THREE.Vector3( 0, velY, 0 );
 
     // add it to the geometry
