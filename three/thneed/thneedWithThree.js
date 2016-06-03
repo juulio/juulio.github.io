@@ -36,12 +36,12 @@ function init(){
   particles = new THREE.Geometry();
 
   // 5. Set amount of particles
-  particleCount = 1000;
+  particleCount = 1048576;
 
   // 6. Set material
   material = new THREE.PointCloudMaterial({
     color: 0xFFFFFF,
-    size: 5,
+    size: 1,
     map: THREE.ImageUtils.loadTexture(
       "particle.png"
     ),
