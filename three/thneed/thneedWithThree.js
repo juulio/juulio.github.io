@@ -3,14 +3,15 @@
 
  //---------------------------------------------------------
  // Particle System Global Variables
-var particleSystemGPU,
+var particleSystemCenter,
   directionalLight,
   particleSystem,
   particleCount,
   textureLoader,
   ambientLight,
-  particlesGPU,
   particles,
+  particles,
+  particle,
   renderer,
   geometry,
   material,
@@ -21,6 +22,10 @@ var particleSystemGPU,
  //---------------------------------------------------------
 // Init
 function init(){
+
+  // 0. Set the required global variables
+  particleSystemCenter = new THREE.Vector3(0, 0, 0);
+
   // 1. Create renderer object for THREE.js
   renderer = new THREE.WebGLRenderer();
   renderer.setClearColor( 0x000000);
@@ -37,17 +42,14 @@ function init(){
   particles = new THREE.Geometry();
 
   // 5. Set amount of particles
-  particleCount = 512000;
+  particleCount = 1;
 
   // 6. Set material
   textureLoader = new THREE.TextureLoader();
 
   material = new THREE.PointsMaterial({
     color: 0xFFFFFF,
-    size: 2,
-    // map: THREE.ImageUtils.loadTexture(
-    //   "particle.png"
-    // ),
+    size: 1,
     map: textureLoader.load('particle.png'),
     blending: THREE.AdditiveBlending,
     transparent: true
@@ -56,17 +58,21 @@ function init(){
   // 7. Create the individual particles
   for(var p = 0; p < particleCount; p++) {
 
-    // create a particle with random
-    // position values, -250 -> 250
-    var pX = Math.random() * 500 - 250,
-      pY = Math.random() * 500 - 250,
-      pZ = Math.random() * 500 - 250,
-      particle = new THREE.Vector3(pX, pY, pZ);
+    // Random position values, -250 -> 250
+    // var pX = 0,
+    // var pX = Math.random() * 500 - 250,
+    //   pY = Math.random() * 500 - 250,
+    //   // pY = 0,
+    //   pZ = Math.random() * 500 - 50;
+
+    // create a particle
+    particle = new THREE.Vector3(particleSystemCenter.x, particleSystemCenter.y, particleSystemCenter.z);
 
     // create a velocity vector
     particle.velocity = new THREE.Vector3(
       0,              // x
-      -Math.random(), // y: random vel
+      // -Math.random(), // y: random vel
+      1,
       0         // z
     );
 
@@ -93,23 +99,23 @@ function animate(){
   requestAnimationFrame(animate);
 
   // add some rotation to the system
-  particleSystem.rotation.y += 0.01;
+  // particleSystem.rotation.y += 0.01;
   // particleSystem.rotation.x += 0.01;
 
   var pCount = particleCount;
 
   while (pCount--) {
     // get the particle
-    var particle = particles.vertices[pCount];
-
+    particle = particles.vertices[pCount];
+    // particle.y++;
     // check if we need to reset
-    if (particle.y < -200) {
-      particle.y = 200;
-      particle.velocity.y = 0;
-    }
+    // if (particle.y < -200) {
+    //   particle.y = 200;
+    //   particle.velocity.y = 0;
+    // }
 
     // update the velocity with a splat of randomniz
-    particle.velocity.y -= Math.random() * .1;
+    // particle.velocity.y -= Math.random() * .00001;
 
     // and the position
     particle.add( particle.velocity);
@@ -117,9 +123,7 @@ function animate(){
 
   // flag to the particle system
   // that we've changed its vertices.
-  particleSystem.
-  geometry.
-  __dirtyVertices = true;
+  // particleSystem.geometry.__dirtyVertices = true;
 
   //draw
   renderer.render( scene, camera );
