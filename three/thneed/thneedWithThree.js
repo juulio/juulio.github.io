@@ -2,28 +2,24 @@
 'use strict';
 
  //---------------------------------------------------------
- // Particle System Global Variables
+ // Particle System Global Variables Declaration
 var particleSystemCenter,
-  directionalLight,
   particleSystem,
   particleCount,
   textureLoader,
-  ambientLight,
-  particles,
   particles,
   particle,
   renderer,
-  geometry,
   material,
   camera,
   scene;
 
  //---------------------------------------------------------
-// Init
+// Init THREE required objects
 function init(){
 
   // 0. Set amount of particles
-  particleCount = 1;
+  particleCount = 100;
 
   // 1. Set the required global variables
   particleSystemCenter = new THREE.Vector3(0, 0, 0);
@@ -56,24 +52,11 @@ function init(){
 
   // 7. Create the individual particles
   for(var p = 0; p < particleCount; p++) {
-
-    // Random position values, -250 -> 250
-    // var pX = 0,
-    // var pX = Math.random() * 500 - 250,
-    //   pY = Math.random() * 500 - 250,
-    //   // pY = 0,
-    //   pZ = Math.random() * 500 - 50;
-
     // create a particle
     particle = new THREE.Vector3(particleSystemCenter.x, particleSystemCenter.y, particleSystemCenter.z);
 
     // create a velocity vector
-    particle.velocity = new THREE.Vector3(
-      0,              // x
-      // -Math.random(), // y: random vel
-      0.1,
-      0         // z
-    );
+    particle.velocity = new THREE.Vector3( 0, 0.1, 0 );
 
     // add it to the geometry
     particles.vertices.push(particle);
@@ -105,24 +88,21 @@ function animate(){
   while (pCount--) {
     // get the particle
     particle = particles.vertices[pCount];
-    // particle.y++;
     // check if we need to reset
-    // if (particle.y < -200) {
-    //   particle.y = 200;
-    //   particle.velocity.y = 0;
-    // }
+    if (particle.y < -200) {
+      particle.y = 200;
+      particle.velocity.y = 0;
+    }
 
     // update the velocity with a splat of randomniz
     // particle.velocity.y -= Math.random() * .001;
 
     // and the position
-    // console.log(particle.velocity);
     particle.add( particle.velocity);
-    console.log(particle.y);
   }
 
   // flag to the particle system that we've changed its vertices.
-  particleSystem.verticesNeedUpdate = true;
+  particles.verticesNeedUpdate = true;
 
   //draw
   renderer.render( scene, camera );

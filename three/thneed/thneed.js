@@ -35,9 +35,6 @@ var drawDot = function(x, y, r, lineWidth) {
 
 /******************************************************************
  Particle Class Definition
- Particles can be
- Type = 0 inner (move from the center to the outside)
- Type = 1 outer (circular motion)
  */
 var particle = function(dotSpeed, dotRadius, rotationRadius, centerPoint, particleType, particleR, particleG, particleB, particleAlpha){
   this.dotSpeed = dotSpeed;
