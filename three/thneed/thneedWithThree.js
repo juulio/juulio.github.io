@@ -71,7 +71,7 @@ function init(){
     particle.velocity = new THREE.Vector3(
       0,              // x
       // -Math.random(), // y: random vel
-      1,
+      0.1,
       0         // z
     );
 
