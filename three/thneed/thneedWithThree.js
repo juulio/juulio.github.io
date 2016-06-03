@@ -7,19 +7,22 @@ var particleSystemCenter,
   particleSystem,
   particleCount,
   textureLoader,
+  velocityX,
+  velocityY,
   particles,
   particle,
   renderer,
   material,
   camera,
-  scene;
+  scene,
+  velY;
 
  //---------------------------------------------------------
 // Init THREE required objects
 function init(){
 
   // 0. Set amount of particles
-  particleCount = 100;
+  particleCount = 10;
 
   // 1. Set the required global variables
   particleSystemCenter = new THREE.Vector3(0, 0, 0);
@@ -52,11 +55,13 @@ function init(){
 
   // 7. Create the individual particles
   for(var p = 0; p < particleCount; p++) {
+    // particle.centerPoint = particleSystemCenter SIEMPRE
     // create a particle
     particle = new THREE.Vector3(particleSystemCenter.x, particleSystemCenter.y, particleSystemCenter.z);
 
     // create a velocity vector
-    particle.velocity = new THREE.Vector3( 0, 0.1, 0 );
+    velY = Math.random() * (0.004 - 0.005) + 0.005;
+    particle.velocity = new THREE.Vector3( 0, velY, 0 );
 
     // add it to the geometry
     particles.vertices.push(particle);
@@ -79,26 +84,17 @@ function init(){
 // Animated: this function is executed each animation frame
 function animate(){
   requestAnimationFrame(animate);
-  // add some rotation to the system
-  // particleSystem.rotation.y += 0.01;
-  // particleSystem.rotation.x += 0.01;
 
   var pCount = particleCount;
 
   while (pCount--) {
     // get the particle
     particle = particles.vertices[pCount];
-    // check if we need to reset
-    if (particle.y < -200) {
-      particle.y = 200;
-      particle.velocity.y = 0;
-    }
 
-    // update the velocity with a splat of randomniz
-    // particle.velocity.y -= Math.random() * .001;
+    particleSystem.rotation.z += 0.006;
 
-    // and the position
-    particle.add( particle.velocity);
+    // Move particle on Y index to make it go further from the center
+    particle.add(particle.velocity);
   }
 
   // flag to the particle system that we've changed its vertices.
