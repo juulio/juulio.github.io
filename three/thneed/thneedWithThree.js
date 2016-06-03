@@ -15,17 +15,15 @@ var particleSystemCenter,
   material,
   camera,
   scene,
-  velY;
+  velY,
+  posX;
 
  //---------------------------------------------------------
 // Init THREE required objects
 function init(){
 
-  // 0. Set amount of particles
-  particleCount = 10;
-
-  // 1. Set the required global variables
-  particleSystemCenter = new THREE.Vector3(0, 0, 0);
+  // 1. Set amount of particles
+  particleCount = 20;
 
   // 2. Create renderer object for THREE.js
   renderer = new THREE.WebGLRenderer();
@@ -55,9 +53,9 @@ function init(){
 
   // 7. Create the individual particles
   for(var p = 0; p < particleCount; p++) {
-    // particle.centerPoint = particleSystemCenter SIEMPRE
     // create a particle
-    particle = new THREE.Vector3(particleSystemCenter.x, particleSystemCenter.y, particleSystemCenter.z);
+    posX = Math.random() * (-2 - 2) + 2;
+    particle = new THREE.Vector3(posX, 0, 0);
 
     // create a velocity vector
     velY = Math.random() * (0.004 - 0.005) + 0.005;
@@ -91,7 +89,7 @@ function animate(){
     // get the particle
     particle = particles.vertices[pCount];
 
-    particleSystem.rotation.z += 0.006;
+    particleSystem.rotation.z += 0.002;
 
     // Move particle on Y index to make it go further from the center
     particle.add(particle.velocity);
