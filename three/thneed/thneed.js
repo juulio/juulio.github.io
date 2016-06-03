@@ -61,14 +61,14 @@ var particle = function(dotSpeed, dotRadius, rotationRadius, centerPoint, partic
 
   // update particle position. Circular motion from the center towards outside
   this.update = function(){
-    this.rotationRadius += this.dotSpeed/15;
-    this.angle+=this.dotSpeed/7;
+    this.rotationRadius += this.dotSpeed/10;
+    this.angle+=this.dotSpeed/5;
     this.particleAlpha-=0.03/systemOuterRadius;
     this.particleColor =  'rgba(' + particleR + ',' + particleG + ',' + particleB + ',' + this.particleAlpha + ')';
 
     this.position = new point2D(Math.cos(this.angle)*this.rotationRadius, Math.sin(this.angle)*this.rotationRadius);
 
-    if(this.previousPositions.length >= 15) {
+    if(this.previousPositions.length >= 10) {
       this.previousPositions.pop();
     }
 
@@ -80,7 +80,6 @@ var particle = function(dotSpeed, dotRadius, rotationRadius, centerPoint, partic
     context.save();
 
       context.translate(this.centerPoint.x, this.centerPoint.y);
-
       context.strokeStyle = this.particleColor;
 
       for (var i=0;i<this.previousPositions.length;i++){
@@ -90,9 +89,8 @@ var particle = function(dotSpeed, dotRadius, rotationRadius, centerPoint, partic
     context.restore();
   };
 
-  // Is the Particle alive or dead?
+  // is the Particle alive or dead?
   this.isDead = function(){
-
 		if ( this.particleAlpha <= 0) {
       return true;
     }
@@ -158,7 +156,7 @@ function drawScreen(){
 
   drawDot(systemCenter.x, systemCenter.y, systemOuterRadius, 0.1);
 
-  if(ps.particles.length<140){
+  if(ps.particles.length<300){
     ps.addParticle();
   }
 }

@@ -29,21 +29,14 @@ function animate(){
 
 	lastTime = time;
 
-	// render
-	renderer.render(scene, camera);
-
-  //
-  // // drawScene (Draw function in Processing)
-  // flying -= 0.02;
-  // var yoff = flying;
-  // // console.log(flying);
-  //
-
-  var rectShape;
-  var w = 15;
+	var w = 15;
   var h = 15;
 
   drawScene();
+
+
+	// render
+	renderer.render(scene, camera);
 
 	// request new frame
 	requestAnimationFrame(animate);
@@ -71,37 +64,28 @@ function drawScene(){
 }
 
 //-------------------------------------------------
-var cols = 6;
-var rows = 5;
-
 var cols = 4;
 var rows = 2;
 
 function drawTriangleStrip(){
-	var a, b, x, y, vector;
+	var x, y, face;
 	var z = 0;
 
 	var triangleStripGeometry = new THREE.Geometry();
 
 	for(var y=rows; y > 0; y-- ) {
 		for(var x=0; x < cols; x++ ) {
-
-				vector = new THREE.Vector3(x, y, z);
-				triangleStripGeometry.vertices.push(vector);
-
-				vector = new THREE.Vector3(x, y-1, z);
-				triangleStripGeometry.vertices.push(vector);
-
-				// console.log('(' + triangleStripGeometry.vertices[x].x + ', ' + triangleStripGeometry.vertices[x].y + ', ' + triangleStripGeometry.vertices[x].z+ ')');
-				// console.log(x);
-	    }
-			// console.log(y);
-
-			// console.log(triangleStripGeometry.vertices.length);
-
+				triangleStripGeometry.vertices.push(new THREE.Vector3(x, y, z));
+				triangleStripGeometry.vertices.push( new THREE.Vector3(x, y-1, z));
 	  }
-		console.log(triangleStripGeometry.vertices.length);
-		// alert('hola');
+	}
+
+	var holes = [];
+	var triangles = THREE.Shape.Utils.triangulateShape( triangleStripGeometry.vertices, holes);
+
+	for( var i = 0; i < triangles.length; i++ ){
+    triangleStripGeometry.faces.push( new THREE.Face3( triangles[i][0], triangles[i][1], triangles[i][2] ));
+	}
 
 	// triangleStripGeometry.vertices.push(new THREE.Vector3(0.0, 0.0, 0.0));
 	// triangleStripGeometry.vertices.push(new THREE.Vector3(0.0, 0.-1, 0.0));
@@ -113,21 +97,21 @@ function drawTriangleStrip(){
 	// triangleStripGeometry.vertices.push(new THREE.Vector3(3.0, -1.0, 0.0));
 	// triangleStripGeometry.vertices.push(new THREE.Vector3(4.0, 0.0, 0.0));
 
-	triangleStripGeometry.faces.push(new THREE.Face3(0, 1, 2));
-	triangleStripGeometry.faces.push(new THREE.Face3(2, 1, 3));
-	triangleStripGeometry.faces.push(new THREE.Face3(2, 3, 4));
-	triangleStripGeometry.faces.push(new THREE.Face3(4, 3, 5));
-	triangleStripGeometry.faces.push(new THREE.Face3(4, 5, 6));
-	triangleStripGeometry.faces.push(new THREE.Face3(6, 5, 7));
-	triangleStripGeometry.faces.push(new THREE.Face3(6, 7, 8));
+	// triangleStripGeometry.faces.push(new THREE.Face3(0, 1, 2));
+	// triangleStripGeometry.faces.push(new THREE.Face3(2, 1, 3));
+	// triangleStripGeometry.faces.push(new THREE.Face3(2, 3, 4));
+	// triangleStripGeometry.faces.push(new THREE.Face3(4, 3, 5));
+	// triangleStripGeometry.faces.push(new THREE.Face3(4, 5, 6));
+	// triangleStripGeometry.faces.push(new THREE.Face3(6, 5, 7));
+	// triangleStripGeometry.faces.push(new THREE.Face3(6, 7, 8));
 
 
-	var triangleStripMateriL = new THREE.MeshBasicMaterial({
+	var triangleStripMaterial = new THREE.MeshBasicMaterial({
 		color:0xFFFFFF,
 		wireframe:true
 	});
 
-	var triangleStripMesh = new THREE.Mesh(triangleStripGeometry, triangleStripMateriL);
+	var triangleStripMesh = new THREE.Mesh(triangleStripGeometry, triangleStripMaterial);
 	triangleStripMesh.drawMode = THREE.TriangleStripDrawMode;
 	triangleStripMesh.position.set(-4.0, 0.0, 3.0);
 	scene.add(triangleStripMesh);
