@@ -7,6 +7,7 @@ var particleSystemGPU,
   directionalLight,
   particleSystem,
   particleCount,
+  textureLoader,
   ambientLight,
   particlesGPU,
   particles,
@@ -36,15 +37,18 @@ function init(){
   particles = new THREE.Geometry();
 
   // 5. Set amount of particles
-  particleCount = 1048576;
+  particleCount = 512000;
 
   // 6. Set material
-  material = new THREE.PointCloudMaterial({
+  textureLoader = new THREE.TextureLoader();
+
+  material = new THREE.PointsMaterial({
     color: 0xFFFFFF,
-    size: 1,
-    map: THREE.ImageUtils.loadTexture(
-      "particle.png"
-    ),
+    size: 2,
+    // map: THREE.ImageUtils.loadTexture(
+    //   "particle.png"
+    // ),
+    map: textureLoader.load('particle.png'),
     blending: THREE.AdditiveBlending,
     transparent: true
   });
@@ -71,20 +75,13 @@ function init(){
   }
 
   // 8.Create the particle system
-  particleSystem = new THREE.PointCloud(
+  particleSystem = new THREE.Points(
     particles,
     material
   );
 
   // 9. Add The particle system to the scene
   scene.add(particleSystem);
-
-  // Create lighting object
-  // ambientLight = new THREE.AmbientLight(0x000044);
-  // directionalLight = new THREE.DirectionalLight(0xffffff);
-  // directionalLight.position.set(1, 1, 1).normalize();
-  // scene.add(ambientLight);
-  // scene.add(directionalLight);
 
   // 10. Add the renderer element to the DOM
   document.body.appendChild(renderer.domElement);
@@ -97,7 +94,7 @@ function animate(){
 
   // add some rotation to the system
   particleSystem.rotation.y += 0.01;
-  particleSystem.rotation.x += 0.01;
+  // particleSystem.rotation.x += 0.01;
 
   var pCount = particleCount;
 
