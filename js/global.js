@@ -12,11 +12,40 @@ var homePage = homePage || {};
 
   var canvas = canvasElements.canvas,
       context = canvas.getContext("2d"),
-      generalDepth = 10;
+      generalDepth = 9;
 
   canvas.style.margin = '0';
 
-  /***************************************
+  /***************************************************
+  * Draw a Background Grass and Sky (Gradient) */
+  var drawSkyAndGrass = function() {
+    context.save();
+    // Set transparency.
+    context.globalAlpha = 0.4;
+
+    // Create a CanvasGradient object in linGrad.
+    // The gradient line is defined from the top to the bottom of the canvas.
+    var linGrad = context.createLinearGradient(0, 0, 0, canvas.height);
+
+    // Start off with sky blue at the top.
+    linGrad.addColorStop(0, '#00BFFF');
+
+    // Fade to beige in the middle.
+    linGrad.addColorStop(0.63, '#F0E68C');
+
+    // Green for the top of the grass.
+    linGrad.addColorStop(0.65, '#99ff99');
+
+    // Use the CanvasGradient object as the fill style.
+    context.fillStyle = linGrad;
+
+    // Finally, fill a rectangle the same size as the canvas.
+    context.fillRect(0, 0, canvas.width, canvas.height);
+
+    context.restore();
+  };
+
+  /***************************************************
 	 * Begin Code for First Fractal Tree */
 	var drawFirstTree = function (x1, y1, angle, depth){
 
@@ -41,7 +70,7 @@ var homePage = homePage || {};
 		}
 	};
 
-	/*************************************
+	/***************************************************
 	* Begin Code for Fifth Fractal Tree */
   var drawSecondTree = function(x, y, angle, depth){
 		var drawBranch = function(x1, y1, x2, y2, context, thickness, color) {
@@ -140,7 +169,7 @@ var homePage = homePage || {};
 	  }
   };
 
-	/**************************************
+	/***************************************************
 	* Begin Code for Third Fractal Tree */
 	var drawThirdTree = function (startX, startY, length, angle, branchWidth, depth) {
     var rand = Math.random,
@@ -201,7 +230,7 @@ var homePage = homePage || {};
     }
   }
 
-	/**************************************
+	/***************************************************
 	* Begin Code for Fourth Fractal Tree */
  	var drawFourthTree = function(x1, y1, angle, lineLength, treeDepth){
         var x2 = x1 + (canvasElements.cos(angle) * treeDepth * lineLength),
@@ -222,7 +251,7 @@ var homePage = homePage || {};
         }
     };
 
-	/*************************************
+	/***************************************************
 	* Begin Code for Fifth Fractal Tree */
   var drawFifthTree = function(startX, startY, branchLength, angle, lineWidth, depth){
 		var canvasHalfWidth = canvas.width/2,
@@ -265,29 +294,6 @@ var homePage = homePage || {};
 		context.restore();
   };
 
-  /*******************************************
-  * Draw a Background Grass and Sky (Gradient) */
-  var drawSkyAndGrass = function() {
-    context.save();
-    // Set transparency.
-    context.globalAlpha = 0.4;
-    // Create a CanvasGradient object in linGrad.
-    // The gradient line is defined from the top to the bottom of the canvas.
-    var linGrad = context.createLinearGradient(0, 0, 0, canvas.height);
-    // Start off with sky blue at the top.
-    linGrad.addColorStop(0, '#00BFFF');
-    // Fade to white in the middle.
-    linGrad.addColorStop(0.63, '#F0E68C');
-    // Green for the top of the grass.
-    linGrad.addColorStop(0.65, '#99ff99');
-    // Use the CanvasGradient object as the fill style.
-    context.fillStyle = linGrad;
-    // Finally, fill a rectangle the same size as the canvas.
-    context.fillRect(0, 0, canvas.width, canvas.height);
-
-    context.restore();
-  };
-
   /***************************************************
   * Recursive function that draws The Clinging Plant */
   var recursiveDrawClingingPlant = function(x, y, plantColumns, plantRows, spaceBetweenRows, spaceBetweenColumns){
@@ -311,7 +317,7 @@ var homePage = homePage || {};
     }
   }
 
-  /*******************************
+  /***************************************************
   * Begin Code for Fractal Tree */
   var drawFractalTree = function(x, y, angle, depth){
 
@@ -386,8 +392,8 @@ var homePage = homePage || {};
       depth--;
 
       var x2 = x + (Math.cos(canvasElements.degToRad(angle)) * depth * 4.0);
-      var y2 = y + (Math.sin(canvasElements.degToRad(angle)) * depth * 13.0);
-      branchThickness = depth*2.4;
+      var y2 = y + (Math.sin(canvasElements.degToRad(angle)) * depth * 9.0);
+      branchThickness = depth*2.8;
       drawBranch(x, y, x2, y2, branchThickness, branchColor);
 
       drawFractalTree(x2, y2, angle - canvasElements.getRandomInt(24, 26), depth);
@@ -397,14 +403,16 @@ var homePage = homePage || {};
     if(depth == 1 && leafProbabilty > 0.2) {
       rotationAngle = canvasElements.getRandomInt(0, 360);
       alpha = canvasElements.getRandomArbitrary(0.3, 1);
-      leafSize = canvasElements.getRandomInt(0, 3);
+      leafSize = canvasElements.getRandomInt(0, 5);
 
       drawFruit(x2, y2, alpha);
       drawLeaf(x2, y2, rotationAngle, leafSize, alpha);
     }
   };
 
-  /********************************
+
+
+  /***************************************************
    * Init all required functions */
   function init () {
     var isHome = document.getElementsByClassName('home');
@@ -416,36 +424,39 @@ var homePage = homePage || {};
 
       canvasElements.createCanvasElement('home', canvasWidth, 600);
 
+      drawSkyAndGrass();
+
       /********************************************
       * Initial Variables to set environment up */
-      var plantRows = 19,
-        spaceBetweenRows = 22,
+      var spaceBetweenRows = 25,
         canvasWidth = canvas.width,
         canvasHeight = canvas.height,
         treeStartingX = canvasWidth*0.3,
-        clinginPlantStartingX = treeStartingX*1.3,
-        clinginPlantHeight = plantRows*spaceBetweenRows,
+        clinginPlantStartingX = treeStartingX*1.15,
+        clinginPlantHeight = generalDepth*spaceBetweenRows*1.2,
         clinginPlantStartingY = canvasHeight - clinginPlantHeight;
 
-      drawSkyAndGrass();
-
       drawFirstTree(context.canvas.width*0.14, canvas.height-215, -90, generalDepth);
-  		drawThirdTree(canvas.width*0.6, canvas.height-200, 40, -Math.PI / 2, 20, generalDepth);
+      drawThirdTree(canvas.width*0.6, canvas.height-200, 40, -Math.PI / 2, 20, generalDepth);
 
       drawFifthTree(canvas.width*0.10, canvas.height-60, 39, 45, 11, generalDepth);
-  		drawFifthTree(canvas.width*0.06, canvas.height-80, 42, 21, 11, generalDepth);
+      drawFifthTree(canvas.width*0.06, canvas.height-80, 42, 21, 11, generalDepth);
       drawFifthTree(canvas.width*0.05, canvas.height-16, 35, 20, 10, generalDepth);
       drawFifthTree(canvas.width*0.13, canvas.height-30, 50, 16, 11, generalDepth);
       drawFifthTree(canvas.width*0.15, canvas.height-30, 41, 29, 11, generalDepth);
       drawFifthTree(canvas.width*0.08, canvas.height-12, 32, 25, 11, generalDepth);
       drawFifthTree(canvas.width*0.58, canvas.height-12, 62, 29, 11, generalDepth);
 
-  		drawSecondTree(canvas.width*0.4, canvas.height, -90, generalDepth);
-  		drawFourthTree(canvas.width*0.74, canvas.height-40, -90, 4, generalDepth);
+      drawSecondTree(canvas.width*0.4, canvas.height, -90, generalDepth);
+      drawFourthTree(canvas.width*0.74, canvas.height-40, -90, 4, generalDepth);
 
-      drawFractalTree(treeStartingX, canvas.height, -90, 10);
+      drawFractalTree(treeStartingX, canvas.height, -95, generalDepth);
 
-      recursiveDrawClingingPlant(clinginPlantStartingX, clinginPlantStartingY, 8, plantRows, spaceBetweenRows, 4);
+      recursiveDrawClingingPlant(clinginPlantStartingX, clinginPlantStartingY, 8, generalDepth, spaceBetweenRows, 4);
+
+
+
+      //  update();
     } // End if
 
   } // End init
