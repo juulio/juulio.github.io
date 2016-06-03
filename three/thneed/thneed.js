@@ -36,12 +36,11 @@ var drawDot = function(x, y, r, lineWidth) {
 /******************************************************************
  Particle Class Definition
  */
-var particle = function(dotSpeed, dotRadius, rotationRadius, centerPoint, particleType, particleR, particleG, particleB, particleAlpha){
+var particle = function(dotSpeed, dotRadius, rotationRadius, centerPoint, particleR, particleG, particleB, particleAlpha){
   this.dotSpeed = dotSpeed;
   this.dotRadius = dotRadius;
   this.rotationRadius = rotationRadius;
   this.centerPoint = centerPoint;
-  this.particleType = particleType;
 	this.particleAlpha = particleAlpha;
   this.posisition;
 
@@ -109,14 +108,12 @@ var particleSystem = function(systemCenterPoint){
 
   this.addParticle = function(){
     var dotSpeed = Math.random() * (0.4 - 0.05) + 0.05,
-				// particleType = Math.round(Math.random()),
-        particleType = 0,
         randomR = Math.floor(Math.random() * (255 - 160) + 160),
         randomG = Math.floor(Math.random() * (200 - 5) + 5),
         randomB = Math.floor(Math.random() * (80 - 20) + 20),
         Alpha = 1;
 
-    this.particles.push(new particle(dotSpeed, dotRadius, 0, this.systemCenterPoint, particleType, randomR, randomG, randomB, Alpha));
+    this.particles.push(new particle(dotSpeed, dotRadius, 0, this.systemCenterPoint, randomR, randomG, randomB, Alpha));
   }
 
   // Call run method of each particle
