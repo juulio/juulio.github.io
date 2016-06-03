@@ -67,9 +67,9 @@ function Particle(dotSpeed, dotRadius, rotationRadius, centerPoint, particleType
 
     push();
       translate(pos_x, pos_y, 0);
-      // Rotate not working nor visible
-      // rotateX(radians(this.angle));
+
       rotateZ(radians(this.angle*2000));
+      rotateX(radians(this.angle*2000));
 
       // Lighting works properly
       // ambientLight(this.particleColor.r, this.particleColor.g, this.particleColor.b);
