@@ -15,15 +15,18 @@ var particleSystemCenter,
   material,
   camera,
   scene,
+  velX,
   velY,
-  posX;
+  posX,
+  posY;
 
  //---------------------------------------------------------
 // Init THREE required objects
 function init(){
 
   // 1. Set amount of particles
-  particleCount = 50;
+  particleCount = 400;
+  // particleCount = 0;
 
   // 2. Create renderer object for THREE.js
   renderer = new THREE.WebGLRenderer();
@@ -35,7 +38,7 @@ function init(){
 
   // 4. Create camera object
   camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 1000);
-  camera.position.z = 50;
+  camera.position.z = 60;
 
   // 5. Create particles Geometry
   particles = new THREE.Geometry();
@@ -45,24 +48,13 @@ function init(){
 
   material = new THREE.PointsMaterial({
     color: 0xFFFFFF,
-    size: 1,
     map: textureLoader.load('particle.png'),
-    // blending: THREE.AdditiveBlending,
     transparent: true
   });
 
   // 7. Create the individual particles
   for(var p = 0; p < particleCount; p++) {
-    // create a particle
-    posX = Math.random() * (-2 - 2) + 2;
-    particle = new THREE.Vector3(posX, 0, 0);
-
-    // create a velocity vector
-    velY = Math.random() * (0.003 - 0.004) + 0.004;
-    particle.velocity = new THREE.Vector3( 0, velY, 0 );
-
-    // add it to the geometry
-    particles.vertices.push(particle);
+    createNewParticle();
   }
 
   // 8.Create the particle system
@@ -79,21 +71,45 @@ function init(){
 }
 
 //---------------------------------------------------------
-// Animated: this function is executed each animation frame
+// Create a New Particle at (0, 0, 0,) with random velX and velY velocities
+function createNewParticle(){
+  particle = new THREE.Vector3(0, 0, 0);
+
+  // create a velocity vector
+  velX = Math.random() * (-0.002 - 0.003) + 0.003;
+  velY = Math.random() * (-0.003 - 0.004) + 0.004;
+  particle.velocity = new THREE.Vector3( velX, velY, 0 );
+
+  // add it to the geometry
+  particles.vertices.push(particle);
+}
+
+//---------------------------------------------------------
+// this function is executed each animation frame
 function animate(){
   requestAnimationFrame(animate);
 
+  // particleCount = particles.vertices.length;
+
   var pCount = particleCount;
+  // if (particleCount < 500){
+  //   createNewParticle();
+  // }
+
+  // Pending -> Kill particles
 
   while (pCount--) {
     // get the particle
     particle = particles.vertices[pCount];
 
-    particleSystem.rotation.z += 0.002;
-
     // Move particle on Y index to make it go further from the center
     particle.add(particle.velocity);
   }
+
+  // Rotate the whole particle System on the Z Axis
+  particleSystem.rotation.x += 0.00001;
+  particleSystem.rotation.y += 0.001;
+  particleSystem.rotation.z += 0.01;
 
   // flag to the particle system that we've changed its vertices.
   particles.verticesNeedUpdate = true;
