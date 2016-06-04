@@ -38,7 +38,7 @@ function init(){
 
   // 4. Create camera object
   camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 1000);
-  camera.position.z = 60;
+  camera.position.z = 40;
 
   // 5. Create particles Geometry
   particles = new THREE.Geometry();
@@ -96,23 +96,26 @@ function animate(){
   //   createNewParticle();
   // }
 
-  // Pending -> Kill particles
-
   while (pCount--) {
     // get the particle
     particle = particles.vertices[pCount];
 
     // Move particle on Y index to make it go further from the center
     particle.add(particle.velocity);
+
+    if(particle.x > 9){
+      // console.log(particle.x);
+      //KILL particle
+    }
   }
 
-  // Rotate the whole particle System 
+  // Rotate the whole particle System
   if(particleSystem.rotation.z >= 2){
     particleSystem.rotation.x += 0.00001;
     particleSystem.rotation.y += 0.001;
   }
 
-  particleSystem.rotation.z += 0.001;
+  particleSystem.rotation.z += 0.01;
 
   // flag to the particle system that we've changed its vertices.
   particles.verticesNeedUpdate = true;
