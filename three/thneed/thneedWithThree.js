@@ -106,10 +106,13 @@ function animate(){
     particle.add(particle.velocity);
   }
 
-  // Rotate the whole particle System on the Z Axis
-  particleSystem.rotation.x += 0.00001;
-  particleSystem.rotation.y += 0.001;
-  particleSystem.rotation.z += 0.01;
+  // Rotate the whole particle System 
+  if(particleSystem.rotation.z >= 2){
+    particleSystem.rotation.x += 0.00001;
+    particleSystem.rotation.y += 0.001;
+  }
+
+  particleSystem.rotation.z += 0.001;
 
   // flag to the particle system that we've changed its vertices.
   particles.verticesNeedUpdate = true;
