@@ -25,8 +25,8 @@ var particleSystemCenter,
 function init(){
 
   // 1. Set amount of particles
-  // particleCount = 4000;
-  particleCount = 2;
+  particleCount = 1000;
+  // particleCount = 2;
 
   // 2. Create renderer object for THREE.js
   renderer = new THREE.WebGLRenderer();
@@ -98,10 +98,13 @@ function animate(){
 
   // particleCount = particles.vertices.length;
 
-  var pCount = particleCount;
-  // if (particleCount < 500){
-  //   createNewParticle();
-  // }
+
+  // var pCount = particleCount;
+  var pCount = particles.vertices.length
+
+  if (pCount < 100){
+    createNewParticle();
+  }
 
   while (pCount--) {
     // get the particle
@@ -109,14 +112,14 @@ function animate(){
     particle.angle+=particle.dotSpeed/100;
     particle.rotationRadius += particle.dotSpeed/3;
 
-    particle.x += (Math.cos(particle.angle)*particle.rotationRadius)/10;
-    particle.y += (Math.sin(particle.angle)*particle.rotationRadius)/10;
+    particle.x += (Math.cos(particle.angle)*particle.rotationRadius)/1000;
+    particle.y += (Math.sin(particle.angle)*particle.rotationRadius)/1000;
 
     // Move particle on X and Y axis, to make it go further from the center
     // particle.add(particle.velocity);
 
-    if(particle.x > 9){
-      // console.log(particle.x);
+    if(particle.x > 6 || particle.x < -6 || particle.y > 6 || particle.y < -6){
+      particles.vertices.splice(pCount, 1);
       //KILL particle
     }
   }
