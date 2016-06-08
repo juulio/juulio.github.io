@@ -25,8 +25,8 @@ var particleSystemCenter,
 function init(){
 
   // 1. Set amount of particles
-  particleCount = 400;
-  // particleCount = 0;
+  // particleCount = 4000;
+  particleCount = 2;
 
   // 2. Create renderer object for THREE.js
   renderer = new THREE.WebGLRenderer();
@@ -72,13 +72,20 @@ function init(){
 
 //---------------------------------------------------------
 // Create a New Particle at (0, 0, 0,) with random velX and velY velocities
+// Each particle must have an angle, a rotationRadius and a speed variable.
 function createNewParticle(){
   particle = new THREE.Vector3(0, 0, 0);
 
+  // The angle will begin on a random value between 0 and 6.28
+  particle.angle = Math.random() * 6.28;
+
+  // Initial values
+  particle.dotSpeed = Math.random() * (0.1 - 0.05) + 0.05;
+  particle.rotationRadius = 0;
+
   // create a velocity vector
-  velX = Math.random() * (-0.002 - 0.003) + 0.003;
-  velY = Math.random() * (-0.003 - 0.004) + 0.004;
-  particle.velocity = new THREE.Vector3( velX, velY, 0 );
+  // velX = Math.random() * (-0.002 - 0.003) + 0.003;
+  // velY = Math.random() * (-0.003 - 0.004) + 0.004;
 
   // add it to the geometry
   particles.vertices.push(particle);
@@ -99,9 +106,14 @@ function animate(){
   while (pCount--) {
     // get the particle
     particle = particles.vertices[pCount];
+    particle.angle+=particle.dotSpeed/100;
+    particle.rotationRadius += particle.dotSpeed/3;
 
-    // Move particle on Y index to make it go further from the center
-    particle.add(particle.velocity);
+    particle.x += (Math.cos(particle.angle)*particle.rotationRadius)/10;
+    particle.y += (Math.sin(particle.angle)*particle.rotationRadius)/10;
+
+    // Move particle on X and Y axis, to make it go further from the center
+    // particle.add(particle.velocity);
 
     if(particle.x > 9){
       // console.log(particle.x);
@@ -110,20 +122,19 @@ function animate(){
   }
 
   // Rotate the whole particle System
-  if(particleSystem.rotation.z >= 2){
-    particleSystem.rotation.x += 0.00001;
-    particleSystem.rotation.y += 0.001;
-  }
-
-  particleSystem.rotation.z += 0.01;
+  // if(particleSystem.rotation.z >= 2){
+  //   particleSystem.rotation.x += 0.00001;
+  //   particleSystem.rotation.y += 0.001;
+  // }
+  //
+  // particleSystem.rotation.z += 0.01;
 
   // flag to the particle system that we've changed its vertices.
   particles.verticesNeedUpdate = true;
 
   //draw
   renderer.render( scene, camera );
- }
-
+}
 
 //---------------------------------------------------------
 // Begin
