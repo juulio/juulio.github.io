@@ -26,7 +26,8 @@ function init(){
 
   // 1. Set amount of particles
   // particleCount = 10;
-  particleCount = 200;
+  // particleCount = 200;
+  particleCount = 100;
 
   // 2. Create renderer object for THREE.js
   renderer = new THREE.WebGLRenderer();
@@ -38,7 +39,7 @@ function init(){
 
   // 4. Create camera object
   camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 1000);
-  camera.position.z = 20;
+  camera.position.z = 40;
 
   // 5. Create particles Geometry
   particles = new THREE.Geometry();
@@ -57,6 +58,7 @@ function init(){
     createNewParticle();
   }
 
+  alert("Particulas iniciales: " + particles.vertices.length);
   // 8.Create the particle system
   particleSystem = new THREE.Points(
     particles,
@@ -96,7 +98,7 @@ function animate(){
   createNewParticle();
 
   var pCount = particles.vertices.length
-
+  console.log('pCount = ' + pCount);
 
   while (pCount--) {
     // get the particle
