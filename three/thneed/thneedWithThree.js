@@ -25,8 +25,8 @@ var particleSystemCenter,
 function init(){
 
   // 1. Set amount of particles
-  particleCount = 1000;
-  // particleCount = 2;
+  // particleCount = 10;
+  particleCount = 200;
 
   // 2. Create renderer object for THREE.js
   renderer = new THREE.WebGLRenderer();
@@ -38,7 +38,7 @@ function init(){
 
   // 4. Create camera object
   camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 1000);
-  camera.position.z = 40;
+  camera.position.z = 20;
 
   // 5. Create particles Geometry
   particles = new THREE.Geometry();
@@ -77,15 +77,12 @@ function createNewParticle(){
   particle = new THREE.Vector3(0, 0, 0);
 
   // The angle will begin on a random value between 0 and 6.28
-  particle.angle = Math.random() * 6.28;
+  // particle.angle = Math.random() * 6.28;
+  particle.angle = 0;
 
   // Initial values
   particle.dotSpeed = Math.random() * (0.1 - 0.05) + 0.05;
   particle.rotationRadius = 0;
-
-  // create a velocity vector
-  // velX = Math.random() * (-0.002 - 0.003) + 0.003;
-  // velY = Math.random() * (-0.003 - 0.004) + 0.004;
 
   // add it to the geometry
   particles.vertices.push(particle);
@@ -102,35 +99,29 @@ function animate(){
   // var pCount = particleCount;
   var pCount = particles.vertices.length
 
-  if (pCount < 100){
+  // if (pCount < 100){
     createNewParticle();
-  }
+  // }
 
   while (pCount--) {
     // get the particle
     particle = particles.vertices[pCount];
-    particle.angle+=particle.dotSpeed/100;
-    particle.rotationRadius += particle.dotSpeed/3;
 
-    particle.x += (Math.cos(particle.angle)*particle.rotationRadius)/1000;
-    particle.y += (Math.sin(particle.angle)*particle.rotationRadius)/1000;
+    // Update angle and rotationRadius
+    particle.angle+=particle.dotSpeed;
+    particle.rotationRadius += particle.dotSpeed/4  ;
 
-    // Move particle on X and Y axis, to make it go further from the center
-    // particle.add(particle.velocity);
+    particle.x += (Math.cos(particle.angle)*particle.rotationRadius)/100;
+    particle.y += (Math.sin(particle.angle)*particle.rotationRadius)/100;
 
-    if(particle.x > 6 || particle.x < -6 || particle.y > 6 || particle.y < -6){
-      particles.vertices.splice(pCount, 1);
+
+    // if(particle.x > 6 || particle.x < -6 || particle.y > 6 || particle.y < -6){
+
+    if(particle.rotationRadius > 9  ){
       //KILL particle
+      particles.vertices.splice(pCount, 1);
     }
   }
-
-  // Rotate the whole particle System
-  // if(particleSystem.rotation.z >= 2){
-  //   particleSystem.rotation.x += 0.00001;
-  //   particleSystem.rotation.y += 0.001;
-  // }
-  //
-  // particleSystem.rotation.z += 0.01;
 
   // flag to the particle system that we've changed its vertices.
   particles.verticesNeedUpdate = true;
