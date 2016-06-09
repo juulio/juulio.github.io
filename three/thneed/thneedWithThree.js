@@ -7,6 +7,8 @@ var particleSystemCenter,
   particleSystem,
   particleCount,
   textureLoader,
+  windowHalfX,
+  windowHalfY,
   velocityX,
   velocityY,
   particles,
@@ -73,6 +75,9 @@ function init(){
   // 11. Show FPS stats on the screen
   stats = new Stats();
   document.body.appendChild(stats.domElement);
+
+  // 12. Add Window Resize Event Listener
+  window.addEventListener('resize', onWindowResize, false);
 }
 
 //---------------------------------------------------------
@@ -101,7 +106,7 @@ function animate(){
   createNewParticle();
 
   var pCount = particles.vertices.length
-  console.log('pCount = ' + pCount);
+  // console.log('pCount = ' + pCount);
 
   while (pCount--) {
     // get the particle
@@ -129,7 +134,20 @@ function animate(){
   //draw
   renderer.render( scene, camera );
 
+  // update GPU stats
   stats.update();
+}
+
+//---------------------------------------------------------
+// Update Renderer Size when Windows is resized
+function onWindowResize() {
+
+    windowHalfX = window.innerWidth / 2;
+    windowHalfY = window.innerHeight / 2;
+
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
 }
 
 //---------------------------------------------------------
