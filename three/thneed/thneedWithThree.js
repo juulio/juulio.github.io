@@ -15,6 +15,7 @@ var particleSystemCenter,
   material,
   camera,
   scene,
+  stats,
   velX,
   velY,
   posX,
@@ -25,9 +26,8 @@ var particleSystemCenter,
 function init(){
 
   // 1. Set amount of particles
-  // particleCount = 10;
   // particleCount = 200;
-  particleCount = 100;
+  particleCount = 2;
 
   // 2. Create renderer object for THREE.js
   renderer = new THREE.WebGLRenderer();
@@ -58,7 +58,6 @@ function init(){
     createNewParticle();
   }
 
-  alert("Particulas iniciales: " + particles.vertices.length);
   // 8.Create the particle system
   particleSystem = new THREE.Points(
     particles,
@@ -70,6 +69,10 @@ function init(){
 
   // 10. Add the renderer element to the DOM
   document.body.appendChild(renderer.domElement);
+
+  // 11. Show FPS stats on the screen
+  stats = new Stats();
+  document.body.appendChild(stats.domElement);
 }
 
 //---------------------------------------------------------
@@ -125,6 +128,8 @@ function animate(){
 
   //draw
   renderer.render( scene, camera );
+
+  stats.update();
 }
 
 //---------------------------------------------------------
