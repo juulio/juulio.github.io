@@ -108,8 +108,8 @@ function animate(){
     particle = particles.vertices[pCount];
 
     // Update angle and rotationRadius
-    particle.angle+=particle.dotSpeed;
-    particle.rotationRadius += particle.dotSpeed/4  ;
+    particle.angle+=particle.dotSpeed/2;
+    particle.rotationRadius += particle.dotSpeed/4;
 
     particle.x += (Math.cos(particle.angle)*particle.rotationRadius)/100;
     particle.y += (Math.sin(particle.angle)*particle.rotationRadius)/100;
