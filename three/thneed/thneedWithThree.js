@@ -93,15 +93,10 @@ function createNewParticle(){
 function animate(){
   requestAnimationFrame(animate);
 
-  // particleCount = particles.vertices.length;
+  createNewParticle();
 
-
-  // var pCount = particleCount;
   var pCount = particles.vertices.length
 
-  // if (pCount < 100){
-    createNewParticle();
-  // }
 
   while (pCount--) {
     // get the particle
