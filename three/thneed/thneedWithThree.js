@@ -56,9 +56,9 @@ function init(){
   });
 
   // 7. Create the individual particles
-  for(var p = 0; p < particleCount; p++) {
-    createNewParticle();
-  }
+  // for(var p = 0; p < particleCount; p++) {
+  //   createNewParticle();
+  // }
 
   // 8.Create the particle system
   particleSystem = new THREE.Points(
@@ -124,12 +124,16 @@ function animate(){
 
     if(particle.rotationRadius > 9  ){
       //KILL particle
-      particles.vertices.splice(pCount, 1);
+      // particles.vertices.splice(pCount, 1);
     }
   }
 
   // flag to the particle system that we've changed its vertices.
+  particles.dynamic = true;
   particles.verticesNeedUpdate = true;
+  material.needsUpdate = true;
+
+  scene.add(particleSystem);
 
   //draw
   renderer.render( scene, camera );
