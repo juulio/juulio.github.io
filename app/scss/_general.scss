@@ -1,0 +1,19 @@
+body {
+  font-family: 'GothamExtraLight';
+}
+
+a {
+  color: #999999;
+  margin-right: 15px;
+  text-decoration: none;
+  padding: 3px 4px;
+
+  &:hover {
+    color: #000;
+  }
+}
+
+.projectList a {
+  display: block;
+  margin-bottom: 8%;
+}

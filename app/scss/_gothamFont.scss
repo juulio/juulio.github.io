@@ -1,0 +1,25 @@
+@font-face {
+	font-family: 'Gotham';
+	src: url('Gotham-Black.eot');
+	src: local('Gotham Black'), local('Gotham-Black'),
+		url('Gotham-Black.eot?#iefix') format('embedded-opentype'),
+		url('Gotham-Black.woff2') format('woff2'),
+		url('Gotham-Black.woff') format('woff'),
+		url('Gotham-Black.ttf') format('truetype'),
+		url('Gotham-Black.svg#Gotham-Black') format('svg');
+	font-weight: 900;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'GothamExtraLight';
+	src: url('Gotham-ExtraLight.eot');
+	src: local('Gotham Extra Light'), local('Gotham-ExtraLight'),
+		url('Gotham-ExtraLight.eot?#iefix') format('embedded-opentype'),
+		url('Gotham-ExtraLight.woff2') format('woff2'),
+		url('Gotham-ExtraLight.woff') format('woff'),
+		url('Gotham-ExtraLight.ttf') format('truetype'),
+		url('Gotham-ExtraLight.svg#Gotham-ExtraLight') format('svg');
+	font-weight: 200;
+	font-style: normal;
+}
