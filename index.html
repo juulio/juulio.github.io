@@ -1,54 +1,28 @@
----
-layout: default
----
 
+<!doctype html>
+<html lang="en">
 
-<div id="main" class="home">
-  <section>
-    <h1 class="page-heading">About my Fractals Forest</h1>
+<head>
+	<meta charset="utf-8" />
+	<title>juulio.com - Julio Del Valle - Costa Rica</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<meta name="HandheldFriendly" content="true">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<link rel="stylesheet" href="css/styles.css" media="screen" />
+</head>
 
-    <ul class="post-list">
-      <p>Since we have many beautiful forests in Costa Rica, I decided to create my own, code-genereated forest. Everything you see on the above Canvas are dots and lines, generated with javascript code. No images were used to create on my digital forest, I'm planning on keeping it like that.</p>
-      <p>Since 2013 I began researching about fractals and how to implement fractal trees. My main reasons for creating this experiments using Javascript are that I use it on my regular (Front End Developer) job and it also makes it easier to share things directly on the browser. Whenever possible, I try to use plain javascript.</p>
-      <p>After repeating code lots of times and reusing my own code snippets, I wrote my own javascript library for the things I need. So far (January 2015) it draws the basic things on the screen for me and renders the Canvas. You can take a look at <a href="js/libs/canvasElements.js" target="_blank">http://juulio.com/js/libs/canvasElements.js</a></p>
-      <p>Since 2014, I've created many individual fractal trees, some of them with leaves and some even have fruits. Most of their values are randomized so one tree will never look exactly like the others. They have different parameters for their angles, depth, height, colors and the probability of drawing a leaf or a fruit. You can check some of those experiments at the <a href="experiments/" target="_blank">experiments section.</a></p>
-      <p>There are 3 main components on this Canvas: The background, the trees and the clinging plant. All of them were created using only javascript, looking for examples on the web, learning the HTML5 Canvas API (super cool and interesting by the way)</p>
-      <p>The background has two main areas: the sky and the grass. It was generated using Canvas gradients on a function called "drawSkyAndGrass".</p>
+<body class="home">
+	<nav>
+		<a href="/" class="home-link">home</a>
+		<!-- <a href="/experiments/" class="projects-link">projects</a>
+		<a href="/research/" class="research-link">research</a> -->
+	</nav>
 
-      {% highlight javascript %}
-      var drawSkyAndGrass = function() {
-          context.save();
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r78/three.js"></script>
+	<script src="js/vendor/OrbitControls.js"></script>
+	<script src="js/main.js">
 
-          context.globalAlpha = 0.2;
-          // First create a CanvasGradient object.
-          var linGrad = context.createLinearGradient(0, 0, 0, canvas.height);
+	</script>
+</body>
 
-          linGrad.addColorStop(0, '#00BFFF'); Light Blue
-
-          linGrad.addColorStop(0.45, 'white'); // White in the middle
-
-          linGrad.addColorStop(0.85, '#55dd00'); // Green
-
-          context.fillStyle = linGrad;
-
-          // The canvas and the gradient have the same area
-          context.fillRect(0, 0, canvas.width, canvas.height);
-
-          context.restore();
-      };
-      {% endhighlight %}
-      <p>We have many beaches in Costa Rica and a warm weather almost all the year round. On December 2015 I visited Playa Dominical on the Pacific Coast. There were many large trees with giant clinging plants. That's where I got the idea of adding a clinging plant to my fractal trees. I was riding my car and saw it and thought "This thing can be drawn using a recursive function".</p>
-
-      <h2>Posts regarding code generated canvas graphics.</h2>
-
-      <p></p>
-    {% for post in site.posts %}
-      <li>
-        <h2>
-          <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
-        </h2>
-        <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
-      </li>
-    {% endfor %}
-  </section>
-</div>
+</html>
