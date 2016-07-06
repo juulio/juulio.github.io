@@ -14,7 +14,7 @@ var cleanCSS = require('gulp-clean-css');
 gulp.task('sass', function() {
   return gulp.src('app/scss/**/*.scss')
     .pipe(sass())
-    .pipe(gulp.dest('app/css'))
+    .pipe(gulp.dest('css'))
     .pipe(browserSync.reload({
       stream: true
     }))
@@ -22,9 +22,9 @@ gulp.task('sass', function() {
 
 // minify CSS files
 gulp.task('minify-css', function() {
-  return gulp.src('app/css/*.css')
+  return gulp.src('css/*.css')
     .pipe(cleanCSS({compatibility: 'ie8'}))
-    .pipe(gulp.dest('app/css'));
+    .pipe(gulp.dest('css'));
 });
 
 // watch project files and reload
@@ -58,7 +58,7 @@ gulp.task('useref', function(){
     .pipe(useref())
     // Minifies only if it's a JavaScript file
     .pipe(gulpIf('*.js', uglify()))
-    .pipe(gulp.dest('dist'))
+    .pipe(gulp.dest('/'))
 });
 
 // clean production envirnomnet
