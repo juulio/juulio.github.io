@@ -144,24 +144,52 @@ var juulio = window.juulio || {};
 	}
 
 	/*******************************************************************************
-	 Animates each letter on the Y Axis
-	 First rotates all leters to the right
-	 Then rotates all letters to the left*/
+	 Animates each character.
+	 First rotates all characters to the right
+	 Then rotates all characters to the left */
 	function animateCharacter(){
-		if(characterPosition < textMesh.children.length) {
-			var rotationSpeed = 0.32,
-				currentLetterRotationY = textMesh.children[characterPosition].rotation.y;
+		var rotationSpeed = 0.2,
+			currentCharacterRotationY;
 
-			// Rotate Current Letter on the Y Axis
-			textMesh.children[characterPosition].rotation.y += rotationSpeed;
+		if(charactersAnimationDirection == 'right'){
+			if(characterPosition < textMesh.children.length) {
+				currentCharacterRotationY = textMesh.children[characterPosition].rotation.y;
 
-			if(textMesh.children[characterPosition].rotation.y >= 6.28) {
-				characterPosition++;
+				// Rotate Current Character on the Y Axis
+				textMesh.children[characterPosition].rotation.y += rotationSpeed;
+
+				if(textMesh.children[characterPosition].rotation.y >= 6.28) {
+					characterPosition++;
+				}
+
+				if(characterPosition < textMesh.children.length-1) {
+					if(currentCharacterRotationY >= 2) {
+						// Begin rotating the next character
+						textMesh.children[characterPosition + 1].rotation.y += rotationSpeed;
+					}
+				}
 			}
+			else {
+				charactersAnimationDirection = 'left';
+				characterPosition--;
+			}
+		}
+		else {
+			if(charactersAnimationDirection == 'left'){
+				if(characterPosition > 0) {
+					currentCharacterRotationY = textMesh.children[characterPosition].rotation.y;
+					// Rotate Current Character on the Y Axis
+					textMesh.children[characterPosition].rotation.y -= rotationSpeed;
 
-			if(characterPosition < textMesh.children.length-1) {
-				if(currentLetterRotationY >= 2) {
-					textMesh.children[characterPosition + 1].rotation.y += rotationSpeed;
+					if(textMesh.children[characterPosition].rotation.y <= 0) {
+						characterPosition--;
+					}
+
+					if(characterPosition < textMesh.children.length-1) {
+						if(currentCharacterRotationY >= 2) {
+							textMesh.children[characterPosition - 1].rotation.y -= rotationSpeed;
+						}
+					}
 				}
 			}
 		}
@@ -210,7 +238,16 @@ var juulio = window.juulio || {};
 	/*****************************************************************************
 	 Load the JSON font and call init */
   loader = new THREE.FontLoader();
-  loader.load('fonts/gotham_black_regular.json', function(font){
+	var fontPath;
+
+	if (document.domain == 'juulio.com'){
+		fontPath = 'dist/fonts/gotham_black_regular.json';
+	}
+	else{
+		fontPath = 'fonts/gotham_black_regular.json';
+	}
+
+  loader.load(fontPath, function(font){
     init(font);
   });
 
