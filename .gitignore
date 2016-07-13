@@ -8,6 +8,3 @@ node_modules
 # Sass Cache files
 **/.sass-cache
 **/.sass-cache/*
-
-# dist production folder
-dist
