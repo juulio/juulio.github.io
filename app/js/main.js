@@ -1,12 +1,11 @@
 /*
- * Julio Del Valle
- * Possible
- * Costa Rica 2016
+ * @author Julio Del Valle
+ * juulio.com - Costa Rica
  */
 
 'use strict';
 
-var juliodelvalle = window.juliodelvalle || {};
+var juulio = window.juulio || {};
 
 (function (context, $) {
 
@@ -68,9 +67,6 @@ var juliodelvalle = window.juliodelvalle || {};
 		scene = new THREE.Scene();
 
 		camera = new THREE.PerspectiveCamera(75, rendererWidth / rendererHeight, .1, 50);
-		// camera = new THREE.OrthographicCamera( rendererWidth / - 2, rendererWidth / 2, rendererHeight / 2, rendererHeight / - 2, 1, 1000 );
-
-		// camera.position.y = 1.2;
 
 		if(isMobile) {
 			camera.position.z = 12;
@@ -99,8 +95,8 @@ var juliodelvalle = window.juliodelvalle || {};
 		scene.add( lights[ 1 ] );
 		scene.add( lights[ 2 ] );
 
-		// var axisHelper = new THREE.AxisHelper( 5 );
-		// scene.add( axisHelper );
+		var axisHelper = new THREE.AxisHelper( 5 );
+		scene.add( axisHelper );
 
 		// window.addEventListener( 'resize', resizeViewport, false );
 
@@ -112,8 +108,7 @@ var juliodelvalle = window.juliodelvalle || {};
 	/*****************************************************************************
 	 Loads the JSON font and call */
 	function renderTextGeometry(font){
-		var theText = "POSSIBLE",
-			letterWidth = 0,
+		var theText = "juulio.com",
 			letterMesh;
 
 		textMesh = new THREE.Group();
@@ -127,7 +122,7 @@ var juliodelvalle = window.juliodelvalle || {};
 			geometry = new THREE.TextGeometry( theText[i], {
 				font: font,
 				size: 1,
-				height: 0.25,
+				height: 0.8,
 				curveSegments: 20
 			});
 
@@ -135,38 +130,11 @@ var juliodelvalle = window.juliodelvalle || {};
 
 			letterMesh = new THREE.Mesh( geometry, material );
 			letterMesh.position.x = i;
-
-			// switch (i) {
-			// 	case 1:
-			// 		letterMesh.position.x = i - 0.04;
-			// 		break;
-			// 	case 2:
-			// 		letterMesh.position.x = i + 0.1;
-			// 		break;
-			// 	case 3:
-			// 		letterMesh.position.x = i + 0.04;
-			// 		break;
-			// 	case 4:
-			// 		letterMesh.position.x = i - 0.02;
-			// 		break;
-			// 	case 5:
-			// 		letterMesh.position.x = i - 0.5;
-			// 		break;
-			// 	case 6:
-			// 		letterMesh.position.x = i - 0.45;
-			// 		break;
-			// 	case 7:
-			// 		letterMesh.position.x = i - 0.5;
-			// 		break;
-			// 	default:
-			// 	letterMesh.position.x = i;
-			// }
-
 			textMesh.add( letterMesh)
 		}
 
-		textMesh.position.x = -3.9;
-
+		textMesh.position.x = -1.5;
+		textMesh.scale.set(0.4, 0.4, 0.4);
 		if(isMobile){
 			textMesh.position.y = 3.5;
 		}
@@ -242,4 +210,4 @@ var juliodelvalle = window.juliodelvalle || {};
     init(font);
   });
 
-}(juliodelvalle));
+}(juulio));
