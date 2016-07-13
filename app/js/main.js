@@ -19,12 +19,14 @@ var juulio = window.juulio || {};
 		geometry,
 		textMesh,
 		isMobile,
-		letterPosition;
+		characterPosition,
+		charactersAnimationDirection;
 
 	/*****************************************************************************
 	 Inits all functions */
   function init(font) {
-		letterPosition = 0;
+		characterPosition = 0,
+		charactersAnimationDirection = 'right';
 
 		// Verifies if app is running on a mobile device
 		isMobile = false;
@@ -38,24 +40,10 @@ var juulio = window.juulio || {};
 		update();
   }
 
-	/*******************************************************************************
-	 Updates all the elements on the screen - requestAnimationFrame */
-	function update() {
-	  requestAnimationFrame(update);
-
-		if(letterPosition < textMesh.children.length) {
-			rotateLetters();
-		}
-
-		controls.update();
-
-		renderer.render(scene, camera);
-	}
-
 	/*****************************************************************************
 	 Inits the THREE.js basic scene elements */
 	function setScene() {
-		 var rendererHeight = 700,
+		 var rendererHeight = window.innerHeight,
 		 	rendererWidth = window.innerWidth;
 
 
@@ -98,17 +86,18 @@ var juulio = window.juulio || {};
 		var axisHelper = new THREE.AxisHelper( 5 );
 		scene.add( axisHelper );
 
-		// window.addEventListener( 'resize', resizeViewport, false );
+		window.addEventListener( 'resize', resizeViewport, false );
 
 		document.body.appendChild( renderer.domElement );
 
-		// resizeViewport();
+		resizeViewport();
 	}
 
 	/*****************************************************************************
 	 Loads the JSON font and call */
 	function renderTextGeometry(font){
-		var theText = "juulio.com",
+		// var theText = "juulio.com",
+		var theText = "Possible 3D",
 			letterMesh;
 
 		textMesh = new THREE.Group();
@@ -143,22 +132,37 @@ var juulio = window.juulio || {};
 	}
 
 	/*******************************************************************************
-	 Rotates each letter on the Y Axis */
-	function rotateLetters(){
-		var nextLetterRotationY,
-			rotationSpeed = 0.22,
-			currentLetterRotationY = textMesh.children[letterPosition].rotation.y;
+	 Updates all the elements on the screen - requestAnimationFrame */
+	function update() {
+	  requestAnimationFrame(update);
 
-		// Rotate Current Letter on the Y Axis
-		textMesh.children[letterPosition].rotation.y += rotationSpeed;
+		animateCharacter();
 
-		if(textMesh.children[letterPosition].rotation.y >= 6.28) {
-			letterPosition++;
-		}
+		controls.update();
 
-		if(letterPosition < textMesh.children.length-1) {
-			if(currentLetterRotationY >= 2) {
-				textMesh.children[letterPosition + 1].rotation.y += rotationSpeed;
+		renderer.render(scene, camera);
+	}
+
+	/*******************************************************************************
+	 Animates each letter on the Y Axis
+	 First rotates all leters to the right
+	 Then rotates all letters to the left*/
+	function animateCharacter(){
+		if(characterPosition < textMesh.children.length) {
+			var rotationSpeed = 0.32,
+				currentLetterRotationY = textMesh.children[characterPosition].rotation.y;
+
+			// Rotate Current Letter on the Y Axis
+			textMesh.children[characterPosition].rotation.y += rotationSpeed;
+
+			if(textMesh.children[characterPosition].rotation.y >= 6.28) {
+				characterPosition++;
+			}
+
+			if(characterPosition < textMesh.children.length-1) {
+				if(currentLetterRotationY >= 2) {
+					textMesh.children[characterPosition + 1].rotation.y += rotationSpeed;
+				}
 			}
 		}
 	}
