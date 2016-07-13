@@ -57,6 +57,12 @@ gulp.task('useref', function(){
     .pipe(gulp.dest('.'))
 });
 
+// copy fonts folder to dist folder
+gulp.task('copyfonts', function() {
+   gulp.src('app/fonts/**/*')
+   .pipe(gulp.dest('dist/fonts'));
+});
+
 // clean production envirnomnet
 gulp.task('clean:dist', function() {
   return del.sync('dist');
@@ -77,7 +83,7 @@ gulp.task('default', function (callback) {
 // build task for production environment
 gulp.task('build', function (callback) {
   runSequence('clean:dist',
-    ['sass', 'minify-css', 'useref'],
+    ['sass', 'minify-css', 'useref', 'copyfonts'],
     callback
   )
 });
