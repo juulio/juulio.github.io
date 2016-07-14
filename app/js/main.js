@@ -9,8 +9,6 @@ var juulio = window.juulio || {};
 
 (function (context) {
 
-	'use strict';
-
 	var scene,
 		loader,
 		camera,
@@ -20,12 +18,14 @@ var juulio = window.juulio || {};
 		textMesh,
 		isMobile,
 		characterPosition,
+		isProductionEnvironment,
 		charactersAnimationDirection;
 
 	/*****************************************************************************
 	 Inits all functions */
   function init(font) {
 		characterPosition = 0,
+		isProductionEnvironment = false;
 		charactersAnimationDirection = 'right';
 
 		// Verifies if app is running on a mobile device
@@ -33,6 +33,10 @@ var juulio = window.juulio || {};
 
 		if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
  			isMobile = true;
+		}
+
+		if(document.domain == 'juulio.com'){
+			isProductionEnvironment = true;
 		}
 
 		setScene();
@@ -240,7 +244,7 @@ var juulio = window.juulio || {};
   loader = new THREE.FontLoader();
 	var fontPath;
 
-	if (document.domain == 'juulio.com'){
+	if (isProductionEnvironment){
 		fontPath = 'dist/fonts/gotham_black_regular.json';
 	}
 	else{
