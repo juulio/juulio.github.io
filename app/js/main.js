@@ -7,7 +7,7 @@
 
 var juulio = window.juulio || {};
 
-(function (context, $) {
+(function (context) {
 
 	'use strict';
 
