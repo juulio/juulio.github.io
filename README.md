@@ -1,6 +1,6 @@
 # juulio.com
 
-# Julio Del Valle Costa Rica
+Julio Del Valle Costa Rica
 
 This is my personal blog where I write stuff related to javascript and 'THREE.js'.
 
