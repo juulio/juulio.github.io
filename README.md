@@ -1,6 +1,6 @@
 # Julio Del Valle Costa Rica
 
-[juulio.com](https://juulio.com)
+[juulio.com](http://juulio.com)
 
 This is my personal blog where I write stuff related to **javascript** and **THREE.js**.
 
