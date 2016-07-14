@@ -25,7 +25,6 @@ var juulio = window.juulio || {};
 	 Inits all functions */
   function init(font) {
 		characterPosition = 0,
-		isProductionEnvironment = false;
 		charactersAnimationDirection = 'right';
 
 		// Verifies if app is running on a mobile device
@@ -34,6 +33,9 @@ var juulio = window.juulio || {};
 		if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
  			isMobile = true;
 		}
+
+		// Verifies if app is running on the production environment juulio.com
+		isProductionEnvironment = false;
 
 		if(document.domain == 'juulio.com'){
 			isProductionEnvironment = true;
