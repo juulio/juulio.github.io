@@ -22,10 +22,14 @@ var juulio = window.juulio || {};
 		charactersAnimationDirection;
 
 	/*****************************************************************************
-	 Inits all functions */
-  function init(font) {
-		characterPosition = 0,
-		charactersAnimationDirection = 'right';
+	 Inits all variables and functions */
+	 function init(){
+	 	// Verifies if app is running on the production environment juulio.com
+	 	isProductionEnvironment = false;
+
+	 	if(document.domain == 'juulio.com'){
+	 		isProductionEnvironment = true;
+	 	}
 
 		// Verifies if app is running on a mobile device
 		isMobile = false;
@@ -34,10 +38,29 @@ var juulio = window.juulio || {};
  			isMobile = true;
 		}
 
+		// Sets initial values for characters rotation
+		characterPosition = 0,
+		charactersAnimationDirection = 'right';
+
+	 	// Load the JSON font and set the scene
+	  loader = new THREE.FontLoader();
+	 	var fontPath;
+
+	 	if (isProductionEnvironment){
+	 		fontPath = 'dist/fonts/gotham_black_regular.json';
+	 	}
+	 	else{
+	 		fontPath = 'fonts/gotham_black_regular.json';
+	 	}
+
 		setScene();
-		renderTextGeometry(font);
+
+		loader.load(fontPath, function(font){
+			renderTextGeometry(font);
+		});
+
 		update();
-  }
+	}
 
 	/*****************************************************************************
 	 Inits the THREE.js basic scene elements */
@@ -242,28 +265,7 @@ var juulio = window.juulio || {};
       renderer.setSize(window.innerWidth, window.innerHeight);
 	}
 
+	init();
 
-	// Verifies if app is running on the production environment juulio.com
-	isProductionEnvironment = false;
-
-	if(document.domain == 'juulio.com'){
-		isProductionEnvironment = true;
-	}
-	
-	/*****************************************************************************
-	 Load the JSON font and call init */
-  loader = new THREE.FontLoader();
-	var fontPath;
-
-	if (isProductionEnvironment){
-		fontPath = 'dist/fonts/gotham_black_regular.json';
-	}
-	else{
-		fontPath = 'fonts/gotham_black_regular.json';
-	}
-
-  loader.load(fontPath, function(font){
-    init(font);
-  });
 
 }(juulio));
