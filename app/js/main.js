@@ -34,13 +34,6 @@ var juulio = window.juulio || {};
  			isMobile = true;
 		}
 
-		// Verifies if app is running on the production environment juulio.com
-		isProductionEnvironment = false;
-
-		if(document.domain == 'juulio.com'){
-			isProductionEnvironment = true;
-		}
-
 		setScene();
 		renderTextGeometry(font);
 		update();
@@ -249,6 +242,14 @@ var juulio = window.juulio || {};
       renderer.setSize(window.innerWidth, window.innerHeight);
 	}
 
+
+	// Verifies if app is running on the production environment juulio.com
+	isProductionEnvironment = false;
+
+	if(document.domain == 'juulio.com'){
+		isProductionEnvironment = true;
+	}
+	
 	/*****************************************************************************
 	 Load the JSON font and call init */
   loader = new THREE.FontLoader();
