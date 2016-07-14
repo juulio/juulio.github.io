@@ -102,9 +102,15 @@ var juulio = window.juulio || {};
 	/*****************************************************************************
 	 Loads the JSON font and call */
 	function renderTextGeometry(font){
-		// var theText = "juulio.com",
-		var theText = "Possible 3D",
+		var theText,
 			letterMesh;
+
+		if(isProductionEnvironment){
+			theText = 'juulio.com';
+		}
+		else {
+			 theText = "Possible 3D";
+		}
 
 		textMesh = new THREE.Group();
 
