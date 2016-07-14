@@ -2,7 +2,7 @@
 
 Julio Del Valle Costa Rica
 
-This is my personal blog where I write stuff related to javascript and 'THREE.js'.
+This is my personal blog where I write stuff related to *javascript* and *THREE.js*.
 
 My interest is to program computer graphics examples, fractal trees and code-written animation.
 
