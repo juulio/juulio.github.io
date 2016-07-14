@@ -89,8 +89,10 @@ var juulio = window.juulio || {};
 		scene.add( lights[ 1 ] );
 		scene.add( lights[ 2 ] );
 
-		var axisHelper = new THREE.AxisHelper( 5 );
-		scene.add( axisHelper );
+		if(!isProductionEnvironment){
+			var axisHelper = new THREE.AxisHelper( 5 );
+			scene.add( axisHelper );
+		}
 
 		window.addEventListener( 'resize', resizeViewport, false );
 
