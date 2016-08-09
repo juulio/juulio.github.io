@@ -84,3 +84,8 @@ nav {
 .research .research-link,
 .projects .projects-link {
   color: #00a; }
+
+#canvasContainer {
+  width: 500px;
+  height: 100px;
+  margin: 0 auto; }

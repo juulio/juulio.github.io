@@ -12,7 +12,6 @@ var juulio = window.juulio || {};
 	var scene,
 		loader,
 		camera,
-		controls,
 		renderer,
 		geometry,
 		textMesh,
@@ -65,9 +64,10 @@ var juulio = window.juulio || {};
 	/*****************************************************************************
 	 Inits the THREE.js basic scene elements */
 	function setScene() {
-		 var rendererHeight = window.innerHeight,
-		 	rendererWidth = window.innerWidth;
-
+		//  var rendererHeight = window.innerHeight,
+		//  	rendererWidth = window.innerWidth;
+		var rendererHeight = 100,
+		 rendererWidth = 500;
 
 		renderer = new THREE.WebGLRenderer({antialias: true, alpha: false});
 		renderer.setSize(rendererWidth, rendererHeight);
@@ -84,10 +84,6 @@ var juulio = window.juulio || {};
 		else {
 			camera.position.z = 4;
 		}
-
-		controls = new THREE.OrbitControls(camera);
-		controls.enablePan = true;
-		controls.enableZoom = true;
 
 		var light = new THREE.AmbientLight( 0x000000 );
 		scene.add( light );
@@ -110,11 +106,7 @@ var juulio = window.juulio || {};
 			scene.add( axisHelper );
 		}
 
-		window.addEventListener( 'resize', resizeViewport, false );
-
-		document.body.appendChild( renderer.domElement );
-
-		resizeViewport();
+		document.getElementById('canvasContainer').appendChild( renderer.domElement );
 	}
 
 	/*****************************************************************************
@@ -133,7 +125,7 @@ var juulio = window.juulio || {};
 		textMesh = new THREE.Group();
 
 		var material = new THREE.MultiMaterial( [
-			new THREE.MeshPhongMaterial({ color : 0x000000 }), // frente de las letras
+			new THREE.MeshPhongMaterial({ color : 0xFF0000 }), // frente de las letras
 			new THREE.MeshPhongMaterial({ color : 0x505050, emissive : 0x505050 })
 		] );
 
@@ -152,8 +144,8 @@ var juulio = window.juulio || {};
 			textMesh.add( letterMesh)
 		}
 
-		textMesh.position.x = -1.5;
-		textMesh.scale.set(0.4, 0.4, 0.4);
+		textMesh.position.x = -6.5;
+		textMesh.scale.set(1.8, 1.8, 1.8);
 		if(isMobile){
 			textMesh.position.y = 3.5;
 		}
@@ -167,8 +159,6 @@ var juulio = window.juulio || {};
 	  requestAnimationFrame(update);
 
 		animateCharacter();
-
-		controls.update();
 
 		renderer.render(scene, camera);
 	}
@@ -226,18 +216,6 @@ var juulio = window.juulio || {};
 	}
 
 	/*******************************************************************************
-	 Handles onWindowResize Event */
-	function onWindowResize() {
-		windowHalfX = window.innerWidth / 2;
-		windowHalfY = window.innerHeight / 2;
-
-		camera.aspect = window.innerWidth / window.innerHeight;
-		camera.updateProjectionMatrix();
-
-		renderer.setSize( window.innerWidth, window.innerHeight );
-	}
-
-	/*******************************************************************************
 	 Handles onDocumentTouchStart Event */
 	function onDocumentTouchStart( event ) {
 		if ( event.touches.length == 1 ) {
@@ -257,15 +235,6 @@ var juulio = window.juulio || {};
 		}
 	}
 
-	/*******************************************************************************
-	 Handles the resizeViewPort Event */
-	function resizeViewport() {
-	    camera.aspect = window.innerWidth / window.innerHeight;
-	    // camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
-	}
-
 	init();
-
 
 }(juulio));
