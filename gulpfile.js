@@ -59,8 +59,8 @@ gulp.task('useref', function(){
 
 // copy fonts folder to dist folder
 gulp.task('copyfonts', function() {
-   gulp.src('app/fonts/**/*')
-   .pipe(gulp.dest('dist/fonts'));
+  gulp.src('app/fonts/**/*').pipe(gulp.dest('dist/fonts'));
+  // gulp.src('app/experiments/**/*').pipe(gulp.dest('dist/experiments'));
 });
 
 // clean production envirnomnet
