@@ -43,14 +43,7 @@ var juulio = window.juulio || {};
 
 	 	// Load the JSON font and set the scene
 	  loader = new THREE.FontLoader();
-	 	var fontPath;
-
-	 	if (isProductionEnvironment){
-	 		fontPath = 'dist/fonts/gotham_black_regular.json';
-	 	}
-	 	else{
-	 		fontPath = 'fonts/gotham_black_regular.json';
-	 	}
+	 	var fontPath = 'fonts/gotham_black_regular.json';
 
 		setScene();
 
