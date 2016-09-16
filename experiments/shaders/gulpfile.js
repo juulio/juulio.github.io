@@ -10,8 +10,6 @@ var del = require('del');
 var runSequence = require('run-sequence');
 var cleanCSS = require('gulp-clean-css');
 
-//------------------------------------------------------------------------------
-// Tasks for Development
 // sass processing
 gulp.task('sass', function() {
   return gulp.src('app/scss/**/*.scss')
@@ -22,12 +20,27 @@ gulp.task('sass', function() {
     }))
 });
 
+// minify CSS files
+gulp.task('minify-css', function() {
+  return gulp.src('app/css/*.css')
+    .pipe(cleanCSS({compatibility: 'ie8'}))
+    .pipe(gulp.dest('app/css'));
+});
+
 // watch project files and reload
 gulp.task('watch', function (){
   gulp.watch('app/scss/**/*.scss', ['sass']);
   // Reloads the browser whenever HTML or JS files change
   gulp.watch('app/*.html', browserSync.reload);
   gulp.watch('app/js/**/*.js', browserSync.reload);
+})
+
+
+// default task for dev environment
+gulp.task('default', function (callback) {
+  runSequence(['sass','browserSync', 'watch'],
+    callback
+  )
 })
 
 // live reload dev environment
@@ -39,52 +52,29 @@ gulp.task('browserSync', function() {
   })
 });
 
-//------------------------------------------------------------------------------
-// Tasks for Production Build
-// minify CSS files
-gulp.task('minify-css', function() {
-  return gulp.src('app/css/*.css')
-    .pipe(cleanCSS({compatibility: 'ie8'}))
-    .pipe(gulp.dest('css'));
-});
-
 // js and css concatenation and minification
 gulp.task('useref', function(){
   return gulp.src('app/*.html')
     .pipe(useref())
     // Minifies only if it's a JavaScript file
-    .pipe(gulpIf('app/*.js', uglify()))
-    .pipe(gulp.dest('.'))
-});
-
-// copy fonts and experiments folder to root folder
-gulp.task('copyFolders', function() {
-  gulp.src('app/img/**/*').pipe(gulp.dest('img'));
-  gulp.src('app/fonts/**/*').pipe(gulp.dest('fonts'));
-  gulp.src('app/experiments/**/*').pipe(gulp.dest('experiments'));
+    .pipe(gulpIf('*.js', uglify()))
+    .pipe(gulp.dest('dist'))
 });
 
 // clean production envirnomnet
-// gulp.task('clean', function() {
-//   return del.sync('.');
-// });
+gulp.task('clean:dist', function() {
+  return del.sync('dist');
+});
 
 // cache clear task
 gulp.task('cache:clear', function (callback) {
-  return cache.clearAll(callback)
+return cache.clearAll(callback)
 });
-
-// default task for development environment
-gulp.task('default', function (callback) {
-  runSequence(['sass','browserSync', 'watch'],
-    callback
-  )
-})
 
 // build task for production environment
 gulp.task('build', function (callback) {
-  runSequence(
-    ['sass', 'minify-css', 'useref', 'copyFolders'],
+  runSequence('clean:dist',
+    ['sass', 'minify-css', 'useref'],
     callback
   )
 });
