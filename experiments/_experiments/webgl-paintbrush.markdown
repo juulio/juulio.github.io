@@ -1,0 +1,114 @@
+---
+layout: page
+title: web gl paintbrush
+description: web gl colo paintbrush
+permalink: /web-gl-paintbrush/
+---
+<style>
+    body {
+    	line-height: 1;
+    	font-family: "Trebuchet MS", Helvetica, sans-serif;
+    }
+
+    .clear {
+    	clear: both;
+    }
+
+    #gl-canvas {
+    	float: left;
+    	border: solid 1px #000;
+    }
+
+    #gl-canvas:hover {
+    	cursor: crosshair;
+    }
+
+    .controlPanel {
+    	float: left;
+    	width: 650px;
+    	margin-left: 40px;
+    }
+
+    #colorPicker {
+    	width: 30%;
+    	float: left;
+    	margin-right: 40px;
+    }
+
+    .colorPickerDetailsContainer {
+    	width: 60%;
+    	float: left;
+    }
+
+    h1 {
+    	padding: 20px 0;
+    	font-size: 200%;
+    }
+
+    h2 {
+    	font-size: 170%;
+    }
+
+    #selectedColor {
+    	width: 175px;
+    	height: 30px;
+    	background-color: #000;
+    }
+
+    p {
+    	margin: 15px 0;
+    }
+</style>
+<script id="vertex-shader" type="x-shader/x-vertex">
+
+attribute vec4 vPosition;
+attribute vec4 vColor;
+
+varying vec4 fColor;
+
+void
+main()
+{
+    gl_Position = vPosition;
+    fColor = vColor;
+}
+</script>
+
+<script id="fragment-shader" type="x-shader/x-fragment">
+
+precision mediump float;
+
+varying vec4 fColor;
+void
+main()
+{
+    gl_FragColor = fColor;
+}
+</script>
+
+<canvas id="gl-canvas" width="400" height="400">
+Oops ... your browser doesn't support the HTML5 canvas element
+</canvas>
+
+<div class="controlPanel">
+    <h1>Paint Brush - Control Panel</h1>
+
+    <div class="colorPickerContainer">
+        <div id="colorPicker"></div>
+        <div class="colorPickerDetailsContainer">
+        <h3>Pick a color from the palette.</h3>
+            <p>Color HEX: <span id="selectedColorHex">#000000</span></p>
+            <div id="selectedColor"></div>
+            <p>R: <span id="Rvalue">0.0</span></p>
+            <p>G: <span id="Gvalue">0.0</span></p>
+            <p>B: <span id="Bvalue">0.0</span></p>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+
+<script type="text/javascript" src="../js/canvasExperiments/webgl/Common/webgl-utils.js"></script>
+<script type="text/javascript" src="../js/canvasExperiments/webgl/Common/initShaders.js"></script>
+<script type="text/javascript" src="../js/canvasExperiments/webgl/Common/MV.js"></script>
+<script type="text/javascript" src="../js/libs/beehive_picker.js"></script>
+<script type="text/javascript" src="../js/canvasExperiments/webgl/paintbrush.js"></script>
