@@ -45,7 +45,7 @@ gulp.task('browserSync', function() {
 gulp.task('minify-css', function() {
   return gulp.src('app/css/*.css')
     .pipe(cleanCSS({compatibility: 'ie8'}))
-    .pipe(gulp.dest('../dist/css'));
+    .pipe(gulp.dest('css'));
 });
 
 // js and css concatenation and minification
@@ -57,16 +57,16 @@ gulp.task('useref', function(){
     .pipe(gulp.dest('.'))
 });
 
-// copy fonts folder to dist folder
-gulp.task('copyfonts', function() {
-  gulp.src('app/fonts/**/*').pipe(gulp.dest('dist/fonts'));
-  gulp.src('app/experiments/**/*').pipe(gulp.dest('dist/experiments'));
+// copy fonts and experiments folder to root folder
+gulp.task('copyFolders', function() {
+  gulp.src('app/fonts/**/*').pipe(gulp.dest('fonts'));
+  gulp.src('app/experiments/**/*').pipe(gulp.dest('experiments'));
 });
 
 // clean production envirnomnet
-gulp.task('clean:dist', function() {
-  return del.sync('dist');
-});
+// gulp.task('clean', function() {
+//   return del.sync('.');
+// });
 
 // cache clear task
 gulp.task('cache:clear', function (callback) {
@@ -82,8 +82,8 @@ gulp.task('default', function (callback) {
 
 // build task for production environment
 gulp.task('build', function (callback) {
-  runSequence('clean:dist',
-    ['sass', 'minify-css', 'useref', 'copyfonts'],
+  runSequence(
+    ['sass', 'minify-css', 'useref', 'copyFolders'],
     callback
   )
 });
