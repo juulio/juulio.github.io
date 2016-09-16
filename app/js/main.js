@@ -151,7 +151,7 @@ var juulio = window.juulio || {};
 	function update() {
 	  requestAnimationFrame(update);
 
-		animateCharacter();
+		//animateCharacter();
 
 		renderer.render(scene, camera);
 	}
