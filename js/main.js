@@ -159,7 +159,7 @@ var juulio = window.juulio || {};
 	function update() {
 	  requestAnimationFrame(update);
 
-		//animateCharacter();
+		animateCharacter();
 
 		renderer.render(scene, camera);
 	}
@@ -190,10 +190,10 @@ var juulio = window.juulio || {};
 					}
 				}
 			}
-			else {
-				charactersAnimationDirection = 'left';
-				characterPosition--;
-			}
+			// else {
+			// 	charactersAnimationDirection = 'left';
+			// 	characterPosition--;
+			// }
 		}
 		else {
 			if(charactersAnimationDirection == 'left'){
