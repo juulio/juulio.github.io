@@ -62,6 +62,7 @@ gulp.task('copyFolders', function() {
   gulp.src('app/img/**/*').pipe(gulp.dest('img'));
   gulp.src('app/fonts/**/*').pipe(gulp.dest('fonts'));
   gulp.src('app/experiments/**/*').pipe(gulp.dest('experiments'));
+  gulp.src('app/js/**/*').pipe(gulp.dest('js'));
 });
 
 // clean production envirnomnet
