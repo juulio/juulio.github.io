@@ -23,6 +23,14 @@ var juulio = window.juulio || {};
 	/*****************************************************************************
 	 Inits all variables and functions */
 	 function init(){
+		 // init Masonry layout plugin
+		 var elem = document.querySelector('.grid');
+		 var msnry = new Masonry( elem, {
+			 // options
+			 itemSelector: '.grid-item',
+			 columnWidth: 200
+		 });
+
 	 	// Verifies if app is running on the production environment juulio.com
 	 	isProductionEnvironment = false;
 
