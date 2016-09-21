@@ -8,9 +8,8 @@ var canvasElements = {
     /******************************************************
     * Adds the Canvas Element to the '.post-content' div */
     createCanvasElement : function(canvasContainer, canvasWidth, canvasHeight){
-        canvasContainer = 'home';
 
-        var divElement = document.getElementsByClassName(canvasContainer)[0];
+        var divElement = document.getElementsByTagName(canvasContainer)[0];
         divElement.insertBefore(this.canvas, divElement.childNodes[0]);
         // document.getElementsByClassName(canvasContainer)[0].appendChild(this.canvas);
         document.body.style.margin = 0;
@@ -61,7 +60,6 @@ var canvasElements = {
     /******************************************************
     * Draws a tree leaf at (x,y) rotated at angle degrees*/
     drawLeaf: function(x, y, angle, scale, alpha) {
-
         this.context.save();
         this.context.translate(x, y);
         this.context.rotate(angle*Math.PI/180);// Convert degreess to radians

@@ -10,7 +10,6 @@ var clingingPlant = clingingPlant || {};
      * Init all required functions
      */
     function init () {
-
         /***************************************************
          Recursive function that draws The Clinging Plant */
         function recursiveDrawClingingPlant(x, y, plantColumns, plantRows, spaceBetweenRows, spaceBetweenColumns){
@@ -22,7 +21,8 @@ var clingingPlant = clingingPlant || {};
             y+=spaceBetweenRows;
 
             for(var j=0; j<plantColumns; j++){
-                canvasElements.drawLeaf(dotHorizontalPos, y, canvasElements.getRandomInt(50, 130), 3, 0.6);
+              // canvasElements.drawLeaf(dotHorizontalPos, y, canvasElements.getRandomInt(50, 130), 3, 0.9);
+                canvasElements.drawLeaf(dotHorizontalPos, y, 55, 3, 0.9);
                 dotHorizontalPos += spaceBetweenColumns;
             }
 
@@ -36,9 +36,8 @@ var clingingPlant = clingingPlant || {};
 
         /********************************************************
          Initial code to create and set up the Canvas Element. */
-        canvasElements.createCanvasElement('post-content');
+        canvasElements.createCanvasElement('body');
         var canvas = canvasElements.canvas;
-
         recursiveDrawClingingPlant(canvas.width/2, 20, 9, 18, 22, 6);
 
     }
