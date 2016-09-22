@@ -17,6 +17,7 @@ var juulio = window.juulio || {};
 		textMesh,
 		isMobile,
 		characterPosition,
+		characterSize,
 		isProductionEnvironment,
 		charactersAnimationDirection;
 
@@ -47,6 +48,7 @@ var juulio = window.juulio || {};
 
 		// Sets initial values for characters rotation
 		characterPosition = 0,
+		characterSize = 0,
 		charactersAnimationDirection = 'right';
 
 	 	// Load the JSON font and set the scene
@@ -190,10 +192,10 @@ var juulio = window.juulio || {};
 					}
 				}
 			}
-			// else {
+			else {
 			// 	charactersAnimationDirection = 'left';
 			// 	characterPosition--;
-			// }
+			}
 		}
 		else {
 			if(charactersAnimationDirection == 'left'){
