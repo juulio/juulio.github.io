@@ -48,7 +48,7 @@ gulp.task('minify-css', function() {
     .pipe(gulp.dest('css'));
 });
 
-// Concat and minify css and js files
+// Concat css and js files
 gulp.task('useref', function(){
   return gulp.src('app/*.html')
     .pipe(useref())
