@@ -1,14 +1,14 @@
 //all plugins requiered
+var del = require('del');
 var gulp = require('gulp');
 var sass = require('gulp-sass');
-var browserSync = require('browser-sync').create();
-var useref = require('gulp-useref');
-var uglify = require('gulp-uglify');
 var gulpIf = require('gulp-if');
 var cache = require('gulp-cache');
-var del = require('del');
-var runSequence = require('run-sequence');
+var useref = require('gulp-useref');
+var uglify = require('gulp-uglify');
 var cleanCSS = require('gulp-clean-css');
+var runSequence = require('run-sequence');
+var browserSync = require('browser-sync').create();
 
 //------------------------------------------------------------------------------
 // Tasks for Development
@@ -44,11 +44,11 @@ gulp.task('browserSync', function() {
 // minify CSS files
 gulp.task('minify-css', function() {
   return gulp.src('app/css/*.css')
-    .pipe(cleanCSS({compatibility: 'ie8'}))
+    .pipe(cleanCSS({compatibility : 'ie8'}))
     .pipe(gulp.dest('css'));
 });
 
-// js and css concatenation and minification
+// Concat and minify css and js files
 gulp.task('useref', function(){
   return gulp.src('app/*.html')
     .pipe(useref())
@@ -65,11 +65,6 @@ gulp.task('copyFolders', function() {
   gulp.src('app/js/**/*').pipe(gulp.dest('js'));
 });
 
-// clean production envirnomnet
-// gulp.task('clean', function() {
-//   return del.sync('.');
-// });
-
 // cache clear task
 gulp.task('cache:clear', function (callback) {
   return cache.clearAll(callback)
@@ -80,12 +75,11 @@ gulp.task('default', function (callback) {
   runSequence(['sass','browserSync', 'watch'],
     callback
   )
-})
+});
 
 // build task for production environment
 gulp.task('build', function (callback) {
-  runSequence(
-    ['sass', 'minify-css', 'useref', 'copyFolders'],
+  runSequence(['sass', 'minify-css', 'useref', 'copyFolders'],
     callback
   )
 });
