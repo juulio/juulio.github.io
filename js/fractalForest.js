@@ -11,7 +11,7 @@ var fractalsForest = fractalsForest || {};
 
 	/***************************************
 	Create and set up the Canvas Element. */
-	canvasElements.createCanvasElement('post-content', 700, 600);
+	canvasElements.createCanvasElement('div', 700, 600);
 	var canvas = canvasElements.canvas,
 			context = canvas.getContext("2d");
 
@@ -19,7 +19,7 @@ var fractalsForest = fractalsForest || {};
 	 * Begin Code for First Fractal Tree */
 	var drawFirstTree = function (x1, y1, angle, depth){
 
-		var BRANCH_LENGTH =canvasElements.getRandomInt(2, 8)
+		var BRANCH_LENGTH = canvasElements.getRandomInt(2, 8)
 			branchColor = 'rgb(0, 0, 0)';
 
 		if (depth != 0){
