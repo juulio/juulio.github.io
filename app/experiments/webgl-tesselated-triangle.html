@@ -8,44 +8,6 @@
 	<meta name="HandheldFriendly" content="true">
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<link rel="stylesheet" href="/css/styles.css">
-
-  <style>
-      .clear {
-      	clear: both;
-      }
-
-      h1 {
-      	font-size: 200%;
-      	margin-top: 25px;
-      	text-align: center;
-      }
-
-      h2 {
-      	font-size: 170%;
-      	margin-bottom: 25px;
-      }
-
-      .main_container {
-      	width: 900px;
-      	margin: 20px auto 0;
-      }
-
-      .canvas_container {
-      	float: left;
-      	width: 400px;
-      }
-
-      .controls_container {
-      	float: left;
-      	width: 430px;
-      	padding-top: 70px;
-      	padding-left: 70px;
-      }
-
-      p {
-      	margin-bottom: 40px;
-      }
-  </style>
 </head>
 
 <body>
@@ -74,24 +36,25 @@ main()
 </script>
 
 
-
-<h1>Tessellation + Twist</h1>
-<div class="main_container">
-    <div class="canvas_container">
-        <canvas id="gl-canvas" width="400" height="400">
-        Oops ... your browser doesn't support the HTML5 canvas element
-        </canvas>
-    </div>
-    <div class="controls_container">
-        <h2>Controls Panel</h2>
-        <p>Number of recursive steps: <span id="recursiveSteps">0</span><br>
-        0 <input id="steps_slider" type="range" min="0" max="5" step="1" value="0"> 5</p>
-        <p>Twist angle: <span id="twistAngle"></span><br>
-        0 <input id="angle_slider" type="range" min="0" max="360" step="1" value="0"> 360</p>
-        </p>
-        <p><label for="toggleAnimation"><input id="toggleAnimation" type="checkbox" checked>Toggle Animation</label></p>
-    </div>
-    <div class="clear"></div>
+<div class="tessellated-triangle-container">
+	<h1>Tessellation + Twist</h1>
+	<div class="main_container">
+	    <div class="canvas_container">
+	        <canvas id="gl-canvas" width="400" height="400">
+	        Oops ... your browser doesn't support the HTML5 canvas element
+	        </canvas>
+	    </div>
+	    <div class="controls_container">
+	        <h2>Controls Panel</h2>
+	        <p>Number of recursive steps: <span id="recursiveSteps">0</span><br>
+	        0 <input id="steps_slider" type="range" min="0" max="5" step="1" value="0"> 5</p>
+	        <p>Twist angle: <span id="twistAngle"></span><br>
+	        0 <input id="angle_slider" type="range" min="0" max="360" step="1" value="0"> 360</p>
+	        </p>
+	        <p><label for="toggleAnimation"><input id="toggleAnimation" type="checkbox" checked>Toggle Animation</label></p>
+	    </div>
+	    <div class="clear"></div>
+	</div>
 </div>
 
 <script src="webgl/Common/webgl-utils.js"></script>
