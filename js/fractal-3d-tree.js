@@ -158,7 +158,7 @@ function init() {
     scene.add( light );
     scene.add( container );
     container.rotation.z = Math.PI/2;
-
+    console.log('a');
     window.addEventListener( 'resize', resizeViewport, false );
     document.body.appendChild( renderer.domElement );
 }
@@ -166,7 +166,7 @@ function init() {
 function update() {
     requestAnimationFrame(update);
 
-    // container.rotation.x += .01;
+    container.rotation.x += .01;
     // container.rotation.y += .01;
 
     renderer.render(scene, camera);
