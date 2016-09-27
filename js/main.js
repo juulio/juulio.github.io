@@ -72,6 +72,10 @@ var juulio = window.juulio || {};
 		var rendererHeight = 100,
 		 rendererWidth = 500;
 
+		if (isMobile){
+			rendererWidth = window.innerWidth;
+		}
+
 		renderer = new THREE.WebGLRenderer({antialias: true, alpha: false});
 		renderer.setSize(rendererWidth, rendererHeight);
 		renderer.setPixelRatio(window.devicePixelRatio);

@@ -92,9 +92,10 @@ nav {
   color: #00a; }
 
 #canvasContainer {
-  width: 500px;
-  height: 100px;
-  margin: 0 auto; }
+  height: 100px; }
+  #canvasContainer canvas {
+    margin: 0 auto;
+    display: block; }
 
 #content {
   padding: 20px 2%; }
