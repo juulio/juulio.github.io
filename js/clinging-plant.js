@@ -13,6 +13,14 @@ var clingingPlant = clingingPlant || {};
         /***************************************************
          Recursive function that draws The Clinging Plant */
         function recursiveDrawClingingPlant(x, y, plantColumns, plantRows, spaceBetweenRows, spaceBetweenColumns){
+          console.log("x " + x);
+          console.log("y " + y);
+          console.log("plantColumns " + plantColumns);
+          console.log("plantRows " + plantRows);
+          console.log("spaceBetweenRows " + spaceBetweenRows)
+          console.log("spaceBetweenColumns " + spaceBetweenColumns)
+
+
             var dotHorizontalPos = 0,
                 dotVerticalPos = spaceBetweenRows,
                 leftMostPoint = x-(((plantColumns-1)*spaceBetweenColumns)/2);
@@ -36,7 +44,7 @@ var clingingPlant = clingingPlant || {};
 
         /********************************************************
          Initial code to create and set up the Canvas Element. */
-        canvasElements.createCanvasElement('body');
+        canvasElements.createCanvasElement('div', 250, 500);
         var canvas = canvasElements.canvas;
         recursiveDrawClingingPlant(canvas.width/2, 20, 9, 18, 22, 6);
 
