@@ -70,6 +70,9 @@ a {
   a:hover {
     color: #000; }
 
+.clear {
+  clear: both; }
+
 .grid-item {
   width: 225px;
   margin-bottom: 4%;
@@ -91,9 +94,8 @@ nav {
 
 #content {
   padding: 20px 2%; }
-
-.tessellated-triangle-container .clear {
-  clear: both; }
+  #content p {
+    margin-bottom: 20px; }
 
 .tessellated-triangle-container h1 {
   font-size: 200%;
@@ -118,5 +120,12 @@ nav {
   padding-top: 70px;
   padding-left: 70px; }
 
-.tessellated-triangle-container p {
-  margin-bottom: 40px; }
+.fractal-binary-tree-open-frameworks .grid-item {
+  height: 250px;
+  margin-bottom: 10px; }
+
+.fractal-binary-tree-open-frameworks .grid-item-double-width {
+  width: 475px; }
+
+.fractal-binary-tree-open-frameworks .grid-item-double-height {
+  height: 500px; }

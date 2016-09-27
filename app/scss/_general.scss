@@ -11,6 +11,10 @@ a {
   }
 }
 
+.clear {
+  clear: both;
+}
+
 .grid-item {
   width: 225px;
   margin-bottom: 4%;
@@ -36,13 +40,13 @@ nav {
 
 #content {
   padding: 20px 2%;
+
+  p {
+    margin-bottom: 20px;
+  }
 }
 
 .tessellated-triangle-container {
-  .clear {
-    clear: both;
-  }
-
   h1 {
     font-size: 200%;
     margin-top: 25px;
@@ -70,8 +74,19 @@ nav {
     padding-top: 70px;
     padding-left: 70px;
   }
+}
 
-  p {
-    margin-bottom: 40px;
+.fractal-binary-tree-open-frameworks {
+  .grid-item {
+    height: 250px;
+    margin-bottom: 10px;
+  }
+
+  .grid-item-double-width {
+    width: 475px;
+  }
+
+  .grid-item-double-height {
+    height: 500px;
   }
 }
