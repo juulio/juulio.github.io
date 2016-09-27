@@ -133,3 +133,9 @@ nav {
 
 .fractal-binary-tree-open-frameworks .grid-item-double-height {
   height: 500px; }
+
+@media (max-width: 768px) {
+  #canvasContainer {
+    height: 80px; }
+  .grid-item {
+    margin-bottom: 6%; } }

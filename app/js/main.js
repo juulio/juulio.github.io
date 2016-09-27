@@ -24,13 +24,6 @@ var juulio = window.juulio || {};
 	/*****************************************************************************
 	 Inits all variables and functions */
 	 function init(){
-		 // init Masonry layout plugin
-		 var elem = document.querySelector('.grid');
-		 var msnry = new Masonry( elem, {
-			 // options
-			 itemSelector: '.grid-item',
-			 columnWidth: 200
-		 });
 
 	 	// Verifies if app is running on the production environment juulio.com
 	 	isProductionEnvironment = false;
@@ -44,6 +37,16 @@ var juulio = window.juulio || {};
 
 		if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
  			isMobile = true;
+		}
+
+		if(!isMobile){
+			// init Masonry layout plugin
+ 		 var elem = document.querySelector('.grid');
+ 		 var msnry = new Masonry( elem, {
+ 			 // options
+ 			 itemSelector: '.grid-item',
+ 			 columnWidth: 200
+ 		 });
 		}
 
 		// Sets initial values for characters rotation

@@ -1,4 +1,9 @@
 @media (max-width: 768px) {
-  body {
+  #canvasContainer {
+    height: 80px;
+  }
+
+  .grid-item {
+    margin-bottom: 6%;
   }
 }
