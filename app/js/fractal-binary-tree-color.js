@@ -8,7 +8,6 @@ document.body.style.margin = 0;
 
 canvas.width = 500;
 canvas.height = 500;
-canvas.style.border = 'solid 1px #000';
 canvas.style.display = 'block';
 canvas.style.margin = '0 auto';
 

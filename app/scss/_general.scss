@@ -20,6 +20,11 @@ a {
   clear: both;
 }
 
+canvas {
+  margin: 0 auto;
+  display: block;
+}
+
 .grid-item {
   width: 225px;
   margin-bottom: 4%;
@@ -40,10 +45,7 @@ nav {
 #canvasContainer {
   height: 100px;
 
-  canvas {
-    margin: 0 auto;
-    display: block;
-  }
+
 }
 
 #content {
@@ -95,5 +97,17 @@ nav {
 
   .grid-item-double-height {
     height: 500px;
+  }
+}
+
+.fractalTreeButton {
+  color: #DDD;
+  padding: 3px 15px;
+  letter-spacing: 2px;
+  background-color: #FF0000;
+
+  &:hover {
+    color: #FFF;
+    cursor: pointer;
   }
 }

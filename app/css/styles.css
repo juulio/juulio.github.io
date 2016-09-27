@@ -77,6 +77,10 @@ a {
 .clear {
   clear: both; }
 
+canvas {
+  margin: 0 auto;
+  display: block; }
+
 .grid-item {
   width: 225px;
   margin-bottom: 4%;
@@ -93,9 +97,6 @@ nav {
 
 #canvasContainer {
   height: 100px; }
-  #canvasContainer canvas {
-    margin: 0 auto;
-    display: block; }
 
 #content {
   padding: 20px 2%; }
@@ -133,6 +134,15 @@ nav {
 
 .fractal-binary-tree-open-frameworks .grid-item-double-height {
   height: 500px; }
+
+.fractalTreeButton {
+  color: #DDD;
+  padding: 3px 15px;
+  letter-spacing: 2px;
+  background-color: #FF0000; }
+  .fractalTreeButton:hover {
+    color: #FFF;
+    cursor: pointer; }
 
 @media (max-width: 768px) {
   #canvasContainer {
