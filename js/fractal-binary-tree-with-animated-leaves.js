@@ -14,7 +14,6 @@ document.body.style.margin = 0;
 
 canvas.width = 500;
 canvas.height = 400;
-canvas.style.border = 'solid 1px #000';
 canvas.style.display = 'block';
 canvas.style.margin = '0 auto';
 
@@ -178,7 +177,7 @@ var drawScreen = function(){
     console.log(leaves.length);
     context.clearRect(0, 0, canvas.width, canvas.height);
     drawTree();
-    // animateLeaves();
+    animateLeaves();
 };
 
 drawScreen();
