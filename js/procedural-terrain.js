@@ -81,7 +81,7 @@ function drawTriangleStrip(){
 	}
 
 	var holes = [];
-	var triangles = THREE.Shape.Utils.triangulateShape( triangleStripGeometry.vertices, holes);
+	var triangles = THREE.ShapeUtils.triangulateShape( triangleStripGeometry.vertices, holes);
 
 	for( var i = 0; i < triangles.length; i++ ){
     triangleStripGeometry.faces.push( new THREE.Face3( triangles[i][0], triangles[i][1], triangles[i][2] ));
