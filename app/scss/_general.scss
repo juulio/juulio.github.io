@@ -48,6 +48,8 @@ nav {
 
 }
 
+/*******************************************************************************
+ General Content */
 #content {
   padding: 20px 2%;
 
@@ -56,6 +58,8 @@ nav {
   }
 }
 
+/*******************************************************************************
+ Tessellated Triangel webgl */
 .tessellated-triangle-container {
   h1 {
     font-size: 200%;
@@ -85,6 +89,8 @@ nav {
   }
 }
 
+/*******************************************************************************
+ Fractal Binary Tree openframeworks */
 .fractal-binary-tree-open-frameworks {
   .grid-item {
     height: 250px;
@@ -109,5 +115,57 @@ nav {
   &:hover {
     color: #FFF;
     cursor: pointer;
+  }
+}
+
+/*******************************************************************************
+ Paintbrush webgl experiment */
+.paintbrush-container {
+  width: 1065px;
+  margin: 0 auto;
+
+  #gl-canvas {
+    float: left;
+    border: solid 1px #000;
+  }
+
+  #gl-canvas:hover {
+    cursor: crosshair;
+  }
+
+  .controlPanel {
+    float: left;
+    width: 620px;
+    margin-left: 40px;
+  }
+
+  #colorPicker {
+    width: 30%;
+    float: left;
+    margin-right: 40px;
+  }
+
+  .colorPickerDetailsContainer {
+    width: 60%;
+    float: left;
+  }
+
+  h1 {
+    padding: 20px 0;
+    font-size: 200%;
+  }
+
+  h2 {
+    font-size: 170%;
+  }
+
+  #selectedColor {
+    width: 175px;
+    height: 30px;
+    background-color: #000;
+  }
+
+  p {
+    margin: 15px 0;
   }
 }
