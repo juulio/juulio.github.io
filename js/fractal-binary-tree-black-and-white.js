@@ -30,6 +30,7 @@
          depth--;
          context.translate(0, -branchLength);
 
+
          angle += fractalProportion;
          lineWidth *= fractalProportion;
          branchLength *= fractalProportion;
