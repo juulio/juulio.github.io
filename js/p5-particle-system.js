@@ -6,7 +6,7 @@ var systemOuterRadius = 450,
     img;
 
 function preload(){
-  img = loadImage('sun02.png');
+  img = loadImage('../img/sun.png');
 }
 
 function setup(){
