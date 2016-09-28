@@ -1,10 +1,9 @@
 /************************************************
  Create and set the Canvas Element up. */
 var canvas = document.createElement("canvas"),
-    context = canvas.getContext("2d"),
-    canvasContainerEl = document.getElementsByClassName('post-content')[0];
+    context = canvas.getContext("2d");
 
-canvasContainerEl.appendChild(canvas);
+document.body.appendChild(canvas);
 document.body.style.margin = 0;
 
 canvas.width = 400;
