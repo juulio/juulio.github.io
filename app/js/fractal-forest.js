@@ -287,6 +287,29 @@ var fractalsForest = fractalsForest || {};
 		context.restore();
 	};
 
+	/***************************************************
+  * Recursive function that draws The Clinging Plant */
+  var recursiveDrawClingingPlant = function(x, y, plantColumns, plantRows, spaceBetweenRows, spaceBetweenColumns){
+    var dotHorizontalPos = 0,
+        dotVerticalPos = spaceBetweenRows,
+        leftMostPoint = x-(((plantColumns-1)*spaceBetweenColumns)/2);
+
+    dotHorizontalPos = leftMostPoint;
+    y+=spaceBetweenRows;
+
+    for(var j=0; j<plantColumns; j++){
+      canvasElements.drawLeaf(dotHorizontalPos, y, canvasElements.getRandomInt(50, 130), 3, 0.6);
+      dotHorizontalPos += spaceBetweenColumns;
+    }
+
+    spaceBetweenColumns+=0.8;
+    plantRows--;
+
+    if(plantRows>0) {
+      recursiveDrawClingingPlant(x, y, plantColumns, plantRows, spaceBetweenRows, spaceBetweenColumns);
+    }
+  }
+
 	/*************************************************
 	* Call the functions to generate all the Trees */
 	var generateFractalsForest = function(){
@@ -297,6 +320,18 @@ var fractalsForest = fractalsForest || {};
 		drawFifthTree(canvas.width*0.12, canvas.height-30, 40, 25, 11, generalDepth);
 		drawSecondTree(canvas.width*0.4, canvas.height, -90, generalDepth);
 		drawFourthTree(canvas.width*0.74, canvas.height-40, -90, 4, generalDepth);
+
+		if(generalDepth > 9){
+			var spaceBetweenRows = 25,
+				canvasWidth = canvas.width,
+				canvasHeight = canvas.height,
+				treeStartingX = canvasWidth*0.3,
+				clinginPlantStartingX = treeStartingX*1.15,
+				clinginPlantHeight = generalDepth*spaceBetweenRows*1.2,
+				clinginPlantStartingY = canvasHeight - clinginPlantHeight;
+
+			recursiveDrawClingingPlant(clinginPlantStartingX, clinginPlantStartingY, 8, generalDepth, spaceBetweenRows, 4);
+		}
 	}
 
 	/*****************************************
@@ -313,6 +348,7 @@ var fractalsForest = fractalsForest || {};
 
 			generalDepth++;
 			document.getElementsByClassName('treeDepthLevel')[0].textContent = generalDepth;
+
 			// Clear the whole canvas area.
 			context.clearRect(0,0,canvas.width, canvas.height);
 
