@@ -1,11 +1,25 @@
-<html>
+<!doctype html>
+<html lang="en">
 
 <head>
-  <title>Learning WebGL &mdash; lesson 5</title>
+	<meta charset="utf-8" />
+	<title>juulio.com - Julio Del Valle - Costa Rica</title>
   <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<meta name="HandheldFriendly" content="true">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<link rel="stylesheet" href="/css/styles.css">
 
-  <script type="text/javascript" src="Common/js/gl-matrix-2.2.1.js"></script>
-  <script type="text/javascript" src="Common/js/webgl-utils.js"></script>
+  <script src="../js/webgl/Common/gl-matrix-2.2.1.js"></script>
+  <script src="../js/webgl/Common/js/webgl-utils.js"></script>
+</head>
+
+<body onload="webGLStart();">
+	<nav>
+		<a href="/" class="home-link">juulio.com</a>
+	</nav>
+
+  <canvas id="lesson05-canvas" style="border: none;" width="500" height="500"></canvas>
 
   <script id="shader-fs" type="x-shader/x-fragment">
       precision mediump float;
@@ -136,7 +150,7 @@
           texture01.image.onload = function () {
               handleLoadedTexture(texture01)
           };
-          texture01.image.src = "texture.png";
+          texture01.image.src = "../img/texture.png";
 
           // init texture02
           texture02 = gl.createTexture();
@@ -144,7 +158,7 @@
           texture02.image.onload = function () {
               handleLoadedTexture(texture02)
           };
-          texture02.image.src = "texture2.png";
+          texture02.image.src = "../img/texture2.png";
       }
 
       var mvMatrix = mat4.create();
@@ -357,7 +371,7 @@
           initBuffers();
           initTexture();
 
-          gl.clearColor(0.0, 0.0, 0.0, 1.0);
+          gl.clearColor(1.0, 1.0, 1.0, 1.0);
           gl.enable(gl.DEPTH_TEST);
 
           tick();
@@ -366,11 +380,6 @@
 
   </script>
 
-
-</head>
-
-<body onload="webGLStart();">
-    <canvas id="lesson05-canvas" style="border: none;" width="500" height="500"></canvas>
 </body>
 
 </html>
