@@ -20,6 +20,17 @@ JUULIO.global = JUULIO.global || (function () {
 		}
 	};
 
+	object.setRendererWidth = function(width){
+		if (typeof width !== 'undefined' || width !== null) {
+  		if(this.isMobile()){
+				return window.innerWidth;
+			}
+			else {
+				return width;
+			}
+		}
+	};
+
   return object;
 
 })();

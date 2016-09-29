@@ -7,11 +7,12 @@ var fractalsForest = fractalsForest || {};
 (function (context) {
 
 	var generalDepth = 1,
+			canvasWidth = JUULIO.global.setRendererWidth(700),
 			button = document.getElementsByClassName("fractalTreeButton");
 
 	/***************************************
 	Create and set up the Canvas Element. */
-	canvasElements.createCanvasElement('div', 700, 600);
+	canvasElements.createCanvasElement('canvas-container', canvasWidth, 600);
 	var canvas = canvasElements.canvas,
 			context = canvas.getContext("2d");
 
