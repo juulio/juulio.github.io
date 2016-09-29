@@ -62,9 +62,8 @@ var juulio = window.juulio || {};
 
 		loader.load(fontPath, function(font){
 			renderTextGeometry(font);
+			update();
 		});
-
-		update();
 	}
 
 	/*****************************************************************************
