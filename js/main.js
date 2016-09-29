@@ -69,13 +69,18 @@ var juulio = window.juulio || {};
 	/*****************************************************************************
 	 Inits the THREE.js basic scene elements */
 	function setScene() {
-		//  var rendererHeight = window.innerHeight,
-		//  	rendererWidth = window.innerWidth;
 		var rendererHeight = 100,
-		 rendererWidth = 500;
-
-		if (isMobile){
+			rendererWidth = 500;
+		if(JUULIO.global.isMobile()){
 			rendererWidth = window.innerWidth;
+		}
+
+		// Each page must define its own rendererWidth for Desktop. Maybe using a standard width is a good idea.
+		//  rendererWidth = 500;
+
+		// The next IF statement is needed in ALL experiments for mobile
+		if (isMobile){
+			JUULIO.rendererWidth = window.innerWidth;
 		}
 
 		renderer = new THREE.WebGLRenderer({antialias: true, alpha: false});
