@@ -12,20 +12,19 @@ var fractalsForest = fractalsForest || {};
 
 	/***************************************
 	Create and set up the Canvas Element. */
-	canvasElements.createCanvasElement('canvas-container', canvasWidth, 600);
-	var canvas = canvasElements.canvas,
+	var canvas = JUULIO.canvasElements.createCanvasElement('canvas-container', canvasWidth, 600),
 			context = canvas.getContext("2d");
 
 	/***************************************
 	 * Begin Code for First Fractal Tree */
 	var drawFirstTree = function (x1, y1, angle, depth){
 
-		var BRANCH_LENGTH = canvasElements.getRandomInt(2, 8)
+		var BRANCH_LENGTH = JUULIO.canvasElements.getRandomInt(2, 8)
 			branchColor = 'rgb(0, 0, 0)';
 
 		if (depth != 0){
-			var x2 = x1 + (canvasElements.cos(angle) * depth * BRANCH_LENGTH);
-			var y2 = y1 + (canvasElements.sin(angle) * depth * BRANCH_LENGTH);
+			var x2 = x1 + (JUULIO.canvasElements.cos(angle) * depth * BRANCH_LENGTH);
+			var y2 = y1 + (JUULIO.canvasElements.sin(angle) * depth * BRANCH_LENGTH);
 
 			if(depth > 5){
 				branchColor = 'rgb(139,126,102)'; //Brown
@@ -34,10 +33,10 @@ var fractalsForest = fractalsForest || {};
 				branchColor = 'rgb(34,139,34)'; //Green
 			}
 
-			canvasElements.drawLine(x1, y1, x2, y2, context, branchColor, depth);
+			JUULIO.canvasElements.drawLine(x1, y1, x2, y2, context, branchColor, depth);
 			depth--;
-			drawFirstTree(x2, y2, angle -canvasElements.getRandomInt(15,20), depth);
-			drawFirstTree(x2, y2, angle +canvasElements.getRandomInt(15,20), depth);
+			drawFirstTree(x2, y2, angle -JUULIO.canvasElements.getRandomInt(15,20), depth);
+			drawFirstTree(x2, y2, angle +JUULIO.canvasElements.getRandomInt(15,20), depth);
 		}
 	};
 
@@ -95,7 +94,7 @@ var fractalsForest = fractalsForest || {};
 		};
 
 		var drawFruit = function(x, y, alpha) {
-			var radius = canvasElements.getRandomArbitrary(0,7)
+			var radius = JUULIO.canvasElements.getRandomArbitrary(0,7)
 			context.beginPath();
 			context.arc(x, y, radius, 0, 2*Math.PI, false);
 			context.fillStyle = 'rgba(255,153,0,' + alpha + ')';
@@ -108,7 +107,7 @@ var fractalsForest = fractalsForest || {};
 				branchThickness = 1,
 				roationAngle = 0,
 				branchColor = '',
-				leafProbabilty = canvasElements.getRandomArbitrary(0,1);
+				leafProbabilty = JUULIO.canvasElements.getRandomArbitrary(0,1);
 
 	  if (depth !== 0){
 			if(depth > 3){
@@ -121,19 +120,19 @@ var fractalsForest = fractalsForest || {};
 			context.strokeStyle = branchColor;
 			depth--;
 
-			var x2 = x + (Math.cos(canvasElements.degToRad(angle)) * depth * 10.0);
-			var y2 = y + (Math.sin(canvasElements.degToRad(angle)) * depth * 6.0);
+			var x2 = x + (Math.cos(JUULIO.canvasElements.degToRad(angle)) * depth * 10.0);
+			var y2 = y + (Math.sin(JUULIO.canvasElements.degToRad(angle)) * depth * 6.0);
 			branchThickness = depth*1.6;
 			drawBranch(x, y, x2, y2, context, branchThickness, branchColor);
 
-			drawSecondTree(x2, y2, angle - canvasElements.getRandomInt(15, 19), depth);
-			drawSecondTree(x2, y2, angle + canvasElements.getRandomInt(9, 21), depth);
+			drawSecondTree(x2, y2, angle - JUULIO.canvasElements.getRandomInt(15, 19), depth);
+			drawSecondTree(x2, y2, angle + JUULIO.canvasElements.getRandomInt(9, 21), depth);
 	  }
 
 	  if(depth == 1 && leafProbabilty > 0.2) {
-	      rotationAngle = canvasElements.getRandomInt(0, 360);
-	      alpha = canvasElements.getRandomArbitrary(0.3, 1);
-	      leafSize = canvasElements.getRandomInt(0, 3);
+	      rotationAngle = JUULIO.canvasElements.getRandomInt(0, 360);
+	      alpha = JUULIO.canvasElements.getRandomArbitrary(0.3, 1);
+	      leafSize = JUULIO.canvasElements.getRandomInt(0, 3);
 
 		drawFruit(x2, y2, alpha);
 	  	drawLeaf(x2, y2, rotationAngle, leafSize, alpha);
@@ -204,21 +203,21 @@ var fractalsForest = fractalsForest || {};
 	/**************************************
 	* Begin Code for Fourth Fractal Tree */
  	var drawFourthTree = function(x1, y1, angle, lineLength, treeDepth){
-        var x2 = x1 + (canvasElements.cos(angle) * treeDepth * lineLength),
-            y2 = y1 + (canvasElements.sin(angle) * treeDepth * lineLength),
+        var x2 = x1 + (JUULIO.canvasElements.cos(angle) * treeDepth * lineLength),
+            y2 = y1 + (JUULIO.canvasElements.sin(angle) * treeDepth * lineLength),
             branchColor = 'rgb(0,0,0)';
 
         if(treeDepth !=0) {
             treeDepth--;
 
-            canvasElements.drawLine(x1, y1, x2, y2, context, branchColor, 1);
+            JUULIO.canvasElements.drawLine(x1, y1, x2, y2, context, branchColor, 1);
 
-            drawFourthTree(x2, y2, angle -canvasElements.getRandomInt(14,20), lineLength, treeDepth);
-            drawFourthTree(x2, y2, angle +canvasElements.getRandomInt(15,30), lineLength, treeDepth);
+            drawFourthTree(x2, y2, angle -JUULIO.canvasElements.getRandomInt(14,20), lineLength, treeDepth);
+            drawFourthTree(x2, y2, angle +JUULIO.canvasElements.getRandomInt(15,30), lineLength, treeDepth);
         }
         else {
-            context.strokeStyle = 'rgb(' +canvasElements.getRandomInt(0,255) +',' +canvasElements.getRandomInt(0,255) +'    ,34)';
-            canvasElements.drawDot(x2, y2, 6, 2, context);
+            context.strokeStyle = 'rgb(' +JUULIO.canvasElements.getRandomInt(0,255) +',' +JUULIO.canvasElements.getRandomInt(0,255) +'    ,34)';
+            JUULIO.canvasElements.drawDot(x2, y2, 6, 2, context);
         }
     };
 
@@ -238,7 +237,7 @@ var fractalsForest = fractalsForest || {};
 			color = trunkColor;
 		}
 
-    canvasElements.drawLine(0, 0, 0, -branchLength, context, color);
+    JUULIO.canvasElements.drawLine(0, 0, 0, -branchLength, context, color);
 
 		if(depth > 0 ){
 	    context.save();
@@ -299,7 +298,7 @@ var fractalsForest = fractalsForest || {};
     y+=spaceBetweenRows;
 
     for(var j=0; j<plantColumns; j++){
-      canvasElements.drawLeaf(dotHorizontalPos, y, canvasElements.getRandomInt(50, 130), 3, 0.6);
+      JUULIO.canvasElements.drawLeaf(dotHorizontalPos, y, JUULIO.canvasElements.getRandomInt(50, 130), 3, 0.6);
       dotHorizontalPos += spaceBetweenColumns;
     }
 
