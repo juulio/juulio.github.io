@@ -1,15 +1,16 @@
-/************************************************
- Create and set the Canvas Element up. */
-var canvas = document.createElement("canvas"),
-    context = canvas.getContext("2d");
+/***
+ * Julio Del Valle - Computer Graphics - Costa Rica - 2015
+ * Fractal Brinary Tree color - juulio.github.io
+ */
 
-document.body.appendChild(canvas);
+ /**
+Create and set up the Canvas Element.
+*/
+var canvasWidth = JUULIO.global.setRendererWidth(700),
+  canvas = JUULIO.canvasElements.createCanvasElement('canvas-container', canvasWidth, 600),
+  context = canvas.getContext("2d");
+
 document.body.style.margin = 0;
-
-canvas.width = 500;
-canvas.height = 500;
-canvas.style.display = 'block';
-canvas.style.margin = '0 auto';
 
 context.fillStyle = '#000';
 context.lineWidth = 1;
@@ -25,7 +26,7 @@ function drawTree(x1, y1, angle, depth){
         leafSize = 1,
         roationAngle = 0,
         branchColor = '',
-        leafProbabilty = canvasElements.getRandomInt(0,1);
+        leafProbabilty = JUULIO.canvasElements.getRandomInt(0,1);
 
     if (depth !== 0){
         if(depth > 3){
@@ -41,15 +42,15 @@ function drawTree(x1, y1, angle, depth){
         var x2 = x1 + (Math.cos(angle * deg_to_rad) * depth * 5.0);
         var y2 = y1 + (Math.sin(angle * deg_to_rad) * depth * 6.0);
         context.lineWidth = depth*1.6;
-        canvasElements.drawLine(x1, y1, x2, y2, context, branchColor);
+        JUULIO.canvasElements.drawLine(x1, y1, x2, y2, context, branchColor);
 
-        drawTree(x2, y2, angle - canvasElements.getRandomInt(18, 20), depth);
-        drawTree(x2, y2, angle + canvasElements.getRandomInt(5, 30), depth);
+        drawTree(x2, y2, angle - JUULIO.canvasElements.getRandomInt(18, 20), depth);
+        drawTree(x2, y2, angle + JUULIO.canvasElements.getRandomInt(5, 30), depth);
     }
     if(depth == 1 && leafProbabilty == 1) {
-        rotationAngle = canvasElements.getRandomInt(0, 360);
-        alpha = canvasElements.getRandomArbitrary(0.3, 1);
-        leafSize = canvasElements.getRandomInt(0, 3);
+        rotationAngle = JUULIO.canvasElements.getRandomInt(0, 360);
+        alpha = JUULIO.canvasElements.getRandomArbitrary(0.3, 1);
+        leafSize = JUULIO.canvasElements.getRandomInt(0, 3);
 
         drawLeaf(x2, y2, rotationAngle, leafSize, alpha);
     }
