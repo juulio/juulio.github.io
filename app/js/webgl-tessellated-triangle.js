@@ -13,72 +13,77 @@ var canvas,
 
 
 function init() {
-    canvas = document.getElementById( "gl-canvas" );
-    
-    gl = WebGLUtils.setupWebGL( canvas );
-    if ( !gl ) { alert( "WebGL isn't available" ); }
 
-    //  Configure WebGL
+  /**
+  Create and set up the Canvas Element.
+  */
+  var canvasWidth = JUULIO.global.setRendererWidth(500);
+  var canvas = JUULIO.canvasElements.createCanvasElement('canvas-container', canvasWidth, 280, 'webgl');
+  
+  gl = WebGLUtils.setupWebGL( canvas );
+  if ( !gl ) { alert( "WebGL isn't available" ); }
 
-    gl.viewport( 0, 0, canvas.width, canvas.height );
-    gl.clearColor( 1.0, 1.0, 1.0, 1.0 );
-    
-    //  Load shaders and initialize attribute buffers
-    
-    var program = initShaders( gl, "vertex-shader", "fragment-shader" );
-    gl.useProgram( program );
-    
-    // Load the data into the GPU
-    
-    bufferId = gl.createBuffer();
-    gl.bindBuffer( gl.ARRAY_BUFFER, bufferId );
-    gl.bufferData( gl.ARRAY_BUFFER, 8*Math.pow(3, 6), gl.STATIC_DRAW );
+  //  Configure WebGL
 
-    // Associate out shader variables with our data buffer
-    
-    var vPosition = gl.getAttribLocation( program, "vPosition" );
-    gl.vertexAttribPointer( vPosition, 2, gl.FLOAT, false, 0, 0 );
-    gl.enableVertexAttribArray( vPosition );
+  gl.viewport( 0, 0, canvas.width, canvas.height );
+  gl.clearColor( 1.0, 1.0, 1.0, 1.0 );
 
-    // Tessellation /recursive steps slider handler
+  //  Load shaders and initialize attribute buffers
 
-    document.getElementById("steps_slider").onchange = function(target) {
-        NumTimesToSubdivide = parseInt(event.target.value);
-        render();
-        document.getElementById("recursiveSteps").innerHTML = NumTimesToSubdivide;
-    }
+  var program = initShaders( gl, "vertex-shader", "fragment-shader" );
+  gl.useProgram( program );
 
-    // Twist angle slider handler
+  // Load the data into the GPU
 
-    document.getElementById("angle_slider").onchange = function(target) {
-        twistAngle = parseInt(event.target.value);
-        render();
-        document.getElementById("twistAngle").innerHTML = twistAngle;
-    }
+  bufferId = gl.createBuffer();
+  gl.bindBuffer( gl.ARRAY_BUFFER, bufferId );
+  gl.bufferData( gl.ARRAY_BUFFER, 8*Math.pow(3, 6), gl.STATIC_DRAW );
 
-    // Continuous animation checkbox handler
+  // Associate out shader variables with our data buffer
 
-    document.getElementById("toggleAnimation").onclick = function(target) {
-        animate = toggleAnimation.checked;
-    }
+  var vPosition = gl.getAttribLocation( program, "vPosition" );
+  gl.vertexAttribPointer( vPosition, 2, gl.FLOAT, false, 0, 0 );
+  gl.enableVertexAttribArray( vPosition );
 
-    // toggle continuous animation
+  // Tessellation /recursive steps slider handler
 
-    setInterval(function () {
-        if (animate) {
-            if(NumTimesToSubdivide < 5) {
-                NumTimesToSubdivide++;
-            }
-            else {
-                NumTimesToSubdivide = 0;
-            }
-            document.getElementById("recursiveSteps").innerHTML = NumTimesToSubdivide;
-            document.getElementById("steps_slider").value = NumTimesToSubdivide;
-            render();
-        }
-    }, 1000);
-    
-    render();
+  document.getElementById("steps_slider").onchange = function(target) {
+      NumTimesToSubdivide = parseInt(event.target.value);
+      render();
+      document.getElementById("recursiveSteps").innerHTML = NumTimesToSubdivide;
+  }
+
+  // Twist angle slider handler
+
+  document.getElementById("angle_slider").onchange = function(target) {
+      twistAngle = parseInt(event.target.value);
+      render();
+      document.getElementById("twistAngle").innerHTML = twistAngle;
+  }
+
+  // Continuous animation checkbox handler
+
+  document.getElementById("toggleAnimation").onclick = function(target) {
+      animate = toggleAnimation.checked;
+  }
+
+  // toggle continuous animation
+
+  setInterval(function () {
+      if (animate) {
+          if(NumTimesToSubdivide < 5) {
+              NumTimesToSubdivide++;
+          }
+          else {
+              NumTimesToSubdivide = 0;
+          }
+          document.getElementById("recursiveSteps").innerHTML = NumTimesToSubdivide;
+          document.getElementById("steps_slider").value = NumTimesToSubdivide;
+          render();
+      }
+  }, 1000);
+
+  render();
 }
 
 function triangle(a,b,c) {

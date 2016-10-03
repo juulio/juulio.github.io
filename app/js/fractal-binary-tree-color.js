@@ -7,7 +7,7 @@
 Create and set up the Canvas Element.
 */
 var canvasWidth = JUULIO.global.setRendererWidth(700),
-  canvas = JUULIO.canvasElements.createCanvasElement('canvas-container', canvasWidth, 600),
+  canvas = JUULIO.canvasElements.createCanvasElement('canvas-container', canvasWidth, 600, '2d'),
   context = canvas.getContext("2d");
 
 document.body.style.margin = 0;

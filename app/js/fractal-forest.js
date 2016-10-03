@@ -13,7 +13,7 @@ var fractalsForest = fractalsForest || {};
 	/**
 	Create and set up the Canvas Element.
 	*/
-	var canvas = JUULIO.canvasElements.createCanvasElement('canvas-container', canvasWidth, 600),
+	var canvas = JUULIO.canvasElements.createCanvasElement('canvas-container', canvasWidth, 600, '2d'),
 			context = canvas.getContext("2d");
 
 	/***************************************

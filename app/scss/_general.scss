@@ -76,10 +76,10 @@ nav {
     margin: 20px auto 0;
   }
 
-  .canvas_container {
-    float: left;
-    width: 400px;
-  }
+  // .canvas-container {
+  //   float: left;
+  //   width: 400px;
+  // }
 
   .controls_container {
     float: left;
@@ -123,11 +123,6 @@ nav {
 .paintbrush-container {
   width: 1065px;
   margin: 0 auto;
-
-  #gl-canvas {
-    float: left;
-    border: solid 1px #000;
-  }
 
   #gl-canvas:hover {
     cursor: crosshair;

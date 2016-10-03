@@ -115,7 +115,6 @@ WebGLUtils = function() {
         showLink(GET_A_WEBGL_BROWSER);
         return null;
       }
-
       var context = create3DContext(canvas, opt_attribs);
       if (!context) {
         showLink(OTHER_PROBLEM);

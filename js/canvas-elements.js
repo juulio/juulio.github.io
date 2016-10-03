@@ -14,15 +14,16 @@ JUULIO.canvasElements = JUULIO.canvasElements || (function () {
 
   object.context = '';
 
+/** TODO: Create 2 functions: one for Canvas 2d and another for canvas 3D
  /**
   * Adds the Canvas Element to the DOM
   */
-  object.createCanvasElement = function(canvasContainer, canvasWidth, canvasHeight) {
+  object.createCanvasElement = function(canvasContainer, canvasWidth, canvasHeight, canvasContext) {
     var canvas = document.createElement("canvas");
     document.getElementById(canvasContainer).appendChild(canvas);
     document.body.style.margin = 0;
 
-    this.context = canvas.getContext("2d");
+    this.context = canvas.getContext(canvasContext);
     canvas.width = canvasWidth;
     canvas.height = canvasHeight;
     canvas.style.display = 'block';

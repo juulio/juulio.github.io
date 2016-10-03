@@ -21,7 +21,6 @@ var clingingPlant = clingingPlant || {};
             y+=spaceBetweenRows;
 
             for(var j=0; j<plantColumns; j++){
-              // canvasElements.drawLeaf(dotHorizontalPos, y, canvasElements.getRandomInt(50, 130), 3, 0.9);
                 JUULIO.canvasElements.drawLeaf(dotHorizontalPos, y, 55, 3, 0.9);
                 dotHorizontalPos += spaceBetweenColumns;
             }
@@ -36,8 +35,8 @@ var clingingPlant = clingingPlant || {};
 
         /********************************************************
          Initial code to create and set up the Canvas Element. */
-        // JUULIO.canvasElements.createCanvasElement('canvas-container', 250, 500);
-        var canvas = JUULIO.canvasElements.createCanvasElement('canvas-container', 250, 500);
+         var canvasWidth = JUULIO.global.setRendererWidth(500);
+         var canvas = JUULIO.canvasElements.createCanvasElement('canvas-container', canvasWidth, 500, '2d');
 
         recursiveDrawClingingPlant(canvas.width/2, 20, 9, 18, 22, 6);
 

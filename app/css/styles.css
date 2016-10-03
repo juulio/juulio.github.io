@@ -119,10 +119,6 @@ nav {
   width: 900px;
   margin: 20px auto 0; }
 
-.tessellated-triangle-container .canvas_container {
-  float: left;
-  width: 400px; }
-
 .tessellated-triangle-container .controls_container {
   float: left;
   width: 430px;
@@ -155,9 +151,6 @@ nav {
 .paintbrush-container {
   width: 1065px;
   margin: 0 auto; }
-  .paintbrush-container #gl-canvas {
-    float: left;
-    border: solid 1px #000; }
   .paintbrush-container #gl-canvas:hover {
     cursor: crosshair; }
   .paintbrush-container .controlPanel {
@@ -187,4 +180,6 @@ nav {
   #canvasContainer {
     height: 80px; }
   .grid-item {
-    margin-bottom: 6%; } }
+    margin-bottom: 6%; }
+  .tessellated-triangle-container .controls_container {
+    float: none; } }
