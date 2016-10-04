@@ -1,31 +1,31 @@
-/************************************************
- Create and set the Canvas Element up. */
-var canvas = document.createElement("canvas"),
-    context = canvas.getContext("2d");
+/**
+ * Create and set up the Canvas Element.
+ */
+var canvasWidth = JUULIO.global.setRendererWidth(350);
+var canvasHeight = 400;
+if(JUULIO.global.isMobile()){
+  canvasHeight = 320;
+}
+var canvas = JUULIO.canvasElements.createCanvasElement('canvas-container', canvasWidth, canvasHeight, '2d');
+var context = canvas.getContext("2d");
 
-document.body.appendChild(canvas);
-document.body.style.margin = 0;
+/**
+ * Begin code for Particle System
+ */
 
-canvas.width = 400;
-canvas.height = 400;
-canvas.style.display = 'block';
-canvas.style.margin = '0 auto';
-
-/******************************************************************
- Begin code for Particle System */
-
-/******************************************************************
- Point2D Class Definition  */
+/**
+ * Point2D Class Definition
+ */
 var point2D = function(x, y){
   this.x = x;
   this.y = y;
 };
 
-/******************************************************************
- Particle Class Definition
- Particles can be
- Type = 0 outer (circular motion)
- Type = 1 inner (move towards the centers)
+/**
+ * Particle Class Definition
+ *  Particles can be
+ *  Type = 0 outer (circular motion)
+ *  Type = 1 inner (move towards the centers)
  */
 var particle = function(dotSpeed, dotRadius, rotationRadius, centerPoint, particleType, particleColor){
   this.dotSpeed = dotSpeed;
@@ -86,8 +86,9 @@ var particle = function(dotSpeed, dotRadius, rotationRadius, centerPoint, partic
 };
 
 
-/******************************************************************
-  Particle System Class Definition */
+/**
+ * Particle System Class Definition
+ */
 var particleSystem = function(systemCenterPoint){
   this.systemCenterPoint = systemCenterPoint;
   this.particles = []
@@ -128,16 +129,18 @@ var systemOuterRadius = 80,
     systemCenter = new point2D(200, 200),
     ps = new particleSystem(systemCenter);
 
-/******************************************************************
-  Update */
+/**
+ * Update
+ */
 function update() {
   requestAnimationFrame(update);
   context.clearRect(0, 0, canvas.width, canvas.height);
   drawScreen();
 }
 
-/******************************************************************
-  DrawScreen */
+/**
+ * DrawScreen
+ */
 function drawScreen(){
   ps.run();
   // if(ps.particles.length<6){
@@ -146,6 +149,7 @@ function drawScreen(){
   }
 }
 
-/******************************************************************
-  Init the render loop*/
+/**
+ * Init the render loop
+ */
   update();
