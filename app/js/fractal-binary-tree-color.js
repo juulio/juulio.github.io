@@ -6,15 +6,12 @@
  /**
 Create and set up the Canvas Element.
 */
-var canvasWidth = JUULIO.global.setRendererWidth(700),
-  canvas = JUULIO.canvasElements.createCanvasElement('canvas-container', canvasWidth, 600, '2d'),
+var canvasWidth = JUULIO.global.setRendererWidth(450),
+  canvasHeight = 380,
+  canvas = JUULIO.canvasElements.createCanvasElement('canvas-container', canvasWidth, canvasHeight, '2d'),
   context = canvas.getContext("2d");
 
-document.body.style.margin = 0;
-
-context.fillStyle = '#000';
-context.lineWidth = 1;
-
+  context.lineWidth = 1;
 
 /******************************
  Set the Tree's variables up */
@@ -88,7 +85,7 @@ function drawLeaf(x, y, angle, scale, alpha) {
     context.translate(-x, -y);
 }
 
-drawTree(250, 500, -90, depth);
+drawTree(225, 380, -90, depth);
 
 
 
