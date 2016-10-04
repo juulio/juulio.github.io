@@ -1,4 +1,4 @@
-/***
+/**
  * Julio Del Valle - Computer Graphics - Costa Rica - 2015
  * Fractal Brinary Tree color - juulio.github.io
  */
