@@ -1,4 +1,4 @@
- /***
+/**
  * Julio Del Valle - Computer Graphics - Costa Rica - 2015
  * Fractal Binary Tree - juulio.github.io
  */
@@ -7,11 +7,21 @@ var fractalTree = fractalTree || {};
 (function (context) {
 
     // Initial Setup
-    var canvas = document.getElementById('canvas'),
-        context = canvas.getContext('2d'),
-        canvasHalfWidth = canvas.width/2,
+    var canvasWidth = JUULIO.global.setRendererWidth(450);
+  	var canvasHeight = 320;
+    var branchLength = 80;
+
+    if (JUULIO.global.isMobile()){
+      branchLength = 55;
+      canvasHeight = 220;
+  	}
+
+  	var canvas = JUULIO.canvasElements.createCanvasElement('canvas-container', canvasWidth, canvasHeight, '2d');
+  	var context = canvas.getContext('2d');
+  	var message = "Gradient on Text";
+
+    var canvasHalfWidth = canvas.width/2,
         fractalProportion = 0.8,
-        branchLength = 50,
         angle = 30 * Math.PI / 180;
 
     // Helper function: draws a Line from (x1,y1) to (x2,y2)
@@ -72,7 +82,7 @@ var fractalTree = fractalTree || {};
 
     function init(){
         context.clearRect(0,0,canvas.width, canvas.height);
-        drawTree(canvasHalfWidth, canvas.height, 70, 25, 6, 14);
+        drawTree(canvasHalfWidth, canvas.height, branchLength, 25, 6, 14);
     }
 
     init();
