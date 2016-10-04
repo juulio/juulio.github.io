@@ -17,9 +17,13 @@ function init() {
   /**
   Create and set up the Canvas Element.
   */
-  var canvasWidth = JUULIO.global.setRendererWidth(500);
-  var canvas = JUULIO.canvasElements.createCanvasElement('canvas-container', canvasWidth, 280, 'webgl');
-  
+  var canvasWidth = JUULIO.global.setRendererWidth(350);
+  var canvasHeight = 400;
+  if(JUULIO.global.isMobile()){
+    canvasHeight = 320;
+  }
+  var canvas = JUULIO.canvasElements.createCanvasElement('canvas-container', canvasWidth, canvasHeight, 'webgl');
+
   gl = WebGLUtils.setupWebGL( canvas );
   if ( !gl ) { alert( "WebGL isn't available" ); }
 

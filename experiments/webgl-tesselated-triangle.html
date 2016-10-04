@@ -19,21 +19,17 @@
 	<div id="canvas-container">
 	</div>
 	<div id="content" class="tessellated-triangle-container">
-		<div class="main_container">
-
-		    <div class="controls_container">
-		        <h2>Controls Panel</h2>
-		        <p>Number of recursive steps: <span id="recursiveSteps">0</span><br>
-		        0 <input id="steps_slider" type="range" min="0" max="5" step="1" value="0"> 5</p>
-		        <p>Twist angle: <span id="twistAngle"></span><br>
-		        0 <input id="angle_slider" type="range" min="0" max="360" step="1" value="0"> 360</p>
-		        </p>
-		        <p><label for="toggleAnimation"><input id="toggleAnimation" type="checkbox" checked>Toggle Animation</label></p>
-		    </div>
-		    <div class="clear"></div>
-		</div>
+    <div class="controls_container">
+        <h2>Controls Panel</h2>
+        <p>Number of recursive steps: <span id="recursiveSteps">0</span><br>
+        0 <input id="steps_slider" type="range" min="0" max="5" step="1" value="0"> 5</p>
+        <p>Twist angle: <span id="twistAngle"></span><br>
+        0 <input id="angle_slider" type="range" min="0" max="360" step="1" value="0"> 360</p>
+        </p>
+        <p><label for="toggleAnimation"><input id="toggleAnimation" type="checkbox" checked>Toggle Animation</label></p>
+    </div>
 	</div>
-	
+
 	<script id="vertex-shader" type="x-shader/x-vertex">
 	attribute vec4 vPosition;
 
