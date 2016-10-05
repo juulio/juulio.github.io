@@ -1,3 +1,6 @@
+/**
+ * @author Julio Del Valle - Costa Rica
+ */
 
 var systemOuterRadius = 450,
     systemCenter = p5.Vector(200, 200),

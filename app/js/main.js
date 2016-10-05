@@ -1,5 +1,5 @@
-/*
- * @author Julio Del Valle
+/**
+ * @author Julio Del Valle - Costa Rica
  * juulio.com - Costa Rica
  */
 

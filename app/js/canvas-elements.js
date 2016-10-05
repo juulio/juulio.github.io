@@ -1,6 +1,6 @@
 /**
+ * @author Julio Del Valle - Costa Rica
  * Canvas frequently used functions- juulio.github.io
- * @author Julio Del Valle
  * juulio.com - Costa Rica
  */
 

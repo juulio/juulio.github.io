@@ -1,3 +1,7 @@
+/**
+ * @author Julio Del Valle - Costa Rica
+ */
+
 // x' = xcosA - ysinA
 // y' = xsinA + ycosA
 

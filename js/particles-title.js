@@ -1,3 +1,7 @@
+/*
+ * @author Julio Del Valle - Costa Rica
+ */
+
 window.Title = (function(win, $, TweenMax, THREEx) {
 
     var $el;

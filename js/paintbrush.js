@@ -1,5 +1,8 @@
-// Coursera - WebGL - Julio Del Valle - Costa Rica
-// August 2015
+/**
+ * @author Julio Del Valle - Costa Rica
+ * Coursera - WebGL - Julio Del Valle - Costa Rica
+ * August 2015
+ */
 
 (function () {
 
@@ -17,7 +20,7 @@
 
     // Get Mouse Position inside canvas
     function getMousePos(canvas, e) {
-      
+
         // getBoundingClientRect is supported in most browsers and gives you the absolute geometry of an element
         var rect = canvas.getBoundingClientRect();
 
@@ -47,15 +50,15 @@
             Bdiv = document.getElementById('Bvalue');
 
         Beehive.Picker(colorPicker);
-        
+
         colorPicker.addEventListener('click', function(e){
-            var color = Beehive.getColorCode(e.target);            
+            var color = Beehive.getColorCode(e.target);
 
             if( color) {
                 var r = parseInt(color.substr(1,2),16) / 256
                 var g = parseInt(color.substr(3,2),16) / 256
                 var b = parseInt(color.substr(5,2),16) / 256
-                // console.log(r + ' ' + g + ' ' + b);  
+                // console.log(r + ' ' + g + ' ' + b);
                 selectedColor = vec4(r, g, b, 1.0);
 
 
@@ -67,7 +70,7 @@
 
             }
         });
-    };     
+    };
 
     function init(){
         // Setup WebGL
@@ -77,20 +80,20 @@
         //  Configure WebGL
         gl.viewport( 0, 0, canvas.width, canvas.height );
         gl.clearColor( 1.0, 1.0, 1.0, 1.0 );
-        
+
         //  Load shaders and initialize attribute buffers
-        
+
         var program = initShaders( gl, "vertex-shader", "fragment-shader" );
         gl.useProgram( program );
-        
+
         // Load the data into the GPU
-        
+
         bufferId = gl.createBuffer();
         gl.bindBuffer( gl.ARRAY_BUFFER, bufferId );
         gl.bufferData(gl.ARRAY_BUFFER, 8*maxNumVertices, gl.STATIC_DRAW);
 
         // Associate out shader variables with data buffers
-        
+
         var vBuffer = gl.createBuffer();
         gl.bindBuffer(gl.ARRAY_BUFFER, vBuffer);
         gl.bufferData(gl.ARRAY_BUFFER, 8*maxNumVertices, gl.STATIC_DRAW);
@@ -139,7 +142,7 @@
                 //console.log('Y ' + y);
             }
         };
-        
+
         setupColorPicker();
 
         render();

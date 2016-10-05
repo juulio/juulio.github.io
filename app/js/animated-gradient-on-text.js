@@ -1,8 +1,8 @@
- /***
- * Julio Del Valle - Computer Graphics - Costa Rica - 2015
- * Animated Gradient on Text - juulio.github.io
- * juulio.github.io
- */
+ /**
+  * @author Julio Del Valle - Costa Rica
+  * Animated Gradient on Text - juulio.github.io
+  * juulio.github.io
+  */
 
 var animatedGradientOnText = animatedGradientOnText || {};
 

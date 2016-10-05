@@ -1,5 +1,5 @@
-/***
- * Julio Del Valle - Computer Graphics - Costa Rica - 2015
+/**
+ * Julio Del Valle - Computer Graphics - Costa Rica - 2016
  * Fractals Forest - juulio.github.io
  */
 var fractalsForest = fractalsForest || {};

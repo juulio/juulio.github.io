@@ -1,5 +1,5 @@
-/***
- * Julio Del Valle - Computer Graphics - Costa Rica - 2016
+/**
+ * @author Julio Del Valle - Costa Rica
  * juulio.github.io
  */
 var clingingPlant = clingingPlant || {};

@@ -1,4 +1,8 @@
 /**
+ * @author Julio Del Valle - Costa Rica
+ */
+
+/*
  * Create and set up the Canvas Element.
  */
 var canvasWidth = JUULIO.global.setRendererWidth(350);

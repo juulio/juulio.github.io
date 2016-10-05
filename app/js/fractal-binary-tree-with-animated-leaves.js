@@ -1,6 +1,8 @@
-/* Tree with Animated Leaves - juulio.github.io
-* Julio Del Valle - Costa Rica */
-
+/**
+ * @author Julio Del Valle - Costa Rica
+ * Tree with Animated Leaves - juulio.github.io
+ */
+ 
 // The amount of branches is a random value between 2 and 4.
 
 // Create the Canvas Element

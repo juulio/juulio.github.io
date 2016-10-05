@@ -1,5 +1,4 @@
 /**
- * @author Julio Del Valle
  * juulio.com - Costa Rica
  */
 

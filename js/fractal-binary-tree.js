@@ -1,6 +1,6 @@
 /**
- * Julio Del Valle - Computer Graphics - Costa Rica - 2015
- * Fractal Binary Tree - juulio.github.io
+ * @author Julio Del Valle - Costa Rica
+ * Fractal Binary Tree - juulio.com
  */
 var fractalTree = fractalTree || {};
 
