@@ -8,19 +8,12 @@ Create and set up the Canvas Element.
 */
 var canvasWidth = JUULIO.global.setRendererWidth(450),
   canvasHeight = 380,
-  canvas = JUULIO.canvasElements.createCanvasElement('canvas-container', canvasWidth, canvasHeight, '2d'),
-  context = canvas.getContext("2d");
+  canvas = JUULIO.canvasElements.createCanvasElement('canvas-container', canvasWidth, canvasHeight, '2d');
 
-  context.lineWidth = 1;
-
-/******************************
- Set the Tree's variables up */
-var deg_to_rad = Math.PI / 180.0,
-    depth = 11;
 
 function drawTree(x1, y1, angle, depth){
     var alpha = 0.3,
-        leafSize = 1,
+        leafMaxSize = 5,
         roationAngle = 0,
         branchColor = '',
         leafProbabilty = JUULIO.canvasElements.getRandomInt(0,1);
@@ -33,13 +26,12 @@ function drawTree(x1, y1, angle, depth){
             branchColor = 'rgb(143,154,90)'; //Green
         }
 
-        context.strokeStyle = branchColor;
         depth--;
+        var lineWidth = depth*1.6;
 
-        var x2 = x1 + (Math.cos(angle * deg_to_rad) * depth * 5.0);
-        var y2 = y1 + (Math.sin(angle * deg_to_rad) * depth * 6.0);
-        context.lineWidth = depth*1.6;
-        JUULIO.canvasElements.drawLine(x1, y1, x2, y2, context, branchColor);
+        var x2 = x1 + (Math.cos(JUULIO.canvasElements.degToRad(angle)) * depth * 5.0);
+        var y2 = y1 + (Math.sin(JUULIO.canvasElements.degToRad(angle)) * depth * 6.0);
+        JUULIO.canvasElements.drawLine(x1, y1, x2, y2, branchColor, lineWidth);
 
         drawTree(x2, y2, angle - JUULIO.canvasElements.getRandomInt(18, 20), depth);
         drawTree(x2, y2, angle + JUULIO.canvasElements.getRandomInt(5, 30), depth);
@@ -47,51 +39,17 @@ function drawTree(x1, y1, angle, depth){
     if(depth == 1 && leafProbabilty == 1) {
         rotationAngle = JUULIO.canvasElements.getRandomInt(0, 360);
         alpha = JUULIO.canvasElements.getRandomArbitrary(0.3, 1);
-        leafSize = JUULIO.canvasElements.getRandomInt(0, 3);
+        leafSize = JUULIO.canvasElements.getRandomInt(0, leafMaxSize);
 
-        drawLeaf(x2, y2, rotationAngle, leafSize, alpha);
+        JUULIO.canvasElements.drawLeaf(x2, y2, rotationAngle, leafSize, alpha);
     }
 }
 
-function drawLeaf(x, y, angle, scale, alpha) {
+/**
+ * Set the Tree's variables up
+ */
+var depth = 11;
+    startX = canvas.width/2,
+    startY = canvas.height;
 
-    context.translate(x, y);
-    context.rotate(angle);
-    context.beginPath();
-
-    context.moveTo(0,0);
-
-    context.lineTo(scale*0, scale*-1);
-    context.lineTo(scale*2,scale*-3);
-    context.lineTo(scale*4, scale*-1);
-    context.lineTo(scale*6, scale*-3);
-    context.lineTo(scale*8, scale*-1);
-    context.lineTo(scale*10, scale*0);
-
-    context.lineTo(scale*8, scale*1);
-    context.lineTo(scale*6, scale*3);
-    context.lineTo(scale*4, scale*1);
-    context.lineTo(scale*2, scale*3);
-    context.lineTo(scale*0, scale*1);
-    context.lineTo(scale*0, scale*0);
-
-    context.closePath();
-    context.fillStyle = 'rgba(143,154,90,' + alpha + ')';
-    context.strokeStyle = 'rgb(25, 66, 0)';
-    context.fill();
-
-    context.stroke();
-    context.rotate(-angle);
-    context.translate(-x, -y);
-}
-
-drawTree(225, 380, -90, depth);
-
-
-
-// Leaf #1
-// context.lineTo(scale*5, scale*-10);
-// context.lineTo(scale*15,scale*-5);
-// context.lineTo(scale*20, scale*0);
-// context.lineTo(scale*15, scale*5);
-// context.lineTo(scale*5, scale*10);
+drawTree(startX, startY, -90, depth);

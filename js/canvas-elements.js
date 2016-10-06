@@ -14,7 +14,6 @@ JUULIO.canvasElements = JUULIO.canvasElements || (function () {
 
   object.context = '';
 
-/** TODO: Create 2 functions: one for Canvas 2d and another for canvas 3D
  /**
   * Adds the Canvas Element to the DOM
   */
@@ -45,14 +44,14 @@ JUULIO.canvasElements = JUULIO.canvasElements || (function () {
  /**
   * Draws a line from (x1,y1) to (x2,y2)
   */
-  object.drawLine = function(x1, y1, x2, y2, canvasContext, color, lineWidth) {
-    canvasContext.beginPath();
-    canvasContext.moveTo(x1,y1);
-    canvasContext.lineTo(x2,y2);
-    canvasContext.closePath();
-    canvasContext.lineWidth = lineWidth;
-    canvasContext.strokeStyle = color;
-    canvasContext.stroke();
+  object.drawLine = function(x1, y1, x2, y2, color, lineWidth) {
+    this.context.beginPath();
+    this.context.moveTo(x1,y1);
+    this.context.lineTo(x2,y2);
+    this.context.closePath();
+    this.context.lineWidth = lineWidth;
+    this.context.strokeStyle = color;
+    this.context.stroke();
   };
 
  /**
