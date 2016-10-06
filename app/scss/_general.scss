@@ -1,3 +1,8 @@
+/**
+ * @author Julio Del Valle
+ * General Styles
+  */
+
 body {
   font-family: 'GothamExtraLight';
 }
@@ -48,8 +53,9 @@ nav {
 
 }
 
-/*******************************************************************************
- General Content */
+/**
+  * General Content
+  */
 #content {
   padding: 20px 2%;
 
@@ -58,8 +64,9 @@ nav {
   }
 }
 
-/*******************************************************************************
- Tessellated Triangel webgl */
+/**
+  * Tessellated Triangel webgl
+  */
 .tessellated-triangle-container {
   h1 {
     font-size: 200%;
@@ -72,8 +79,9 @@ nav {
   }
 }
 
-/*******************************************************************************
- Fractal Binary Tree openframeworks */
+/**
+ * Fractal Binary Tree openframeworks
+ */
 .fractal-binary-tree-open-frameworks {
   .grid-item {
     height: 250px;
@@ -101,8 +109,9 @@ nav {
   }
 }
 
-/*******************************************************************************
- Paintbrush webgl experiment */
+/**
+ * Paintbrush webgl experiment
+ */
 .paintbrush-container {
   width: 1065px;
   margin: 0 auto;
@@ -146,4 +155,8 @@ nav {
   p {
     margin: 15px 0;
   }
+}
+
+.buttons-container {
+  text-align: center;
 }

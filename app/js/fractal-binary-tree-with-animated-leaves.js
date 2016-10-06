@@ -2,26 +2,28 @@
  * @author Julio Del Valle - Costa Rica
  * Tree with Animated Leaves - juulio.github.io
  */
- 
+
 // The amount of branches is a random value between 2 and 4.
 
-// Create the Canvas Element
-var canvas = document.createElement("canvas"),
-    context = canvas.getContext("2d");
+/**
+ *Create and set up the Canvas Element.
+ */
+var canvasWidth = JUULIO.global.setRendererWidth(650),
+  canvasHeight = 550,
+  branchLength = 70,
+  branchWidth = 60;
 
-document.body.appendChild(canvas);
+if (JUULIO.global.isMobile()){
+  branchLength = 40;
+  branchWidth = 40;
+  canvasHeight = 290;
+}
+canvas = JUULIO.canvasElements.createCanvasElement('canvas-container', canvasWidth, canvasHeight, '2d'),
+context = canvas.getContext("2d");
 
-// Apply Basic styles to the Canvas Element
-document.body.style.margin = 0;
-
-canvas.width = 500;
-canvas.height = 400;
-canvas.style.display = 'block';
-canvas.style.margin = '0 auto';
-
-
-/****************
- Create Arrays */
+/**
+ * Create Arrays
+ */
 var branches = [],
     leaves = [],
     contadorDeHojas = 0;
@@ -33,14 +35,14 @@ var branches = [],
 /**************************************************************************************************************
 * Recursive function that generates the fracal tree and stores the values on the branches and leaves arrays  */
 var growTree = function(x1, y1, angle, treeDepth){
-    var BRANCH_LENGTH = canvasElements.getRandomInt(5,16),
+    var BRANCH_LENGTH = JUULIO.canvasElements.getRandomInt(5,16),
         branch = {},
         leaf = {};
 
     if(treeDepth != 0) {
 
-        var x2 = x1 + (canvasElements.cos(angle) * treeDepth * BRANCH_LENGTH),
-            y2 = y1 + (canvasElements.sin(angle) * treeDepth * BRANCH_LENGTH);
+        var x2 = x1 + (JUULIO.canvasElements.cos(angle) * treeDepth * BRANCH_LENGTH),
+            y2 = y1 + (JUULIO.canvasElements.sin(angle) * treeDepth * BRANCH_LENGTH);
 
         if(treeDepth > 3){
             branchColor = 'rgb(139,126,102)'; //Brown
@@ -62,22 +64,22 @@ var growTree = function(x1, y1, angle, treeDepth){
         if(treeDepth == 1){
             leaf._x = x2;
             leaf._y = y2;
-            leaf._shape = canvasElements.getRandomInt(0,2);
+            leaf._shape = JUULIO.canvasElements.getRandomInt(0,2);
             leaf._shape = 2;
-            leaf._startingAngle = canvasElements.getRandomInt(0,360);
+            leaf._startingAngle = JUULIO.canvasElements.getRandomInt(0,360);
             leaves.push(leaf);
         }
 
-        growTree(x2, y2, angle + canvasElements.getRandomInt(-20, -1), treeDepth);
-        growTree(x2, y2, angle + canvasElements.getRandomInt(20, 40), treeDepth);
+        growTree(x2, y2, angle + JUULIO.canvasElements.getRandomInt(-20, -1), treeDepth);
+        growTree(x2, y2, angle + JUULIO.canvasElements.getRandomInt(20, 40), treeDepth);
     }
     if(treeDepth == 0){
         contadorDeHojas++;
         // leaf._x = x2;
         // leaf._y = y2;
-        // leaf._shape = canvasElements.getRandomInt(0,2);
+        // leaf._shape = JUULIO.canvasElements.getRandomInt(0,2);
         // leaf._shape = 2;
-        // leaf._startingAngle = canvasElements.getRandomInt(0,360);
+        // leaf._startingAngle = JUULIO.canvasElements.getRandomInt(0,360);
         // leaves.push(leaf);
     }
 };
@@ -103,7 +105,7 @@ var drawTree = function(){
 
         context.strokeStyle = branch.color;
         context.lineWidth = branch.thickness;
-        canvasElements.drawLine(_x1, _y1, _x2, _y2, context);
+        JUULIO.canvasElements.drawLine(_x1, _y1, _x2, _y2, context);
     }
 
     for(var j=0;j<leaves.length;j++){
@@ -124,7 +126,7 @@ var drawLeaf = function(x, y, radius, color, lineWidth, canvasContext, shape, si
     context.strokeStyle = color;
 
     if (shape == 0){
-        canvasElements.drawDot(x, y, size, 2, context);
+        JUULIO.canvasElements.drawDot(x, y, size, 2, context);
     }
     if (shape == 1){
         canvasContext.rect(x, y, size, size);
@@ -132,10 +134,10 @@ var drawLeaf = function(x, y, radius, color, lineWidth, canvasContext, shape, si
     }
     if (shape == 2){
         // alert('hola');
-        // rotationAngle = canvasElements.getRandomInt(0,100);
+        // rotationAngle = JUULIO.canvasElements.getRandomInt(0,100);
         // console.log(rotationAngle);
         // context.rotate(rotationAngle*Math.PI/180);
-        canvasElements.drawTriangle(x, y, size, context);
+        JUULIO.canvasElements.drawTriangle(x, y, size, context);
         // context.rotate(-rotationAngle*Math.PI/180);
     }
 }
@@ -150,19 +152,19 @@ var animateLeaves = function(){
         _y,
         shape = 0,
         size = 19,
-        // leafColor = 'rgb(' + canvasElements.getRandomInt(0,255) +',' + canvasElements.getRandomInt(0,255) +'    ,34)';
+        // leafColor = 'rgb(' + JUULIO.canvasElements.getRandomInt(0,255) +',' + JUULIO.canvasElements.getRandomInt(0,255) +'    ,34)';
         leafColor = 'rgb(255, 165, 0)',
         radius = 7,
         rotationAngle = 0;
 
     for(var i=0;i<leaves.length;i++){
-        // _x = leaves[i]._x + canvasElements.getRandomInt(-2,2)*0.6;
-        // _y = leaves[i]._y + canvasElements.getRandomInt(-1,1)*0.4;
+        // _x = leaves[i]._x + JUULIO.canvasElements.getRandomInt(-2,2)*0.6;
+        // _y = leaves[i]._y + JUULIO.canvasElements.getRandomInt(-1,1)*0.4;
 
         rotationAngle = leaves[i]._startingAngle;
         shape = leaves[i]._shape;
-        _x = leaves[i]._x + radius*canvasElements.cos(rotationAngle);
-        _y = leaves[i]._y + radius*canvasElements.sin(rotationAngle)
+        _x = leaves[i]._x + radius*JUULIO.canvasElements.cos(rotationAngle);
+        _y = leaves[i]._y + radius*JUULIO.canvasElements.sin(rotationAngle)
 
         leaves[i]._startingAngle++;
 

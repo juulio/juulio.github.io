@@ -2,46 +2,54 @@
  * @author Julio Del Valle - Costa Rica
  * juulio.github.io
  */
-var clingingPlant = clingingPlant || {};
+
+/**
+ * Trees list
+ * fractal binary tree
+ * fractal binary tree black and white
+ * fractal binary tree color
+ * fractal binary tree thick
+ *
+ */
+
+var fractalTrees = fractalTrees || {};
 
 (function (context) {
 
-    /***
-     * Init all required functions
+  /**
+   * Init all required functions
+   */
+  function init () {
+
+    /**
+     * Initial code to create and set up the Canvas Element.
      */
-    function init () {
-        /***************************************************
-         Recursive function that draws The Clinging Plant */
-        function recursiveDrawClingingPlant(x, y, plantColumns, plantRows, spaceBetweenRows, spaceBetweenColumns){
-            var dotHorizontalPos = 0,
-                dotVerticalPos = spaceBetweenRows,
-                leftMostPoint = x-(((plantColumns-1)*spaceBetweenColumns)/2);
+    var canvasWidth = JUULIO.global.setRendererWidth(800);
+    var canvas = JUULIO.canvasElements.createCanvasElement('canvas-container', canvasWidth, 500, '2d');
 
-            dotHorizontalPos = leftMostPoint;
-            y+=spaceBetweenRows;
+    var button01 = document.getElementById("button-tree-01");
+    var button02 = document.getElementById("button-tree-02");
+    var button03 = document.getElementById("button-tree-03");
+    var button04 = document.getElementById("button-tree-04");
 
-            for(var j=0; j<plantColumns; j++){
-                JUULIO.canvasElements.drawLeaf(dotHorizontalPos, y, 55, 3, 0.9);
-                dotHorizontalPos += spaceBetweenColumns;
-            }
+    button01.addEventListener('click', function() {
+      console.log('fractal binary tree color');
+    }, false);
 
-            spaceBetweenColumns+=0.8;
-            plantRows--;
+    button02.addEventListener('click', function() {
+      console.log('fractal binary tree thick');
+    }, false);
 
-            if(plantRows>0) {
-                recursiveDrawClingingPlant(x, y, plantColumns, plantRows, spaceBetweenRows, spaceBetweenColumns, false);
-            }
-        }
+    button03.addEventListener('click', function() {
+      console.log('fractal binary tree black and-white');
+    }, false);
 
-        /********************************************************
-         Initial code to create and set up the Canvas Element. */
-         var canvasWidth = JUULIO.global.setRendererWidth(500);
-         var canvas = JUULIO.canvasElements.createCanvasElement('canvas-container', canvasWidth, 500, '2d');
+    button04.addEventListener('click', function() {
+      console.log('draw Tree #4');
+    }, false);
+  }
 
-        recursiveDrawClingingPlant(canvas.width/2, 20, 9, 18, 22, 6);
+  init();
 
-    }
-
-    init();
-
-}(clingingPlant));
+}(fractalTrees));
+;
