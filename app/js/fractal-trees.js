@@ -28,6 +28,9 @@ JUULIO.fractalTrees = JUULIO.fractalTrees || (function () {
   var tree02BranchLength = 70;
   var tree02BranchWidth = 60;
 
+  var tree03FractalProportion = 0.8;
+  var tree03Depth = 8;
+
   /**
    * If Mobile, load proper values
    */
@@ -37,6 +40,8 @@ JUULIO.fractalTrees = JUULIO.fractalTrees || (function () {
 
     tree02BranchLength = 40;
     tree02BranchWidth = 40;
+
+    tree03Depth = 5;
   }
 
   var canvas = JUULIO.canvasElements.createCanvasElement('canvas-container', JUULIO.global.setRendererWidth(800), canvasHeight, '2d');
@@ -69,7 +74,7 @@ JUULIO.fractalTrees = JUULIO.fractalTrees || (function () {
 
     button03.addEventListener('click', function() {
       canvasContext.clearRect(0, 0, canvas.width, canvas.height);
-      console.log('fractal binary tree black and-white');
+      drawTree03(startPositionX, startPositionY, 70, 25, tree03Depth, 14);
     }, false);
 
     button04.addEventListener('click', function() {
@@ -81,7 +86,7 @@ JUULIO.fractalTrees = JUULIO.fractalTrees || (function () {
   /**
    * Tree 01 : Colorful Tree
    */
-  var drawTree01 = function(x1, y1, angle, depth){
+  var drawTree01 = function(startX, startY, angle, depth){
     var alpha = 0.3,
     leafSize = 0,
     leafMaxSize = 5,
@@ -90,36 +95,37 @@ JUULIO.fractalTrees = JUULIO.fractalTrees || (function () {
     leafProbabilty = JUULIO.canvasElements.getRandomInt(0,1);
 
     if (depth !== 0){
-    if(depth > 3){
-    branchColor = 'rgb(100,69,19)'; //Brown
-    }
-    else {
-    branchColor = 'rgb(143,154,90)'; //Green
+      if(depth > 3){
+        branchColor = 'rgb(100,69,19)'; //Brown
+      }
+      else {
+        branchColor = 'rgb(143,154,90)'; //Green
+      }
+
+      depth--;
+      var lineWidth = depth*1.6;
+
+      var x2 = startX + (Math.cos(JUULIO.canvasElements.degToRad(angle)) * depth * 5.0);
+      var y2 = startY + (Math.sin(JUULIO.canvasElements.degToRad(angle)) * depth * 6.0);
+      JUULIO.canvasElements.drawLine(startX, startY, x2, y2, branchColor, lineWidth);
+
+      drawTree01(x2, y2, angle - JUULIO.canvasElements.getRandomInt(18, 20), depth);
+      drawTree01(x2, y2, angle + JUULIO.canvasElements.getRandomInt(5, 30), depth);
     }
 
-    depth--;
-    var lineWidth = depth*1.6;
-
-    var x2 = x1 + (Math.cos(JUULIO.canvasElements.degToRad(angle)) * depth * 5.0);
-    var y2 = y1 + (Math.sin(JUULIO.canvasElements.degToRad(angle)) * depth * 6.0);
-    JUULIO.canvasElements.drawLine(x1, y1, x2, y2, branchColor, lineWidth);
-
-    drawTree01(x2, y2, angle - JUULIO.canvasElements.getRandomInt(18, 20), depth);
-    drawTree01(x2, y2, angle + JUULIO.canvasElements.getRandomInt(5, 30), depth);
-    }
     if(depth == 1 && leafProbabilty == 1) {
-    rotationAngle = JUULIO.canvasElements.getRandomInt(0, 360);
-    alpha = JUULIO.canvasElements.getRandomArbitrary(0.3, 1);
-    leafSize = JUULIO.canvasElements.getRandomInt(0, leafMaxSize);
+      rotationAngle = JUULIO.canvasElements.getRandomInt(0, 360);
+      alpha = JUULIO.canvasElements.getRandomArbitrary(0.3, 1);
+      leafSize = JUULIO.canvasElements.getRandomInt(0, leafMaxSize);
 
-    JUULIO.canvasElements.drawLeaf(x2, y2, rotationAngle, leafSize, alpha);
+      JUULIO.canvasElements.drawLeaf(x2, y2, rotationAngle, leafSize, alpha);
     }
   };
 
   /**
    * Tree 02 : Thick trunk Tree
    */
-  var drawTree02 = function (context, startX, startY, length, angle, depth, branchWidth) {
+  var drawTree02 = function(context, startX, startY, length, angle, depth, branchWidth) {
     var rand = Math.random,
         newLength,
         newAngle,
@@ -132,27 +138,27 @@ JUULIO.fractalTrees = JUULIO.fractalTrees || (function () {
 
     // Draw a branch, leaning either to the left or right (depending on angle).
     // First branch (the trunk) is drawn straight up (angle = 1.571 radians)
-    context.beginPath();
-    context.moveTo(startX, startY);
+    canvasContext.beginPath();
+    canvasContext.moveTo(startX, startY);
     endX = startX + length * Math.cos(angle);
     endY = startY + length * Math.sin(angle);
 
     // console.log(endX + ' ' + endY);
 
-    context.lineCap = 'round';
-    context.lineWidth = branchWidth;
-    context.lineTo(endX, endY);
+    canvasContext.lineCap = 'round';
+    canvasContext.lineWidth = branchWidth;
+    canvasContext.lineTo(endX, endY);
 
     // If we are near the end branches, make them green to look like leaves.
     if (depth <= 1) {
-        context.strokeStyle = 'rgba(0,' + (((rand() * 64) + 128) >> 0) + ',0,0.8)';
+        canvasContext.strokeStyle = 'rgba(0,' + (((rand() * 64) + 128) >> 0) + ',0,0.8)';
     }
     // Otherwise, choose a random brownish color.
     else {
-        context.strokeStyle = 'rgb(' + (((rand() * 64) + 64) >> 0) + ',50,25)';
+        canvasContext.strokeStyle = 'rgb(' + (((rand() * 64) + 64) >> 0) + ',50,25)';
     }
 
-    context.stroke();
+    canvasContext.stroke();
 
     // Reduce the branch recursion level.
     newDepth = depth - 1;
@@ -180,14 +186,42 @@ JUULIO.fractalTrees = JUULIO.fractalTrees || (function () {
   /**
    * Tree 03 : Tree
    */
-  var drawTree03 = function(x1, y1, angle, depth){
+  var drawTree03 = function(startX, startY, branchLength, angle, depth, lineWidth){
+    canvasContext.lineWidth = lineWidth;
+    canvasContext.save();
+    canvasContext.translate(startX, startY);
 
+    JUULIO.canvasElements.drawLine(0, 0, 0, -branchLength, '#000000');
+
+    if(depth > 0 ){
+        depth--;
+        canvasContext.translate(0, -branchLength);
+
+        angle += tree03FractalProportion;
+        lineWidth *= tree03FractalProportion;
+        branchLength *= tree03FractalProportion;
+
+        canvasContext.save();
+
+        // Draw Right Branch
+        canvasContext.rotate(angle * Math.PI / 180);
+        drawTree03(0, 0, branchLength, angle, depth, lineWidth);
+
+        canvasContext.restore();
+        canvasContext.save();
+
+        // Draw Left Branch
+        canvasContext.rotate(-angle * Math.PI / 180);
+        drawTree03(0, 0, branchLength, angle, depth, lineWidth);
+        canvasContext.restore();
+    }
+    canvasContext.restore();
   };
 
   /**
    * Tree 04 : Tree
    */
-  var drawTree04 = function(x1, y1, angle, depth){
+  var drawTree04 = function(startX, y1, angle, depth){
 
   };
 

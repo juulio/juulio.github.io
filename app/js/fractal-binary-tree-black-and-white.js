@@ -21,37 +21,37 @@
 
  // Recursive Fractal Function
  function drawTree(startX, startY, branchLength, angle, depth, lineWidth){
-     context.lineWidth = lineWidth;
-     context.translate(startX, startY);
+   context.lineWidth = lineWidth;
+   context.translate(startX, startY);
 
-     drawLine(0, 0, 0, -branchLength);
+   drawLine(0, 0, 0, -branchLength);
 
-     if(depth > 0 ){
-         depth--;
-         context.translate(0, -branchLength);
-
-
-         angle += fractalProportion;
-         lineWidth *= fractalProportion;
-         branchLength *= fractalProportion;
-
-         context.save();
-
-         // Draw Right Branch
-         context.rotate(angle * Math.PI / 180);
-         //drawLine(x1, y1, x2, y2);
-         drawTree(0, 0, branchLength, angle, depth, lineWidth);
+   if(depth > 0 ){
+       depth--;
+       context.translate(0, -branchLength);
 
 
-         context.restore();
-         context.save();
+       angle += fractalProportion;
+       lineWidth *= fractalProportion;
+       branchLength *= fractalProportion;
 
-         // Draw Left Branch
-         context.rotate(-angle * Math.PI / 180);
-         //drawLine(x1, y1, x2, y2);
-         drawTree(0, 0, branchLength, angle, depth, lineWidth);
-         context.restore();
-     }
+       context.save();
+
+       // Draw Right Branch
+       context.rotate(angle * Math.PI / 180);
+       //drawLine(x1, y1, x2, y2);
+       drawTree(0, 0, branchLength, angle, depth, lineWidth);
+
+
+       context.restore();
+       context.save();
+
+       // Draw Left Branch
+       context.rotate(-angle * Math.PI / 180);
+       //drawLine(x1, y1, x2, y2);
+       drawTree(0, 0, branchLength, angle, depth, lineWidth);
+       context.restore();
+   }
  }
 
  drawTree(canvasHalfWidth, canvas.height, 70, 25, 10, 14);
