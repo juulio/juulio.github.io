@@ -69,7 +69,7 @@ JUULIO.fractalTrees = JUULIO.fractalTrees || (function () {
 
     button02.addEventListener('click', function() {
       canvasContext.clearRect(0, 0, canvas.width, canvas.height);
-      drawTree02(canvasContext, startPositionX, startPositionY, tree02BranchLength, -Math.PI / 2, 6, tree02BranchWidth);
+      drawTree02(startPositionX, startPositionY, canvasContext, tree02BranchLength, -Math.PI / 2, 6, tree02BranchWidth);
     }, false);
 
     button03.addEventListener('click', function() {
@@ -125,7 +125,7 @@ JUULIO.fractalTrees = JUULIO.fractalTrees || (function () {
   /**
    * Tree 02 : Thick trunk Tree
    */
-  var drawTree02 = function(context, startX, startY, length, angle, depth, branchWidth) {
+  var drawTree02 = function(startX, startY, context, length, angle, depth, branchWidth) {
     var rand = Math.random,
         newLength,
         newAngle,
@@ -179,7 +179,7 @@ JUULIO.fractalTrees = JUULIO.fractalTrees || (function () {
     for (var i = 0; i < subBranches; i++) {
         newAngle = angle + rand() * maxAngle - maxAngle * 0.5;
         newLength = length * (0.7 + rand() * 0.3);
-        drawTree02(context, endX, endY, newLength, newAngle, newDepth, branchWidth);
+        drawTree02(endX, endY, context, newLength, newAngle, newDepth, branchWidth);
     }
   };
 
