@@ -24,12 +24,28 @@ JUULIO.fractalTrees = JUULIO.fractalTrees || (function () {
   var canvasWidth = JUULIO.global.setRendererWidth(800);
   var canvasHeight = 500;
   var depth = 11;
+  var globalDepth = 1;
 
   var tree02BranchLength = 70;
   var tree02BranchWidth = 60;
 
   var tree03FractalProportion = 0.8;
   var tree03Depth = 8;
+
+  var toggleAnimation = false;
+  var toggleAnimation = true;
+
+  // - - - --- - - - Animation
+  var animationSpeed = 0.5;
+  var startAnimationX = 0;
+  var startAnimationY = 0;
+  var endAnimationX;
+  var endAnimationY;
+
+  var animationDepth = 1;
+
+  // - - - --- - - - Animation
+
 
   /**
    * If Mobile, load proper values
@@ -53,18 +69,15 @@ JUULIO.fractalTrees = JUULIO.fractalTrees || (function () {
    * Init all required functions
    */
   var init = function () {
-    var buttons = document.getElementsByTagName('button')[0];
     var button01 = document.getElementById('button-tree-01');
     var button02 = document.getElementById('button-tree-02');
     var button03 = document.getElementById('button-tree-03');
     var button04 = document.getElementById('button-tree-04');
 
-    buttons.addEventListener('click', function() {
-    }, false);
-
     button01.addEventListener('click', function() {
       canvasContext.clearRect(0, 0, canvas.width, canvas.height);
-      drawTree01(startPositionX, startPositionY, -90, depth);
+      drawTree01(startPositionX, startPositionY, -90, 12);
+      globalDepth++;
     }, false);
 
     button02.addEventListener('click', function() {
@@ -73,13 +86,36 @@ JUULIO.fractalTrees = JUULIO.fractalTrees || (function () {
     }, false);
 
     button03.addEventListener('click', function() {
+      // drawTree03(startPositionX, startPositionY, 70, 25, tree03Depth, 14);
       canvasContext.clearRect(0, 0, canvas.width, canvas.height);
-      drawTree03(startPositionX, startPositionY, 70, 25, tree03Depth, 14);
+
+      var animationIsEnabled = document.getElementById("toggleAnimation").checked;
+      if(animationIsEnabled){
+        requestAnimationFrame(drawTree03);
+        if(animationDepth<10){
+          animationDepth += 0.6;
+        }
+        else{
+          animationDepth = 0;
+        }
+        canvasContext.clearRect(0, 0, canvas.width, canvas.height);
+        depth = animationDepth;
+      }
+
+      drawTree03(startPositionX, startPositionY, 70, 25, depth, 14);
+
     }, false);
 
     button04.addEventListener('click', function() {
       canvasContext.clearRect(0, 0, canvas.width, canvas.height);
-      console.log('draw Tree #4');
+      animationSpeed = 0.4;
+      startAnimationX = 0;
+      startAnimationY = 0;
+      endAnimationX = 300;
+      endAnimationY = 400;
+
+
+      drawTree04();
     }, false);
   };
 
@@ -102,7 +138,7 @@ JUULIO.fractalTrees = JUULIO.fractalTrees || (function () {
         branchColor = 'rgb(143,154,90)'; //Green
       }
 
-      depth--;
+      depth -= 1;
       var lineWidth = depth*1.6;
 
       var x2 = startX + (Math.cos(JUULIO.canvasElements.degToRad(angle)) * depth * 5.0);
@@ -187,11 +223,10 @@ JUULIO.fractalTrees = JUULIO.fractalTrees || (function () {
    * Tree 03 : Tree
    */
   var drawTree03 = function(startX, startY, branchLength, angle, depth, lineWidth){
-    canvasContext.lineWidth = lineWidth;
     canvasContext.save();
     canvasContext.translate(startX, startY);
 
-    JUULIO.canvasElements.drawLine(0, 0, 0, -branchLength, '#000000');
+    JUULIO.canvasElements.drawLine(0, 0, 0, -branchLength, '#000000', lineWidth);
 
     if(depth > 0 ){
         depth--;
@@ -221,7 +256,9 @@ JUULIO.fractalTrees = JUULIO.fractalTrees || (function () {
   /**
    * Tree 04 : Tree
    */
-  var drawTree04 = function(startX, y1, angle, depth){
+  //  var drawTree04 = function(startX, y1, angle, depth){
+  var drawTree04 = function(){
+
 
   };
 
