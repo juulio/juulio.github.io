@@ -50,8 +50,6 @@ JUULIO.webvrcubes = JUULIO.webvrcubes || (function () {
    * If Mobile, load proper values
    */
   if (JUULIO.global.isMobile()){
-    depth = 8;
-    canvasHeight = 290;
   }
 
   /**
