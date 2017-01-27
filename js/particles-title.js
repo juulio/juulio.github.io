@@ -45,7 +45,7 @@ window.Title = (function(win, $, TweenMax, THREEx) {
         canvas.height = 100;
 
         ctx = canvas.getContext('2d');
-        ctx.font = '60px Helvetica';
+        ctx.font = '50px Times New Roman';
         ctx.fillText(phrase, 10, 50);
         imageData = ctx.getImageData(0, 0, 500, 100);
         for (x = 0; x < imageData.width; x += resolution) {
@@ -112,7 +112,7 @@ window.Title = (function(win, $, TweenMax, THREEx) {
         var material;
         var shape;
 
-        geometry = new Three.SphereGeometry(w, 1, 1);
+        geometry = new Three.SphereGeometry(w/5, 1, 1);
         material = new Three.MeshLambertMaterial({
             emissive: 0x000000,
             color: color,

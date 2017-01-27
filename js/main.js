@@ -28,7 +28,7 @@ var juulio = window.juulio || {};
 	 	// Verifies if app is running on the production environment juulio.com
 	 	isProductionEnvironment = false;
 
-	 	if(document.domain == 'juulio.com'){
+	 	if(document.domain != 'http://localhost:3000/'){
 	 		isProductionEnvironment = true;
 	 	}
 
@@ -132,7 +132,7 @@ var juulio = window.juulio || {};
 			letterMesh;
 
 		if(isProductionEnvironment){
-			theText = 'juulio.com';
+			theText = 'juulio';
 		}
 		else {
 			 theText = "Possible 3D";
