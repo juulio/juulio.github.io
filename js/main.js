@@ -28,7 +28,7 @@ var juulio = window.juulio || {};
 	 	// Verifies if app is running on the production environment juulio.com
 	 	isProductionEnvironment = false;
 
-	 	if(document.domain != 'http://localhost:3000/'){
+	 	if(document.domain != 'localhost'){
 	 		isProductionEnvironment = true;
 	 	}
 
