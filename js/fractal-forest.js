@@ -2,7 +2,7 @@
  * Julio Del Valle - Computer Graphics - Costa Rica - 2016
  * Fractals Forest - juulio.github.io
  */
-var fractalsForest = fractalsForest || {};
+var fractal sForest = fractalsForest || {};
 
 (function (context) {
 
@@ -317,10 +317,10 @@ var fractalsForest = fractalsForest || {};
 		drawSkyAndGrass();
 
 		drawFirstTree(context.canvas.width*0.23, canvas.height-215, -90, generalDepth);
-		drawThirdTree(canvas.width*0.6, canvas.height-130, 40, -Math.PI / 2, 20, generalDepth);
-		drawFifthTree(canvas.width*0.12, canvas.height-30, 40, 25, 11, generalDepth);
-		drawSecondTree(canvas.width*0.4, canvas.height, -90, generalDepth);
-		drawFourthTree(canvas.width*0.74, canvas.height-40, -90, 4, generalDepth);
+		// drawThirdTree(canvas.width*0.6, canvas.height-130, 40, -Math.PI / 2, 20, generalDepth);
+		// drawFifthTree(canvas.width*0.12, canvas.height-30, 40, 25, 11, generalDepth);
+		// drawSecondTree(canvas.width*0.4, canvas.height, -90, generalDepth);
+		// drawFourthTree(canvas.width*0.74, canvas.height-40, -90, 4, generalDepth);
 
 		if(generalDepth > 9){
 			var spaceBetweenRows = 25,
@@ -338,7 +338,7 @@ var fractalsForest = fractalsForest || {};
 	/*****************************************
 	* Init */
   function init () {
-		generateFractalsForest();
+		// generateFractalsForest();
 
 		/************************************
 		* Begin Code for Regenerate Button */
@@ -353,7 +353,7 @@ var fractalsForest = fractalsForest || {};
 			// Clear the whole canvas area.
 			context.clearRect(0,0,canvas.width, canvas.height);
 
-			generateFractalsForest();
+			// generateFractalsForest();
 		}
   }
 

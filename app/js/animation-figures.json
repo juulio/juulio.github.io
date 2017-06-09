@@ -1,0 +1,139 @@
+{
+    "firstAnimation" : {
+        "line01" : {
+            "startPosX" : -10,
+            "startPosY" : 0,
+            "startPosZ" : 0,
+            "endPosX"   : 10,
+            "endPosY"   : 0,
+            "endPosZ"   : 0,
+            "rotationZ" : 0
+        },
+        "line02" : {
+            "startPosX" : -10,
+            "startPosY" : 0,
+            "startPosZ" : 0,
+            "endPosX"   : 10,
+            "endPosY"   : 0,
+            "endPosZ"   : 0,
+            "rotationZ" : 0
+        },
+        "line03" : {
+            "startPosX" : -10,
+            "startPosY" : 0,
+            "startPosZ" : 0,
+            "endPosX"   : 10,
+            "endPosY"   : 0,
+            "endPosZ"   : 0,
+            "rotationZ" : 0
+        },
+        "line04" : {
+            "startPosX" : -10,
+            "startPosY" : 0,
+            "startPosZ" : 0,
+            "endPosX"   : 10,
+            "endPosY"   : 0,
+            "endPosZ"   : 0,
+            "rotationZ" : 0
+        },
+        "line05" : {
+            "startPosX" : -10,
+            "startPosY" : 0,
+            "startPosZ" : 0,
+            "endPosX"   : 10,
+            "endPosY"   : 0,
+            "endPosZ"   : 0,
+            "rotationZ" : 0
+        },
+        "line06" : {
+            "startPosX" : -10,
+            "startPosY" : 0,
+            "startPosZ" : 0,
+            "endPosX"   : 10,
+            "endPosY"   : 0,
+            "endPosZ"   : 0,
+            "rotationZ" : 0
+        },
+        "line07" : {
+            "startPosX" : -10,
+            "startPosY" : 0,
+            "startPosZ" : 0,
+            "endPosX"   : 10,
+            "endPosY"   : 0,
+            "endPosZ"   : 0,
+            "rotationZ" : 0
+        },
+        "line08" : {
+            "startPosX" : -10,
+            "startPosY" : 0,
+            "startPosZ" : 0,
+            "endPosX"   : 10,
+            "endPosY"   : 0,
+            "endPosZ"   : 0,
+            "rotationZ" : 0
+        },
+        "line09" : {
+            "startPosX" : -10,
+            "startPosY" : 0,
+            "startPosZ" : 0,
+            "endPosX"   : 10,
+            "endPosY"   : 0,
+            "endPosZ"   : 0,
+            "rotationZ" : 0
+        },
+        "line10" : {
+            "startPosX" : -10,
+            "startPosY" : 0,
+            "startPosZ" : 0,
+            "endPosX"   : 10,
+            "endPosY"   : 0,
+            "endPosZ"   : 0,
+            "rotationZ" : 0
+        },
+        "line11" : {
+            "startPosX" : -10,
+            "startPosY" : 0,
+            "startPosZ" : 0,
+            "endPosX"   : 10,
+            "endPosY"   : 0,
+            "endPosZ"   : 0,
+            "rotationZ" : 0
+        },
+        "line12" : {
+            "startPosX" : -10,
+            "startPosY" : 0,
+            "startPosZ" : 0,
+            "endPosX"   : 10,
+            "endPosY"   : 0,
+            "endPosZ"   : 0,
+            "rotationZ" : 0
+        },
+        "line13" : {
+            "startPosX" : -10,
+            "startPosY" : 0,
+            "startPosZ" : 0,
+            "endPosX"   : 10,
+            "endPosY"   : 0,
+            "endPosZ"   : 0,
+            "rotationZ" : 0
+        },
+        "line14" : {
+            "startPosX" : -10,
+            "startPosY" : 0,
+            "startPosZ" : 0,
+            "endPosX"   : 10,
+            "endPosY"   : 0,
+            "endPosZ"   : 0,
+            "rotationZ" : 0
+        },
+        "line15" : {
+            "startPosX" : -10,
+            "startPosY" : 0,
+            "startPosZ" : 0,
+            "endPosX"   : 10,
+            "endPosY"   : 0,
+            "endPosZ"   : 0,
+            "rotationZ" : 0
+        }
+    }
+}

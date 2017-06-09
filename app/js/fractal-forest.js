@@ -143,63 +143,63 @@ var fractalsForest = fractalsForest || {};
 	/**************************************
 	* Begin Code for Third Fractal Tree */
 	var drawThirdTree = function (startX, startY, length, angle, branchWidth, depth) {
-    var rand = Math.random,
-        newLength,
-        newAngle,
-        newDepth,
-        maxBranch = 4,
-        endX, endY,
-        maxAngle = 2 * Math.PI / 4,
-        subBranches,
-        lenShrink;
+        var rand = Math.random,
+            newLength,
+            newAngle,
+            newDepth,
+            maxBranch = 4,
+            endX, endY,
+            maxAngle = 2 * Math.PI / 4,
+            subBranches,
+            lenShrink;
 
-    // Draw a branch, leaning either to the left or right (depending on angle).
-    // First branch (the trunk) is drawn straight up (angle = 1.571 radians)
-    context.beginPath();
-    context.moveTo(startX, startY);
-    endX = startX + length * Math.cos(angle);
-    endY = startY + length * Math.sin(angle);
+        // Draw a branch, leaning either to the left or right (depending on angle).
+        // First branch (the trunk) is drawn straight up (angle = 1.571 radians)
+        context.beginPath();
+        context.moveTo(startX, startY);
+        endX = startX + length * Math.cos(angle);
+        endY = startY + length * Math.sin(angle);
 
-    context.lineCap = 'round';
-    context.lineWidth = branchWidth;
-    context.lineTo(endX, endY);
+        context.lineCap = 'round';
+        context.lineWidth = branchWidth;
+        context.lineTo(endX, endY);
 
-    // If we are near the end branches, make them green to look like leaves.
-    if (depth <= 2) {
-        context.strokeStyle = 'rgba(0,' + (((rand() * 64) + 128) >> 0) + ',0, 0.2)';
-    }
-    // Otherwise, choose a random brownish color.
-    else {
-				var color = 'rgb(' + (((rand() * 64) + 84) >> 0) + ',100,25)';
-				// context.strokeStyle = 'rgb(' + (((rand() * 64) + 84) >> 0) + ',50,25)';
-				color = 'rgba(140,105,125, 0.7)';
-				context.strokeStyle = color;
-    }
+        // If we are near the end branches, make them green to look like leaves.
+        if (depth <= 2) {
+            context.strokeStyle = 'rgba(0,' + (((rand() * 64) + 128) >> 0) + ',0, 0.2)';
+        }
+        // Otherwise, choose a random brownish color.
+        else {
+    				var color = 'rgb(' + (((rand() * 64) + 84) >> 0) + ',100,25)';
+    				// context.strokeStyle = 'rgb(' + (((rand() * 64) + 84) >> 0) + ',50,25)';
+    				color = 'rgba(140,105,125, 0.7)';
+    				context.strokeStyle = color;
+        }
 
-    context.stroke();
+        context.stroke();
 
-    // Reduce the branch recursion level.
-    newDepth = depth - 1;
+        // Reduce the branch recursion level.
+        newDepth = depth - 1;
 
-    // If the recursion level has reached zero, then the branch grows no more.
-    if (!newDepth) {
-        return;
-    }
+        // If the recursion level has reached zero, then the branch grows no more.
+        if (!newDepth) {
+            return;
+        }
 
-    // Make current branch split into a random number of new branches.
-    // Add in some random lengths, widths, and angles for a more natural look.
-    subBranches = (rand() * (maxBranch - 1)) + 1;
+        // Make current branch split into a random number of new branches.
+        // Add in some random lengths, widths, and angles for a more natural look.
+        subBranches = (rand() * (maxBranch - 1)) + 1;
 
-    // Reduce the width of the new branches.
-    branchWidth *= 0.7;
+        // Reduce the width of the new branches.
+        branchWidth *= 0.7;
 
-    // Recursively call drawThirdTree for the new branches with new values.
-    for (var i = 0; i < subBranches; i++) {
-        newAngle = angle + rand() * maxAngle - maxAngle * 0.5;
-        newLength = length * (0.7 + rand() * 0.3);
-        drawThirdTree(endX, endY, newLength, newAngle, branchWidth, newDepth);
-    }
-  }
+        // Recursively call drawThirdTree for the new branches with new values.
+        for (var i = 0; i < subBranches; i++) {
+            newAngle = angle + rand() * maxAngle - maxAngle * 0.5;
+            newLength = length * (0.7 + rand() * 0.3);
+            drawThirdTree(endX, endY, newLength, newAngle, branchWidth, newDepth);
+        }
+      }
 
 	/**************************************
 	* Begin Code for Fourth Fractal Tree */
@@ -225,18 +225,18 @@ var fractalsForest = fractalsForest || {};
 	/*************************************
 	* Begin Code for Fifth Fractal Tree */
   var drawFifthTree = function(startX, startY, branchLength, angle, lineWidth, depth){
-		var canvasHalfWidth = canvas.width/2,
-        fractalProportion = 0.66,
-				color = 'rgba(89, 166, 62, 0.92)',
-				trunkColor = 'rgba(151, 84, 69, 0.84)';
+	var canvasHalfWidth = canvas.width/2,
+       fractalProportion = 0.66,
+	   color = 'rgba(89, 166, 62, 0.92)',
+	   trunkColor = 'rgba(151, 84, 69, 0.84)';
 
     context.lineWidth = lineWidth;
-		context.save();
+	context.save();
     context.translate(startX, startY);
 
-		if(depth > 5){
-			color = trunkColor;
-		}
+	if(depth > 5){
+		color = trunkColor;
+	}
 
     JUULIO.canvasElements.drawLine(0, 0, 0, -branchLength, context, color);
 
