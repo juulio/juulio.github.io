@@ -74,19 +74,20 @@ p {
 -------------------------------------------------- */
 .container {
   width: 90%;
-  /*width: 400px;*/
   margin: 40px auto;
   text-align: center;
   border-radius: 5px;
   padding-bottom: 20px;
   border: 1px solid #000;
-  background-color: #DCDCDC; }
+  background-color: #DCDCDC; 
+}
 
 #progressLink {
   padding: 10px;
   margin: 30px 0;
   cursor: pointer;
-  font-size: 16px; }
+  font-size: 16px;
+   webkit-appearance: none;}
 
 /* Overlay styles
 -------------------------------------------------- */
@@ -106,6 +107,8 @@ p {
   position: absolute;
   background-color: #000; }
 
+/* Progress Bar Styles
+-------------------------------------------------- */
 #progressBarContainer {
   top: 0;
   left: 0;
@@ -120,8 +123,7 @@ p {
   border: 2px solid #000;
   background-color: #DCDCDC; }
 
-/* Progress Bar Styles
--------------------------------------------------- */
+
 .progressBarInnerContainer {
   margin: 10px;
   color: #606060;
@@ -149,3 +151,34 @@ p {
 
 .progressValueContainer {
   text-align: center; }
+
+/* Styles for mobile devices
+ * These styles only care for mobile phones lower tahn 768px.
+ * Tablet devices will show the desktop version
+-------------------------------------------------- */
+@media only screen and (max-width: 768px) {
+  p {
+    margin-bottom: 18px;
+  }
+
+  #progressLink {
+    border-radius: 5px;
+    border: solid 1px #000;
+    background-color: #F0F0F0;
+  }
+
+  #progressBarContainer {
+    width: 90%;
+  }
+
+  .progressBarInnerContainer {
+    padding: 15px;
+    font-size: 13px;
+  }
+
+  .progressBarBackground, #progressBar {
+    width: 60%;
+    height: 15px;
+    margin-left: 0;
+  }
+}
