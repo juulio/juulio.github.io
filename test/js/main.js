@@ -6,7 +6,7 @@ let progress_indicator = window.progress_indicator || {};
 
 (function (context) {
 
-	'use strict';
+    'use strict';
 
     /**
      * Global Variables
@@ -20,14 +20,15 @@ let progress_indicator = window.progress_indicator || {};
         let progressLinkButton = document.getElementById('progressLink'),
             overlayContainer = document.getElementById('overlayContainer');
 
-        // Set click events to show/hide the overlay
+        // Set click events to show/hide the overlay and start the animation
         progressLinkButton.addEventListener('click', () => {
             overlayContainer.style.display = 'block';
+            createTween();
             tween.start();
         }, false);
 
         overlayContainer.addEventListener('click', () => {
-            overlay.style.display = 'none';
+            overlayContainer.style.display = 'none';
         }, false);
     }
 
@@ -55,8 +56,6 @@ let progress_indicator = window.progress_indicator || {};
     function init() {
 
         setClickEvents();
-
-        createTween();        
 
         animate();
     }
