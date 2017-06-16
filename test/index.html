@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title>My Account</title>
+
+        <link href="css/styles.css" rel="stylesheet">
+    </head>
+
+    <body>
+        
+        <div class="container">
+            <h1>My Account</h1>
+            <h2>Please click the Progress Link</h2>
+            <button id="progressLink">PROGRESS LINK</button>
+        </div>
+
+        <div id="overlayContainer">
+            <div id="overlay"></div>
+            <div id="progressBarContainer">
+                <h3>Your Progress</h3>
+                <div class="progressBarInnerContainer">
+                    <p>
+                        <span>Reached:</span>
+                        <span class="progressBarBackground">
+                            <span id="progressBar"></span>
+                        </span>
+                        $125
+                    </p>
+
+                    <p class="progressValueContainer">$<span id="progressValue"></span></p>
+                    <p>You need $69 more to reach your target.  </p>
+                </div>
+            </div>
+        </div>
+
+        <script src="js/tween.js"></script>
+        <script src="js/main.js"></script>
+    </body>
+</html>

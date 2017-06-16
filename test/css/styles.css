@@ -1,0 +1,150 @@
+/* GLOBAL STYLES
+-------------------------------------------------- */
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline; }
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block; }
+
+body {
+  line-height: 1; }
+
+ol, ul {
+  list-style: none; }
+
+blockquote, q {
+  quotes: none; }
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+/* GENERAL STYLES
+-------------------------------------------------- */
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif; }
+
+h1,
+h3 {
+  color: #FFF;
+  padding: 10px 0;
+  margin: 0 0 30px;
+  text-align: center;
+  background-color: #000; }
+
+h1 {
+  font-size: 20px; }
+
+h3 {
+  font-size: 15px; }
+
+p {
+  margin-bottom: 25px; }
+
+/* Main container styles
+-------------------------------------------------- */
+.container {
+  width: 400px;
+  margin: 40px auto;
+  text-align: center;
+  border-radius: 5px;
+  padding-bottom: 20px;
+  border: 1px solid #000;
+  background-color: #DCDCDC; }
+
+#progressLink {
+  padding: 10px;
+  margin: 30px 0;
+  cursor: pointer;
+  font-size: 16px; }
+
+/* Overlay styles
+-------------------------------------------------- */
+#overlayContainer {
+  top: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+  position: absolute; }
+
+#overlay {
+  top: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  opacity: 0.65;
+  position: absolute;
+  background-color: #000; }
+
+#progressBarContainer {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  margin: auto;
+  width: 450px;
+  height: 250px;
+  border-radius: 5px;
+  position: absolute;
+  border: 2px solid #000;
+  background-color: #DCDCDC; }
+
+/* Progress Bar Styles
+-------------------------------------------------- */
+.progressBarInnerContainer {
+  margin: 10px;
+  color: #606060;
+  border-radius: 5px;
+  padding: 12px 45px;
+  background-color: #FFF;
+  border: 1px solid #000; }
+  .progressBarInnerContainer span {
+    font-weight: bold; }
+
+.progressBarBackground,
+#progressBar {
+  width: 200px;
+  height: 20px;
+  margin-left: 15px;
+  display: inline-block; }
+
+.progressBarBackground {
+  background-color: #D0D0D0; }
+
+#progressBar {
+  width: 0px;
+  margin-left: 0;
+  background-color: #00FF00; }
+
+.progressValueContainer {
+  text-align: center; }
