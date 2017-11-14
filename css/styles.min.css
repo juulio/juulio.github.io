@@ -58,6 +58,8 @@ canvas {
 
 nav {
   color: #FFF;
+  padding-top: 20px;
+  padding-left: 20px;
   position: absolute;
   text-shadow: 2px 2px #000; }
   nav li {
