@@ -1,0 +1,461 @@
+/* http://meyerweb.com/eric/tools/css/reset/
+ v2.0 | 20110126
+ License: none (public domain)
+ */
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+html, body {
+	height: 100%;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after, q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+/**************************************
+ * Estilos generals para ignacioyanissa.com
+ */
+a {
+	text-decoration: none;
+}
+body {
+	background: transparent url(../../img/bg_pattern.gif) left top repeat;
+}
+.clear {
+	clear: both;
+}
+#wrapper {
+	width: 1024px;
+	margin: 0 auto;
+	position: relative;
+	padding: 55px 0 30px;
+}
+#contentWrapper {
+	padding: 35px 0;
+	background-color: #C5B55E;
+}
+#innerContent {
+	padding: 55px 40px 40px 80px;
+	border-top: solid 3px #EFDDAC;
+	border-bottom: solid 3px #EFDDAC;
+}
+/********
+ * header
+ */
+header {
+	z-index: 3;
+	width: 100%;
+	height: 28px;
+	padding-top: 18px;
+	position: relative;
+	margin-bottom: 50px;
+	background-color: #FFFFFF;
+}
+header ul {
+	width: 700px;
+	margin-left: 80px;
+}
+header ul li {
+	float: left;
+}
+header ul li a {
+	height: 12px;
+	outline: none;
+	display: block;
+}
+header ul li#menu_item_inicio {
+	width: 100px;
+}
+header ul li#menu_item_nuestro_viaje {
+	width: 166px;
+}
+header ul li#menu_item_lista_de_regalos {
+	width: 194px;
+}
+header ul li#menu_item_fotos {
+	width: 96px;
+}
+header ul li#menu_item_contacto_ayuda {
+	width: 144px;
+}
+/********
+ * footer
+ */
+footer {
+	z-index: 3;
+	width: 100%;
+	height: 22px;
+	margin-top: 100px;
+	position: relative;
+	background-color: #C5B55E;
+}
+footer img {
+	margin: 5px 25px 0 40px;
+}
+footer span {
+	color: #FFFFFF;
+	font-size: 75%;
+	letter-spacing: 1px;
+	margin-left: 50px;
+}
+/*******
+ * Fotos
+ */
+
+#container {
+	width: 800px;
+	margin: 0 auto;
+	position: relative;
+}
+#container .js {
+	overflow: hidden;
+	zoom: 1;
+}
+#container .galeriaFotos, #container .galeriaFotos  .carousel-wrap {
+	margin: 0;
+	border: 0;
+	zoom: 1;
+	outline: none;
+}
+#container .js .carousel-wrap {
+	display: inline-block;
+	vertical-align: middle;
+	width: 800px;
+	height: 800px;
+	margin: 0;
+}
+.IE #container .js .carousel-wrap {
+	display: inline;
+}
+#container .galeriaFotos ul {
+	margin: 0;
+	padding: 0;
+	zoom: 1;
+	height: 182px;
+}
+#container .js ul li {
+	overflow: hidden;
+	display: inline;
+	float: left;
+	width: 800px;
+	height: 800px;
+	text-align: center;
+	zoom: 1;
+}
+#container .galeriaFotos .carousel-control {
+	overflow: hidden;
+	display: inline-block;
+	vertical-align: middle;
+	width: 31px;
+	height: 46px;
+	cursor: pointer;
+	line-height: 999px;
+	zoom: 1;
+	border: 0;
+	text-indent: -9999px;
+}
+#container .galeriaFotos .carousel-next {
+	background: url(../../img/next.png) 0 0 no-repeat;
+	position: absolute;
+	top: 285px;
+	right: -40px;
+	z-index: 100;
+}
+#container .galeriaFotos .carousel-previous {
+	background: url(../../img/prev.png) 0 0 no-repeat;
+	position: absolute;
+	top: 285px;
+	left: -40px;
+	z-index: 100;
+}
+#container .carousel .disabled, #container .carousel .disabled:hover {
+	-moz-opacity: .1;
+	opacity: 0.10;
+	filter: alpha(opacity=10);
+	cursor: default;
+}
+#container .carousel div {
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+#container .carousel ul {
+	padding: 0;
+	list-style: none;
+}
+#container .carousel ul li {
+	position: relative;
+	width: 800px;
+	margin: 0;
+}
+/******************
+ * Lista de Regalos
+ */
+body#lista_de_regalos #innerContent {
+	padding-left: 50px;
+}
+.listaRegalosContent {
+	background: transparent url(../../img/mapa_lista_regalos.png) 65% 35% no-repeat;
+}
+.listaRegalosColumnaIzquierda {
+	float: left;
+	width: 390px;
+	font-size: 90%;
+	text-align: center;
+}
+.listaRegalosColumnaDerecha {
+	float: right;
+	width: 250px;
+	height: 280px;
+	margin-right: 0;
+	text-align: right;
+	line-height: 20px;
+	position: relative;
+}
+#formularioOpcionesSeleccionadas .total {
+	display: none;
+}
+form#form_lista_de_regalos {
+	height: 420px;
+	font-size: 85%;
+	color: #FFFFFF;
+	position: relative;
+	font-family: Arial, Helvetica, sans-serif;
+}
+form#form_lista_de_regalos h3 {
+	font-size: 150%
+}
+form#form_lista_de_regalos .listaRegalosColumnaDerecha span {
+	display: none;
+}
+form#form_lista_de_regalos .listaRegalosColumnaDerecha span#costo_total {
+	display: inline;
+}
+#formularioWrapper {
+	width: 561px;
+	display: none;
+	padding: 30px;
+	color: #8F8247;
+	position: relative;
+	font-size: 85%;
+	line-height: 17px;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+	border: solid 5px #C4B55E;
+	font-family: Arial, Helvetica, sans-serif;
+}
+#formularioInnerWrapper {
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+	padding: 35px;
+	background-color: #FFFFFF;
+	border: solid 5px #C4B55E;
+}
+.formularioColumnaIzquierda {
+	float: left;
+	width: 190px;
+	margin-bottom: 15px;
+}
+.formularioColumnaDerecha {
+	float: left;
+	width: 290px;
+}
+.formularioColumnaDerecha input {
+	width: 290px;
+}
+textarea#mensajeParaNovios {
+	width: 478px;
+	height: 70px;
+	resize: none;
+	font-family: Arial, Helvetica, sans-serif;
+}
+#formularioOpcionesSeleccionadas span {
+	margin-left: 40px;
+}
+.close {
+	top: -5px;
+	right: -5px;
+	width: 22px;
+	height: 22px;
+	cursor: pointer;
+	position: absolute;
+	background: transparent url(../../img/x.png) left top no-repeat;
+}
+h3.top_spacing {
+	margin-top: 35px;
+}
+.total {
+	right: 0;
+	bottom: 0;
+	font-weight: bold;
+	font-size: 120%;
+	letter-spacing: 1px;
+	position: absolute;
+	border-top: solid 1px #FFFFFF;
+}
+a.btn_submit {
+	height: 26px;
+	display: block;
+	color: #8F8247;
+	padding-top: 5px;
+	font-weight: bold;
+	position: absolute;
+	padding-right: 30px;
+	letter-spacing: 1px;
+	font-family: Arial, Helvetica, sans-serif;
+	background: transparent url(../../img/btn_continuar.png) right top no-repeat;
+}
+a#btn_abrirForm {
+	right: 0;
+	bottom: 0;
+}
+a#btn_submitForm {
+	right: 65px;
+	bottom: 70px;
+}
+p.contacto {
+	color: #FFFFFF;
+	font-size: 90%;
+	margin-top: 20px;
+	line-height: 20px;
+	font-family: Arial, Helvetica, sans-serif;
+}
+#sentWrapper {
+	padding: 30px;
+	width: 360px;
+	display: none;
+	color: #8F8247;
+	position: relative;
+	font-size: 85%;
+	line-height: 17px;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+	border: solid 5px #C4B55E;
+	font-family: Arial, Helvetica, sans-serif;
+}
+#sentWrapper #formularioInnerWrapper {
+	text-align: center;
+}
+/********************
+ *  Estilos para home
+ */
+p.homeContent {
+	color: #EFDDAC;
+	font-size: 90%;
+	line-height: 18px;
+	text-align: justify;
+	margin: 8px 40px 0 280px;
+	font-family: Arial, Helvetica, sans-serif;
+}
+p.homeContent span.tituloParrafo {
+	color: #8F8247;
+}
+p.homeContent img {
+	float: right;
+	margin: 0 0 30px 45px;
+}
+/* ***********************
+ * Estilos para Shadow Box
+ */
+#shadow_box {
+	top: 0;
+	z-index: 2;
+	left: 12px;
+	height: 100%;
+	width: 241px;
+	padding-left: 52px;
+	position: absolute;
+	background: transparent url(../../img/shadow_box.png) left top repeat-y;
+}
+#shadow_box #titulo_ignacio_anissa {
+	position: absolute;
+	top: 246px;
+}
+#shadow_box #btn_ingresar {
+	position: absolute;
+	top: 509px;
+}
+/****************************
+ * Estilos para Nuestro Viaje
+ */
+#nuestroViajeColumnaIzquierda {
+	float: left;
+	width: 385px;
+}
+#nuestroViajeColumnaDerecha {
+	float: left;
+	width: 389px;
+}
+p.nuestroViaje {
+	color: #FFFFFF;
+	font-size: 80%;
+	line-height: 18px;
+	margin: 10px 0 20px;
+	padding-right: 10px;
+	font-family: Arial, Helvetica, sans-serif;
+}
+p.nuestroViaje a {
+	color: #8F8247;
+}
+input[type="image"] {
+	position: absolute;
+	bottom: 66px;
+	right: 66px;
+}
+.montoADepositar {
+	font-weight: bold;
+}
+/***********************************
+ * Estilos para animacion Acordiones
+ */
+.listaRegalosColumnaIzquierda a {
+	display: block;
+	margin: 16px 0 10px;
+}
+#containerTransporte, #containerAlimentacion, #containerHospedaje, #containerToursSantorini, #containerToursItalia, #containerOtros {
+	display: none;
+}
+.containerRegalos {
+	/*width: 240px;*/
+	width: 330px;
+	margin: 0 auto;
+	text-align: right;
+}
+#containerToursSantorini {
+	width: 195px;
+}
+#containerTransporte {
+	width: 288px;
+}
+#containerAlimentacion {
+	width: 288px;
+}
+#containerHospedaje {
+	width: 300px;
+}
+#containerToursItalia {
+	width: 285px;
+}

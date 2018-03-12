@@ -1,0 +1,28 @@
+/*******************************************************
+ * anitayalonso.com - la-boda
+ ******************************************************/
+
+#ayuda {
+  .left-column {
+    width: 120px;
+  }
+
+  .right-column {
+    width: 749px;
+  }
+
+  .columns {
+    li {
+      &:first-child {
+        text-align: center;
+      }
+
+      p {
+        span {
+          font-size: 17px;
+          font-family: 'Oleo Script', cursive;
+        }
+      }
+    }
+  }
+}

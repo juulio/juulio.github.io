@@ -1,0 +1,39 @@
+/*******************************************************
+ * anitayalonso.com - header
+ ******************************************************/
+
+header {
+	width: 1024px;
+	margin: 0 auto;
+
+	nav {
+		float: left;
+		width: 784px;
+		color: $orange;	
+		margin-top: 50px;
+
+		a {
+			margin: 0 25px;
+			color: $orange;
+			font-size: 16px;
+
+			&.active,
+			&:hover {
+				color: $orange-transparent;
+			}
+		}
+
+		span {
+			margin: 0 4px;
+			font-size: 24px;
+			letter-spacing: 0.08em;
+			font-family: 'Oleo Script', cursive;
+		}
+	}
+
+	.logo {
+		float: right;
+		width: 168px;
+		margin-top: 20px;
+	}
+}
