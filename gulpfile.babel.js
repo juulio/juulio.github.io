@@ -3,7 +3,6 @@
 import gulp from 'gulp';
 import jshint from 'gulp-jshint';
 import babel from "gulp-babel";
-import gulpif from 'gulp-if';
 import browserSync from 'browser-sync';
 
 /**
@@ -20,7 +19,9 @@ gulp.task('lint', () => {
  * Reloads the browser whenever HTML or JS files change
  */
 gulp.task('watch', () => {
-    gulp.watch('./index.html', gulp.series(browserSync.reload));
+    // gulp.watch('./index.html', gulp.series(browserSync.reload));
+    // gulp.watch('./js/**/*.js').on('change', gulp.series('lint', browserSync.reload));
+    gulp.watch('./index.html',browserSync.reload);
     gulp.watch('./js/**/*.js').on('change', gulp.series('lint', browserSync.reload));
 });
 
