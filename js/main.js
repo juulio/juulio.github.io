@@ -16,6 +16,7 @@ const controls = new OrbitControls( camera );
 
 
 initScene();
+renderTree(20);
 animate();
 
 /*
@@ -40,12 +41,12 @@ function initScene(){
 	/**
 	 * Render grid and XYZ Axis Helpers
 	 */
-	scene.add( getGridHelper(200, 20, '#000000') );
+	scene.add( getGridHelper(50, 5, '#000000') );
 	scene.add( getAxesHelper(50) );
 	scene.add( getAmbientLight(0x404040) );
 
 	camera.position.set(3, 10, 30);
-
+	camera.lookAt(0, 0, 0);
 	document.body.appendChild( renderer.domElement );
 
 	window.addEventListener( 'resize', onWindowResize, false );
@@ -73,3 +74,24 @@ function animate(nowMsec){
 
     // stats.end();
 }
+
+/**
+ * render Tree 
+ * CylinderGeometry(
+ * radiusTop : Float
+ * radiusBottom : Float
+ * height : Float
+ * radialSegments : Integer
+ * heightSegments : Integer
+ */
+ function renderTree(trunkHeight){
+ 	let branchMesh;
+	let trunkGeometry = new THREE.CylinderGeometry( 2, 2, trunkHeight, 10, 10);
+	let woodMaterial = new THREE.MeshBasicMaterial( {
+		color: 0x8B4513,
+		wireframe : true
+	} );
+	let trunkMesh = new THREE.Mesh( trunkGeometry, woodMaterial );
+	trunkMesh.position.set(0, trunkHeight/2, 0);
+	scene.add( trunkMesh );
+ }
