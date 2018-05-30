@@ -1,0 +1,78 @@
+/*******************************************************
+ * Febrero 2016 - Estilos generals para anitayalonso.com
+ ******************************************************/
+
+body {
+	font-family: 'Cutive', serif;
+	background: transparent url(../img/AA-pattern.png) left top repeat;
+}
+#wrapper {
+	width: 1024px;
+	margin: 15px auto;
+}
+#contentWrapper {
+	padding: 35px 0;
+	background-color: #C5B55E;
+}
+#innerContent {
+	padding: 55px 40px 40px 80px;
+	border-top: solid 3px #EFDDAC;
+	border-bottom: solid 3px #EFDDAC;
+}
+
+.clearfix:after {
+	visibility: hidden;
+	display: block;
+	font-size: 0;
+	content: " ";
+	clear: both;
+	height: 0;
+ }
+
+.clearfix {
+	display: inline-block; 
+}
+
+h2 {
+	color: $turquoise;
+	margin-bottom: 25px;
+
+	span {
+		font-size: 26px;
+		font-family: 'Oleo Script', cursive;
+	}
+}
+
+.columns {
+	padding: 40px 0;
+	background-color: $white-transparent;
+}
+
+.left-column {
+	float: left;
+	font-size: 20px;
+	text-align: right;
+	padding-left: 25px;
+	padding-right: 55px;
+}
+
+.right-column {
+	float: right;
+	padding-right: 25px;
+}
+
+p {
+	font-size: 12px;
+	line-height: 1.7em;
+	color: $brown-text;
+	margin-bottom: 25px;
+
+	.cursive {
+		font-size: 17px;
+		color: $turquoise;
+	}
+}
+
+.cursive{
+  font-family: 'Oleo Script', cursive;
+}

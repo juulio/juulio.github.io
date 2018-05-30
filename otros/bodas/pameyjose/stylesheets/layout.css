@@ -1,0 +1,151 @@
+/*
+* Skeleton V1.2
+* Copyright 2011, Dave Gamache
+* www.getskeleton.com
+* Free to use under the MIT license.
+* http://www.opensource.org/licenses/mit-license.php
+* 6/20/2012
+*/
+
+/* Table of Content
+==================================================
+	#Site Styles
+	#Page Styles
+	#Media Queries
+	#Font-Face */
+
+/* #Site Styles
+================================================== */
+
+body{ background:url(../images/bg.jpg); font-family: 'Libre Baskerville', serif; }
+h2{ font-size:2.8em; font-family:'Great Vibes', cursive; padding:.6em 0 .2em .2em; text-shadow:1px 1px 0 #f5e4ce;}
+p.fright{ float:right; text-align:right!important; font-size:0.8em;}
+p a{}
+
+.headercontainer{ width:100%; background:url("../images/bg-logo.png") repeat-x scroll 0 80px transparent;}
+.headercontainer .container{ /*width:60%;*/ margin:0 auto; text-align:right;}
+.headercontainer .logo a{ float:left;}
+/*.container .columns{ float:none}*/
+.headercontainer .container .info-lang{ background:url(../images/bg-lang.png); width:192px; height:55px; float:right; text-align:center; vertical-align:middle;}
+.headercontainer .container .info-lang a{ float:left; top:30%; position: relative; left:6%; padding:0 2%; /*font-family: 'Libre Baskerville', serif;*/ font-weight:bold; font-size:0.8em; text-decoration:none; text-shadow: 1px 1px 0 #bf9f79;}
+.headercontainer .container .info-lang a img{  position: relative; top:-10%; vertical-align:middle; padding:0 1px;}
+.headercontainer .giftsHoneym{ width:80%; display:block; float:right; top:132px; position:relative;}
+.headercontainer .giftsHoneym span{ padding:0 3% 0 0;}
+.headercontainer .giftsHoneym span {font-family:'Great Vibes', cursive; font-size:3em; color:#cc964c; text-decoration:none; text-shadow: 1px 1px 0 #000;}
+.headercontainer .giftsHoneym span a:hover{color:#bb8242;}
+
+
+.menucontainer{ width:100%; background:url(../images/bg_menu.png); background-repeat:repeat-x; height:53px; box-shadow:0 2px 12px #222;}
+.menucontainer ul.menu{ text-align:center; padding-top: 10px;}
+.menucontainer ul.menu li{ display:inline; padding:0 4%; }
+.menucontainer ul.menu li a{color:#FFF; position: relative;top: 5px; text-decoration:none; text-shadow: 1px 1px 0 #000; /*font-family:'Libre Baskerville', serif;*/}
+.menucontainer ul.menu li a:hover{color:#CC964C;}
+.menucontainer ul.menu li a.selected{background:#5e0000; color:#CC964C; text-shadow: 1px 1px 0 #000; padding: .6em 1em; -webkit-border-radius: 4px; -moz-border-radius:4px; border-radius:4px; box-shadow: 1px 1px 2px 0 #000 inset;}
+
+
+.contentContainer{width:100%; }
+.contentContainer .container{  background:url(../images/bg-regards.jpg); box-shadow: 0 0 18px #222; border-top:0.3em solid #BDA280; border-bottom:0.3em solid #BDA280; z-index: 2;}
+.contentContainer p{text-align:justify; font-size:.9em; padding:0 3%; text-shadow:1px 1px 0 #f5e4ce; line-height: 215%; }
+.contentContainer .map { margin-top:20px; box-shadow:0 2px 12px #222; width:100% !important;}
+.contentContainer .picture {}
+.contentContainer .picture img { width:100%;}
+.contentContainer .note{ font-size:2.4em; z-index:1; top:328px; position:relative; font-family:'Great Vibes', cursive; text-align:center;}
+.contentContainer .iconFooter{ height:20px; text-align:center; padding:1%;}
+.contentContainer .rings{position:relative; top:50px; left:20%; float:right;}
+.contentContainer .roses img{float:right; position:relative; top:-460px; width:28%; }
+.contentContainer .roses img+img{ float:left; width:24%; top:-300px; position:relative;}
+.contentContainer .listContainer {}
+.contentContainer .listContainer h2 { text-align:center;}
+.contentContainer .listContainer .listItem { padding:10px;}
+.contentContainer .listContainer .listItem:nth-child(even) { background-color: rgba(255, 255, 255, 0.3); border-radius:5px;}
+.contentContainer .listContainer .listItem span{ display:inline-block;}
+.contentContainer .listContainer .listItem p { margin-bottom:0;}
+.contentContainer .listContainer .listItem .category { width:20%; height:32px;}
+.contentContainer .listContainer .listItem .trans { background:url(../images/trans.png) no-repeat; padding-left:40px; background-size: 32px 32px;}
+.contentContainer .listContainer .listItem .food { background:url(../images/food.png) no-repeat; padding-left:40px; background-size: 32px 32px;}
+.contentContainer .listContainer .listItem .hotel { background:url(../images/hotel.png) no-repeat; padding-left:40px; background-size: 32px 32px;}
+.contentContainer .listContainer .listItem .enter { background:url(../images/enter.png) no-repeat; padding-left:40px; background-size: 32px 32px;}
+.contentContainer .listContainer .listItem .desc { width:53%}
+.contentContainer .listContainer .listItem .price { width:10%}
+.contentContainer .listContainer .listItem .button { width:8%; text-align:center; margin-bottom:0;}
+.contentContainer .ayuda .column h2 { text-align:center; font-size:4em; padding-top:0.3em; color:#5e0000}
+.contentContainer .ayuda .column img { width:100%; height:auto;  box-shadow: 0 0 18px #222;}
+
+.footerContainer{overflow: hidden; width: 100%; position: absolute;}
+.footerContainer .footer{ text-align:center; text-shadow:1px 1px 0 #a68a6f; color:#222; width:50%; margin:0 auto;  }
+
+
+/* #Page Styles
+================================================== */
+
+/* #Media Queries
+================================================== */
+
+	/* Smaller than standard 960 (devices and browsers) */
+	@media only screen and (max-width: 1080px) {
+	.contentContainer .rings{ top:20px; left:0%;}
+	}
+	
+	@media only screen and (max-width: 959px) {
+		.contentContainer .note{ top:264px;}
+		.headercontainer .giftsHoneym span a{ cursive; font-size:2em;}
+		.contentContainer .iconFooter img { display:none;}
+		.contentContainer .roses { display:none;}
+		.contentContainer .listContainer .listItem .desc { width:54%;}
+	}
+
+	/* Tablet Portrait size to standard 960 (devices and browsers) */
+	@media only screen and (min-width: 768px) and (max-width: 959px) {
+		
+	}
+
+	/* All Mobile Sizes (devices and browser) */
+	@media only screen and (max-width: 767px) {
+		.headercontainer .giftsHoneym{ width:43%; top:0; float:none;}
+		.headercontainer .logo img { width:100%;}
+		.menucontainer ul.menu li{ display:inline; padding:0 1%; }
+		.contentContainer .map { margin-top:0;}
+	}
+
+	/* Mobile Landscape Size to Tablet Portrait (devices and browsers) */
+	@media only screen and (min-width: 480px) and (max-width: 767px) {
+		.contentContainer .note{ top:400px;}
+		.menucontainer { height:170px; box-shadow:0 0px 0px #222;}
+		.menucontainer ul{ background:url("../images/SC_damask5.png"); height:170px; box-shadow:0 2px 12px #222;}
+		.menucontainer ul.menu{ text-align:center; padding-top: 10px; border-top: 0.3em solid #300;}
+		.menucontainer ul.menu li{ display:block; padding:1% 4%; }
+		.contentContainer .listContainer .listItem p span { width:94% !important;}
+
+	}
+
+	/* Mobile Portrait Size to Mobile Landscape Size (devices and browsers) */
+	@media only screen and (max-width: 479px) {
+		.contentContainer .note{ top:290px;}
+		.headercontainer .giftsHoneym{ width:81%; float:none; padding-bottom:20px;}
+		.headercontainer .container .info-lang { float:none; margin:0 auto;}
+		.menucontainer { height:170px; box-shadow:0 0px 0px #222;}
+		.menucontainer ul{ background:url("../images/SC_damask5.png"); height:170px; box-shadow:0 2px 12px #222; padding-top:20px;}
+		.menucontainer ul.menu{ text-align:center; padding-top: 20px; border-top: 0.3em solid #300;}
+		.menucontainer ul.menu li{ display:block; padding:1% 4%;}
+		.contentContainer .listContainer .listItem p span { width:94% !important;}
+	
+	}
+
+
+/* #Font-Face
+================================================== */
+/* 	This is the proper syntax for an @font-face file
+		Just create a "fonts" folder at the root,
+		copy your FontName into code below and remove
+		comment brackets */
+
+/*	@font-face {
+	    font-family: 'FontName';
+	    src: url('../fonts/FontName.eot');
+	    src: url('../fonts/FontName.eot?iefix') format('eot'),
+	         url('../fonts/FontName.woff') format('woff'),
+	         url('../fonts/FontName.ttf') format('truetype'),
+	         url('../fonts/FontName.svg#webfontZam02nTh') format('svg');
+	    font-weight: normal;
+	    font-style: normal; }
+*/

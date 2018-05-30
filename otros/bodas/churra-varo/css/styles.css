@@ -1,0 +1,896 @@
+/* http://meyerweb.com/eric/tools/css/reset/
+ v2.0 | 20110126
+ License: none (public domain)
+ */
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+	font-family: "Times New Roman", Times, serif;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after, q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+a {
+	color: #909090;
+	text-decoration: none;
+}
+
+
+a:hover {
+	color: #9084b9;
+	cursor: pointer;
+	text-decoration: underline;
+}
+
+.clear {
+	clear: both;
+}
+
+body {
+	background: transparent url(../img/patternBg.jpg) left top repeat;
+}
+/*---------------------------------------------------------------------------------
+ * ------------------------------------------------------------------------------*/
+/*------------------------------------------------------------------
+ * Custom Fonts */
+@font-face{
+	font-family:'TrajanPro-Regular';
+	src:url('../fonts/TrajanPro-Regular.eot');
+	src: local('O'),
+		url('../fonts/TrajanPro-Regular.woff') format('woff'),
+		url('../fonts/TrajanPro-Regular.ttf') format('truetype'),
+		url('../fonts/TrajanPro-Regular.svg') format('svg');
+	font-weight:normal;
+	font-style:normal;
+}
+
+@font-face{font-family:TrajanPro-Bold;src:url(../fonts/TrajanPro-Bold.eot);}
+@font-face{font-family:TrajanPro-Bold;src:url(../fonts/TrajanPro-Bold.ttf);}
+@font-face{font-family:TrajanPro-Bold;src:url(../fonts/TrajanPro-Bold.otf);}
+/*------------------------------------------------------------------
+ * Home */
+section {
+	width: 560px;
+	padding: 0 50px 35px;
+	background: #FFFFFF;
+	margin: 20px auto 0;
+	border: solid 1px #d6d6d6;
+}
+/*------------------------------------------------------------------*/
+header {
+	text-align: center;
+	padding-top: 15px;
+	padding-bottom: 25px;
+}
+
+header h1 {
+	color: #cec3b3;
+	font-size: 250%;
+	font-weight: normal;
+	letter-spacing: 0.09em;
+	font-family: TrajanPro-Regular;
+}
+
+header h1 span {
+	font-size: 130%;
+	font-family: TrajanPro-Regular;
+} 
+
+header h2 {
+	color: #676767;
+	font-size: 80%;
+	letter-spacing: 0.6em;
+	font-family: TrajanPro-Regular;
+}
+
+ul#menu {
+	height: 26px;
+	padding: 0 10px;
+	margin-bottom: 30px;
+	border-top: solid 1px #EFEFEF;
+	border-bottom: solid 1px #EFEFEF;
+}
+
+ul#menu li {
+	float: left;
+	font-size: 80%;
+	padding-top: 8px;
+	font-weight: bold;
+	margin-right: 50px;
+}
+
+ul#menu li.last {
+	margin-right: 0;
+}
+
+ul#menu li a {
+	font-family: TrajanPro-Regular;
+}
+
+ul#menu li a.active {
+	color: #9084b9;
+	text-decoration: underline;
+}
+
+.botones:hover,
+.tablaListaRegalos td span:hover {
+	color: #9084b9;
+	cursor: pointer;
+	text-decoration: underline;
+}
+
+.botones:hover {
+	border-right: solid 1px #9084b9;
+	border-left: solid 1px #9084b9;
+}
+
+/*------------------------------------------------------------------*/
+#heroHome {
+	width: 521px;
+	height: 242px;
+	margin: 25px auto;
+	background: transparent url(../img/hero.jpg) left top no-repeat;
+}
+
+.foto {
+	width: 521px;
+	height: 301px;
+	margin: 15px auto;
+}
+
+.fotoHome {
+	background: transparent url(../img/fotoHome.jpg) left top no-repeat;
+}
+
+.fotoListaRegalos {
+	background: transparent url(../img/heroListaDeRegalos.jpg) left top no-repeat;
+}
+
+.fotoInvitacion {
+	background: transparent url(../img/heroInvitacion.jpg) left top no-repeat;
+}
+/*------------------------------------------------------------------*/
+#content {
+	padding: 0 15px;
+}
+
+.column {
+	float: left;
+	width: 245px;
+}
+
+.leftColumn {
+	margin-right: 30px;
+}
+
+.letra {
+	float: left;
+	width: 81px;
+	height: 81px;
+	margin-right: 15px;
+	margin-bottom: 10px;
+}
+
+#letraC {
+	background: transparent url(../img/letraC.png) left top no-repeat;
+}
+
+#letraD {
+	background: transparent url(../img/letraD.png) left top no-repeat;
+}
+
+#letraH {
+	background: transparent url(../img/letraH.png) left top no-repeat;
+}
+
+#content p {
+	color: #999999;
+	font-size: 85%;
+	line-height: 20px;
+	text-align: justify;
+	margin-bottom: 20px;
+	font-family: "Times New Roman", Times, serif;
+}
+
+/*------------------------------------------------------------------*/
+footer {
+	color: #999999;
+	font-size: 75%;
+	margin: 20px 0 10px;
+	text-align: center;
+	letter-spacing: 7px;
+	font-family: "Times New Roman", Times, serif;
+}
+
+footer a {
+	font-family: "Times New Roman", Times, serif;
+}
+
+/*------------------------------------------------------------------
+ * LA BODA ---------------------------------------------------------
+ *----------------------------------------------------------------*/
+#heroLaBoda {
+	width: 528px;
+	height: 313px;
+	margin: 0 auto 23px;
+	background: transparent url(../img/heroLaBoda.jpg) left top no-repeat;
+}
+
+#content h3 {
+	border: 0;
+	font-size: 80%;
+	color: #676767;
+	background: none;
+	margin: 35px 0 20px;
+	font-family: TrajanPro-Regular;
+}
+
+.textoLaBoda {
+	padding-left: 15px;
+}
+
+.textoLaBoda span {
+	font-weight: bold;
+}
+
+.textoLaBoda a {
+	color: #6dcff6;
+}
+/*---------------------------------------------------------------------------------
+ * ESTILOS PARA NUESTRO VIAJE
+ *  ------------------------------------------------------------------------------*/
+#mapNuestroViaje {
+	width: 520px;
+	height: 302px;
+	background: transparent url(../img/mapViaje.jpg) left top no-repeat;
+}
+/*---------------------------------------------------------------------------------
+ * ESTILOS PARA LA LISTA DE REGALOS lista.php
+ *  ------------------------------------------------------------------------------*/
+.formulario {
+	display: none;
+}
+
+#content .ui-accordion .ui-accordion-content {
+	border: 0;
+	padding: 0;
+}
+
+#content h3.ui-accordion-header {
+	margin: 6px 0 0;
+}
+
+.tablaListaRegalos {
+	width: 100%;
+}
+
+.tablaListaRegalos  tr:nth-child(even) {
+	background-color: #f0f0f0;
+}
+
+.tablaListaRegalos td,
+.tablaListaRegalos td span {
+	color: #999999;
+	font-size: 90%;
+	line-height: 28px;
+	font-family: "Times New Roman", Times, serif;
+}
+
+.tablaListaRegalos>tbody>tr>td {
+	padding-left: 20px;
+}
+
+.tablaListaRegalos td span {
+	padding-left: 10px;
+	border-left: solid 1px #999999;
+}
+
+/*---------------------------------------------------------------------------------
+ * ESTILOS PARA LA INVITACION invitacion.html
+ *  ------------------------------------------------------------------------------*/
+#padresContainer {
+	padding: 7px 0;
+	margin-bottom: 30px;
+	border-top: solid 1px #EFEFEF;
+	border-bottom: solid 1px #EFEFEF;
+}
+
+#invitacion h2 {
+	color: #676767;
+	font-size: 75%;
+	line-height: 15px;
+	letter-spacing: 0.2em;
+	font-family: TrajanPro-Regular;
+}
+
+.padres {
+	width: 280px;
+}
+
+.left {
+	float: left;
+}
+
+.right {
+	float: right;
+}
+
+.padres.left {
+	text-align: left;
+}
+
+.padres.right {
+	text-align: right;
+}
+
+#heroInvitacion {
+	width: 520px;
+	height: 300px;
+	margin: 15px auto;
+	background: transparent url(../img/heroInvitacion.jpg) left top no-repeat;
+}
+
+#invitacion #content p {
+	padding-left: 15px;
+}
+
+#invitacion #content h3 {
+	margin: 30px 0 10px;
+}
+
+.botonRsvp {
+	width: 80px;
+	float: right;
+}
+
+.parrafoRSVP {
+	width: 400px;
+	float: left;
+}
+
+/*---------------------------------------------------------------------------------
+ * ESTILOS PARA LOS FORMULARIOS
+ *  ------------------------------------------------------------------------------*/
+#formularioWrapper {
+	width: 561px;
+	display: none;
+	padding: 30px;
+	position: relative;
+	font-size: 85%;
+	line-height: 17px;
+}
+
+#formularioInnerWrapper {
+	padding: 30px 65px;
+	background-color: #FFFFFF;
+}
+
+#formularioInnerContainer {
+	color: #999999;
+}
+
+#formularioInnerContainer p {
+	line-height: 18px;
+	margin-bottom: 15px;
+}
+
+.formularioColumnaIzquierda {
+	float: left;
+	width: 125px;
+	text-align: right;
+	margin: 5px 15px 15px 0;
+}
+
+.formularioColumnaDerecha {
+	float: left;
+	width: 330px;
+}
+
+textarea#mensajeParaNovios,
+.formularioColumnaDerecha input {
+	width: 330px;
+	padding: 3px;
+	color: #999999;
+	font-size: 100%;
+	border-radius: 4px;
+	border: solid 1px #c8c8c8;
+	background-color: #faf9fb;
+	font-family: "Times New Roman", Times, serif;
+}
+
+textarea#mensajeParaNovios {
+	resize: none;
+	height: 100px;
+	overflow: auto;
+}
+
+#formularioOpcionesSeleccionadas span {
+	margin-left: 40px;
+}
+
+.botones {
+	border: 0;
+	color: #999999;
+	padding: 0 8px;
+	font-size: 15px;
+	cursor: pointer;
+	text-align: center;
+	text-transform: uppercase;
+	text-decoration: underline;
+	background-color: transparent;
+	border-left: solid 1px #999999;
+	border-right: solid 1px #999999;
+	font-family: "Times New Roman", Times, serif;
+}
+
+.enviar {
+	margin-right: 40px;
+}
+
+#regaloSeleccionado {
+	width: 100%;
+	margin: 20px 0;
+	padding: 10px 0;
+	text-align: center;
+	background-color: #faf9fb;
+}
+
+#montoADepositar {
+	font-weight: bold;
+	text-decoration: underline;
+}
+
+#formularioInnerContainer h3 {
+	color: #cec3b3;
+	font-size: 230%;
+	text-align: center;
+	margin-bottom: 25px;
+	font-family: TrajanPro-Regular;
+}
+
+#botonesContainer {
+	text-align: center;
+	margin: 30px 0 5px;
+}
+
+label.error { float: none; color: #F1CA7E; padding-left: .5em; }
+
+
+#formularioInvitacion .formularioColumnaDerecha{
+	width: 440px;
+}
+
+#formularioInvitacion .formularioColumnaDerecha input{
+	width: 250px;
+}
+
+#formularioInvitacion .formularioColumnaIzquierda{
+	width: 60px;
+	text-align: left;/* la idea es quitar el width y text align global*/
+}
+
+/* Email has been sent - Lighbtox */
+#sentWrapper {
+	display: none;
+	font-size: 85%;
+	color: #999999;
+	line-height: 17px;
+	text-align: center;
+}
+
+/*---------------------------------------------------------------------------------
+ * ESTILOS PARA AYUDA/CONTACTO ayuda.html
+ *  ------------------------------------------------------------------------------*/
+.tituloContacto {
+	letter-spacing: 7px;
+}
+
+.listaCategorias {
+	padding-left: 35px;
+	color: #999999;
+	font-size: 85%;
+	line-height: 20px;
+}
+
+.listaCategorias li {
+	padding-left: 2em;
+	line-height: 24px;
+	font-family: TrajanPro-Regular;
+	background: transparent url(../img/flecha.png) left center no-repeat;
+}
+
+.parrafoConMarginTop {
+	margin-top: 30px;
+}
+
+/*---------------------------------------------------------------------------------
+ * ESTILOS PARA la animación de VIAJES.HTML - MAPA
+ *  ------------------------------------------------------------------------------*/
+ #mapaContainer {
+ 	width: 520px;
+ 	height: 300px;
+ 	position: relative;
+ 	background: transparent url(../img/assets/mapaViaje2.jpg) left top no-repeat;
+ }
+/* pines */
+.pin {
+	width: 25px;
+	height: 41px;
+	position: absolute;
+	background: transparent url(../img/assets/pines.png) left top no-repeat;
+}
+
+/* pinIstambul */
+#pinIstambul {
+	top: 20px;
+	left: 305px;
+	background-position: right top;
+	-webkit-animation: pinIstambul 1600ms linear 1;
+	-moz-animation: pinIstambul 1600ms linear 1;
+	-o-animation: pinIstambul 1600ms linear 1;
+	animation: pinIstambul 1600ms linear 1;
+}
+
+@-webkit-keyframes pinIstambul {
+	from { top: 0px; opacity: 0; }
+	25% { top: 20px; opacity: 1; }
+	to { top: 20px; }
+}
+
+@-moz-keyframes pinIstambul {
+	from { top: 0px; opacity: 0; }
+	25% { top: 20px; opacity: 1; }
+	to { top: 20px; }
+}
+
+@-o-keyframes pinIstambul {
+	from { top: 0px; opacity: 0; }
+	25% { top: 20px; opacity: 1; }
+	to { top: 20px; }
+}
+
+@keyframes pinIstambul {
+	from { top: 0px; opacity: 0; }
+	25% { top: 20px; opacity: 1; }
+	to { top: 20px; }	
+}
+
+/* pinAtenas */
+#pinAtenas {
+	top: 145px;
+	left: 135px;
+	background-position: left top;
+	-webkit-animation: pinAtenas 1600ms linear 1;
+	-moz-animation: pinAtenas 1600ms linear 1;
+	-o-animation: pinAtenas 1600ms linear 1;
+	animation: pinAtenas 1600ms linear 1;
+}
+
+@-webkit-keyframes pinAtenas {
+	from { top: 125px; opacity: 0; }
+	25% { top: 125px; opacity: 0; }
+	50% { top: 145px; opacity: 1; }
+	to { top: 145px; }
+}
+
+@-moz-keyframes pinAtenas {
+	from { top: 125px; opacity: 0; }
+	25% { top: 125px; opacity: 0; }
+	50% { top: 145px; opacity: 1; }
+	to { top: 145px; }
+}
+
+@-o-keyframes pinAtenas {
+	from { top: 125px; opacity: 0; }
+	25% { top: 125px; opacity: 0; }
+	50% { top: 145px; opacity: 1; }
+	to { top: 145px; }
+}
+
+@keyframes pinAtenas {
+	from { top: 125px; opacity: 0; }
+	25% { top: 125px; opacity: 0; }
+	50% { top: 145px; opacity: 1; }
+	to { top: 145px; }	
+}
+
+/* pinMikonos*/
+#pinMikonos {
+	top: 170px;
+	left: 187px;
+	background-position: -25px top;
+	-webkit-animation: pinMikonos 1600ms linear 1;
+	-moz-animation: pinMikonos 1600ms linear 1;
+	-o-animation: pinMikonos 1600ms linear 1;
+	animation: pinMikonos 1600ms linear 1;
+}
+
+@-webkit-keyframes pinMikonos {
+	from { top: 150px; opacity: 0; }
+	50% { top: 150px; opacity: 0; }
+	75% { top: 170px; opacity: 1; }
+	to { top: 170px; }
+}
+
+@-moz-keyframes pinMikonos {
+	from { top: 150px; opacity: 0; }
+	50% { top: 150px; opacity: 0; }
+	75% { top: 170px; opacity: 1; }
+	to { top: 170px; }
+}
+
+@-o-keyframes pinMikonos {
+	from { top: 150px; opacity: 0; }
+	50% { top: 150px; opacity: 0; }
+	75% { top: 170px; opacity: 1; }
+	to { top: 170px; }
+}
+
+@keyframes pinMikonos {
+	from { top: 150px; opacity: 0; }
+	50% { top: 150px; opacity: 0; }
+	75% { top: 170px; opacity: 1; }
+	to { top: 170px; }
+}
+
+/* pinSantorini */
+#pinSantorini {
+	left: 190px;
+	top: 213px;
+	background-position: -50px top;
+	-webkit-animation: pinSantorini 1600ms linear 1;
+	-moz-animation: pinSantorini 1600ms linear 1;
+	-o-animation: pinSantorini 1600ms linear 1;
+	animation: pinSantorini 1600ms linear 1;
+}
+
+@-webkit-keyframes pinSantorini {
+	from { top: 193px; opacity: 0; }
+	75% { top: 193px; opacity: 0; }
+	to { top: 213px; opacity: 1 }
+}
+
+@-moz-keyframes pinSantorini {
+	from { top: 193px; opacity: 0; }
+	75% { top: 193px; opacity: 0; }
+	to { top: 213px; opacity: 1 }
+}
+
+@-o-keyframes pinSantorini {
+	from { top: 193px; opacity: 0; }
+	75% { top: 193px; opacity: 0; }
+	to { top: 213px; opacity: 1 }
+}
+
+@keyframes pinSantorini {
+	from { top: 193px; opacity: 0; }
+	75% { top: 193px; opacity: 0; }
+	to { top: 213px; opacity: 1 }	
+}
+
+/* sombras */
+.sombra {
+	width: 54px;
+	height: 22px;
+	position: absolute;
+	background: transparent url(../img/assets/sombraPin.png) left top no-repeat;
+	/*-webkit-animation: sombraFadeIn 1s linear 1;
+	-moz-animation: sombraFadeIn 1s linear 1;
+	-o-animation:sombraFadeIn 1s linear 1;
+	animation: sombraFadeIn 1s linear 1;*/
+}
+
+
+/* sombraIstambul */
+#sombraIstambul {
+	top: 51px;
+	left: 291px;
+	-webkit-animation: sombraIstambulFadeIn 1600ms linear 1;
+	-moz-animation: sombraIstambulFadeIn 1600ms linear 1;
+	-o-animation: sombraIstambulFadeIn 1600ms linear 1;
+	animation: sombraIstambulFadeIn 1600ms linear 1;
+}
+
+@-webkit-keyframes sombraIstambulFadeIn {
+	from { opacity: 0; }
+	25% { opacity: 1; }
+	to { opacity: 1; }
+}
+
+@-moz-keyframes sombraIstambulFadeIn {
+	from { opacity: 0; }
+	25% { opacity: 1; }
+	to { opacity: 1; }
+}
+
+@-o-keyframes sombraIstambulFadeIn {
+	from { opacity: 0; }
+	25% { opacity: 1; }
+	to { opacity: 1; }
+}
+
+@keyframes sombraIstambulFadeIn {
+	from { opacity: 0; }
+	25% { opacity: 1; }
+	to { opacity: 1; }
+}
+
+/* sombraAtenas */
+#sombraAtenas {
+	top: 177px;
+	left: 120px;
+	-webkit-animation: sombraAtenasFadeIn 1600ms linear 1;
+	-moz-animation: sombraAtenasFadeIn 1600ms linear 1;
+	-o-animation: sombraAtenasFadeIn 1600ms linear 1;
+	animation: sombraAtenasFadeIn 1600ms linear 1;
+}
+
+@-webkit-keyframes sombraAtenasFadeIn {
+	from { opacity: 0; }
+	25% { opacity: 0; }
+	50% { opacity: 1; }
+	to { opacity: 1; }
+}
+
+@-moz-keyframes sombraAtenasFadeIn {
+	from { opacity: 0; }
+	25% { opacity: 0; }
+	50% { opacity: 1; }
+	to { opacity: 1; }
+}
+
+@-o-keyframes sombraAtenasFadeIn {
+	from { opacity: 0; }
+	25% { opacity: 0; }
+	50% { opacity: 1; }
+	to { opacity: 1; }
+}
+
+@keyframes sombraAtenasFadeIn {
+	from { opacity: 0; }
+	25% { opacity: 0; }
+	50% { opacity: 1; }
+	to { opacity: 1; }
+}
+
+/* sombraMikonos */
+#sombraMikonos {
+	top: 201px;
+	left: 172px;
+	-webkit-animation: sombraMikonosFadeIn 1600ms linear 1;
+	-moz-animation: sombraMikonosFadeIn 1600ms linear 1;
+	-o-animation: sombraMikonosFadeIn 1600ms linear 1;
+	animation: sombraMikonosFadeIn 1600ms linear 1;
+}
+
+@-webkit-keyframes sombraMikonosFadeIn {
+	from { opacity: 0; }
+	50% { opacity: 0; }
+	75% { opacity: 1;}
+	to { opacity: 1; }
+}
+
+@-moz-keyframes sombraMikonosFadeIn {
+	from { opacity: 0; }
+	50% { opacity: 0; }
+	75% { opacity: 1; }
+	to { opacity: 1; }
+}
+
+@-o-keyframes sombraMikonosFadeIn {
+	from { opacity: 0; }
+	25% { opacity: 1; }
+	to { opacity: 1; }
+}
+
+@keyframes sombraMikonosFadeIn {
+	from { opacity: 0; }
+	50% { opacity: 0; }
+	75% { opacity: 1; }
+	to { opacity: 1; }
+}
+
+/* sombraSantorini */
+#sombraSantorini {
+	top: 243px;
+	left: 176px;
+	-webkit-animation: sombraSantoriniFadeIn 1600ms linear 1;
+	-moz-animation: sombraSantoriniFadeIn 1600ms linear 1;
+	-o-animation: sombraSantoriniFadeIn 1600ms linear 1;
+	animation: sombraSsantoriniFadeIn 1600ms linear 1;
+}
+
+@-webkit-keyframes sombraSantoriniFadeIn {
+	from { opacity: 0; }
+	75% { opacity: 0; }
+	to { opacity: 1; }
+}
+
+@-moz-keyframes sombraSantoriniFadeIn {
+	from { opacity: 0; }
+	75% { opacity: 0; }
+	to { opacity: 1; }
+}
+
+@-o-keyframes sombraSantoriniFadeIn {
+	from { opacity: 0; }
+	75% { opacity: 0; }
+	to { opacity: 1; }
+}
+
+@keyframes sombraSantoriniFadeIn {
+	from { opacity: 0; }
+	75% { opacity: 0; }
+	to { opacity: 1; }
+}
+
+/* avion */
+#avion {
+    top: 50px;
+    z-index: 2;
+    left: 290px;
+    width: 35px;
+    height: 29px;
+    position: absolute;
+    background:url(../img/assets/avion.png) no-repeat right top;
+    -webkit-animation: avion 8s linear infinite;
+	-moz-animation: avion 8s linear infinite;
+	-o-animation: avion 8s linear infinite;
+	animation: avion 8s linear infinite;
+}
+
+@-webkit-keyframes avion {
+	from { top: 50px; left: 290px;  }
+	50% { top: 176px; left: 130px; }
+    65% { top: 198px; left:  181px; }
+    85% { top: 243px; left: 181px; opacity: 1; }
+    100% { top: 243px; left: 181px; opacity: 0; }
+}
+
+@-moz-keyframes avion {
+	from { top: 50px; left: 290px;  }
+	50% { top: 176px; left: 130px; }
+    65% { top: 198px; left:  181px; }
+    85% { top: 243px; left: 181px; opacity: 1; }
+    100% { top: 243px; left: 181px; opacity: 0; }
+}
+
+@-o-keyframes avion {
+	from { top: 50px; left: 290px;  }
+	50% { top: 176px; left: 130px; }
+    65% { top: 198px; left:  181px; }
+    85% { top: 243px; left: 181px; opacity: 1; }
+    100% { top: 243px; left: 181px; opacity: 0; }
+}
+
+@keyframes avion {
+	from { top: 50px; left: 290px;  }
+	50% { top: 176px; left: 130px; }
+    65% { top: 198px; left:  181px; }
+    85% { top: 243px; left: 181px; opacity: 1; }
+    100% { top: 243px; left: 181px; opacity: 0; }
+}
