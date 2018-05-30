@@ -1,5 +1,6 @@
 import THREE from '../js/vendor/three.module.js';
-// import SCENE from '../js/scene.js'
+import OrbitControls from '../js/vendor/orbitControls.module.js';
+
 import {
 	renderer,
 	getCamera,
@@ -8,9 +9,10 @@ import {
 	getAxesHelper
 } from '../js/scene.js';
 
-const canvas = renderer.domElement;
+// const canvas = renderer.domElement;
 const camera = getCamera();
 const scene = new THREE.Scene();
+const controls = new OrbitControls( camera );
 
 
 initScene();
@@ -43,10 +45,7 @@ function initScene(){
 	scene.add( getAxesHelper(50) );
 	scene.add( getAmbientLight(0x404040) );
 
-	camera.position.x = 3;
-	camera.position.y = 30;
-	camera.position.z = 10;
-
+	camera.position.set(3, 0, 0);
 
 	document.body.appendChild( renderer.domElement );
 
