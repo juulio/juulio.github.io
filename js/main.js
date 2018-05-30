@@ -45,7 +45,7 @@ function initScene(){
 	scene.add( getAxesHelper(50) );
 	scene.add( getAmbientLight(0x404040) );
 
-	camera.position.set(3, 0, 0);
+	camera.position.set(3, 10, 30);
 
 	document.body.appendChild( renderer.domElement );
 
