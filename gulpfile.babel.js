@@ -21,8 +21,8 @@ gulp.task('lint', () => {
 gulp.task('watch', () => {
     // gulp.watch('./index.html', gulp.series(browserSync.reload));
     // gulp.watch('./js/**/*.js').on('change', gulp.series('lint', browserSync.reload));
-    gulp.watch('./index.html',browserSync.reload);
-    gulp.watch('./js/**/*.js').on('change', gulp.series('lint', browserSync.reload));
+    gulp.watch('./index.html', browserSync.reload);
+    gulp.watch('./js/**/*.js', gulp.series('lint', browserSync.reload));
 });
 
 /**

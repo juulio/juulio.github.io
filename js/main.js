@@ -18,7 +18,6 @@ const controls = new OrbitControls( camera );
 initScene();
 animate();
 
-
 /*
  * Returns true if a given number n is Even
  */
