@@ -7,9 +7,10 @@ import THREE from '../js/vendor/three.module.js';
  */
 function getWebGLRenderer() {
 	const renderer = new THREE.WebGLRenderer({antialias: true});
-	renderer.setPixelRatio( window.devicePixelRatio );
 	renderer.setClearColor( 0xFFFFFF, 1 );
 	renderer.setSize( window.innerWidth, window.innerHeight );
+	renderer.setPixelRatio( window.devicePixelRatio );
+
 	return renderer;
 }
 
