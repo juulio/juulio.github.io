@@ -1040,9 +1040,6 @@ Object.defineProperties( THREE.OrbitControls.prototype, {
 
 } );
 
-// const exports = {};
-
-// exports.orbitControls = THREE.OrbitControls;
 
 const orbitControls = THREE.OrbitControls;
 

@@ -13,10 +13,22 @@ import {
 const camera = getCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 const scene = new THREE.Scene();
 const controls = new OrbitControls( camera );
+let trunkMesh, trunkGeometry, trunkHeight;
+let params = { 
+	height : 0
+}
 
+new TWEEN.Tween( params )
+    .to( { height: 40}, 3000 )
+    .onUpdate(function(){
+    	trunkMesh.scale.y = params.height;
+		trunkMesh.position.set(0, trunkMesh.scale.y/2, 0);
+    })
+    .start();
 
 initScene();
-renderTree(2, 15, Math.PI / 4);
+renderTree(2, 0, Math.PI / 4);
+// renderTree(2, 0, Math.PI / 4);
 animate();
 
 /*
@@ -32,6 +44,7 @@ function showStats(){
     stats.showPanel( 0 ); // 0: fps, 1: ms, 2: mb, 3+: custom
     document.body.appendChild( stats.dom );
 }
+
 
 
 /*
@@ -65,60 +78,88 @@ function onWindowResize(){
 /**
  * Updates objects on each frame
  */
-function animate(nowMsec){
+function animate(){
     requestAnimationFrame( animate );
 
     // stats.begin();
 
     renderer.render( scene, camera );
+	// trunkGeometry.parameters.height = trunkHeight;
 
+	trunkMesh.geometry.verticesNeedUpdate = true;
+	// trunkGeometry.parameters.height = params.x;
+		
     // stats.end();
+    TWEEN.update();
 }
 
 /**
  * render Tree 
+ * @param {Number} trunkRadius
  * @param {Number} trunkHeight
  * @param {Number} angle
  * CylinderGeometry(radiusTop : Float, radiusBottom : Float, height : Float, radialSegments : Integer, heightSegments : Integer);
  * mesh.rotation.set(0, 90, 180);
  */
  function renderTree(trunkRadius, trunkHeight, angle){
- 	let branchGeometry, branchhMesh, branchHeight;
+ 	let initialHeight, maxHeight, heightTween;
+	let branchGeometry, branchhMesh, branchHeight;
 
-	let trunkGeometry = new THREE.CylinderGeometry( trunkRadius, trunkRadius, trunkHeight, 10, 10);
-	trunkGeometry.translate(0, trunkHeight/2, 0);
+
+	trunkGeometry = new THREE.CylinderGeometry( trunkRadius, trunkRadius, trunkHeight, 10, 10);
+
+	// trunkGeometry.translate(0, trunkHeight/2, 0);
 	let woodMaterial = new THREE.MeshBasicMaterial( {
 		color: 0x8B4513,
 		wireframe : true
 	} );
 
-	let trunkMesh = new THREE.Mesh( trunkGeometry, woodMaterial );
+	trunkMesh = new THREE.Mesh( trunkGeometry, woodMaterial );
 	// trunkMesh.position.set(0, trunkHeight/2, 0);
+	// console.log(trunkMesh.geometry.parameters.height);
 	scene.add( trunkMesh );
 
-	branchHeight = trunkHeight * 0.8;
-	branchGeometry = new THREE.CylinderGeometry( trunkRadius*0.8, trunkRadius*0.8, branchHeight, 10, 10);
-	branchGeometry.translate(0, branchHeight/2, 0);
-	branchhMesh = new THREE.Mesh( branchGeometry, woodMaterial);
-	branchhMesh.position.set(0, trunkHeight, 0);
-	// branchhMesh.rotation.set(Math.PI / 4, 0, 0);
-	// branchhMesh.rotation.set(Math.PI / 4, 0, 0);
-	branchhMesh.rotation.set(0, 0, angle);
-	scene.add( branchhMesh );
 
-	branchhMesh = new THREE.Mesh( branchGeometry, woodMaterial);
-	branchhMesh.position.set(0, trunkHeight, 0);
-	branchhMesh.rotation.set(angle, 0, 0);
-	scene.add( branchhMesh );
+	// initialHeight = {y : 0};
+ // 	maxHeight = { value : trunkHeight};
 
-	branchhMesh = new THREE.Mesh( branchGeometry, woodMaterial);
-	branchhMesh.position.set(0, trunkHeight, 0);
-	branchhMesh.rotation.set(-angle, 0, 0);
-	scene.add( branchhMesh );
+ // 	heightTween = new TWEEN.Tween(initialHeight)
+ // 		.to({y : maxHeight}, 3000)
+ // 		.onUpdate(function(){
+	// 		initialHeight = trunkHeight;
+	// 		// trunkGeometry.parameters.height = trunkHeight;
+	// 		// console.log(trunkGeometry);
+	// 	});
 
-	branchhMesh = new THREE.Mesh( branchGeometry, woodMaterial);
-	branchhMesh.position.set(0, trunkHeight, 0);
-	branchhMesh.rotation.set(0, 0, -angle);
-	scene.add( branchhMesh );
+ // 	heightTween.start();
+
+
+
+
+
+	// branchHeight = trunkHeight * 0.8;
+	// branchGeometry = new THREE.CylinderGeometry( trunkRadius*0.8, trunkRadius*0.8, branchHeight, 10, 10);
+	// branchGeometry.translate(0, branchHeight/2, 0);
+	// branchhMesh = new THREE.Mesh( branchGeometry, woodMaterial);
+	// branchhMesh.position.set(0, trunkHeight, 0);
+	// // branchhMesh.rotation.set(Math.PI / 4, 0, 0);
+	// // branchhMesh.rotation.set(Math.PI / 4, 0, 0);
+	// branchhMesh.rotation.set(0, 0, angle);
+	// scene.add( branchhMesh );
+
+	// branchhMesh = new THREE.Mesh( branchGeometry, woodMaterial);
+	// branchhMesh.position.set(0, trunkHeight, 0);
+	// branchhMesh.rotation.set(angle, 0, 0);
+	// scene.add( branchhMesh );
+
+	// branchhMesh = new THREE.Mesh( branchGeometry, woodMaterial);
+	// branchhMesh.position.set(0, trunkHeight, 0);
+	// branchhMesh.rotation.set(-angle, 0, 0);
+	// scene.add( branchhMesh );
+
+	// branchhMesh = new THREE.Mesh( branchGeometry, woodMaterial);
+	// branchhMesh.position.set(0, trunkHeight, 0);
+	// branchhMesh.rotation.set(0, 0, -angle);
+	// scene.add( branchhMesh );
 
  }
