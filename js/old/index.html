@@ -18,8 +18,6 @@
     <meta name="author" content="">
 
     <title>juulio.com THREE.js generative graphics</title>
-
-    <link rel="stylesheet" href="styles.css">
   </head>
 
   <body>
@@ -681,7 +679,7 @@
         }
     </script>
 
-     <script id="noise2FragmentShader" type="x-shader/x-fragment">
+    <script id="noise2FragmentShader" type="x-shader/x-fragment">
         uniform float u_time;
         uniform vec2 u_resolution;
 
@@ -723,25 +721,23 @@
 
             gl_FragColor = mix( gl_FragColor, vec4( fogColor, gl_FragColor.w ), fogFactor );
         }
-        </script>
+    </script>
 
-    <!-- <script src="js/vendor/three.min.js"></script>     -->
-    <!-- <script src="js/vendor/OrbitControls.js"></script>     -->
-    <script src="js/vendor/stats.min.js"></script>    
-    <script src="js/scene.js" type="module"></script>
-    <script src="js/main.js" type="module"></script>
-    <!--
-    <script src="js/vendor/threex.videotexture.js"></script>    
-    <script src="js/vendor/tween.js"></script>    
-    <script src="js/particle.js"></script>
-    <script src="js/particles-system.js"></script>
-    <script src="js/pyramid.js"></script>
-    <script src="js/generative-graphics.js"></script>
-    <script src="js/scene01.js"></script>
-    <script src="js/scene02.js"></script>
-    <script src="js/scene03.js"></script>
-    <script src="js/scene04.js"></script>
-    <script src="js/nav.js"></script>
-    -->
+    <!-- <script src="../vendor/tween.js"></script> -->
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/95/three.min.js"></script>
+    <script src="../vendor/stats.min.js"></script>    
+    <script src="../vendor/threex.videotexture.js"></script>    
+    <script src="../vendor/tween.js"></script>    
+    <script src="particle.js"></script>
+    <script src="particles-system.js"></script>
+    <script src="pyramid.js"></script>
+    <script src="generative-graphics.js"></script>
+    <script src="scene01.js"></script>
+    <script src="scene02.js"></script>
+    <script src="scene03.js"></script>
+    <script src="scene04.js"></script>
+    <script src="nav.js"></script>
+    
   </body>
 </html>

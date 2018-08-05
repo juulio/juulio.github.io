@@ -209,7 +209,6 @@ generative_graphics.main = (function (gg){
             side: THREE.DoubleSide
         });
 
-
         let planeGeometry = new THREE.PlaneGeometry( 30, 30, 32 );
         planeGeometry.rotateX( - Math.PI / 2 );
         var plane = new THREE.Mesh( planeGeometry, lavaShaderMaterial );
@@ -281,7 +280,7 @@ generative_graphics.main = (function (gg){
         camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );
         // camera.position.x = 50;
         camera.position.y = 3;
-        camera.position.z = 1;
+        camera.position.z = 15;
 
         var light = new THREE.AmbientLight( 0x404040 ); // soft white light
         scene.add( light );
@@ -295,12 +294,12 @@ generative_graphics.main = (function (gg){
 
         setupShaderMaterials();
 
-        controls = new THREE.OrbitControls( camera, renderer.domElement );
+        // controls = new THREE.OrbitControls( camera, renderer.domElement );
         window.addEventListener( 'resize', onWindowResize, false );
         
         // renderHelpers();
 
-        // renderPlaneGeometryShaderFloor();
+        renderPlaneGeometryShaderFloor();
      }
 
     /*
