@@ -1,4 +1,4 @@
-// 1. hacer una función "renderBranch", que va a dibujar/animar el tronco y cada rama
+// ✓ 1. hacer una función "renderBranch", que va a dibujar/animar el tronco y cada rama
 // 2. hacer una función "renderTree"', que llama a renderBranch un montón de veces y le da parámetros, ojalá con objetos
 // 3. hacer un JSON, que contenga los parámetros que construyen el árbol
 // 4. hacer un generador/randomizador de ese JSON, para que cada pageLoad se haga uno diferente.
@@ -14,22 +14,19 @@ import {
 	getAxesHelper
 } from '../js/scene.js';
 
-// const canvas = renderer.domElement;
 const camera = getCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 const scene = new THREE.Scene();
 const controls = new OrbitControls( camera );
 
-let trunkMesh, trunkGeometry, dynaimcTrunkHeight;
-let branchGeometry, branchMesh01, branchMesh02, branchMesh03, branchMesh04, branchLength;
+let stats;
+// let trunkMesh, trunkGeometry, dynaimcTrunkHeight;
+// let branchGeometry, branchMesh01, branchMesh02, branchMesh03, branchMesh04, branchLength;
 
 let woodMaterial = new THREE.MeshBasicMaterial( {
 	color: 0x8B4513,
 	wireframe : true
 } );
 
-let trunkParams = { 
-	trunkHeight : 0
-};
 
 // let branchParams = {
 // 	branchLength : 0,
@@ -38,26 +35,6 @@ let trunkParams = {
 // 	branch3zPos : 0,
 // 	branch4zPos : 0
 // };
-
-let trunkTween = new TWEEN.Tween( trunkParams )
-    .to( {
-    		trunkHeight: 20
-    	}, 2000
-    )
-    .onUpdate(
-    	function(){
-	    	dynaimcTrunkHeight = trunkMesh.scale.y/2;
-
-	    	trunkMesh.scale.y = trunkParams.trunkHeight;
-			trunkMesh.position.set(0, dynaimcTrunkHeight, 0);
-	    	
-    	}
-    )
-    .onComplete(
-    	function(){
-    		// console.log('trunkHeight = ' + trunkParams.trunkHeight);
-    	}
-    );
 
 // let branchTween = new TWEEN.Tween( branchParams )
 // 	.to({
@@ -91,11 +68,19 @@ let trunkTween = new TWEEN.Tween( trunkParams )
 // trunkTween.start();
 initScene();
 
-renderBranch(new THREE.Vector3(5, 0, 0), 2, 5);
+let trunkOrigin = new THREE.Vector3(0, 0, 0),
+	trunkRadius = 2,
+	trunkHeight = 4,
+	fractalRatio = 2;
 
-// let tween = animateBranch(branchMesh, branchParams);
-// tween.start();
+// renderBranch(trunkOrigin, trunkRadius, trunkHeight, 0, fractalRatio);
 
+renderBranch(new THREE.Vector3(3, 0, 0), 2, trunkHeight, 0, fractalRatio);
+// renderBranch(new THREE.Vector3(0, trunkHeight * fractalRatio, 0), 2, trunkHeight*0.8, Math.PI/4, fractalRatio);
+// renderBranch(new THREE.Vector3(5, 0, 0), 2, 0);
+// renderBranch(new THREE.Vector3(5, 0, 0), 2, 0, Math.PI / 4);
+// renderBranch(2, 0, Math.PI / 4);
+// renderBranch(2, 0, Math.PI / 4);
 
 /**
  * draw branch
@@ -106,30 +91,35 @@ renderBranch(new THREE.Vector3(5, 0, 0), 2, 5);
  * CylinderGeometry(radiusTop : Float, radiusBottom : Float, height : Float, radialSegments : Integer, heightSegments : Integer);
  * mesh.rotation.set(0, 90, 180);
  */
-function renderBranch(origin, radius, height, angle){
+function renderBranch(origin, radius, height, angle, scalingFactor){
 	let branchGeometry = new THREE.CylinderGeometry( radius, radius, height, 10, 10);
+
+	// branchGeometry.translate(origin.x, origin.y, origin.z);
 	let mesh = new THREE.Mesh( branchGeometry, woodMaterial );
-	// mesh.position.set(origin.x, height/2, origin.z);
+
+	// mesh.position.set(origin.x, origin.y, origin.z);
+	
 	scene.add( mesh );
 
-	// let tween = new TWEEN.Tween( branchParams )
 	let tween = new TWEEN.Tween( mesh.scale )
     .to( {
-    		y: 2
-    	}, 1000
+    		y: scalingFactor
+    	}, 600
     )
     .onUpdate(
     	function(){
-	    	// mesh.scale.y = branchParams.initialHeight;
-			mesh.position.set(0, mesh.scale.y*height/2, 0);
+			mesh.position.set(origin.x, origin.y + mesh.scale.y*height/2, origin.z);
     	}
     )
-    // .onComplete(
-    // 	function(){
-    // 		// console.log('trunkHeight = ' + trunkParams.trunkHeight);
-    // 	}
-    // );
+    .onComplete(
+    	function(){
+			mesh.geometry.computeBoundingBox();
+			scene.add( new THREE.BoxHelper( mesh, 0xf00f00 ) );
 
+
+    		// console.log(origin.y + scalingFactor*height);
+    	}
+    );
     tween.start();
 }
 
@@ -138,11 +128,6 @@ function renderBranch(origin, radius, height, angle){
 
 
 
-
-// renderTrunk(new THREE.Vector3(5, 0, 0), 2, 0);
-// renderTree(new THREE.Vector3(5, 0, 0), 2, 0, Math.PI / 4);
-// renderTree(2, 0, Math.PI / 4);
-// renderTree(2, 0, Math.PI / 4);
 animate();
 
 /*
@@ -167,12 +152,16 @@ function initScene(){
 	 * Render grid and XYZ Axis Helpers
 	 */
 	scene.add( getGridHelper(50, 5, '#000000') );
+	
+	//The X axis is red. The Y axis is green. The Z axis is blue.
 	scene.add( getAxesHelper(50) );
-	scene.add( getAmbientLight(0x404040) );
+	// scene.add( getAmbientLight(0x404040) );
 
-	camera.position.set(0, 5, 20);
+	camera.position.set(0, 6, 15);
 	camera.lookAt(0, 0, 0);
 	document.body.appendChild( renderer.domElement );
+
+	showStats();
 
 	window.addEventListener( 'resize', onWindowResize, false );
 }
@@ -193,17 +182,13 @@ function onWindowResize(){
 function animate(){
     requestAnimationFrame( animate );
 
-    // stats.begin();
+    stats.begin();
 
     TWEEN.update();
 
     renderer.render( scene, camera );
-	// trunkGeometry.parameters.height = trunkHeight;
-
-	// trunkMesh.geometry.verticesNeedUpdate = true;
-	// trunkGeometry.parameters.height = params.x;
 		
-    // stats.end();
+    stats.end();
 }
 
 /**
@@ -215,7 +200,7 @@ function animate(){
  * CylinderGeometry(radiusTop : Float, radiusBottom : Float, height : Float, radialSegments : Integer, heightSegments : Integer);
  * mesh.rotation.set(0, 90, 180);
  */
- function renderTrunk(origin, trunkRadius, trunkHeight){
+function renderTrunk(origin, trunkRadius, trunkHeight){
  	let initialHeight, maxHeight, heightTween;
 
 	 	trunkGeometry = new THREE.CylinderGeometry( trunkRadius, trunkRadius, trunkHeight, 10, 10);
