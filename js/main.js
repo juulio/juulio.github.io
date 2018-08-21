@@ -1,9 +1,9 @@
 /** Algoritmo https://rosettacode.org/wiki/Fractal_tree#JavaScript
- * Hacer que funciones estáticamente
+ *
+ * 1. Hacer que funciones estáticamente
+ * 2. hacer una función "renderBranch", que va a dibujar/animar el tronco y cada rama
  * Hacer que funcione recursivamente
  * Agregar tweens
-
- * ✓ 1. hacer una función "renderBranch", que va a dibujar/animar el tronco y cada rama
  * 2. hacer una función "renderTree"', que llama a renderBranch un montón de veces y le da parámetros, ojalá con objetos
  * 3. hacer un JSON, que contenga los parámetros que construyen el árbol
  * 4. hacer un generador/randomizador de ese JSON, para que cada pageLoad se haga uno diferente.
@@ -33,44 +33,7 @@ let woodMaterial = new THREE.MeshBasicMaterial( { color: 0x8B4513 } ),
 	greenMaterial = new THREE.MeshBasicMaterial( { color: 0x00FF13 } );
 
 
-// let branchParams = {
-// 	branchLength : 0,
-// 	branch1xPos : 0,
-// 	branch2xPos : 0,
-// 	branch3zPos : 0,
-// 	branch4zPos : 0
-// };
 
-// let branchTween = new TWEEN.Tween( branchParams )
-// 	.to({
-//     	branchLength: 10,
-//     	branch1xPos: -3,
-//     	branch2xPos: 3,
-//     	branch3zPos: 3,
-//     	branch4zPos: -3
-// 	}, 1700)
-// 	.onUpdate(
-// 		function(){
-// 			let branchStartingPositionY = trunkParams.trunkHeight + branchParams.branchLength/2;
-// 			branchLength = dynaimcTrunkHeight * 0.7;
-
-// 			branchMesh01.scale.y = branchParams.branchLength;
-// 			branchMesh01.position.set(branchParams.branch1xPos, branchStartingPositionY, 0);
-
-// 			branchMesh02.scale.y = branchParams.branchLength;
-// 			branchMesh02.position.set(branchParams.branch2xPos, branchStartingPositionY, 0);
-
-// 			branchMesh03.scale.y = branchParams.branchLength;
-// 			branchMesh03.position.set(0, branchStartingPositionY, branchParams.branch3zPos);
-
-// 			branchMesh04.scale.y = branchParams.branchLength;
-// 			branchMesh04.position.set(0, branchStartingPositionY, branchParams.branch4zPos);
-// 		}
-// 	);
-
-//----------------- Start Tweens 
-// trunkTween.chain(branchTween);
-// trunkTween.start();
 initScene();
 
 //-------------------------------------------------------------------------------------- 
@@ -94,28 +57,54 @@ let branchMesh,
 	branchHeight = trunkHeight * scalingFactor,
 	branchGeometry = new THREE.CylinderGeometry( branchRadius, branchRadius, branchHeight, 10, 10);
 	
-// left Branch
+// left front Branch
 branchParentMesh = new THREE.Mesh( new THREE.BoxBufferGeometry( branchDiameter, branchHeight, branchDiameter ), redMaterial ),
 branchMesh = new THREE.Mesh ( branchGeometry, woodMaterial);
 
 branchMesh.position.set(0, branchHeight/2, 0);
 branchParentMesh.position.set(0, trunkHeight, 0);
-branchParentMesh.rotation.set(0, 0, angle);
+branchParentMesh.rotation.set(angle, 0, angle);
 
 branchParentMesh.add(branchMesh);
 scene.add(branchParentMesh);
 
-// right Branch
+// right front Branch
 branchParentMesh = new THREE.Mesh( new THREE.BoxBufferGeometry( branchDiameter, branchHeight, branchDiameter ), redMaterial ),
 branchMesh = new THREE.Mesh ( branchGeometry, woodMaterial);
 
 branchMesh.position.set(0, branchHeight/2, 0);
 branchParentMesh.position.set(0, trunkHeight, 0);
-branchParentMesh.rotation.set(0, 0, -angle);
+branchParentMesh.rotation.set(angle, 0, -angle);
+
+branchParentMesh.add(branchMesh);
+scene.add(branchParentMesh);
+
+// left back Branch
+branchParentMesh = new THREE.Mesh( new THREE.BoxBufferGeometry( branchDiameter, branchHeight, branchDiameter ), redMaterial ),
+branchMesh = new THREE.Mesh ( branchGeometry, woodMaterial);
+
+branchMesh.position.set(0, branchHeight/2, 0);
+branchParentMesh.position.set(0, trunkHeight, 0);
+branchParentMesh.rotation.set(-angle, 0, angle);
+
+branchParentMesh.add(branchMesh);
+scene.add(branchParentMesh);
+
+// right back Branch
+branchParentMesh = new THREE.Mesh( new THREE.BoxBufferGeometry( branchDiameter, branchHeight, branchDiameter ), redMaterial ),
+branchMesh = new THREE.Mesh ( branchGeometry, woodMaterial);
+
+branchMesh.position.set(0, branchHeight/2, 0);
+branchParentMesh.position.set(0, trunkHeight, 0);
+branchParentMesh.rotation.set(-angle, 0, -angle);
 
 branchParentMesh.add(branchMesh);
 scene.add(branchParentMesh);
 //--------------------------------------------------------------------------------------
+
+
+
+
 
 
 
@@ -266,7 +255,7 @@ function initScene(){
 	scene.add( getAxesHelper(50) );
 	// scene.add( getAmbientLight(0x404040) );
 
-	camera.position.set(0, 1, 1.6);
+	camera.position.set(0, 1, 3);
 	camera.lookAt(0, 0, 0);
 	document.body.appendChild( renderer.domElement );
 
@@ -366,3 +355,44 @@ function renderTrunk(origin, trunkRadius, trunkHeight){
 	// scene.add( branchMesh );
 
  }
+
+
+
+// let branchParams = {
+// 	branchLength : 0,
+// 	branch1xPos : 0,
+// 	branch2xPos : 0,
+// 	branch3zPos : 0,
+// 	branch4zPos : 0
+// };
+
+// let branchTween = new TWEEN.Tween( branchParams )
+// 	.to({
+//     	branchLength: 10,
+//     	branch1xPos: -3,
+//     	branch2xPos: 3,
+//     	branch3zPos: 3,
+//     	branch4zPos: -3
+// 	}, 1700)
+// 	.onUpdate(
+// 		function(){
+// 			let branchStartingPositionY = trunkParams.trunkHeight + branchParams.branchLength/2;
+// 			branchLength = dynaimcTrunkHeight * 0.7;
+
+// 			branchMesh01.scale.y = branchParams.branchLength;
+// 			branchMesh01.position.set(branchParams.branch1xPos, branchStartingPositionY, 0);
+
+// 			branchMesh02.scale.y = branchParams.branchLength;
+// 			branchMesh02.position.set(branchParams.branch2xPos, branchStartingPositionY, 0);
+
+// 			branchMesh03.scale.y = branchParams.branchLength;
+// 			branchMesh03.position.set(0, branchStartingPositionY, branchParams.branch3zPos);
+
+// 			branchMesh04.scale.y = branchParams.branchLength;
+// 			branchMesh04.position.set(0, branchStartingPositionY, branchParams.branch4zPos);
+// 		}
+// 	);
+
+//----------------- Start Tweens 
+// trunkTween.chain(branchTween);
+// trunkTween.start();
