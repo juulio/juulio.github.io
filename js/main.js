@@ -1,14 +1,15 @@
 /** Algoritmo https://rosettacode.org/wiki/Fractal_tree#JavaScript
   *
-  * 1. Hacer que funciones estáticamente
-  * 2. hacer una función "renderBranch", que va a dibujar/animar el tronco y cada rama
-  * Hacer que funcione recursivamente
-  * Agregar tweens
-  * 2. hacer una función "renderTree"', que llama a renderBranch un montón de veces y le da parámetros, ojalá con objetos
-  * 3. hacer un JSON, que contenga los parámetros que construyen el árbol
-  * 4. hacer un generador/randomizador de ese JSON, para que cada pageLoad se haga uno diferente.
-  * 5. aplicar shaderMaterials y hacer un despiche animado entre tronco, ramas,  hojas y flores
+  * ✓ 1. Hacer que funciones estáticamente
+  * ✓ 2. hacer una función "renderBranch", que va a dibujar/animar el tronco y cada rama
+  * 3. hacer una función "renderTree"', que llama a renderBranch un montón de veces y le da parámetros, ojalá con objetos
+  * 4. Hacer que funcione recursivamente
+  * 4. Agregar tweens
+  * 5. hacer un JSON, que contenga los parámetros que construyen el árbol
+  * 5. hacer un generador/randomizador de ese JSON, para que cada pageLoad se haga uno diferente.
+  * 6. aplicar shaderMaterials y hacer un despiche animado entre tronco, ramas,  hojas y flores
   */
+
 import THREE from '../js/vendor/three.module.js';
 import OrbitControls from '../js/vendor/orbitControls.module.js';
 
@@ -31,6 +32,7 @@ let stats;
 
 
 initScene();
+animate();
 
 let woodMaterial = new THREE.MeshBasicMaterial( { color: 0x8B4513 } ),
 	redMaterial = new THREE.MeshBasicMaterial( { color: 0xFF4513, wireframe: true } ),
@@ -39,22 +41,29 @@ let woodMaterial = new THREE.MeshBasicMaterial( { color: 0x8B4513 } ),
 let trunkOrigin = new THREE.Vector3(0, 0, 0),
 	trunkRadius = 0.1,
 	trunkHeight = 1,
-	scalingFactor = 0.8;
+	fractalRatio = 0.8;
 
 renderTrunk(trunkOrigin, trunkRadius, trunkHeight, woodMaterial);
 
+// 1st level
 let branchOrigin = new THREE.Vector3( trunkOrigin.x, trunkOrigin.y, trunkOrigin.z ),
 	branchMesh,
 	branchParentMesh,
 	angleX = Math.PI/4,
 	angleZ = Math.PI/4,
-	branchRadius = trunkRadius * scalingFactor,
-	branchHeight = trunkHeight * scalingFactor;
+	branchRadius = trunkRadius * fractalRatio,
+	branchHeight = trunkHeight * fractalRatio;
 
-renderBranch(branchOrigin, branchRadius, branchHeight, angleX, angleZ, trunkHeight, woodMaterial, redMaterial);
-renderBranch(branchOrigin, branchRadius, branchHeight, -angleX, angleZ, trunkHeight, woodMaterial, redMaterial);
-renderBranch(branchOrigin, branchRadius, branchHeight, angleX, -angleZ, trunkHeight, woodMaterial, redMaterial);
-renderBranch(branchOrigin, branchRadius, branchHeight, -angleX, -angleZ, trunkHeight, woodMaterial, redMaterial);
+scene.add(renderBranch(branchOrigin, branchRadius, branchHeight, angleX, angleZ, trunkHeight, woodMaterial, redMaterial, fractalRatio));
+scene.add(renderBranch(branchOrigin, branchRadius, branchHeight, -angleX, angleZ, trunkHeight, woodMaterial, redMaterial, fractalRatio));
+scene.add(renderBranch(branchOrigin, branchRadius, branchHeight, angleX, -angleZ, trunkHeight, woodMaterial, redMaterial, fractalRatio));
+scene.add(renderBranch(branchOrigin, branchRadius, branchHeight, -angleX, -angleZ, trunkHeight, woodMaterial, redMaterial, fractalRatio));
+
+
+// 2nd level
+// branchOrigin = 
+// renderBranch(branchOrigin, branchRadius, branchHeight, angleX, angleZ, trunkHeight, woodMaterial, redMaterial);
+
 
 /**
   * Render Trunk
@@ -69,7 +78,6 @@ function renderTrunk(origin, radius, height, material){
 		mesh = new THREE.Mesh( trunkGeometry, material );
 	
 	mesh.position.set(origin.x, origin.y + height/2, origin.z);
-	
 	scene.add(mesh);
 }
 
@@ -82,7 +90,7 @@ function renderTrunk(origin, radius, height, material){
   * @param {Number} branchParentPositionY
   * CylinderBufferGeometry(radiusTop : Float, radiusBottom : Float, height : Float)
   */
-function renderBranch(origin, radius, height, angleX, angleZ, branchParentPositionY, material, parentMaterial){
+function renderBranch(origin, radius, height, angleX, angleZ, branchParentPositionY, material, parentMaterial, scalingFactor){
 	let branchDiameter = radius * 2,
 		branchGeometry = new THREE.CylinderBufferGeometry( radius, radius, height ),
 		boxGeometry = new THREE.BoxBufferGeometry( branchDiameter, branchHeight, branchDiameter ),
@@ -90,13 +98,116 @@ function renderBranch(origin, radius, height, angleX, angleZ, branchParentPositi
 		branchMesh = new THREE.Mesh ( branchGeometry, material );
 
 	branchMesh.position.set(origin.x, origin.y + height/2, origin.z);
+	// branchMesh.position.set(-(Math.cos(angleZ) * branchHeight / 2 ), origin.y + height/2, origin.z);
 	branchParentMesh.position.set(origin.x, branchParentPositionY, origin.z);
+	// branchParentMesh.position.set(-(Math.cos(angleZ) * branchHeight / 2 ), branchParentPositionY, origin.z);
 	branchParentMesh.rotation.set(angleX, 0, angleZ);
 
 	branchParentMesh.add(branchMesh);
-	scene.add(branchParentMesh);
+	// scene.add(branchParentMesh);
+
+	// origin = new THREE.Vector3(origin.x, origin.y, origin.z);
+	branchParentPositionY *= scalingFactor;
+
+	radius *= scalingFactor;
+	height *= scalingFactor;
+	angleX *= scalingFactor;
+	angleZ *= scalingFactor;
+
+	scalingFactor *= scalingFactor;
+	material = greenMaterial;
+
+	if(scalingFactor > 0.6) {
+		branchParentMesh.add(renderBranch(origin, radius, height, angleX, angleZ, branchParentPositionY, material, parentMaterial, scalingFactor));
+		branchParentMesh.add(renderBranch(origin, radius, height, angleX, -angleZ, branchParentPositionY, material, parentMaterial, scalingFactor));
+		branchParentMesh.add(renderBranch(origin, radius, height, -angleX, angleZ, branchParentPositionY, material, parentMaterial, scalingFactor));
+		branchParentMesh.add(renderBranch(origin, radius, height, -angleX, -angleZ, branchParentPositionY, material, parentMaterial, scalingFactor));
+	}
+
+	return branchParentMesh;
 }
 //--------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+  * Set up and show Javascript Performance Monitor
+  */
+function showStats(){
+    stats = new Stats();
+    stats.showPanel( 0 ); // 0: fps, 1: ms, 2: mb, 3+: custom
+    document.body.appendChild( stats.dom );
+}
+
+/**
+  * Sets basic 3D Scene Elements
+  */
+function initScene(){
+	/**
+	 * Render grid and XYZ Axis Helpers
+	 */
+	scene.add( getGridHelper(50, 5, '#000000') );
+	
+	//The X axis is red. The Y axis is green. The Z axis is blue.
+	scene.add( getAxesHelper(50) );
+	// scene.add( getAmbientLight(0x404040) );
+
+	camera.position.set(0, 2.2, 1.8);
+	camera.lookAt(0, 0, 0);
+	document.body.appendChild( renderer.domElement );
+
+	showStats();
+
+	window.addEventListener( 'resize', onWindowResize, false );
+}
+
+/**
+  * Handles window resize events
+  */
+function onWindowResize(){
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+
+    renderer.setSize( window.innerWidth, window.innerHeight );
+}
+
+/**
+ * Updates objects on each frame
+ */
+function animate(){
+    requestAnimationFrame( animate );
+
+    stats.begin();
+
+    TWEEN.update();
+
+    renderer.render( scene, camera );
+		
+    stats.end();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -216,91 +327,6 @@ function renderBranch(origin, radius, height, angleX, angleZ, branchParentPositi
 //     );
 //     tween.start();
 // }
-
-
-
-
-
-
-animate();
-
-/*
- * Returns true if a given number n is Even
- */
-// isEven = (n) => n % 2 === 0;
-
-/*
- * Set up and show Javascript Performance Monitor
- */
-function showStats(){
-    stats = new Stats();
-    stats.showPanel( 0 ); // 0: fps, 1: ms, 2: mb, 3+: custom
-    document.body.appendChild( stats.dom );
-}
-
-/*
- * Sets basic 3D Scene Elements
- */
-function initScene(){
-	/**
-	 * Render grid and XYZ Axis Helpers
-	 */
-	scene.add( getGridHelper(50, 5, '#000000') );
-	
-	//The X axis is red. The Y axis is green. The Z axis is blue.
-	scene.add( getAxesHelper(50) );
-	// scene.add( getAmbientLight(0x404040) );
-
-	camera.position.set(0, 1, 3);
-	camera.lookAt(0, 0, 0);
-	document.body.appendChild( renderer.domElement );
-
-	showStats();
-
-	window.addEventListener( 'resize', onWindowResize, false );
-}
-
-/**
-  * Handles window resize events
-  */
-function onWindowResize(){
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-
-    renderer.setSize( window.innerWidth, window.innerHeight );
-}
-
-/**
- * Updates objects on each frame
- */
-function animate(){
-    requestAnimationFrame( animate );
-
-    stats.begin();
-
-    TWEEN.update();
-
-    renderer.render( scene, camera );
-		
-    stats.end();
-}
-
-
-/**
- * render Tree 
- * @param {THREE.Vector3( x, y, z);} origin
- * @param {Number} trunkRadius
- * @param {Number} trunkHeight
- * @param {Number} angle
- * CylinderGeometry(radiusTop : Float, radiusBottom : Float, height : Float, radialSegments : Integer, heightSegments : Integer);
- * mesh.rotation.set(0, 90, 180);
- */
- function renderTree(origin, trunkRadius, trunkHeight, angle){
- 	
-
- }
-
-
 
 // let branchParams = {
 // 	branchLength : 0,
