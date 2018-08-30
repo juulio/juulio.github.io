@@ -1,13 +1,14 @@
-/** Algoritmo https://rosettacode.org/wiki/Fractal_tree#JavaScript
+	/** Algoritmo https://rosettacode.org/wiki/Fractal_tree#JavaScript
   *
   * ✓ 1. Hacer que funciones estáticamente
   * ✓ 2. hacer una función "renderBranch", que va a dibujar/animar el tronco y cada rama
-  * 3. hacer una función "renderTree"', que llama a renderBranch un montón de veces y le da parámetros, ojalá con objetos
-  * 4. Hacer que funcione recursivamente
-  * 4. Agregar tweens
-  * 5. hacer un JSON, que contenga los parámetros que construyen el árbol
-  * 5. hacer un generador/randomizador de ese JSON, para que cada pageLoad se haga uno diferente.
-  * 6. aplicar shaderMaterials y hacer un despiche animado entre tronco, ramas,  hojas y flores
+  * ✓ 3. hacer una función "renderTree"', que llama a renderBranch un montón de veces y le da parámetros, ojalá con objetos
+  * ✓ 4. Hacer que funcione recursivamente
+  * 5. Arreglar ángulo a la función del trunk para que se comporte "igual" que los branches. El tronco debería ser capaz de crecer en cualquier dirección
+  * 6. Agregar tweens
+  * 7. hacer un JSON, que contenga los parámetros que construyen el árbol
+  * 8. hacer un generador/randomizador de ese JSON, para que cada pageLoad se haga uno diferente.
+  * 9. aplicar shaderMaterials y hacer un despiche animado entre tronco, ramas,  hojas y flores
   */
 
 import THREE from '../js/vendor/three.module.js';
@@ -26,42 +27,128 @@ const scene = new THREE.Scene();
 const controls = new OrbitControls( camera );
 
 let stats;
-// let trunkMesh, trunkGeometry, dynaimcTrunkHeight;
-
-
 
 initScene();
 animate();
-
 
 let woodMaterial = new THREE.MeshBasicMaterial( { color: 0x8B4513 } ),
 	redMaterial = new THREE.MeshBasicMaterial( { color: 0xFF4513, wireframe: true } ),
 	greenMaterial = new THREE.MeshBasicMaterial( { color: 0x00FF13 } );
 
-let trunkOrigin = new THREE.Vector3(0, 0, 0),
-	trunkRadius = 0.1,
-	trunkHeight = 2,
-	fractalRatio = 0.90,
+let origin = new THREE.Vector3(0, 0, 0),
+	radius = 0.1,
+	height = 1,
+	fractalRatio = 0.8,
 	angleX = Math.PI/7,
-	angleZ = Math.PI/5;
+	angleZ = Math.PI/5,
+	level = 0,
+	limit = 1;
 
-renderTree(trunkOrigin, trunkRadius, trunkHeight, fractalRatio, angleX, angleZ);
+let tree = renderTree(origin, radius, height, angleX, angleZ, woodMaterial, redMaterial, fractalRatio, level, limit)
+
+scene.add(tree);
+
+/**
+  * Render Branch
+  * @param {THREE.Vector3( x, y, z)} origin
+  * @param {Number} radius
+  * @param {Number} height
+  * @param {Radian} angle
+  * @param {Number} branchParentPositionY
+  * @param {THREE.MeshBasicMaterial} material
+  * @param {Number} level
+  * @param {Number} limit
+  * CylinderBufferGeometry(radiusTop : Float, radiusBottom : Float, height : Float)
+  */
+function renderTree(origin, radius, height, angleX, angleZ, material, parentMaterial, scalingFactor, level, limit){
+	let branchDiameter = radius * 2,
+		boxGeometry = new THREE.BoxBufferGeometry( branchDiameter, height, branchDiameter ),
+		branchParentMesh = new THREE.Mesh( boxGeometry, parentMaterial ),
+
+		branchGeometry = new THREE.CylinderBufferGeometry( radius, radius, height ),
+		branchMesh = new THREE.Mesh ( branchGeometry, material );
+
+	branchParentMesh.add(branchMesh);
+
+	branchMesh.position.set(origin.x, height/2, origin.z);
+
+	branchParentMesh.scale.y = 0;
+	branchParentMesh.position.set(origin.x, origin.y, origin.z);
+
+	if(level > 0){
+		branchParentMesh.rotation.set(angleX, 0, angleZ);
+	}
+
+	let tween = new TWEEN.Tween( branchParentMesh.scale )
+    .to( {
+    		y: height	
+    	}, 2500
+    )
+    .onUpdate(
+    	function(){
+    		if(level == 0){
+				// branchParentMesh.position.set(origin.x, 0, origin.z);
+    		}
+			// branchParentMesh.position.set(origin.x, branchParentPositionY + branchParentMesh.scale.y/2, origin.z);
+			// branchParentMesh.position.set(origin.x, height, origin.z);
+
+    	}
+    );
+    tween.start();
+
+	if(level <= limit) {
+		level++;
+		origin = new THREE.Vector3( origin.x, height, origin.z);
+
+		radius *= scalingFactor;
+		height *= scalingFactor;
+		angleX *= scalingFactor;
+		angleZ *= scalingFactor;
+		scalingFactor *= scalingFactor;
+
+		branchParentMesh.add(renderTree(origin, radius, height, angleX, angleZ, material, parentMaterial, scalingFactor, level, limit));
+		branchParentMesh.add(renderTree(origin, radius, height, angleX, -angleZ, material, parentMaterial, scalingFactor, level, limit));
+		branchParentMesh.add(renderTree(origin, radius, height, -angleX, angleZ, material, parentMaterial, scalingFactor, level, limit));
+		branchParentMesh.add(renderTree(origin, radius, height, -angleX, -angleZ, material, parentMaterial, scalingFactor, level, limit));
+	}
+
+	return branchParentMesh;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /**
   * Render Tree
   */
-function renderTree(origin, radius, height, fractalRatio, angleX, angleZ){
-	let branchHeight = height * fractalRatio;
-	let branchRadius = radius * fractalRatio;
+// function renderTree(origin, radius, height, fractalRatio, angleX, angleZ){
+	
+// 		// branchHeight = height * fractalRatio,
+// 		// branchRadius = radius * fractalRatio;
+// 	// scene.add(renderTrunk(origin, radius, height, 0, 0, 0, woodMaterial, redMaterial, fractalRatio));
+// 	scene.add(renderBranch(origin, radius, height, angleX, angleZ, 0, woodMaterial, redMaterial, fractalRatio, level, limit));
 
-	renderTrunk(origin, radius, height, woodMaterial);
-
-	scene.add(renderBranch(origin, branchRadius, branchHeight, angleX, angleZ, height, woodMaterial, redMaterial, fractalRatio));
-	scene.add(renderBranch(origin, branchRadius, branchHeight, -angleX, angleZ, height, woodMaterial, redMaterial, fractalRatio));
-	scene.add(renderBranch(origin, branchRadius, branchHeight, angleX, -angleZ, height, woodMaterial, redMaterial, fractalRatio));
-	scene.add(renderBranch(origin, branchRadius, branchHeight, -angleX, -angleZ, height, woodMaterial, redMaterial, fractalRatio));
-}
+// 	// scene.add(renderBranch(origin, branchRadius, branchHeight, angleX, angleZ, height, woodMaterial, redMaterial, fractalRatio));
+// 	// scene.add(renderBranch(origin, branchRadius, branchHeight, -angleX, angleZ, height, woodMaterial, redMaterial, fractalRatio));
+// 	// scene.add(renderBranch(origin, branchRadius, branchHeight, angleX, -angleZ, height, woodMaterial, redMaterial, fractalRatio));
+// 	// scene.add(renderBranch(origin, branchRadius, branchHeight, -angleX, -angleZ, height, woodMaterial, redMaterial, fractalRatio));
+// }
 
 
 /**
@@ -73,78 +160,25 @@ function renderTree(origin, radius, height, fractalRatio, angleX, angleZ){
   * CylinderBufferGeometry(radiusTop : Float, radiusBottom : Float, height : Float)
   * mesh.scale.x = 2 or mesh.scale.set( 2, 1, 1 )
   */
-function renderTrunk(origin, radius, height, material){
-	let trunkGeometry = new THREE.CylinderBufferGeometry( radius, radius, 0),
-		mesh = new THREE.Mesh( trunkGeometry, material );
-		mesh.scale.y = 0;
+// function renderTrunk(origin, radius, height, material){
+// 	let trunkGeometry = new THREE.CylinderBufferGeometry( radius, radius, 0),
+// 		mesh = new THREE.Mesh( trunkGeometry, material );
+// 		mesh.scale.y = 0;
 
-	let tween = new TWEEN.Tween( mesh.scale )
-    .to( {
-    		y: height	
-    	}, 2500
-    )
-    .onUpdate(
-    	function(){
-			mesh.position.set(origin.x, origin.y + mesh.scale.y/2, origin.z);
-			// mesh.position.set(origin.x, origin.y + height/2, origin.z);
-    	}
-    );
-    tween.start();
-	// mesh.position.set(origin.x, origin.y + height/2, origin.z);
-	scene.add(mesh);
-}
-
-/**
-  * Render Branch
-  * @param {THREE.Vector3( x, y, z)} origin
-  * @param {Number} radius
-  * @param {Number} height
-  * @param {Radian} angle
-  * @param {Number} branchParentPositionY
-  * CylinderBufferGeometry(radiusTop : Float, radiusBottom : Float, height : Float)
-  */
-function renderBranch(origin, radius, height, angleX, angleZ, branchParentPositionY, material, parentMaterial, scalingFactor){
-	let branchDiameter = radius * 2,
-		branchGeometry = new THREE.CylinderBufferGeometry( radius, radius, height ),
-		boxGeometry = new THREE.BoxBufferGeometry( branchDiameter, height, branchDiameter ),
-		branchParentMesh = new THREE.Mesh( boxGeometry, parentMaterial ),
-		branchMesh = new THREE.Mesh ( branchGeometry, material );
-
-	branchMesh.position.set(origin.x, origin.y + height/2, origin.z);
-	branchParentMesh.position.set(origin.x, branchParentPositionY, origin.z);
-	branchParentMesh.rotation.set(angleX, 0, angleZ);
-
-	branchParentMesh.add(branchMesh);
-
-	branchParentPositionY *= scalingFactor;
-
-	radius *= scalingFactor;
-	height *= scalingFactor;
-	angleX *= scalingFactor;
-	angleZ *= scalingFactor;
-
-	scalingFactor *= scalingFactor;
-	// material = greenMaterial;
-
-	if(scalingFactor > 0.6) {
-		branchParentMesh.add(renderBranch(origin, radius, height, angleX, angleZ, branchParentPositionY, material, parentMaterial, scalingFactor));
-		branchParentMesh.add(renderBranch(origin, radius, height, angleX, -angleZ, branchParentPositionY, material, parentMaterial, scalingFactor));
-		branchParentMesh.add(renderBranch(origin, radius, height, -angleX, angleZ, branchParentPositionY, material, parentMaterial, scalingFactor));
-		branchParentMesh.add(renderBranch(origin, radius, height, -angleX, -angleZ, branchParentPositionY, material, parentMaterial, scalingFactor));
-	}
-
-	return branchParentMesh;
-}
-//--------------------------------------------------------------------------------------
-
-
-
-
-
-
-
-
-
+// 	let tween = new TWEEN.Tween( mesh.scale )
+//     .to( {
+//     		y: height	
+//     	}, 2500
+//     )
+//     .onUpdate(
+//     	function(){
+// 			mesh.position.set(origin.x, origin.y + mesh.scale.y/2, origin.z);
+//     	}
+//     );
+//     tween.start();
+// 	// mesh.position.set(origin.x, origin.y + height/2, origin.z);
+// 	return mesh;
+// }
 
 
 
@@ -170,7 +204,7 @@ function initScene(){
 	scene.add( getAxesHelper(50) );
 	// scene.add( getAmbientLight(0x404040) );
 
-	camera.position.set(0, -1, 4);
+	camera.position.set(0, 3, 3.5);
 	camera.lookAt(0, 0, 0);
 	document.body.appendChild( renderer.domElement );
 
