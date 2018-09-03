@@ -32,8 +32,10 @@ initScene();
 animate();
 
 let woodMaterial = new THREE.MeshBasicMaterial( { color: 0x8B4513 } ),
-	redMaterial = new THREE.MeshBasicMaterial( { color: 0xFF4513, wireframe: true } ),
+	redMaterial = new THREE.MeshBasicMaterial( { transparent: true, wireframe: true } ),
 	greenMaterial = new THREE.MeshBasicMaterial( { color: 0x00FF13 } );
+
+redMaterial.opacity = 0;
 
 let origin = new THREE.Vector3(0, 0, 0),
 	radius = 0.1,
@@ -54,7 +56,6 @@ scene.add(tree);
   * @param {Number} radius
   * @param {Number} height
   * @param {Radian} angle
-  * @param {Number} branchParentPositionY
   * @param {THREE.MeshBasicMaterial} material
   * @param {Number} level
   * @param {Number} limit
@@ -81,17 +82,20 @@ function renderTree(origin, radius, height, angleX, angleZ, material, parentMate
 
 	let tween = new TWEEN.Tween( branchParentMesh.scale )
     .to( {
-    		y: height	
+    		y: 1	
     	}, 2500
     )
     .onUpdate(
     	function(){
-    		if(level == 0){
-				// branchParentMesh.position.set(origin.x, 0, origin.z);
-    		}
 			// branchParentMesh.position.set(origin.x, branchParentPositionY + branchParentMesh.scale.y/2, origin.z);
 			// branchParentMesh.position.set(origin.x, height, origin.z);
-
+    	}
+    )
+    .onComplete(
+    	function(){
+			// console.log("level " + level + ' height ' + height);
+   //  		console.log("scale.y " + branchParentMesh.scale.y);
+   //  		console.log('---------------');
     	}
     );
     tween.start();
@@ -102,9 +106,10 @@ function renderTree(origin, radius, height, angleX, angleZ, material, parentMate
 
 		radius *= scalingFactor;
 		height *= scalingFactor;
+
 		angleX *= scalingFactor;
 		angleZ *= scalingFactor;
-		scalingFactor *= scalingFactor;
+		// scalingFactor *= scalingFactor;
 
 		branchParentMesh.add(renderTree(origin, radius, height, angleX, angleZ, material, parentMaterial, scalingFactor, level, limit));
 		branchParentMesh.add(renderTree(origin, radius, height, angleX, -angleZ, material, parentMaterial, scalingFactor, level, limit));
