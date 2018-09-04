@@ -1,18 +1,6 @@
-	/** Algoritmo https://rosettacode.org/wiki/Fractal_tree#JavaScript
-  *
-  * ✓ 1. Hacer que funciones estáticamente
-  * ✓ 2. hacer una función "renderBranch", que va a dibujar/animar el tronco y cada rama
-  * ✓ 3. hacer una función "renderTree"', que llama a renderBranch un montón de veces y le da parámetros, ojalá con objetos
-  * ✓ 4. Hacer que funcione recursivamente
-  * 5. Arreglar ángulo a la función del trunk para que se comporte "igual" que los branches. El tronco debería ser capaz de crecer en cualquier dirección
-  * 6. Agregar tweens
-  * 7. hacer un JSON, que contenga los parámetros que construyen el árbol
-  * 8. hacer un generador/randomizador de ese JSON, para que cada pageLoad se haga uno diferente.
-  * 9. aplicar shaderMaterials y hacer un despiche animado entre tronco, ramas,  hojas y flores
-  */
-
 import THREE from '../js/vendor/three.module.js';
 import OrbitControls from '../js/vendor/orbitControls.module.js';
+import Branch from '../js/Branch.js';
 
 import {
 	renderer,
@@ -26,30 +14,57 @@ const camera = getCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 const scene = new THREE.Scene();
 const controls = new OrbitControls( camera );
 
+
+
+let woodMaterial = new THREE.MeshBasicMaterial( { color: 0x8B4513, wireframe: true } ),
+	transparentMaterial = new THREE.MeshBasicMaterial( { transparent: true } ),
+	greenMaterial = new THREE.MeshBasicMaterial( { transparent: true, color: 0x00FF13 } );
+
+transparentMaterial.opacity = 0;
+greenMaterial.opacity = 0.6;
+//--------------------------------------------------------------------------------------------------------------
+let tree = [];
+let leaves = [];
+
+let count = 0;
+
+
+let origin = new THREE.Vector3(0, 0, 0),
+	radius = 0.2,
+	height = 1,
+	angleX = Math.PI/4,
+	angleZ = Math.PI/5;
+
+let root = new Branch(origin, radius, height, angleX, angleZ, woodMaterial, transparentMaterial);
+
+tree[0] = root;
+
+function drawTree(){
+	for (let i = 0; i < tree.length; i++) {
+		scene.add(tree[i].getBranchMesh());
+		//tree[i].jitter();
+  	}
+}
+
 let stats;
 
 initScene();
 animate();
 
-let woodMaterial = new THREE.MeshBasicMaterial( { color: 0x8B4513 } ),
-	redMaterial = new THREE.MeshBasicMaterial( { transparent: true, wireframe: true } ),
-	greenMaterial = new THREE.MeshBasicMaterial( { transparent: true, color: 0x00FF13 } );
+window.addEventListener("click", function(){
+    let a;
+    for (a=tree.length-1; a >= 0; a--){
+    	if(!tree[a].finished){
+    		tree.push(tree[a].branchFrontRight());
+    	}
+    }
+});
+//--------------------------------------------------------------------------------------------------------------
 
-redMaterial.opacity = 0;
-greenMaterial.opacity = 0.6;
 
-let origin = new THREE.Vector3(0, 0, 0),
-	radius = 0.1,
-	height = 1,
-	fractalRatio = 0.8,
-	angleX = Math.PI/4,
-	angleZ = Math.PI/5,
-	level = 0,
-	limit = 1;
+// let tree = renderTree(origin, radius, height, angleX, angleZ, woodMaterial, redMaterial, fractalRatio, level, limit)
 
-let tree = renderTree(origin, radius, height, angleX, angleZ, woodMaterial, redMaterial, fractalRatio, level, limit)
-
-scene.add(tree);
+// scene.add(tree);
 
 /**
   * Render Branch
@@ -88,7 +103,7 @@ function renderTree(origin, radius, height, angleX, angleZ, material, parentMate
 
 	let tween = new TWEEN.Tween( branchParentMesh.scale )
     .to( {
-    		y: 1	
+    		y: 1
     	}, 2000
     )
     .onComplete(
@@ -140,12 +155,12 @@ function initScene(){
 	 * Render grid and XYZ Axis Helpers
 	 */
 	scene.add( getGridHelper(50, 5, '#000000') );
-	
+
 	//The X axis is red. The Y axis is green. The Z axis is blue.
 	scene.add( getAxesHelper(50) );
 	// scene.add( getAmbientLight(0x404040) );
 
-	camera.position.set(0, 3, 3.5);
+	camera.position.set(0, 2, 2.7);
 	camera.lookAt(0, 0, 0);
 	document.body.appendChild( renderer.domElement );
 
@@ -171,15 +186,17 @@ function animate(){
     requestAnimationFrame( animate );
 
     stats.begin();
+drawTree();
 
-    TWEEN.update();
+    // TWEEN.update();
 
     renderer.render( scene, camera );
-		
+
     stats.end();
 }
 
+const exports = {};
 
-//----------------- Start Tweens 
-// trunkTween.chain(branchTween);
-// trunkTween.start();
+exports.scene = scene;
+
+export default exports;
