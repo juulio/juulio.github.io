@@ -33,13 +33,15 @@ let origin = new THREE.Vector3(0, 0, 0),
 	radius = 0.2,
 	height = 1,
 	angleX = Math.PI/4,
-	angleZ = Math.PI/5;
+	angleZ = Math.PI/5,
+	fractalRatio = 0.8;
 
-let root = new Branch(origin, radius, height, angleX, angleZ, woodMaterial, transparentMaterial);
+let root = new Branch(origin, radius, height, angleX, angleZ, fractalRatio);
 
 tree[0] = root;
 
 function drawTree(){
+	// scene.add(root.getBranchMesh());
 	for (let i = 0; i < tree.length; i++) {
 		scene.add(tree[i].getBranchMesh());
 		//tree[i].jitter();
@@ -52,12 +54,20 @@ initScene();
 animate();
 
 window.addEventListener("click", function(){
-    let a;
-    for (a=tree.length-1; a >= 0; a--){
-    	if(!tree[a].finished){
-    		tree.push(tree[a].branchFrontRight());
-    	}
+    if(count < 4) {
+		for (let i=tree.length-1; i >= 0; i--){
+			if(!tree[i].finished){
+				tree.push(tree[i].branchFrontRight());
+				// tree.push(tree[i].branchFrontLeft());
+				// tree.push(tree[i].branchRearRight());
+				// tree.push(tree[i].branchRearLeft());
+			}
+			tree[i].finished = true;
+		}
+		console.log(tree);
+		count++;
     }
+
 });
 //--------------------------------------------------------------------------------------------------------------
 
@@ -186,9 +196,8 @@ function animate(){
     requestAnimationFrame( animate );
 
     stats.begin();
-drawTree();
 
-    // TWEEN.update();
+	drawTree();
 
     renderer.render( scene, camera );
 

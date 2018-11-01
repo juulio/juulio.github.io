@@ -12,7 +12,7 @@ insert_final_newline = true
 trim_trailing_whitespace = true
 
 # 4 space indentation
-[js/*.js]
+[js/*.js, *.html]
 indent_size = 4
 
 # Indentation override for all JS under lib directory
