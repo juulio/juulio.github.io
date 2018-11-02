@@ -7,13 +7,14 @@ function draw(){
 
   normalMaterial();
 
-  // rotateZ(frameCount * 0.01);
-  rotateX(frameCount * 0.01);
-  // rotateY(frameCount * 0.01);
-  torus(70, 20);
   push();
-  translate(100, 0, 0);
-  rotateX(25);
+  rotateX(frameCount * 0.01);
+  torus(70, 20);
+  pop();
+    
+  push();
+  translate(140, 0, 0);
+  rotateX(frameCount * -0.01);
 
   torus(70, 20);
   pop();
