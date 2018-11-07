@@ -1,5 +1,5 @@
 function setup(){
-  createCanvas(710, 400, WEBGL);
+  createCanvas(500, 250, WEBGL);
 }
 
 function draw(){
@@ -14,7 +14,6 @@ function draw(){
   push();
   translate(140, 0, 0);
   rotateX(frameCount * -0.01);
-
   torus(70, 20);
   pop();
 }
