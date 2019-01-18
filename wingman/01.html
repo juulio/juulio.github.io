@@ -1,0 +1,68 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Hooligan's Wingman Club">
+    <meta name="author" content="Hooligan's">
+
+    <title>Hooligan's Wingman Club</title>
+
+    <!--build:css css/styles.min.css-->
+
+    <link href="css/styles.css" rel="stylesheet">
+    <!--endbuild-->
+  </head>
+
+  <body onload="document.getElementById('id01').style.display='block'">
+
+    <div id="id01" class="modal">
+
+      <form class="modal-content animate" action="">
+        <div class="imgcontainer">
+          <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+          <img src="img/hooligans_logo.jpg" alt="Hooligans">
+        </div>
+
+        <div class="container">
+          <label for="uname"><b>Username</b></label>
+          <input type="text" placeholder="Enter Username" name="uname" required>
+
+          <label for="psw"><b>Password</b></label>
+          <input type="password" placeholder="Enter Password" name="psw" required>
+
+          <button type="submit">Login</button>
+          <label>
+            <input type="checkbox" checked="checked" name="remember"> Remember me
+          </label>
+        </div>
+
+        <div class="container" style="background-color:#f1f1f1">
+          <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+          <span class="psw">Forgot <a href="#">password?</a></span>
+        </div>
+      </form>
+    </div>
+
+    <script>
+    // Get the modal
+    var modal = document.getElementById('id01');
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+    </script>
+    <!--build:js js/main.min.js -->
+
+    <!-- inject:js -->
+    <!-- endinject -->
+
+    <script src="js/main.js"></script>
+    <!-- endbuild -->
+  </body>
+</html>
