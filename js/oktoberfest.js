@@ -36,98 +36,10 @@ let origin = new THREE.Vector3(0, 0, 0),
 	angleZ = Math.PI/5,
 	fractalRatio = 0.8;
 
-let root = new Branch(origin, radius, height, angleX, angleZ, fractalRatio);
-
-tree[0] = root;
-
-function drawTree(){
-	// scene.add(root.getBranchMesh());
-	for (let i = 0; i < tree.length; i++) {
-		scene.add(tree[i].getBranchMesh());
-		//tree[i].jitter();
-  	}
-}
-
 let stats;
 
 initScene();
 animate();
-
-// let tree = renderTree(origin, radius, height, angleX, angleZ, woodMaterial, redMaterial, fractalRatio, level, limit)
-
-// scene.add(tree);
-
-/**
-  * Render Branch
-  * @param {THREE.Vector3( x, y, z)} origin
-  * @param {Number} radius
-  * @param {Number} height
-  * @param {Radian} angle
-  * @param {THREE.MeshBasicMaterial} material
-  * @param {Number} level
-  * @param {Number} limit
-  * @param {Number} animationTime miliseconds
-  * CylinderBufferGeometry(radiusTop : Float, radiusBottom : Float, height : Float)
-  */
-function renderTree(origin, radius, height, angleX, angleZ, material, parentMaterial, scalingFactor, level, limit){
-	let branchDiameter = radius * 2,
-		boxGeometry = new THREE.BoxBufferGeometry( branchDiameter, height, branchDiameter ),
-		branchParentMesh = new THREE.Mesh( boxGeometry, parentMaterial ),
-
-		branchGeometry = new THREE.CylinderBufferGeometry( radius, radius, height ),
-		branchMesh = new THREE.Mesh ( branchGeometry, material ),
-
-		leafGeometry = new THREE.SphereGeometry( 0.1, 32, 32 ),
-		leafMesh = new THREE.Mesh ( leafGeometry, greenMaterial);
-
-	leafMesh.position.set(origin.x, height, origin.z);
-
-	branchMesh.position.set(origin.x, height/2, origin.z);
-
-	branchParentMesh.add(branchMesh);
-	branchParentMesh.scale.y = 0;
-	branchParentMesh.position.set(origin.x, origin.y, origin.z);
-
-	if(level > 0){
-		branchParentMesh.rotation.set(angleX, 0, angleZ);
-	}
-
-	let tween = new TWEEN.Tween( branchParentMesh.scale )
-    .to( {
-    		y: 1
-    	}, 2000
-    )
-    .onComplete(
-    	function(){
-    		if(level > limit){
-    			branchParentMesh.add(leafMesh);
-    			let randValue = THREE.Math.randFloat(-0.1, 0.1);
-    			let leafTween = new TWEEN.Tween(leafMesh.position).to({ x : leafMesh.position.x + randValue }).repeat( Infinity ).start();
-    		}
-    	}
-    );
-    tween.start();
-
-	if(level <= limit) {
-		level++;
-		origin = new THREE.Vector3( origin.x, height, origin.z);
-
-		radius *= scalingFactor;
-		height *= scalingFactor;
-
-		angleX *= scalingFactor;
-		angleZ *= scalingFactor;
-		// animationTime *= 2;
-		// scalingFactor *= scalingFactor;
-
-		branchParentMesh.add(renderTree(origin, radius, height, angleX, angleZ, material, parentMaterial, scalingFactor, level, limit));
-		branchParentMesh.add(renderTree(origin, radius, height, angleX, -angleZ, material, parentMaterial, scalingFactor, level, limit));
-		branchParentMesh.add(renderTree(origin, radius, height, -angleX, angleZ, material, parentMaterial, scalingFactor, level, limit));
-		branchParentMesh.add(renderTree(origin, radius, height, -angleX, -angleZ, material, parentMaterial, scalingFactor, level, limit));
-	}
-
-	return branchParentMesh;
-}
 
 /**
   * Set up and show Javascript Performance Monitor
@@ -190,8 +102,6 @@ function animate(){
     requestAnimationFrame( animate );
 
     stats.begin();
-
-	// drawTree();
 
     renderer.render( scene, camera );
 
