@@ -14,29 +14,7 @@ const camera = getCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 const scene = new THREE.Scene();
 const controls = new OrbitControls( camera );
 
-
-
-let woodMaterial = new THREE.MeshBasicMaterial( { color: 0x8B4513, wireframe: true } ),
-	transparentMaterial = new THREE.MeshBasicMaterial( { transparent: true } ),
-	greenMaterial = new THREE.MeshBasicMaterial( { transparent: true, color: 0x00FF13 } );
-
-transparentMaterial.opacity = 0;
-greenMaterial.opacity = 0.6;
-//--------------------------------------------------------------------------------------------------------------
-let tree = [];
-let leaves = [];
-
-let count = 0;
-
-
-let origin = new THREE.Vector3(0, 0, 0),
-	radius = 0.2,
-	height = 1,
-	angleX = Math.PI/4,
-	angleZ = Math.PI/5,
-	fractalRatio = 0.8;
-
-let stats;
+let stats, shaderMaterial;
 
 initScene();
 animate();
@@ -50,6 +28,27 @@ function showStats(){
     document.body.appendChild( stats.dom );
 }
 
+/*
+ * Init Uniforms for shaderMaerial
+ * TODO: create a shaderMaterial array to use several shaders on several materials
+ */
+function setupShaderMaterials(){
+	uniforms = {
+		u_time: { type: "f", value: 1.0 },
+		u_resolution: { type: "v2", value: new THREE.Vector2() },
+		u_mouse: { type: "v2", value: new THREE.Vector2() }
+	};
+
+	uniforms.u_resolution.value.x = window.innerWidth;
+	uniforms.u_resolution.value.y = window.innerHeight;
+
+	shaderMaterial = new THREE.ShaderMaterial( {
+		name: "planet",
+		uniforms: uniforms,
+		vertexShader: document.getElementById( 'vertexShader' ).textContent,
+		fragmentShader: document.getElementById( 'planetFragmentShader' ).textContent
+	});
+}
 /**
   * Sets basic 3D Scene Elements
   */
@@ -71,15 +70,9 @@ function initScene(){
 
 	//------------------------------------------------------------------	 
 	let geometry = new THREE.SphereGeometry(9, 12, 12);
-	let material = new THREE.MeshBasicMaterial ({color: 0x0011ff});
-	let wireframe = new THREE.WireframeGeometry( geometry );
-	let sphere = new THREE.Mesh(geometry, wireframe);
+	let sphere = new THREE.Mesh(geometry, shaderMaterial);
 
-	let line = new THREE.LineSegments( wireframe );
-	line.material.depthTest = false;
-	line.material.transparent = false;
-
-	scene.add( line );
+	scene.add( sphere );
 	
 	//------------------------------------------------------------------
 	window.addEventListener( 'resize', onWindowResize, false );
