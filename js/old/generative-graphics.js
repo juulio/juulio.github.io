@@ -205,13 +205,14 @@ generative_graphics.main = (function (gg){
             name: "Lava",
             uniforms: uniforms,
             vertexShader: document.getElementById( 'vertexShader' ).textContent,
-            fragmentShader: document.getElementById( 'noiseFragmentShader' ).textContent,
+            fragmentShader: document.getElementById( 'bwMatrixFragmentShader' ).textContent,
             side: THREE.DoubleSide
         });
 
-        let planeGeometry = new THREE.PlaneGeometry( 10, 30, 32 );
-        planeGeometry.rotateX( - Math.PI / 2 );
-        var plane = new THREE.Mesh( planeGeometry, lavaShaderMaterial );
+        let boxGeometry = new THREE.BoxGeometry( 1, 1, 1 );
+        let planeGeometry = new THREE.PlaneGeometry( 10, 20, 32 );
+        // planeGeometry.rotateX( - Math.PI / 2 );
+        var plane = new THREE.Mesh( boxGeometry, lavaShaderMaterial );
         scene.add( plane );
     }
     
@@ -294,7 +295,7 @@ generative_graphics.main = (function (gg){
 
         setupShaderMaterials();
 
-        // controls = new THREE.OrbitControls( camera, renderer.domElement );
+        controls = new THREE.OrbitControls( camera, renderer.domElement );
         window.addEventListener( 'resize', onWindowResize, false );
         
         // renderHelpers();
