@@ -22,6 +22,7 @@ generative_graphics.main = (function (gg){
         ps01exists = false,
         moveCamera = false,
         activeScene,
+        boxMesh,
         uniforms, clock, shaderMaterials, lavaShaderMaterial, noiseShaderMaterial;
 
     /**
@@ -209,11 +210,11 @@ generative_graphics.main = (function (gg){
             side: THREE.DoubleSide
         });
 
-        let boxGeometry = new THREE.BoxGeometry( 1, 1, 1 );
-        let planeGeometry = new THREE.PlaneGeometry( 10, 20, 32 );
+        // let planeGeometry = new THREE.PlaneGeometry( 10, 20, 32 );
         // planeGeometry.rotateX( - Math.PI / 2 );
-        var plane = new THREE.Mesh( boxGeometry, lavaShaderMaterial );
-        scene.add( plane );
+        let boxGeometry = new THREE.BoxGeometry( 8, 8, 8 );
+        boxMesh = new THREE.Mesh( boxGeometry, lavaShaderMaterial );
+        scene.add( boxMesh );
     }
     
     // generative_graphics.updateFcts = updateFcts;
@@ -320,7 +321,6 @@ generative_graphics.main = (function (gg){
         requestAnimationFrame( animate );
 
         stats.begin();
-
         // rotateMinarets();
 
         // rotateFerrisWheel();
@@ -342,6 +342,9 @@ generative_graphics.main = (function (gg){
         if (ps01exists) {
             gg.main.ps01.run();
         }
+
+        boxMesh.rotation.x = lastTimeMsec/12000;
+        boxMesh.rotation.z = lastTimeMsec/5000;
 
         // if(moveCamera) {
         //     camera.position.x++;
