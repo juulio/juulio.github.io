@@ -205,11 +205,11 @@ generative_graphics.main = (function (gg){
             name: "Lava",
             uniforms: uniforms,
             vertexShader: document.getElementById( 'vertexShader' ).textContent,
-            fragmentShader: document.getElementById( 'lavaFragmentShader' ).textContent,
+            fragmentShader: document.getElementById( 'noiseFragmentShader' ).textContent,
             side: THREE.DoubleSide
         });
 
-        let planeGeometry = new THREE.PlaneGeometry( 30, 30, 32 );
+        let planeGeometry = new THREE.PlaneGeometry( 10, 30, 32 );
         planeGeometry.rotateX( - Math.PI / 2 );
         var plane = new THREE.Mesh( planeGeometry, lavaShaderMaterial );
         scene.add( plane );
