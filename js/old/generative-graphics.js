@@ -6,7 +6,6 @@
  * https://stackoverflow.com/questions/34593632/how-to-use-es6-modules-instead-of-namespaces-in-the-global-scope
  */
 
-
 let generative_graphics = window.generative_graphics || {};
 
 generative_graphics.main = (function (gg){
@@ -22,8 +21,8 @@ generative_graphics.main = (function (gg){
         ps01exists = false,
         moveCamera = false,
         activeScene,
-        boxMesh,
-        uniforms, clock, shaderMaterials, lavaShaderMaterial, noiseShaderMaterial;
+        shaderPosition = 0,
+        uniforms, clock, shaderMaterials, noiseShaderMaterial;
 
     /**
      * Render XYZ Axis Helpers
@@ -201,20 +200,18 @@ generative_graphics.main = (function (gg){
     /*
      *
      */
-    function renderPlaneGeometryShaderFloor(){
-        lavaShaderMaterial = new THREE.ShaderMaterial( {
+    function renderPlaneGeometryShader(fragmentShaderName){
+        let shaderMaterial = new THREE.ShaderMaterial( {
             name: "Lava",
             uniforms: uniforms,
             vertexShader: document.getElementById( 'vertexShader' ).textContent,
-            fragmentShader: document.getElementById( 'bwMatrixFragmentShader' ).textContent,
+            fragmentShader: document.getElementById( fragmentShaderName ).textContent,
             side: THREE.DoubleSide
         });
 
-        // let planeGeometry = new THREE.PlaneGeometry( 10, 20, 32 );
-        // planeGeometry.rotateX( - Math.PI / 2 );
-        let boxGeometry = new THREE.BoxGeometry( 8, 8, 8 );
-        boxMesh = new THREE.Mesh( boxGeometry, lavaShaderMaterial );
-        scene.add( boxMesh );
+        let planeGeometry = new THREE.PlaneGeometry( 18, 18, 32 );
+        planeMesh = new THREE.Mesh( planeGeometry, shaderMaterial );
+        scene.add( planeMesh );
     }
     
     // generative_graphics.updateFcts = updateFcts;
@@ -298,10 +295,10 @@ generative_graphics.main = (function (gg){
 
         controls = new THREE.OrbitControls( camera, renderer.domElement );
         window.addEventListener( 'resize', onWindowResize, false );
-        
+        window.addEventListener( 'click', switchFragmentShader, false);
         // renderHelpers();
 
-        renderPlaneGeometryShaderFloor();
+        renderPlaneGeometryShader('lavaFragmentShader');
      }
 
     /*
@@ -312,6 +309,47 @@ generative_graphics.main = (function (gg){
         camera.updateProjectionMatrix();
 
         renderer.setSize( window.innerWidth, window.innerHeight );
+    }
+
+    /*
+     * Replaces the current fragment shader applied to the plane geometry
+     *
+     * AVAILABLE FRAGMENT SHADERS
+     * lavaFragmentShader
+     * voronoiFragmentShader
+     * jaguarFragmentShader
+     * redPulseFragmentShader
+     * bwMatrixFragmentShader
+     * rotatedTilesFragmentShader
+     * noiseFragmentShader
+     * simplexGridFragmentShader
+     * noise2FragmentShader
+     */
+    function switchFragmentShader(){
+        let fragmentShadersList = [
+            'lavaFragmentShader',
+            'voronoiFragmentShader',
+            'jaguarFragmentShader',
+            'redPulseFragmentShader',
+            'bwMatrixFragmentShader',
+            'rotatedTilesFragmentShader',
+            'noiseFragmentShader',
+            'simplexGridFragmentShader',
+            'noise2FragmentShader'
+        ];
+
+        let maxPosition = fragmentShadersList.length,
+            fragmentShaderName;
+
+        shaderPosition++;
+
+        fragmentShaderName = fragmentShadersList[shaderPosition];
+        
+        if (shaderPosition >= maxPosition ) {
+            shaderPosition = 0;
+        }
+
+        renderPlaneGeometryShader(fragmentShaderName);
     }
 
     /**
@@ -342,9 +380,6 @@ generative_graphics.main = (function (gg){
         if (ps01exists) {
             gg.main.ps01.run();
         }
-
-        boxMesh.rotation.x = lastTimeMsec/12000;
-        boxMesh.rotation.z = lastTimeMsec/5000;
 
         // if(moveCamera) {
         //     camera.position.x++;
@@ -392,7 +427,7 @@ generative_graphics.main = (function (gg){
         renderMinaret : renderMinaret,
         renderFloor : renderFloor,
         renderCube : renderCube,
-        renderPlaneGeometryShaderFloor : renderPlaneGeometryShaderFloor,
+        renderPlaneGeometryShader : renderPlaneGeometryShader,
         setPs01 : setPs01,
 
         setCameraRotation : setCameraRotation,
