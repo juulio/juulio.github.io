@@ -17,9 +17,6 @@ generative_graphics.main = (function (gg){
         controls,
         cube,
         updateFcts = [],
-        ps01,
-        ps01exists = false,
-        moveCamera = false,
         activeScene,
         shaderPosition = 0,
         uniforms, clock, shaderMaterials, noiseShaderMaterial;
@@ -103,100 +100,6 @@ generative_graphics.main = (function (gg){
         scene.add( cube );
     }
 
-    /**
-     * Renders a Minaret
-     * @namespace generative_graphics
-     * @param {THREE.Vector3} position
-     * @param {Number} height
-     * @param {Number} scale
-     * THREE.CylinderGeometry(radiusTop, radiusBottom, height, radiusSegments)
-     * TODO create a minaret Class
-     */
-    function renderMinaret(radius, height, position){
-        let minaretGroup = new THREE.Group();  
-        let cone;
-        let arabicTexture =  new THREE.TextureLoader().load('./assets/textures/marble.jpg');
-        arabicTexture.wrapS = THREE.RepeatWrapping;
-        arabicTexture.wrapT = THREE.RepeatWrapping;
-        arabicTexture.repeat.set( 2, 6 );
-        let material = new THREE.MeshBasicMaterial( { map: arabicTexture} );
-        let minaretGeometry = new THREE.CylinderGeometry( radius, radius, height, 32 );
-
-        /**
-         * Render the booths on minarets
-         */
-        function renderBooth(position, radius){
-            let stoneTexture =  new THREE.TextureLoader().load('./assets/textures/stone.png');
-            let material = new THREE.MeshBasicMaterial( { map: stoneTexture } );
-            let boothGeometry = new THREE.CylinderGeometry( radius, radius, height/7, 5 );
-            let booth = new THREE.Mesh(boothGeometry, material);
-            booth.position.set(position.x, position.y, position.z);
-            minaretGroup.add(booth);
-        }
-
-        /**
-         * Render the cone on top of the minaret
-         * ConeGeometry(radius, height, radialSegments, heightSegments)
-         */
-        function renderCone(position){
-            let geometry = new THREE.ConeGeometry( radius*2.4, height*0.15, 32 );
-            let material = new THREE.MeshBasicMaterial( {color: 0xeecbad, wireframe: true} );
-            cone = new THREE.Mesh( geometry, material );
-            cone.name = "Cone";
-            cone.position.set(position.x, position.y+height*0.55, position.z);
-            minaretGroup.add( cone );
-        }
-
-        let minaret = new THREE.Mesh(minaretGeometry, material);
-        minaret.position.set(position.x, position.y, position.z);
-        minaretGroup.add(minaret);
-
-        renderBooth(new THREE.Vector3(position.x, position.y*1.1, position.z), radius*2.5);
-        renderBooth(new THREE.Vector3(position.x, position.y*1.6, position.z), radius*2);
-
-        renderCone(position);
-
-        return minaretGroup;
-    }
-
-    /**
-     * Renders the Floor
-     * @class Floor
-     * @constructor
-     * @namespace generative_graphics
-     */
-    function renderFloor(floorSize, widthSegments, heightSegments){
-        let i, l;
-        let geometry = new THREE.PlaneGeometry( floorSize.x, floorSize.y, widthSegments, heightSegments);
-        geometry.rotateX( - Math.PI / 2 );
-
-        for ( i = 0, l = geometry.vertices.length; i < l; i ++ ) {
-
-            let vertex = geometry.vertices[ i ];
-            vertex.x += Math.random() * 2 - 1;
-            // vertex.y += Math.random() * 4;
-            vertex.y += Math.random() * 1;
-            // vertex.z += Math.random() * 15 - 10;
-            vertex.z += Math.random() * 5 - 10;
-        }
-
-        for ( i = 0, l = geometry.faces.length; i < l; i ++ ) {
-
-            let face = geometry.faces[ i ];
-            face.vertexColors[ 0 ] = new THREE.Color().setRGB(1, 0.972, 0.862);
-            face.vertexColors[ 1 ] = new THREE.Color().setRGB(0.713, 0.439, 0.227);
-            face.vertexColors[ 2 ] = new THREE.Color().setRGB(0.580, 0.419, 0.298);
-
-        }
-
-        let material = new THREE.MeshBasicMaterial( { vertexColors: THREE.VertexColors } );
-
-        let mesh = new THREE.Mesh( geometry, material );
-        mesh.position.setZ(40);
-        mesh.position.setX(-7);
-        return mesh;
-    }
-
     /*
      *
      */
@@ -216,50 +119,9 @@ generative_graphics.main = (function (gg){
     
     // generative_graphics.updateFcts = updateFcts;
 
-    /**
-     * Rotates Minaret's Booth on Y Axis
-     */
-    function rotateMinarets(){
-        for(let i=0;i<generative_graphics.minaretsGroup.children.length;i++){
-            let currentMinaret = generative_graphics.minaretsGroup.children[i];
-            currentMinaret.children[3].rotation.y += 0.005;
-        }
-    }
 
-    /**
-     * Rotates Ferris Wheel on Y Axis
-     */
-    function rotateFerrisWheel(){
-        generative_graphics.ferrisWheel.rotation.y -= 0.003;
-    }
-
-    /**
-     * Rotates Pyramid on Y Axis
-     */
-    pyramidLevelIndex = 0;
-
-    function rotatePyramid(){
-        if(generative_graphics.pyramid.children[pyramidLevelIndex].rotation.y < Math.PI){
-            generative_graphics.pyramid.children[pyramidLevelIndex].rotation.y += 0.08;
-        }
-         else {
-            generative_graphics.pyramid.children[pyramidLevelIndex].rotation.y = 0;
-            pyramidLevelIndex++;
-
-            if(pyramidLevelIndex >= generative_graphics.pyramidLevels-1){
-                pyramidLevelIndex = 0;
-            }
-        }
-    }
 
     // generative_graphics.initNav();
-
-   
-
-    /*
-     * Returns true if a given number n is Even
-     */
-    isEven = (n) => n % 2 === 0;
 
     /*
      * Set up and show Javascript Performance Monitor
@@ -335,7 +197,7 @@ generative_graphics.main = (function (gg){
             'rotatedTilesFragmentShader',
             'noiseFragmentShader',
             'simplexGridFragmentShader',
-            'noise2FragmentShader'
+            'aaa'
         ];
 
         let maxPosition = fragmentShadersList.length,
@@ -349,6 +211,8 @@ generative_graphics.main = (function (gg){
             shaderPosition = 0;
         }
 
+        // console.log('shaderPos: ' + shaderPosition);
+        console.log("Shader Name: " + fragmentShadersList[shaderPosition]);
         renderPlaneGeometryShader(fragmentShaderName);
     }
 
@@ -376,15 +240,6 @@ generative_graphics.main = (function (gg){
         updateFcts.forEach(function(updateFn){
             updateFn(deltaMsec/1000, nowMsec/1000);
         });
-        // console.log(ps01exists);
-        if (ps01exists) {
-            gg.main.ps01.run();
-        }
-
-        // if(moveCamera) {
-        //     camera.position.x++;
-        //     camera.position.y++;
-        // }
 
         renderer.render( scene, camera );
 
@@ -398,10 +253,6 @@ generative_graphics.main = (function (gg){
         var selectedObject = scene.getObjectByName(object.name);
         scene.remove( selectedObject );
         animate();
-    }
-
-    function setPs01(exists){
-        ps01exists = exists;
     }
 
     function setCameraRotation(rotate){
@@ -424,12 +275,8 @@ generative_graphics.main = (function (gg){
         updateFcts : updateFcts,
         renderHelpers : renderHelpers,
         clearScene : clearScene,
-        renderMinaret : renderMinaret,
-        renderFloor : renderFloor,
         renderCube : renderCube,
         renderPlaneGeometryShader : renderPlaneGeometryShader,
-        setPs01 : setPs01,
-
         setCameraRotation : setCameraRotation,
         activeScene : activeScene
     };
