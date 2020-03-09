@@ -54,7 +54,6 @@ generative_graphics.main = (function (gg){
 
     /*
      * Init Uniforms for shaderMaerial
-     * TODO: create a shaderMaterial array to use several shaders on several materials
      */
     function setupShaderMaterials(){
         // shaderMaterials = [];
@@ -82,7 +81,7 @@ generative_graphics.main = (function (gg){
         clock = new THREE.Clock();
     }
 
-        /*
+    /*
      * Generates a mesh using the provided Geometry and FragmentShaderName
      */
     function renderPlaneMeshWithShaderMaterial(fragmentShaderName){
@@ -190,14 +189,10 @@ generative_graphics.main = (function (gg){
         requestAnimationFrame( animate );
 
         stats.begin();
-        // rotateMinarets();
-
-        // rotateFerrisWheel();
-
-        // rotatePyramid();
         
-        var lastTimeMsec  = lastTimeMsec || nowMsec-1000/60;
-        var deltaMsec = Math.min(200, nowMsec - lastTimeMsec);
+        let lastTimeMsec;
+        lastTimeMsec  = lastTimeMsec || nowMsec-1000/60;
+        let deltaMsec = Math.min(200, nowMsec - lastTimeMsec);
         lastTimeMsec  = nowMsec;
         
         let delta = clock.getDelta();
@@ -208,13 +203,9 @@ generative_graphics.main = (function (gg){
             updateFn(deltaMsec/1000, nowMsec/1000);
         });
 
-        // if(moveCamera) {
-        //     camera.position.x++;
-        //     camera.position.y++;
-        // }
-
         renderer.render( scene, camera );
 
+        planeMesh.rotation.y += 0.004;
         stats.end();
     }
 
