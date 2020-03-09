@@ -22,17 +22,6 @@ generative_graphics.main = (function (gg){
         shaderPosition = 0,
         uniforms, clock, shaderMaterials, noiseShaderMaterial;
 
-    /**
-     * Render XYZ Axis Helpers
-     */
-    function renderHelpers(){
-        let gridXZ = new THREE.GridHelper(200, 20, '#FF0000');
-        scene.add(gridXZ);
-
-        let axesHelper = new THREE.AxesHelper( 85 );
-        scene.add( axesHelper );
-    }
-
 
     /**
      * Clears All Elements form the Scene
@@ -131,11 +120,8 @@ generative_graphics.main = (function (gg){
         controls = new THREE.OrbitControls( camera, renderer.domElement );
         window.addEventListener( 'resize', onWindowResize, false );
         window.addEventListener( 'click', switchFragmentShader, false);
-        // renderHelpers();
 
-
-
-        renderPlaneMeshWithShaderMaterial('customGradientShader');
+        switchFragmentShader();
      }
 
     /*
@@ -153,8 +139,8 @@ generative_graphics.main = (function (gg){
      */
     function switchFragmentShader(){
         let fragmentShadersList = [
-            'customGradientShader',
             'lavaFragmentShader',
+            'customGradientShader',
             'voronoiFragmentShader',
             'jaguarFragmentShader',
             'redPulseFragmentShader',
@@ -175,9 +161,9 @@ generative_graphics.main = (function (gg){
             shaderPosition = 0;
         }
 
-        planeMesh.material.needsUpdate = true
-        console.log(planeMesh.material);
-        console.log(scene.children);
+        // planeMesh.material.needsUpdate = true
+        // console.log(planeMesh.material);
+        // console.log(scene.children);
         // console.log("Shader Name: " + fragmentShadersList[shaderPosition]);
         renderPlaneMeshWithShaderMaterial(fragmentShaderName);
 
