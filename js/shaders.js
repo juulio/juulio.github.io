@@ -135,7 +135,7 @@ generative_graphics.main = (function (gg){
 
 
 
-        renderPlaneMeshWithShaderMaterial('simplexGridFragmentShader');
+        renderPlaneMeshWithShaderMaterial('customGradientShader');
      }
 
     /*
@@ -153,6 +153,7 @@ generative_graphics.main = (function (gg){
      */
     function switchFragmentShader(){
         let fragmentShadersList = [
+            'customGradientShader',
             'lavaFragmentShader',
             'voronoiFragmentShader',
             'jaguarFragmentShader',
