@@ -18,19 +18,10 @@ generative_graphics.main = (function (gg){
         cube,
         planeGeometry,
         planeMesh,
+        shaderMaterial,
         updateFcts = [],
         shaderPosition = 0,
         uniforms, clock, shaderMaterials, noiseShaderMaterial;
-
-
-    /**
-     * Clears All Elements form the Scene
-     */
-    function clearScene(){
-        while(scene.children.length > 0){ 
-            scene.remove(scene.children[0]); 
-        }   
-    }
 
     /*
      * Stuff needed for shader materials
@@ -74,7 +65,7 @@ generative_graphics.main = (function (gg){
      * Generates a mesh using the provided Geometry and FragmentShaderName
      */
     function renderPlaneMeshWithShaderMaterial(fragmentShaderName){
-        let shaderMaterial = new THREE.ShaderMaterial( {
+        shaderMaterial = new THREE.ShaderMaterial( {
             name: "shaderMaterial",
             uniforms: uniforms,
             vertexShader: document.getElementById( 'vertexShader' ).textContent,
@@ -121,7 +112,10 @@ generative_graphics.main = (function (gg){
         window.addEventListener( 'resize', onWindowResize, false );
         window.addEventListener( 'click', switchFragmentShader, false);
 
-        switchFragmentShader();
+        // switchFragmentShader();
+        // renderPlaneMeshWithShaderMaterial('customGradientShader');
+        renderPlaneMeshWithShaderMaterial('customGradientShader');
+
      }
 
     /*
@@ -138,35 +132,33 @@ generative_graphics.main = (function (gg){
      * Replaces the current fragment shader applied to the plane geometry
      */
     function switchFragmentShader(){
-        let fragmentShadersList = [
-            'lavaFragmentShader',
-            'customGradientShader',
-            'voronoiFragmentShader',
-            'jaguarFragmentShader',
-            'redPulseFragmentShader',
-            'bwMatrixFragmentShader',
-            'rotatedTilesFragmentShader',
-            'noiseFragmentShader',
-            'simplexGridFragmentShader'
-        ];
+        let i,
+            maxPosition,
+            fragmentShaderElement,
+            fragmentShaderNames = [],
+            fragmentShaderScripts = document.getElementsByClassName('fragmentShader');
+        
+        for (i=0; i < fragmentShaderScripts.length; i++) {
+            name = fragmentShaderScripts[i].id
+            fragmentShaderNames.push(name);
+        }
 
-        let maxPosition = fragmentShadersList.length-1,
-            fragmentShaderName;
+        // console.log(fragmentShaderNames);
+
+        maxPosition = fragmentShaderNames.length-1;
+
+        fragmentShaderName = fragmentShaderNames[shaderPosition];
+        fragmentShaderElement = document.getElementById( fragmentShaderName ).textContent;
+
+        planeMesh.material.fragmentShader = fragmentShaderElement;
+        planeMesh.material.needsUpdate = true;
+        planeMesh.material.uniformsNeedUpdate = true;
 
         shaderPosition++;
 
-        fragmentShaderName = fragmentShadersList[shaderPosition];
-        
-        if (shaderPosition >= maxPosition ) {
+        if (shaderPosition > maxPosition ) {
             shaderPosition = 0;
         }
-
-        // planeMesh.material.needsUpdate = true
-        // console.log(planeMesh.material);
-        // console.log(scene.children);
-        // console.log("Shader Name: " + fragmentShadersList[shaderPosition]);
-        renderPlaneMeshWithShaderMaterial(fragmentShaderName);
-
     }
 
     /**
@@ -192,17 +184,8 @@ generative_graphics.main = (function (gg){
 
         renderer.render( scene, camera );
 
-        planeMesh.rotation.y += 0.004;
+        planeMesh.rotation.y += 0.002;
         stats.end();
-    }
-
-    /**
-     * Remove an element from the Scene
-     */
-    function removeEntity(object){
-        let selectedObject = scene.getObjectByName(object.name);
-        scene.remove( selectedObject );
-        animate();
     }
 
     /** 
@@ -219,9 +202,7 @@ generative_graphics.main = (function (gg){
         container,
         controls,
         updateFcts : updateFcts,
-        renderHelpers : renderHelpers,
-        clearScene : clearScene,
-        renderPlaneMeshWithShaderMaterial : renderPlaneMeshWithShaderMaterial,
+        renderPlaneMeshWithShaderMaterial : renderPlaneMeshWithShaderMaterial
     };
 
 }(generative_graphics));
