@@ -35,16 +35,17 @@
             vec3 color = vec3(0.0);
 
             // Scale the space to see the grid
-            st *= 10.;
+            // st *= 0.8 * u_time;
+            st *= 90. * abs(sin(u_time));
 
             // Show the 2D grid
-            color.rg = fract(st);
+            color.rg = st;
 
             // Skew the 2D grid
-            // color.rg = fract(skew(st));
+            color.rg = fract(skew(st));
 
             // Subdivide the grid into to equilateral triangles
-            // color = simplexGrid(st);
+            color = simplexGrid(st);
 
             gl_FragColor = vec4(color,1.0);
         }
