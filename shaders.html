@@ -72,20 +72,24 @@
             vec2 st = gl_FragCoord.xy/u_resolution.xy;
             vec3 color = vec3(0.0);
 
+            // Step will return 0.0 unless the value is over 0.5,
+            // in that case it will return 1.0
+            float y = step(0.5,st.x);
+        
             // Scale the space to see the grid
             // st *= 0.8 * u_time;
-            st *= 90. * abs(sin(u_time));
-
+            st *= 9. * abs(sin(u_time));
+        
             // Show the 2D grid
             color.rg = st;
-
+        
             // Skew the 2D grid
             color.rg = fract(skew(st));
-
+        
             // Subdivide the grid into to equilateral triangles
             color = simplexGrid(st);
-
-            gl_FragColor = vec4(color,1.0);
+        
+            gl_FragColor = vec4(color.x, y, color.x,1.0);
         }
     </script>
     
