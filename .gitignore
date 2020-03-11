@@ -11,3 +11,6 @@ node_modules
 
 # dist production folder
 dist
+
+# Visual Studio code folder with settings.json file
+.vscode
