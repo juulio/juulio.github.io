@@ -112,10 +112,7 @@ generative_graphics.main = (function (gg){
         window.addEventListener( 'resize', onWindowResize, false );
         window.addEventListener( 'click', switchFragmentShader, false);
 
-        // switchFragmentShader();
-        // renderPlaneMeshWithShaderMaterial('customGradientShader');
         renderPlaneMeshWithShaderMaterial('customGradientShader');
-
      }
 
     /*
@@ -150,6 +147,7 @@ generative_graphics.main = (function (gg){
         fragmentShaderName = fragmentShaderNames[shaderPosition];
         fragmentShaderElement = document.getElementById( fragmentShaderName ).textContent;
 
+        // Replace Shader on the shaderMaterial
         planeMesh.material.fragmentShader = fragmentShaderElement;
         planeMesh.material.needsUpdate = true;
         planeMesh.material.uniformsNeedUpdate = true;
