@@ -103,12 +103,12 @@ generative_graphics.main = (function (gg){
         renderer = new THREE.WebGLRenderer( );
         renderer.setPixelRatio( window.devicePixelRatio );
         renderer.setClearColor( 0xFFFFFF, 1 );
-        renderer.setSize( window.innerWidth, window.innerHeight );
+        // renderer.setSize( window.innerWidth, window.innerHeight );
+        renderer.setSize( 600, 600);
         document.body.appendChild( renderer.domElement );
 
         setupShaderMaterials();
 
-        controls = new THREE.OrbitControls( camera, renderer.domElement );
         window.addEventListener( 'resize', onWindowResize, false );
         window.addEventListener( 'click', switchFragmentShader, false);
 
@@ -182,7 +182,6 @@ generative_graphics.main = (function (gg){
 
         renderer.render( scene, camera );
 
-        // planeMesh.rotation.y += 0.002;
         stats.end();
     }
 
@@ -192,15 +191,5 @@ generative_graphics.main = (function (gg){
     showStats();
     initScene();
     animate();
-
-    return {
-        scene : scene,
-        camera : camera,
-        renderer : renderer,
-        container,
-        controls,
-        updateFcts : updateFcts,
-        renderPlaneMeshWithShaderMaterial : renderPlaneMeshWithShaderMaterial
-    };
 
 }(generative_graphics));
