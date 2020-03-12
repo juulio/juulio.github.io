@@ -112,7 +112,7 @@ generative_graphics.main = (function (gg){
         window.addEventListener( 'resize', onWindowResize, false );
         window.addEventListener( 'click', switchFragmentShader, false);
 
-        renderPlaneMeshWithShaderMaterial('customGradientShader');
+        renderPlaneMeshWithShaderMaterial('squares');
      }
 
     /*
@@ -182,7 +182,7 @@ generative_graphics.main = (function (gg){
 
         renderer.render( scene, camera );
 
-        planeMesh.rotation.y += 0.002;
+        // planeMesh.rotation.y += 0.002;
         stats.end();
     }
 
