@@ -13,9 +13,6 @@ generative_graphics.main = (function (gg){
     let scene,
         camera,
         renderer,
-        container,
-        controls,
-        cube,
         planeGeometry,
         planeMesh,
         shaderMaterial,
@@ -47,17 +44,17 @@ generative_graphics.main = (function (gg){
             u_resolution: { value: new THREE.Vector2() },
             uvScale:    { value: new THREE.Vector2( 0.3, 0.3 ) },
             texture1:   { value: textureLoader.load( "assets/textures/cloud.png" ) },
-            texture2:   { value: textureLoader.load( "assets/textures/disturb.jpg" ) },
-            texture3:   { value: textureLoader.load( "assets/textures/lavatile.jpg" ) }
+            // texture2:   { value: textureLoader.load( "assets/textures/disturb.jpg" ) },
+            // texture3:   { value: textureLoader.load( "assets/textures/lavatile.jpg" ) }
         };
 
         uniforms.texture1.value.wrapS = uniforms.texture1.value.wrapT = THREE.RepeatWrapping;
-        uniforms.texture2.value.wrapS = uniforms.texture2.value.wrapT = THREE.RepeatWrapping;
-        uniforms.texture3.value.wrapS = uniforms.texture3.value.wrapT = THREE.RepeatWrapping;
+        // uniforms.texture2.value.wrapS = uniforms.texture2.value.wrapT = THREE.RepeatWrapping;
+        // uniforms.texture3.value.wrapS = uniforms.texture3.value.wrapT = THREE.RepeatWrapping;
 
         uniforms.u_resolution.value.x = window.innerWidth;
         uniforms.u_resolution.value.y = window.innerHeight;
-
+        
         clock = new THREE.Clock();
     }
 
@@ -73,10 +70,10 @@ generative_graphics.main = (function (gg){
             side: THREE.DoubleSide
         });
 
-        planeGeometry = new THREE.PlaneGeometry( 18, 18, 32 );
+        planeGeometry = new THREE.PlaneGeometry( 15, 15, 32 );
 
         planeMesh = new THREE.Mesh( planeGeometry, shaderMaterial );
-
+        // planeMesh.position.set(-(800, (800), 0));
         scene.add( planeMesh );
     }
 
@@ -96,23 +93,23 @@ generative_graphics.main = (function (gg){
         scene = new THREE.Scene();
         
         camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );
-        // camera.position.x = 50;
         camera.position.y = 3;
         camera.position.z = 15;
 
         renderer = new THREE.WebGLRenderer( );
         renderer.setPixelRatio( window.devicePixelRatio );
         renderer.setClearColor( 0xFFFFFF, 1 );
-        // renderer.setSize( window.innerWidth, window.innerHeight );
-        renderer.setSize( 600, 600);
+        renderer.setSize( window.innerWidth, window.innerHeight );
+        // renderer.setSize( 600, 600);
         document.body.appendChild( renderer.domElement );
 
         setupShaderMaterials();
+        
+        renderPlaneMeshWithShaderMaterial('squares');
 
         window.addEventListener( 'resize', onWindowResize, false );
         window.addEventListener( 'click', switchFragmentShader, false);
 
-        renderPlaneMeshWithShaderMaterial('squares');
      }
 
     /*
