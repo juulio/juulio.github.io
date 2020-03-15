@@ -105,7 +105,7 @@ generative_graphics.main = (function (gg){
 
         setupShaderMaterials();
         
-        renderPlaneMeshWithShaderMaterial('squares');
+        renderPlaneMeshWithShaderMaterial('animatedBackground');
 
         window.addEventListener( 'resize', onWindowResize, false );
         window.addEventListener( 'click', switchFragmentShader, false);
