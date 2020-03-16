@@ -18,7 +18,11 @@ generative_graphics.main = (function (gg){
         shaderMaterial,
         updateFcts = [],
         shaderPosition = 0,
-        uniforms, clock, shaderMaterials, noiseShaderMaterial;
+        uniforms, clock;
+
+    let SCREEN_WIDTH = window.innerWidth;
+    let SCREEN_HEIGHT = window.innerHeight;
+    let aspect = SCREEN_WIDTH / SCREEN_HEIGHT;
 
     /*
      * Stuff needed for shader materials
@@ -33,24 +37,13 @@ generative_graphics.main = (function (gg){
      * Init Uniforms for shaderMaerial
      */
     function setupShaderMaterials(){
-        // shaderMaterials = [];
-
-        let textureLoader = new THREE.TextureLoader();
-
         uniforms = {
             fogDensity: { value: 0.45 },
             fogColor:   { value: new THREE.Vector3( 0, 0, 0 ) },
             u_time:       { value: 1.0 },
             u_resolution: { value: new THREE.Vector2() },
             uvScale:    { value: new THREE.Vector2( 0.3, 0.3 ) },
-            texture1:   { value: textureLoader.load( "assets/textures/cloud.png" ) },
-            // texture2:   { value: textureLoader.load( "assets/textures/disturb.jpg" ) },
-            // texture3:   { value: textureLoader.load( "assets/textures/lavatile.jpg" ) }
         };
-
-        uniforms.texture1.value.wrapS = uniforms.texture1.value.wrapT = THREE.RepeatWrapping;
-        // uniforms.texture2.value.wrapS = uniforms.texture2.value.wrapT = THREE.RepeatWrapping;
-        // uniforms.texture3.value.wrapS = uniforms.texture3.value.wrapT = THREE.RepeatWrapping;
 
         uniforms.u_resolution.value.x = window.innerWidth;
         uniforms.u_resolution.value.y = window.innerHeight;
@@ -70,10 +63,9 @@ generative_graphics.main = (function (gg){
             side: THREE.DoubleSide
         });
 
-        planeGeometry = new THREE.PlaneGeometry( 15, 15, 32 );
-
+        planeGeometry = new THREE.PlaneGeometry( 1500, 900, 32 );
         planeMesh = new THREE.Mesh( planeGeometry, shaderMaterial );
-        // planeMesh.position.set(-(800, (800), 0));
+
         scene.add( planeMesh );
     }
 
@@ -92,20 +84,19 @@ generative_graphics.main = (function (gg){
     function initScene(){
         scene = new THREE.Scene();
         
-        camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );
-        camera.position.y = 3;
-        camera.position.z = 15;
+        camera = new THREE.OrthographicCamera( SCREEN_WIDTH / - 2, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, SCREEN_HEIGHT / - 2, 1, 1000 );
+        // camera = new THREE.PerspectiveCamera( 75, SCREEN_WIDTH/SCREEN_HEIGHT, 0.1, 1000 );
+        camera.position.z = 1;
 
         renderer = new THREE.WebGLRenderer( );
         renderer.setPixelRatio( window.devicePixelRatio );
         renderer.setClearColor( 0xFFFFFF, 1 );
-        renderer.setSize( window.innerWidth, window.innerHeight );
-        // renderer.setSize( 600, 600);
+        renderer.setSize( SCREEN_WIDTH, SCREEN_HEIGHT );
         document.body.appendChild( renderer.domElement );
 
         setupShaderMaterials();
         
-        renderPlaneMeshWithShaderMaterial('animatedBackground');
+        renderPlaneMeshWithShaderMaterial('pulse');
 
         window.addEventListener( 'resize', onWindowResize, false );
         window.addEventListener( 'click', switchFragmentShader, false);
@@ -116,10 +107,14 @@ generative_graphics.main = (function (gg){
      * Handles window resize events
      */
     function onWindowResize(){
-        camera.aspect = window.innerWidth / window.innerHeight;
+        SCREEN_WIDTH = window.innerWidth;
+        SCREEN_HEIGHT = window.innerHeight;
+        aspect = SCREEN_WIDTH / SCREEN_HEIGHT;
+                
+        camera.aspect = 0.5 * aspect;
         camera.updateProjectionMatrix();
 
-        renderer.setSize( window.innerWidth, window.innerHeight );
+        renderer.setSize( SCREEN_WIDTH, SCREEN_HEIGHT );
     }
 
     /*
