@@ -63,9 +63,9 @@ generative_graphics.main = (function (gg){
             side: THREE.DoubleSide
         });
 
-        planeGeometry = new THREE.PlaneGeometry( 1500, 900, 32 );
+        planeGeometry = new THREE.PlaneGeometry( 1, 1);
         planeMesh = new THREE.Mesh( planeGeometry, shaderMaterial );
-
+        planeMesh.scale.set(2, 2, 2);
         scene.add( planeMesh );
     }
 
@@ -84,8 +84,8 @@ generative_graphics.main = (function (gg){
     function initScene(){
         scene = new THREE.Scene();
         
-        camera = new THREE.OrthographicCamera( SCREEN_WIDTH / - 2, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, SCREEN_HEIGHT / - 2, 1, 1000 );
-        // camera = new THREE.PerspectiveCamera( 75, SCREEN_WIDTH/SCREEN_HEIGHT, 0.1, 1000 );
+        // camera = new THREE.OrthographicCamera( SCREEN_WIDTH / - 2, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, SCREEN_HEIGHT / - 2, 1, 1000 );
+        camera = new THREE.PerspectiveCamera( 75, SCREEN_WIDTH/SCREEN_HEIGHT, 0.1, 1000 );
         camera.position.z = 1;
 
         renderer = new THREE.WebGLRenderer( );
