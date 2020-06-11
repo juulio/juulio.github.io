@@ -54,26 +54,58 @@ table {
     border-spacing: 0;
 }
 
+/* FONTS
+-------------------------------------------------- */
+@font-face {
+	font-family: 'GothamExtraLight';
+	src: url('Gotham-ExtraLight.eot');
+	src: local('Gotham Extra Light'), local('Gotham-ExtraLight'),
+		url('../fonts/Gotham-ExtraLight.eot?#iefix') format('embedded-opentype'),
+		url('../fonts/Gotham-ExtraLight.woff2') format('woff2'),
+		url('../fonts/Gotham-ExtraLight.woff') format('woff'),
+		url('../fonts/Gotham-ExtraLight.ttf') format('truetype'),
+		url('../fonts/Gotham-ExtraLight.svg#Gotham-ExtraLight') format('svg');
+	font-weight: 200;
+	font-style: normal;
+}
+
+
 /* GENERAL STYLES
 -------------------------------------------------- */
 body {
     margin: 0;
-    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    color: #999999;
+    font-family: 'GothamExtraLight';
+}
+
+#content{
+	padding: 2vw;
 }
 
 canvas {
     display: block;
 }
 
-nav {
-    color: #FFF;
-    padding-top: 20px;
-    padding-left: 20px;
-    position: absolute;
-    text-shadow: 2px 2px #000;
+h1 {
+    padding: 2vw;
+    font-size: 2vw;
+    letter-spacing: 0.6vw;
+	border-bottom: solid 1px #C0C0C0;
 }
 
-nav li {
+a {
+    color: #999999;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #FF0000;
     cursor: pointer;
-    margin-bottom: 20px;
+}
+
+li {
+    font-size: 1.2vw;
+    margin-bottom: 3vw;
+    letter-spacing: 0.2vw;
 }
