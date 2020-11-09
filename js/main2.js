@@ -1,6 +1,6 @@
-import THREE from '../js/vendor/three.module.js';
-import OrbitControls from '../js/vendor/orbitControls.module.js';
-import Branch from '../js/Branch.js';
+import * as THREE from '../js/vendor/three.module.js';
+import { OrbitControls } from '../js/vendor/OrbitControls.js';
+import Branch from './branch.js';
 
 import {
 	renderer,
@@ -12,7 +12,7 @@ import {
 
 const camera = getCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 const scene = new THREE.Scene();
-const controls = new OrbitControls( camera );
+const controls = new OrbitControls( camera, renderer.domElement );
 
 
 

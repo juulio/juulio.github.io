@@ -1,4 +1,4 @@
-import THREE from '../js/vendor/three.module.js';
+import * as THREE from './vendor/three.module.js';
 
 class Branch {
 	constructor(origin, radius, height, angleX, angleZ, fractalRatio) {
