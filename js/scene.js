@@ -1,4 +1,4 @@
-import THREE from '../js/vendor/three.module.js';
+import * as THREE from '../js/vendor/three.module.js';
 
 /**
  * Init webGL renderer and HTML Canvas
