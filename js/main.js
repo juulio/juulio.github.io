@@ -94,8 +94,15 @@ function renderTree(origin, radius, height, angleX, angleZ, material, parentMate
     	function(){
     		if(level > limit){
     			branchParentMesh.add(leafMesh);
-    			let randValue = THREE.Math.randFloat(-0.1, 0.1);
-    			let leafTween = new TWEEN.Tween(leafMesh.position).to({ x : leafMesh.position.x + randValue }).repeat( Infinity ).start();
+				let randValue = THREE.Math.randFloat(-0.1, 0.1),
+				// leafTweenFront = new TWEEN.Tween(leafMesh.position).to({ x : leafMesh.position.x + randValue }).repeat( Infinity ).start(),
+				leafTweenFront = new TWEEN.Tween(leafMesh.position).to({ x : leafMesh.position.x + randValue }),
+				leafTweenBack = new TWEEN.Tween(leafMesh.position).to({ x : leafMesh.position.x - randValue });
+
+				leafTweenFront.chain(leafTweenBack);
+				leafTweenBack.chain(leafTweenFront);
+				leafTweenFront.start();
+
     		}
     	}
     );
