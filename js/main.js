@@ -12,7 +12,7 @@
   */
 
 import * as THREE from '../js/vendor/three.module.js';
-import { OrbitControls } from '../js/vendor/orbitControls.js';
+import { OrbitControls } from '../js/vendor/OrbitControls.js';
 
 import {
 	renderer,
