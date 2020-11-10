@@ -44,9 +44,31 @@ let origin = new THREE.Vector3(0, 0, 0),
 	angleX = Math.PI/4,
 	angleZ = Math.PI/5,
 	level = 0,
-	limit = 1;
+	limit = 3;
 
+let branchGeometries = [];//We store Geometries for branches here so we can reuse them without calling the constructor inside the recursive function.
+let boxGeometries = [];//Same for box geometries.
+let leafGeometry = new THREE.SphereGeometry( 0.1, 32, 32 );//Leaf geometry is always the same regardless of the level.
+
+/**
+  * Generates geometries
+  */
+function generateGeometries(){
+	let top = (limit===1)? 3:limit*2;//If the limit is set to one things go wrong. This fixes it setting it to three... Lazy fix.
+	for( let i = 0; i<top; i++){
+		let [r,h] = [radius,height].map((param)=>(param* Math.pow(fractalRatio,i)));//Get new parameters for each iteration
+		branchGeometries.push(new THREE.CylinderBufferGeometry( r, r, h ));
+		boxGeometries.push(new THREE.BoxBufferGeometry( r*2, h, r*2 ));
+	}
+}
+
+//Generate the geometries before rendering the tree
+generateGeometries();
+
+
+let startTimestamp = Date.now();//Timepstamp to meausre rendering time
 let tree = renderTree(origin, radius, height, angleX, angleZ, woodMaterial, redMaterial, fractalRatio, level, limit)
+console.log(`Rendering the tree took: ${(Date.now()-startTimestamp)/1000} seconds. Using a level limit of:${limit}` );//Log rendering time in seconds.
 
 scene.add(tree);
 
@@ -63,15 +85,11 @@ scene.add(tree);
   * CylinderBufferGeometry(radiusTop : Float, radiusBottom : Float, height : Float)
   */
 function renderTree(origin, radius, height, angleX, angleZ, material, parentMaterial, scalingFactor, level, limit){
-	let branchDiameter = radius * 2,
-		boxGeometry = new THREE.BoxBufferGeometry( branchDiameter, height, branchDiameter ),
-		branchParentMesh = new THREE.Mesh( boxGeometry, parentMaterial ),
-
-		branchGeometry = new THREE.CylinderBufferGeometry( radius, radius, height ),
-		branchMesh = new THREE.Mesh ( branchGeometry, material ),
-
-		leafGeometry = new THREE.SphereGeometry( 0.1, 32, 32 ),
-		leafMesh = new THREE.Mesh ( leafGeometry, greenMaterial);
+	
+	//Reuse geometries, don't use geometry constructors here.
+	let branchParentMesh = new THREE.Mesh( boxGeometries[level], parentMaterial ),
+	branchMesh = new THREE.Mesh ( branchGeometries[level], material ),
+	leafMesh = new THREE.Mesh ( leafGeometry, greenMaterial);
 
 	leafMesh.position.set(origin.x, height, origin.z);
 
