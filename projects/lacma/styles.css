@@ -133,7 +133,7 @@ li {
     
     video {
         width: 100%;
-        margin-bottom: 1%;
+        margin-bottom: 3%;
     }
 
     .rsvp {
@@ -150,7 +150,15 @@ li {
         background: #ffffff;
     }
 
-    p {
-        font-size: 13px;
+    .comitee {
+        margin-top: 15%;
+    }
+
+    ul {
+        margin-top: 20px;
+    }
+
+    li {
+        margin-bottom: 14px;
     }
 }
