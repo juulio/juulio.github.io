@@ -65,6 +65,10 @@ table {
         
         
 /* Custom Code for LACMA Nov 2020 */
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     color: #ffffff;
     background: #000;
