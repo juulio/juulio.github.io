@@ -69,6 +69,7 @@ body {
     color: #ffffff;
     background: #000;
     font-size: 13px;
+    font-weight: 300;
     font-family: gothambook-webfont;
 }
 
@@ -76,23 +77,28 @@ main {
     margin: 0 auto;
     text-align: center;
     padding-top: 2%;
+    margin-bottom: 45px;
 }
 
 video {
-    margin-bottom: 3vw;
     width: 95.8vw;
     height: 100%;
 }
 
+.mainVideo {
+    margin-bottom: 3vw;
+}
+
+.arrowVideo {
+    margin-bottom: 13.067vw;
+}
 .rsvp {
     width: 17vw;
-    /* height: 5.733vw; */
     margin: 0 auto;
     display: block;
     text-align: center;
     font-family: gothambook-webfont;
     font-size: 20px;
-    /* line-height: 19.2px; */
     letter-spacing: 1.6px;
 
     cursor: pointer;
@@ -109,19 +115,19 @@ video {
     -webkit-tap-highlight-color: transparent;
 }
 
-.comitee {
+.committee {
     display: block;
-    margin-top: 10vw;
+    margin-bottom: 28px;
 }
 
 ul {
-    margin-top: 7vw;
     letter-spacing: 0.03em;
     text-align: center; 
 }
 
 li {
-    margin-bottom: 7px;
+    line-height: 0.8;
+    margin-bottom: 9px;
 }
 
 @media (min-device-width: 601px) {
@@ -133,7 +139,14 @@ li {
     
     video {
         width: 100%;
-        margin-bottom: 3%;
+    }
+
+    .mainVideo {
+        margin-bottom: 1vw;
+    }
+
+    .arrowVideo {        
+        margin-bottom: 4.3vw;
     }
 
     .rsvp {
@@ -142,20 +155,11 @@ li {
         font-size: 20px;
         border-width: 2px;
         padding: 11px 25px 4px;
-        /* padding: 9px 23px 7px 24px; */
     }
 
     .rsvp:hover {
         color: #000000;
         background: #ffffff;
-    }
-
-    .comitee {
-        margin-top: 15%;
-    }
-
-    ul {
-        margin-top: 20px;
     }
 
     li {
