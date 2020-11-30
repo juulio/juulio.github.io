@@ -17,7 +17,7 @@ export default class Skybox {
         this.boxSize = boxSize;
     }
 
-    get getSkybox (){
+    get getSkybox(){
         return this.skybox;
     }
 

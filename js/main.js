@@ -5,7 +5,7 @@
   * ✓ 3. hacer una función "renderTree"', que llama a renderBranch un montón de veces y le da parámetros, ojalá con objetos
   * ✓ 4. Hacer que funcione recursivamente
   * 5. Arreglar ángulo a la función del trunk para que se comporte "igual" que los branches. El tronco debería ser capaz de crecer en cualquier dirección
-  * 6. Agregar tweens
+  * ✓ 6. Agregar tweens
   * 7. hacer un JSON, que contenga los parámetros que construyen el árbol
   * 8. hacer un generador/randomizador de ese JSON, para que cada pageLoad se haga uno diferente.
   * 9. aplicar shaderMaterials y hacer un despiche animado entre tronco, ramas,  hojas y flores
@@ -40,11 +40,11 @@ greenMaterial.opacity = 0.6;
 let origin = new THREE.Vector3(0, 0, 0),
 	radius = 0.1,
 	height = 1,
-	fractalRatio = 0.8,
+	fractalRatio = 0.8, // fractal Ratio
 	angleX = Math.PI/4,
 	angleZ = Math.PI/5,
 	level = 0,
-	limit = 1;
+	limit = 2;
 
 let tree = renderTree(origin, radius, height, angleX, angleZ, woodMaterial, redMaterial, fractalRatio, level, limit)
 
@@ -54,9 +54,11 @@ scene.add(tree);
   * Render Branch
   * @param {THREE.Vector3( x, y, z)} origin
   * @param {Number} radius
-  * @param {Number} height
-  * @param {Radian} angle
+  * @param {Number} height // length of each Branch
+  * @param {Radian} angleX
+  * @param {Radian} angleZ
   * @param {THREE.MeshBasicMaterial} material
+  * @param {THREE.MeshBasicMaterial} parentMaterial
   * @param {Number} level
   * @param {Number} limit
   * @param {Number} animationTime miliseconds
@@ -65,7 +67,7 @@ scene.add(tree);
 function renderTree(origin, radius, height, angleX, angleZ, material, parentMaterial, scalingFactor, level, limit){
 	let branchDiameter = radius * 2,
 		boxGeometry = new THREE.BoxBufferGeometry( branchDiameter, height, branchDiameter ),
-		branchParentMesh = new THREE.Mesh( boxGeometry, parentMaterial ),
+		branchParentMesh = new THREE.Mesh( boxGeometry, parentMaterial ), // for bounding boxes
 
 		branchGeometry = new THREE.CylinderBufferGeometry( radius, radius, height ),
 		branchMesh = new THREE.Mesh ( branchGeometry, material ),
@@ -91,7 +93,9 @@ function renderTree(origin, radius, height, angleX, angleZ, material, parentMate
     	}, 2000
     )
     .onComplete(
-    	function(){
+    	() => {
+			console.log('level ' + level);
+			console.log('limit ' + limit);
     		if(level > limit){
     			branchParentMesh.add(leafMesh);
 				let randValue = THREE.Math.randFloat(-0.1, 0.1),
@@ -102,9 +106,8 @@ function renderTree(origin, radius, height, angleX, angleZ, material, parentMate
 				leafTweenFront.chain(leafTweenBack);
 				leafTweenBack.chain(leafTweenFront);
 				leafTweenFront.start();
-
-    		}
-    	}
+			}
+		}
     );
     tween.start();
 

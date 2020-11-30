@@ -36,16 +36,21 @@ const init = () => {
     // scene.add( axisHelper );
 
     // Render Elements on the Screen
-    // let buildingPosition = new THREE.Vector3(0, 0, 0);
-    // let b = new Building();
-    // scene.add(MOSQUE.Building.render;
+    let buildingPosition = new THREE.Vector3(0, 0, 0);
+    // let b = new Building(buildingPosition, 1)
+    // scene.add(b.mosqueBuildingGroup);
     
-    let skyboxSize = 1000;
+    let skyboxSize = 7000;
+    // scene.add(skybox.getSkybox);
+    
     // scene.add(new Skybox(skyboxSize));
-
+    
+    
     // renderTrees();
 
-    scene.add(new Floor());
+    let floor = new Floor(160, 80, 100, 100);
+    // let floor = new Floor(2000, 2000, 100, 100);
+    scene.add(floor.getFloor);
 
     let minaretHeight = 36;
     
@@ -72,10 +77,9 @@ const setScene = () => {
     document.body.appendChild( container );
 
     camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 1, 1000 );
-    // camera.position.x = -10;
-    camera.position.x = -90;
-    camera.position.y = 50;
-    camera.position.z = 130;
+    // camera.position.x = -1;
+    // camera.position.y = 5;
+    camera.position.z = 3;
 
     scene = new THREE.Scene();
 
