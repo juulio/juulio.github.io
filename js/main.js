@@ -32,7 +32,7 @@ animate();
 
 let woodMaterial = new THREE.MeshBasicMaterial( { color: 0x8B4513 } ),
 	redMaterial = new THREE.MeshBasicMaterial( { transparent: true, wireframe: true } ),
-	greenMaterial = new THREE.MeshBasicMaterial( { transparent: true, color: 0x00FF13 } );
+	greenMaterial = new THREE.MeshBasicMaterial( { transparent: true, color: 0x00FFFF } );
 
 redMaterial.opacity = 0;
 greenMaterial.opacity = 0.6;
