@@ -46,9 +46,17 @@ let origin = new THREE.Vector3(0, 0, 0),
 	level = 0,
 	limit = 2;
 
-let tree = renderTree(origin, radius, height, angleX, angleZ, woodMaterial, redMaterial, fractalRatio, level, limit)
+let tree = renderTree(origin, radius, height, angleX, angleZ, woodMaterial, redMaterial, fractalRatio, level, limit),
+anotherThree = renderTree(new THREE.Vector3(0, 0, 0), radius, height, angleX, angleZ, woodMaterial, redMaterial, fractalRatio, level, limit);
 
 scene.add(tree);
+scene.add(anotherThree);
+
+const geometry = new THREE.PlaneGeometry( 5, 10, 32 );
+const material = new THREE.MeshBasicMaterial( {color: 0xffff00, side: THREE.DoubleSide} );
+const plane = new THREE.Mesh( geometry, material );
+plane.rotation.x = Math.PI / 2;
+scene.add( plane );
 
 /**
   * Render Branch
@@ -151,7 +159,7 @@ function initScene(){
 	scene.add( getGridHelper(50, 5, '#000000') );
 	
 	//The X axis is red. The Y axis is green. The Z axis is blue.
-	scene.add( getAxesHelper(50) );
+	// scene.add( getAxesHelper(50) );
 	// scene.add( getAmbientLight(0x404040) );
 
 	camera.position.set(0, 3, 3.5);
