@@ -44,22 +44,28 @@ let origin = new THREE.Vector3(0, 0, 0),
 	angleX = Math.PI/4,
 	angleZ = Math.PI/5,
 	level = 0,
-	limit = 2;
+	limit = 1;
 
-let tree = renderTree(origin, radius, height, angleX, angleZ, woodMaterial, redMaterial, fractalRatio, level, limit),
-anotherThree = renderTree(new THREE.Vector3(0, 0, 0), radius, height, angleX, angleZ, woodMaterial, redMaterial, fractalRatio, level, limit);
+let tree = renderTree(origin, radius, height, angleX, angleZ, woodMaterial, redMaterial, fractalRatio, level, limit);
+// anotherThree = renderTree(new THREE.Vector3(0, 0, 0), radius, height, angleX, angleZ, woodMaterial, redMaterial, fractalRatio, level, limit);
+// scene.add(tree);
+// scene.add(anotherThree);
 
-scene.add(tree);
-scene.add(anotherThree);
+const planeGeometry = new THREE.PlaneGeometry( 5, 10, 32 );
 
-const geometry = new THREE.PlaneGeometry( 5, 10, 32 );
-const material = new THREE.MeshBasicMaterial( {color: 0xffff00, side: THREE.DoubleSide} );
-const plane = new THREE.Mesh( geometry, material );
-plane.rotation.x = Math.PI / 2;
-scene.add( plane );
+let material = new THREE.MeshBasicMaterial( {color: 0xffff00, side: THREE.DoubleSide} );
+const yellowPlane = new THREE.Mesh( planeGeometry, material );
+yellowPlane.rotation.x = Math.PI / 2;
+scene.add( yellowPlane );
+
+material = new THREE.MeshBasicMaterial( {color: 0xff0000, side: THREE.DoubleSide} );
+const redPlane = new THREE.Mesh( planeGeometry, material );
+redPlane.rotation.x = Math.PI / 2;
+redPlane.position.set(-7, 0, 0);
+scene.add( redPlane );
 
 /**
-  * Render Branch
+  * Render Tree
   * @param {THREE.Vector3( x, y, z)} origin
   * @param {Number} radius
   * @param {Number} height // length of each Branch
@@ -102,8 +108,8 @@ function renderTree(origin, radius, height, angleX, angleZ, material, parentMate
     )
     .onComplete(
     	() => {
-			console.log('level ' + level);
-			console.log('limit ' + limit);
+			// console.log('level ' + level);
+			// console.log('limit ' + limit);
     		if(level > limit){
     			branchParentMesh.add(leafMesh);
 				let randValue = THREE.Math.randFloat(-0.1, 0.1),
@@ -139,6 +145,36 @@ function renderTree(origin, radius, height, angleX, angleZ, material, parentMate
 
 	return branchParentMesh;
 }
+
+
+/**
+  * Render New Tree 2021
+  * @param {THREE.Vector3( x, y, z)} origin
+  */
+function renderNewTree(origin) {
+
+}
+
+function branch(origin, radius, height, material){
+	let branchGeometry = new THREE.CylinderBufferGeometry( radius, radius, height ),
+		branchMesh = new THREE.Mesh ( branchGeometry, material );
+
+	branchMesh.position.set(origin.x, height/2, origin.z);
+	scene.add(branchMesh);
+}
+
+
+
+let branchOrigin = new THREE.Vector3(-7, height, 0);
+// 	radius = 0.1,
+// 	height = 1,
+// 	fractalRatio = 0.8, // fractal Ratio
+// 	angleX = Math.PI/4,
+// 	angleZ = Math.PI/5,
+	
+branch(branchOrigin, radius, height, woodMaterial);
+
+
 
 /**
   * Set up and show Javascript Performance Monitor
