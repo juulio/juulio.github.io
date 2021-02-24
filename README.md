@@ -1,16 +1,11 @@
 # Javascript Generative Graphics Experiments.
 
-### Oktoberfest 2019
-* 1 - The Moon
-* 2 - Saturn
-* 3 - Animated cubes
-* 4 - Costa Rica flag
-* 5 - 
 
 
 # Project History
 
-* October 2019 - Oktoberfest: THREE.js daily sketch
+* February 2021 - Added webpack to bundle JS + Threejs
+* October 2019 - Unsuccesfully tried to do a THREE.js daily sketch
 * June 2017 - This project is a GULP + THREEjs Template.
 
 ### installation
@@ -27,23 +22,7 @@ npm -v
 3. Go into the recently cloned project folder, Make sure there's a package.json file and type **npm install**.  
 After this command is properly finished, there will be a new 'node_modules' folder.
 
-4. To run the project type **gulp**.
-CSS and javascript will not be minified.
-
-5. To build the project type **gulp build**.  
-A **dist** folder will be created.  
-CSS and javascript will be minified.
-
-### gulpfile tasks
-* **sass**: takes all scss files on the app/scss folder and creates the app/css/styles.css file.
-* **minify-css**: minifies the app/css/styles.css file.
-* **browserSync**: reloads the app on the browser.
-* **useref**: concatenates referenced non-optimized js and css files. Uses gulpIf and uglify to minify javascript files.
-* **clean**:dist: cleans the dist production environment.
-* **cache**:clear: cache clear task.
-* **copy-images-folder**: copys the images folder to the dist folder
-* **watch**: watches the sass and javascript files and reloads the browser.
-* **default**: runs this task sequence in the provided order: sass, browserSync, watch.
+4. To run the project type 
 
 ### gitignore
 There's a .gitignore file. It avoids the following files and folders to be included on the git repository.
