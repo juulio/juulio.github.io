@@ -1,4 +1,5 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const HtmlWebpackPartialsPlugin = require('html-webpack-partials-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const path = require('path');
 
@@ -33,5 +34,10 @@ module.exports = {
     new HtmlWebpackPlugin({
       title: "juulio.com - threeJS development",
     }),
+    new HtmlWebpackPartialsPlugin({
+      path: './src/partials/google-analytics.html',
+      location: 'head',
+      priority: 'high'
+    })
   ],
 };
