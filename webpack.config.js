@@ -1,6 +1,8 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const HtmlWebpackPartialsPlugin = require('html-webpack-partials-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const CnameWebpackPlugin = require('cname-webpack-plugin');
+ 
 const path = require('path');
 
 module.exports = {
@@ -38,6 +40,11 @@ module.exports = {
       path: './src/partials/google-analytics.html',
       location: 'head',
       priority: 'high'
-    })
+    }),
+    new CnameWebpackPlugin({
+      domain: 'juliodelvalle.com',
+    }),
+
+
   ],
 };
