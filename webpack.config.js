@@ -1,23 +1,33 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const HtmlWebpackPartialsPlugin = require('html-webpack-partials-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const CnameWebpackPlugin = require('cname-webpack-plugin');
+const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
+
 const path = require('path');
 
 module.exports = {
-  module: {
-    rules: [
-      {
-        test: /\.s[ac]ss$/i,
-        use: [ "style-loader", "css-loader", "sass-loader"],
-      },
-    ],
-  },
   entry: {
     main: path.resolve(__dirname, './src/js/app.js'),
   },
   output: {
     filename: '[name].bundle.js',
     path: path.resolve(__dirname, 'docs')
+  },
+  module: {
+    rules: [
+      {
+        test: /\.s[ac]ss$/i,
+        use: [ "style-loader", "css-loader", "sass-loader"],
+      },
+      {
+        test: /\.glsl$/,
+        use: 'webpack-glsl-minify'
+      }
+    ]
+  },
+  resolve: {
+    extensions: [ '.glsl' ]
   },
   devServer: {
     contentBase: './docs',
@@ -38,6 +48,10 @@ module.exports = {
       path: './src/partials/google-analytics.html',
       location: 'head',
       priority: 'high'
-    })
+    }),
+    new CnameWebpackPlugin({
+      domain: 'juliodelvalle.com',
+    }),
+    new FaviconsWebpackPlugin('./src/public/images/favicon.ico')
   ],
 };

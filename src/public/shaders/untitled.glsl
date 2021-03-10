@@ -30,7 +30,7 @@ float Smiley(vec2 uv, vec2 p, float size){
  
     return mask;
 }
- 
+
 float Band(float t, float start, float end, float blur){
     float step1 = smoothstep(start-blur, start+blur, t);
     float step2 = smoothstep(end+blur, end-blur, t);
@@ -79,4 +79,3 @@ void main(){
  
     gl_FragColor = vec4(col, 1.0);
 }
-
