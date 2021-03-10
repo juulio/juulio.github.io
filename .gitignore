@@ -9,8 +9,9 @@ node_modules
 **/.sass-cache
 **/.sass-cache/*
 
-# dist production folder
-dist
+# CNAME on the production folder
+docs/CNAME
 
 # Visual Studio code folder with settings.json file
 .vscode
+
