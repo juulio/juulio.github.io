@@ -1,15 +1,18 @@
 import '../styles/style.scss';
 import gotham_black_regular from '../public/fonts/gotham_black_regular.json';
-// import vertexShader from '../public/shaders/vertexShader.glsl';
-// import voronoiFragmentShader from '../public/shaders/voronoiFragmentShader.glsl';
+
 import * as THREE from 'three';
 import { OrbitControls } from 'OrbitControls';
+
+
+let fragmentShader = require('../public/shaders/fragment.glsl');
+let vertexShader = require('../public/shaders/vertex.glsl');
 
 const scene = new THREE.Scene();
 // const controls = new OrbitControls();
 let  camera, renderer, controls;
-let geometry, material, mesh;
-let shaderMaterials, uniforms, letterPosition, textGeometry, textMesh, delta, isMobile;
+// let geometry, material, mesh;
+let clock, shaderMaterials, uniforms, letterPosition, textGeometry, textMesh, delta, isMobile;
 
  
 
@@ -26,9 +29,11 @@ function init(font) {
 		isMobile = true;
 	}
 
-    camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 0.01, 10 );
+	camera = new THREE.PerspectiveCamera( 80, window.innerWidth / window.innerHeight, 0.01, 10 );
     camera.position.z = 1;
  
+	clock = new THREE.Clock();
+
     renderer = new THREE.WebGLRenderer( { antialias: true } );
     renderer.setSize( window.innerWidth, window.innerHeight );
     document.body.appendChild( renderer.domElement );
@@ -36,7 +41,7 @@ function init(font) {
     // controls
     controls = new OrbitControls( camera, renderer.domElement );
 
-    // setupShaderMaterials();
+    setupShaderMaterials();
 
     renderTextGeometry(font);
 
@@ -52,6 +57,10 @@ function animate() {
  
     requestAnimationFrame( animate );
  
+
+	delta = clock.getDelta();
+	uniforms.u_time.value += delta * 2;
+
     // mesh.rotation.x += 0.01;
  
     renderer.render( scene, camera );
@@ -68,7 +77,7 @@ function onWindowResize(){
 }
 
 /*
-* Load the JSON font and call init
+* Load the JSON font and launch init
 */
 const loader = new THREE.FontLoader();
 let font = loader.parse(gotham_black_regular);
@@ -89,7 +98,7 @@ function renderTextGeometry(font){
 	for(let i=0;i<theText.length;i++){
 		textGeometry = new THREE.TextGeometry( theText[i], {
 			font: font,
-			size: 1.15,
+			size: 1,
 			height: 0.25,
 			curveSegments: 20
 		});
@@ -97,7 +106,8 @@ function renderTextGeometry(font){
 		textGeometry.center();
 
 		// letterMesh = new THREE.Mesh( textGeometry, new THREE.MeshBasicMaterial({wireframe: true, color : 0xFF0000}) );
-		letterMesh = new THREE.Mesh( textGeometry, new THREE.MeshNormalMaterial());
+		// letterMesh = new THREE.Mesh( textGeometry, new THREE.MeshNormalMaterial());
+		letterMesh = new THREE.Mesh( textGeometry, shaderMaterials[0]);
 
 		letterMesh.position.x = i;
 
@@ -105,7 +115,8 @@ function renderTextGeometry(font){
 	}
 
 	textMesh.position.x = -6;
-	textMesh.position.y = 0.2;
+	// textMesh.position.y = 0;
+	// textMesh.position.z = 2;
 
 	if(isMobile){
 		textMesh.position.y = 3.5;
@@ -113,7 +124,6 @@ function renderTextGeometry(font){
 
 	scene.add(textMesh);
 }
-
 
 /**
  * Init Uniforms for shaderMaerial
@@ -133,13 +143,14 @@ function setupShaderMaterials(){
 
 	shaderMaterials.push(
 		new THREE.ShaderMaterial( {
-			name: "Voronoi",
+			name: "Basic",
 			uniforms: uniforms,
-			vertexShader: document.getElementById( 'vertexShader' ).textContent,
-			fragmentShader: document.getElementById( 'voronoiFragmentShader' ).textContent
+			vertexShader: vertexShader.toString(),
+			// fragmentShader: document.getElementById( 'voronoiFragmentShader' ).textContent
+			fragmentShader: fragmentShader.toString()
 		})
 	);
-
+/*
 	shaderMaterials.push(
 		new THREE.ShaderMaterial( {
 			name: "Jaguar Texture",
@@ -202,4 +213,5 @@ function setupShaderMaterials(){
 			fragmentShader: document.getElementById( 'displacementFragmentShader' ).textContent
 		})
 	);
+	*/
 }
