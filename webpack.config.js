@@ -21,14 +21,18 @@ module.exports = {
         use: [ "style-loader", "css-loader", "sass-loader"],
       },
       {
-        test: /\.glsl$/,
-        use: 'webpack-glsl-minify'
+        test: /\.(frag|vert|glsl)$/,
+        use: ['glsl-shader-loader']
       }
-    ]
+      // {
+      //   test: /\.glsl$/,
+      //   use: 'webpack-glsl-minify'
+      // }
+    ],
   },
-  resolve: {
-    extensions: [ '.glsl' ]
-  },
+  // resolve: {
+  //   extensions: [ '.glsl' ]
+  // },
   devServer: {
     contentBase: './docs',
     open: true
@@ -42,7 +46,7 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      title: "juulio.com - threeJS development",
+      title: "Julio Del Valle - threeJS 3d webgl GLSL development",
     }),
     new HtmlWebpackPartialsPlugin({
       path: './src/partials/google-analytics.html',
