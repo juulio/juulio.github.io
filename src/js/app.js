@@ -78,10 +78,14 @@ function animate() {
 	if(letterPosition < textMesh.children.length) {
 		rotateLetters();
 	}
-    // mesh.rotation.x += 0.01;
+	else {
+		letterPosition = 0;
+	}
+    
+	textMesh.rotation.x += 0.04;
  
 	controls.update();
-	
+
     renderer.render( scene, camera );
 }
 
@@ -147,8 +151,7 @@ function renderTextGeometry(font){
  * Rotates each letter on the Y Axis
  */
  function rotateLetters(){
-	let nextLetterRotationY,
-	rotationSpeed = 0.22,
+	let rotationSpeed = 0.3,
 	currentLetterRotationY = textMesh.children[letterPosition].rotation.y;
 
 	// Rotate Current Letter on the Y Axis
