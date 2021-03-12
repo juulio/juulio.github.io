@@ -4,15 +4,13 @@ import gotham_black_regular from '../public/fonts/gotham_black_regular.json';
 import * as THREE from 'three';
 import { OrbitControls } from 'OrbitControls';
 
-
-let fragmentShader = require('../public/shaders/fragment.glsl');
-let vertexShader = require('../public/shaders/vertex.glsl');
+import fragmentShader from '../public/shaders/fragment.glsl';
+import vertexShader from '../public/shaders/vertex.glsl';
 
 const scene = new THREE.Scene();
-// const controls = new OrbitControls();
 let  camera, renderer, controls;
 // let geometry, material, mesh;
-let clock, shaderMaterials, uniforms, letterPosition, textGeometry, textMesh, delta, isMobile;
+let clock, shaderMaterial, shaderMaterials, uniforms, letterPosition, textGeometry, textMesh, delta, isMobile;
 
  
 
@@ -29,8 +27,8 @@ function init(font) {
 		isMobile = true;
 	}
 
-	camera = new THREE.PerspectiveCamera( 80, window.innerWidth / window.innerHeight, 0.01, 10 );
-    camera.position.z = 1;
+	camera = new THREE.PerspectiveCamera( 80, window.innerWidth / window.innerHeight, 0.1, 1000 );
+    camera.position.z = 1.3;
  
 	clock = new THREE.Clock();
 
@@ -41,8 +39,24 @@ function init(font) {
     // controls
     controls = new OrbitControls( camera, renderer.domElement );
 
-    setupShaderMaterials();
+	// shader material setup
+	uniforms = {
+		u_time: { type: "f", value: 1.0 },
+		u_resolution: { type: "v2", value: new THREE.Vector2() },
+		u_mouse: { type: "v2", value: new THREE.Vector2() }
+	};
 
+	uniforms.u_resolution.value.x = window.innerWidth;
+	uniforms.u_resolution.value.y = window.innerHeight;
+
+	shaderMaterial = new THREE.ShaderMaterial( {
+		name: "Basic",
+		uniforms: uniforms,
+		vertexShader: vertexShader,
+		fragmentShader: fragmentShader
+	});
+
+	// setupShaderMaterials();
     renderTextGeometry(font);
 
 	window.addEventListener( 'resize', onWindowResize, false );
@@ -61,8 +75,13 @@ function animate() {
 	delta = clock.getDelta();
 	uniforms.u_time.value += delta * 2;
 
+	if(letterPosition < textMesh.children.length) {
+		rotateLetters();
+	}
     // mesh.rotation.x += 0.01;
  
+	controls.update();
+	
     renderer.render( scene, camera );
 }
 
@@ -87,7 +106,7 @@ init(font);
  * Loads the JSON font for the text geometry
  */
 function renderTextGeometry(font){
-	let theText = "webpack + threejs",
+	let theText = "webpack + glsl",
 	letterWidth = 0,
 	letterMesh;
 
@@ -107,15 +126,14 @@ function renderTextGeometry(font){
 
 		// letterMesh = new THREE.Mesh( textGeometry, new THREE.MeshBasicMaterial({wireframe: true, color : 0xFF0000}) );
 		// letterMesh = new THREE.Mesh( textGeometry, new THREE.MeshNormalMaterial());
-		letterMesh = new THREE.Mesh( textGeometry, shaderMaterials[0]);
-
+		letterMesh = new THREE.Mesh( textGeometry, shaderMaterial);
 		letterMesh.position.x = i;
 
 		textMesh.add( letterMesh)
 	}
 
-	textMesh.position.x = -6;
-	// textMesh.position.y = 0;
+	textMesh.position.x = -6.4;
+	textMesh.position.z = -8;
 	// textMesh.position.z = 2;
 
 	if(isMobile){
@@ -126,12 +144,34 @@ function renderTextGeometry(font){
 }
 
 /**
+ * Rotates each letter on the Y Axis
+ */
+ function rotateLetters(){
+	let nextLetterRotationY,
+	rotationSpeed = 0.22,
+	currentLetterRotationY = textMesh.children[letterPosition].rotation.y;
+
+	// Rotate Current Letter on the Y Axis
+	textMesh.children[letterPosition].rotation.y += rotationSpeed;
+
+	if(textMesh.children[letterPosition].rotation.y >= 6.28) {
+		letterPosition++;
+	}
+
+	if(letterPosition < textMesh.children.length-1) {
+		if(currentLetterRotationY >= 2) {
+			textMesh.children[letterPosition + 1].rotation.y += rotationSpeed;
+		}
+	}
+}
+/**
  * Init Uniforms for shaderMaerial
  * TODO: create a shaderMaterial array to use several shaders on several materials
  */
+// function setupShaderMaterials(){
 function setupShaderMaterials(){
 	shaderMaterials = [];
-
+	
 	uniforms = {
 		u_time: { type: "f", value: 1.0 },
 		u_resolution: { type: "v2", value: new THREE.Vector2() },
@@ -141,15 +181,14 @@ function setupShaderMaterials(){
 	uniforms.u_resolution.value.x = window.innerWidth;
 	uniforms.u_resolution.value.y = window.innerHeight;
 
-	shaderMaterials.push(
-		new THREE.ShaderMaterial( {
-			name: "Basic",
-			uniforms: uniforms,
-			vertexShader: vertexShader.toString(),
-			// fragmentShader: document.getElementById( 'voronoiFragmentShader' ).textContent
-			fragmentShader: fragmentShader.toString()
-		})
-	);
+
+	return new THREE.ShaderMaterial( {
+		name: "Basic",
+		uniforms: uniforms,
+		vertexShader: vertexShader,
+		fragmentShader: fragmentShader
+	});
+}
 /*
 	shaderMaterials.push(
 		new THREE.ShaderMaterial( {
@@ -214,4 +253,4 @@ function setupShaderMaterials(){
 		})
 	);
 	*/
-}
+// }
