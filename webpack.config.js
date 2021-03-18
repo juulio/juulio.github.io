@@ -23,16 +23,13 @@ module.exports = {
       {
         test: /\.(frag|vert|glsl)$/,
         use: ['glsl-shader-loader']
+      },
+      {
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        type: 'asset/resource'
       }
-      // {
-      //   test: /\.glsl$/,
-      //   use: 'webpack-glsl-minify'
-      // }
     ],
   },
-  // resolve: {
-  //   extensions: [ '.glsl' ]
-  // },
   devServer: {
     contentBase: './docs',
     open: true
@@ -56,6 +53,6 @@ module.exports = {
     new CnameWebpackPlugin({
       domain: 'juliodelvalle.com',
     }),
-    new FaviconsWebpackPlugin('./src/public/images/favicon.ico')
+    new FaviconsWebpackPlugin('./src/public/images/favicon.png')
   ],
 };
