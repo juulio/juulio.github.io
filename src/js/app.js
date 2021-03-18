@@ -1,17 +1,22 @@
+// Marzo 16 2021 http://stemkoski.github.io/Three.js/Shader-Animate.html
+// Resolver por qué no puedo importar la imagen
+// https://github.com/mrdoob/three.js/blob/master/examples/webgl_geometry_cube.html
 import '../styles/style.scss';
 import gotham_black_regular from '../public/fonts/gotham_black_regular.json';
+import cloudAsset from '../public/images/textures/cloud.png';
+import waterAsset from '../public/images/textures/lavatile.jpg';
 
 import * as THREE from 'three';
 import { OrbitControls } from 'OrbitControls';
 
-import fragmentShader from '../public/shaders/fragment.glsl';
+import fragmentShader from '../public/shaders/noise.glsl';
 import vertexShader from '../public/shaders/vertex.glsl';
 
 const scene = new THREE.Scene();
 let  camera, renderer, controls;
 // let geometry, material, mesh;
 let clock, shaderMaterial, shaderMaterials, uniforms, letterPosition, textGeometry, textMesh, delta, isMobile;
-
+let sphereMesh, sphereScale, customUniforms;
  
 
 
@@ -28,7 +33,7 @@ function init(font) {
 	}
 
 	camera = new THREE.PerspectiveCamera( 80, window.innerWidth / window.innerHeight, 0.1, 1000 );
-    camera.position.z = 1.3;
+    camera.position.z = 3.3;
  
 	clock = new THREE.Clock();
 
@@ -39,25 +44,43 @@ function init(font) {
     // controls
     controls = new OrbitControls( camera, renderer.domElement );
 
-	// shader material setup
-	uniforms = {
-		u_time: { type: "f", value: 1.0 },
-		u_resolution: { type: "v2", value: new THREE.Vector2() },
-		u_mouse: { type: "v2", value: new THREE.Vector2() }
+	// scene.add( new THREE.GridHelper(50, 5, '#000000'));
+	// scene.add( new THREE.AxesHelper( 50 ));
+	
+	// setupShaderMaterials();
+    // renderTextGeometry(font);
+
+	// init Sphere Code with Noise Shader Material Texture
+	const noiseTexture = new THREE.TextureLoader().load(cloudAsset);
+	noiseTexture.wrapS = noiseTexture.wrapT = THREE.RepeatWrapping;
+
+	const waterTexture = new THREE.TextureLoader().load(waterAsset);
+	waterTexture.wrapS = waterTexture.wrapT = THREE.RepeatWrapping; 
+
+	customUniforms = {
+		baseTexture: 	{ type: "t", value: waterTexture },
+		baseSpeed: 		{ type: "f", value: 0.01 },
+		noiseTexture: 	{ type: "t", value: noiseTexture },
+		noiseScale:		{ type: "f", value: 0.2 },
+		alpha: 			{ type: "f", value: 0.8 },
+		time: 			{ type: "f", value: 1.0 }
 	};
 
-	uniforms.u_resolution.value.x = window.innerWidth;
-	uniforms.u_resolution.value.y = window.innerHeight;
-
-	shaderMaterial = new THREE.ShaderMaterial( {
-		name: "Basic",
-		uniforms: uniforms,
+	let sphereMaterial = new THREE.ShaderMaterial( {
+		uniforms: customUniforms,
 		vertexShader: vertexShader,
 		fragmentShader: fragmentShader
 	});
 
-	// setupShaderMaterials();
-    renderTextGeometry(font);
+	// other material properties
+	sphereMaterial.side = THREE.DoubleSide;
+	sphereMaterial.transparent = true;
+	// const material = new THREE.MeshBasicMaterial( { color: 0xffff00, map: noiseTexture } );
+
+	const sphereGeometry = new THREE.SphereGeometry( 1, 32, 32 );
+	sphereMesh = new THREE.Mesh( sphereGeometry, sphereMaterial );
+	scene.add( sphereMesh );
+	sphereScale = 0;
 
 	window.addEventListener( 'resize', onWindowResize, false );
 
@@ -73,16 +96,18 @@ function animate() {
  
 
 	delta = clock.getDelta();
-	uniforms.u_time.value += delta * 2;
+	// uniforms.u_time.value += delta * 2;
+	customUniforms.time.value += delta;
 
-	if(letterPosition < textMesh.children.length) {
-		rotateLetters();
-	}
-	else {
-		letterPosition = 0;
-	}
-    
-	textMesh.rotation.x += 0.04;
+	// if(letterPosition < textMesh.children.length) {
+	// 	rotateLetters();
+	// }
+	// else {
+	// 	letterPosition = 0;
+	// }
+	// sphereScale += 0.0001;
+    // sphereMesh.scale.set(sphereScale, sphereScale, sphereScale,);
+	// textMesh.rotation.x += 0.04;
  
 	controls.update();
 
@@ -110,7 +135,7 @@ init(font);
  * Loads the JSON font for the text geometry
  */
 function renderTextGeometry(font){
-	let theText = "webpack + glsl",
+	let theText = "glsl",
 	letterWidth = 0,
 	letterMesh;
 
@@ -136,8 +161,8 @@ function renderTextGeometry(font){
 		textMesh.add( letterMesh)
 	}
 
-	textMesh.position.x = -6.4;
-	textMesh.position.z = -8;
+	textMesh.position.x = -2.4;
+	textMesh.position.z = -5;
 	// textMesh.position.z = 2;
 
 	if(isMobile){
