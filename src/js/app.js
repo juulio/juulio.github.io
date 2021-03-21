@@ -4,20 +4,23 @@
 import '../styles/style.scss';
 import gotham_black_regular from '../public/fonts/gotham_black_regular.json';
 import cloudAsset from '../public/images/textures/cloud.png';
-import waterAsset from '../public/images/textures/lavatile.jpg';
+import lavatileAsset from '../public/images/textures/lavatile.jpg';
+import greenTextureAsset from '../public/images/textures/greenTexture.png';
+import brownTextureAsset from '../public/images/textures/brownTexture.png';
 
 import * as THREE from 'three';
 import { OrbitControls } from 'OrbitControls';
 
-import fragmentShader from '../public/shaders/noise.glsl';
 import vertexShader from '../public/shaders/vertex.glsl';
+import lavaFragmentShader from '../public/shaders/noise.glsl';
+import ringFragmentShader from '../public/shaders/ringTextureFragmentShader.glsl';
 
 const scene = new THREE.Scene();
 let  camera, renderer, controls;
 // let geometry, material, mesh;
 let clock, shaderMaterial, shaderMaterials, uniforms, letterPosition, textGeometry, textMesh, delta, isMobile;
 let sphereMesh, sphereScale, customUniforms;
- 
+ let ringMesh, ringUniforms;
 
 
 /**
@@ -34,15 +37,13 @@ function init(font) {
 
 	camera = new THREE.PerspectiveCamera( 80, window.innerWidth / window.innerHeight, 0.1, 1000 );
     camera.position.z = 3.3;
- 
-	clock = new THREE.Clock();
-
     renderer = new THREE.WebGLRenderer( { antialias: true } );
     renderer.setSize( window.innerWidth, window.innerHeight );
     document.body.appendChild( renderer.domElement );
-
-    // controls
     controls = new OrbitControls( camera, renderer.domElement );
+	window.addEventListener( 'resize', onWindowResize, false );
+
+	clock = new THREE.Clock();
 
 	// scene.add( new THREE.GridHelper(50, 5, '#000000'));
 	// scene.add( new THREE.AxesHelper( 50 ));
@@ -50,42 +51,78 @@ function init(font) {
 	// setupShaderMaterials();
     // renderTextGeometry(font);
 
+	renderSphere();
+	renderRings();
+
+    animate();
+}
+
+/**
+ * Render planet Sphere Element
+ */
+let renderSphere = () => {
 	// init Sphere Code with Noise Shader Material Texture
 	const noiseTexture = new THREE.TextureLoader().load(cloudAsset);
 	noiseTexture.wrapS = noiseTexture.wrapT = THREE.RepeatWrapping;
 
-	const waterTexture = new THREE.TextureLoader().load(waterAsset);
-	waterTexture.wrapS = waterTexture.wrapT = THREE.RepeatWrapping; 
+	const waterTexture = new THREE.TextureLoader().load(lavatileAsset);
+	waterTexture.wrapS = waterTexture.wrapT = THREE.RepeatWrapping;
 
 	customUniforms = {
-		baseTexture: 	{ type: "t", value: waterTexture },
-		baseSpeed: 		{ type: "f", value: 0.01 },
-		noiseTexture: 	{ type: "t", value: noiseTexture },
-		noiseScale:		{ type: "f", value: 0.2 },
-		alpha: 			{ type: "f", value: 0.8 },
-		time: 			{ type: "f", value: 1.0 }
+		baseTexture: { type: "t", value: waterTexture },
+		baseSpeed: { type: "f", value: 0.01 },
+		noiseTexture: { type: "t", value: noiseTexture },
+		noiseScale: { type: "f", value: 0.2 },
+		alpha: { type: "f", value: 0.8 },
+		time: { type: "f", value: 1.0 }
 	};
 
-	let sphereMaterial = new THREE.ShaderMaterial( {
+	let sphereMaterial = new THREE.ShaderMaterial({
 		uniforms: customUniforms,
 		vertexShader: vertexShader,
-		fragmentShader: fragmentShader
+		fragmentShader: lavaFragmentShader
 	});
 
 	// other material properties
 	sphereMaterial.side = THREE.DoubleSide;
 	sphereMaterial.transparent = true;
 	// const material = new THREE.MeshBasicMaterial( { color: 0xffff00, map: noiseTexture } );
-
-	const sphereGeometry = new THREE.SphereGeometry( 1, 32, 32 );
-	sphereMesh = new THREE.Mesh( sphereGeometry, sphereMaterial );
-	scene.add( sphereMesh );
+	const sphereGeometry = new THREE.SphereGeometry(1, 32, 32);
+	sphereMesh = new THREE.Mesh(sphereGeometry, sphereMaterial);
+	scene.add(sphereMesh);
 	sphereScale = 0;
-
-	window.addEventListener( 'resize', onWindowResize, false );
-
-    animate();
 }
+
+/**
+ * Render planet Sphere Element
+ */
+ let renderRings = () => {
+	const geometry = new THREE.TorusGeometry( 1.4, 0.09, 16, 100 );
+
+	const textureLoader = new THREE.TextureLoader();
+	const resolution = new THREE.Vector2(window.innerWidth, window.innerHeight);
+	ringUniforms = {
+		"time": { value: 1.0 },
+		"resolution": { type: 'v2', value: resolution },
+		iChannel0:  { type: 't', value: textureLoader.load(greenTextureAsset ) },
+		iChannel1:  { type: 't', value: textureLoader.load(brownTextureAsset ) }
+	};
+
+	ringUniforms[ "iChannel0" ].value.wrapS = ringUniforms[ "iChannel0" ].value.wrapT = THREE.RepeatWrapping;
+	ringUniforms[ "iChannel1" ].value.wrapS = ringUniforms[ "iChannel1" ].value.wrapT = THREE.RepeatWrapping;
+
+	// const size = 0.65;
+
+	const material = new THREE.ShaderMaterial( {
+		uniforms: ringUniforms,
+		vertexShader: vertexShader,
+		fragmentShader: ringFragmentShader,
+		side:THREE.DoubleSide
+	} );
+
+	ringMesh= new THREE.Mesh( geometry, material );
+	scene.add( ringMesh );
+ }
 
 /**
  * Updates objects on each frame
@@ -99,15 +136,13 @@ function animate() {
 	// uniforms.u_time.value += delta * 2;
 	customUniforms.time.value += delta;
 
-	// if(letterPosition < textMesh.children.length) {
-	// 	rotateLetters();
-	// }
-	// else {
-	// 	letterPosition = 0;
-	// }
+	// ringUniforms[ 'time' ].value = performance.now() / 1000;
+	ringUniforms[ 'time' ].value += delta / 2;
+	ringMesh.rotation.x += 0.003;
+	ringMesh.rotation.y += 0.001;
+	
 	// sphereScale += 0.0001;
     // sphereMesh.scale.set(sphereScale, sphereScale, sphereScale,);
-	// textMesh.rotation.x += 0.04;
  
 	controls.update();
 
