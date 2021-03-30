@@ -14,13 +14,15 @@ import { OrbitControls } from 'OrbitControls';
 import vertexShader from '../public/shaders/vertex.glsl';
 import lavaFragmentShader from '../public/shaders/noise.glsl';
 import ringFragmentShader from '../public/shaders/ringTextureFragmentShader.glsl';
+import lunarFragmentShader from '../public/shaders/lunarTextureFragmentShader.glsl';
 
 const scene = new THREE.Scene();
 let  camera, renderer, controls;
 // let geometry, material, mesh;
 let clock, shaderMaterial, shaderMaterials, uniforms, letterPosition, textGeometry, textMesh, delta, isMobile;
+let lavaMaterial;
 let sphereMesh, sphereScale, customUniforms;
- let ringMesh, ringUniforms;
+let ringMesh, ringUniforms;
 
 
 /**
@@ -36,7 +38,8 @@ function init(font) {
 	}
 
 	camera = new THREE.PerspectiveCamera( 80, window.innerWidth / window.innerHeight, 0.1, 1000 );
-    camera.position.z = 3.3;
+    camera.position.z = 9.3;
+    camera.position.y = 1;
     renderer = new THREE.WebGLRenderer( { antialias: true } );
     renderer.setSize( window.innerWidth, window.innerHeight );
     document.body.appendChild( renderer.domElement );
@@ -45,50 +48,96 @@ function init(font) {
 
 	clock = new THREE.Clock();
 
-	// scene.add( new THREE.GridHelper(50, 5, '#000000'));
+	scene.add( new THREE.GridHelper(50, 5, '#000000'));
 	// scene.add( new THREE.AxesHelper( 50 ));
 	
 	// setupShaderMaterials();
     // renderTextGeometry(font);
 
-	renderSphere();
-	renderRings();
+	const planeGeometry = new THREE.PlaneGeometry( 50, 50, 32 );
+	const planeMaterial = new THREE.MeshBasicMaterial( {color: 0x585858, side: THREE.DoubleSide} );
+	const plane = new THREE.Mesh( planeGeometry, planeMaterial );
+	plane.rotation.x = Math.PI / 2;
+
+	scene.add( plane );
+
+	lavaMaterial = setupLavaMaterial();
+	renderMoon();
+	renderVolcano();
+	// renderRings();
 
     animate();
 }
 
 /**
- * Render planet Sphere Element
+ * Setup uniforms and attributes for custom shader material 
  */
-let renderSphere = () => {
-	// init Sphere Code with Noise Shader Material Texture
+let setupLavaMaterial = () => {
 	const noiseTexture = new THREE.TextureLoader().load(cloudAsset);
 	noiseTexture.wrapS = noiseTexture.wrapT = THREE.RepeatWrapping;
 
-	const waterTexture = new THREE.TextureLoader().load(lavatileAsset);
-	waterTexture.wrapS = waterTexture.wrapT = THREE.RepeatWrapping;
+	const lavaTexture = new THREE.TextureLoader().load(lavatileAsset);
+	lavaTexture.wrapS = lavaTexture.wrapT = THREE.RepeatWrapping;
 
 	customUniforms = {
-		baseTexture: { type: "t", value: waterTexture },
-		baseSpeed: { type: "f", value: 0.01 },
+		baseTexture: { type: "t", value: lavaTexture },
+		baseSpeed: { type: "f", value: 0.06 },
 		noiseTexture: { type: "t", value: noiseTexture },
 		noiseScale: { type: "f", value: 0.2 },
-		alpha: { type: "f", value: 0.8 },
+		alpha: { type: "f", value: 0.7 },
 		time: { type: "f", value: 1.0 }
 	};
 
-	let sphereMaterial = new THREE.ShaderMaterial({
+	let material = new THREE.ShaderMaterial({
 		uniforms: customUniforms,
 		vertexShader: vertexShader,
 		fragmentShader: lavaFragmentShader
 	});
 
 	// other material properties
-	sphereMaterial.side = THREE.DoubleSide;
-	sphereMaterial.transparent = true;
-	// const material = new THREE.MeshBasicMaterial( { color: 0xffff00, map: noiseTexture } );
+	material.side = THREE.DoubleSide;
+	material.transparent = true;
+
+	return material;
+}
+
+/**
+ * Render volcano cone Mesh with lava material 
+ */
+let renderVolcano = () => {
+	let volcanoHeight = 3;
+	const geometry = new THREE.ConeGeometry( 4, volcanoHeight, 32, 32);
+	const cone = new THREE.Mesh( geometry, lavaMaterial );
+	cone.position.y = volcanoHeight / 2 ;
+	scene.add( cone );
+}
+
+/**
+ * Render planet Sphere Element
+ */
+let renderMoon = () => {
 	const sphereGeometry = new THREE.SphereGeometry(1, 32, 32);
-	sphereMesh = new THREE.Mesh(sphereGeometry, sphereMaterial);
+	const resolution = new THREE.Vector2(window.innerWidth, window.innerHeight);
+
+	const uniforms = {
+		"time": { value: 1.0 },
+		"resolution": { type: 'v2', value: resolution },
+	};
+
+	const material = new THREE.ShaderMaterial( {
+		uniforms: uniforms,
+		vertexShader: vertexShader,
+		fragmentShader: lunarFragmentShader,
+		side:THREE.DoubleSide
+	} );
+
+	material.wrapS = material.wrapT = THREE.RepeatWrapping;
+
+
+	sphereMesh = new THREE.Mesh(sphereGeometry, material);
+	sphereMesh.position.y = 4;
+	sphereMesh.position.x = 4;
+
 	scene.add(sphereMesh);
 	sphereScale = 0;
 }
@@ -121,6 +170,7 @@ let renderSphere = () => {
 	} );
 
 	ringMesh= new THREE.Mesh( geometry, material );
+	ringMesh.position.y = 4;
 	scene.add( ringMesh );
  }
 
@@ -137,9 +187,9 @@ function animate() {
 	customUniforms.time.value += delta;
 
 	// ringUniforms[ 'time' ].value = performance.now() / 1000;
-	ringUniforms[ 'time' ].value += delta / 2;
-	ringMesh.rotation.x += 0.003;
-	ringMesh.rotation.y += 0.001;
+	// ringUniforms[ 'time' ].value += delta / 2;
+	// ringMesh.rotation.x += 0.003;
+	// ringMesh.rotation.y += 0.001;
 	
 	// sphereScale += 0.0001;
     // sphereMesh.scale.set(sphereScale, sphereScale, sphereScale,);
