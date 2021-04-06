@@ -1,0 +1,66 @@
+*{ margin: 0; padding: 0;}
+body{
+  font-family: 'Roboto', sans-serif;
+  font-style: normal;
+  font-weight: 300;
+  font-smoothing: antialiased;
+-webkit-font-smoothing: antialiased;
+-moz-osx-font-smoothing: grayscale;
+  font-size: 15px;
+}
+
+main{
+  padding: 20px;
+}
+
+
+@media only screen and (min-width: 720px){
+    main{
+      max-width: 1000px;
+      text-align: center;
+    }
+}
+
+/* --------------------------------------------- */
+.card {
+   position: relative;
+   box-shadow: 1px 2px 6px rgba(0, 0, 0, 0.2);
+   margin: 10px auto;
+}    
+
+#scratch {
+   -webkit-tap-highlight-color: rgba(0, 0, 0, 0); 
+   -webkit-touch-callout: none;
+   -webkit-user-select: none;
+}
+
+.base,
+#scratch {
+   cursor: default;
+   position: absolute;
+   top: 0;
+   left: 0;
+   cursor: grabbing;
+}
+.base {
+   line-height: 60px;
+   text-align: center;
+}
+
+/* 0. Text */
+.text {
+   width: 320px;
+   height: 120px;
+}
+
+/* 1. Image */
+.image {
+   width: 320px;
+   height: 169px;
+}   
+
+/* 2. Video */
+.video {
+   width: 500px;
+   height: 282px;
+}   

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Scratch an image</title>
+    <link rel="stylesheet" href="css/style.css">
+  </head>
+
+  <body>
+    <main>
+      <h1>Deslice el dedo o mouse para descubrir el video.</h1>
+      
+      <div class="card video" id="screenshot">
+        <div class="base video">
+            <video id="videoElement" width="500" autoplay loop>
+                <source src="videos/flower.webm" type="video/webm">
+                <source src="videos/flower.mp4" type="video/mp4">
+                Sorry, your browser doesn't support embedded videos.
+            </video>
+        </div>
+        <canvas id="scratch" width="500" height="282"></canvas>
+      </div>
+
+      <button id="btn-play-video">PLAY VIDEO</button>
+      <!-- <button id="btn-download-canvas-screenshot">Download Screenshot</button> -->
+
+      <div id="output"></div>
+    </main>
+
+    <script src="js/scratch-card.js"></script>
+    <script>
+        document.getElementById('btn-play-video').addEventListener('click', function(){
+            document.getElementsByTagName('video')[0].play();
+        });
+
+        let CachedCanvases = new Object(); // Canvas element cache
+
+        function CreateCanvasCached(name) {
+          if (!CachedCanvases[name]) {
+            let canvas = document.createElement('canvas');
+            CachedCanvases[name] = canvas;
+            return canvas;
+          }
+          return CachedCanvases[name];
+        };
+   
+
+        // document.getElementById('btn-download-canvas-screenshot').addEventListener('click', function(){
+        //     // let image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");  // here is the most important part because if you dont replace you will get a DOM 18 exception.
+        //     // window.location.href=image;
+
+        //     let videoCanvas = document.createElement('canvas');
+        //     videoCanvas.width = 500;
+        //     videoCanvas.height = 282;
+        //     let ctx = videoCanvas.getContext('2d');
+        //     let videoElement = document.getElementById('videoElement');
+        //     //draw image to canvas. scale to target dimensions
+        //     ctx.drawImage(videoElement, 0, 0, videoCanvas.width, videoCanvas.height);
+
+        //     var bufferScreenshot = CreateCanvasCached("Screenshot");
+        //     bufferScreenshot.width = 500;
+        //     bufferScreenshot.height = 282;
+
+        //     var contextScreenshot = bufferScreenshot.getContext("2d");
+        //     // Draw the layers in order
+        //     contextScreenshot.drawImage(document.getElementById("scratch"), 0, 0, 500, 282);
+        //     contextScreenshot.drawImage(videoCanvas, 0, 0, 500, 282);
+            
+
+        //     // Save to a data URL as a jpeg quality 9
+        //     // var imgUrl = bufferScreenshot.toDataURL("image/jpeg", .9);
+        //     var imgUrl = bufferScreenshot.toDataURL('image/png').replace("image/png", "image/octet-stream");
+        //     window.location.href=imgUrl;
+
+        //     // //convert to desired file format
+        //     // let image = videoCanvas.toDataURL('image/png').replace("image/png", "image/octet-stream"); // can also use 'image/png'
+        //     // window.location.href=image;
+        // });
+    </script>
+  </body>
+</html>
