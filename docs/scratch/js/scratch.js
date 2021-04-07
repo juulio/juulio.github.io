@@ -8,7 +8,7 @@ const sc = new ScratchCard('#js--sc--container', {
   scratchType: SCRATCH_TYPE.LINE,
   containerWidth: scContainer.offsetWidth,
   containerHeight: 300,
-  imageForwardSrc: '/img/scratchcard.jpg',
+  imageForwardSrc: '/img/snakeSkin.jpg',
   imageBackgroundSrc: '/img/result.png',
   htmlBackground: '',
   clearZoneRadius: 20,
