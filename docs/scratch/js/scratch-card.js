@@ -70,7 +70,8 @@
 
     isDrag = true;
 
-    clearArc(event.touches[0].offsetX, event.touches[0].offsetY);
+    // clearArc(event.touches[0].offsetX, event.touches[0].offsetY);
+    clearArc(event.originalEvent.touches[0].offsetX, event.originalEvent.touches[0].offsetY);
     //judgeVisible();
   }, false);
 
@@ -81,7 +82,7 @@
 
     event.preventDefault();
 
-    clearArc(event.touches[0].offsetX, event.touches[0].offsetY);
+    clearArc(event.originalEvent.touches[0].offsetX, event.originalEvent.touches[0].offsetY);
     //judgeVisible();
   }, false);
 
