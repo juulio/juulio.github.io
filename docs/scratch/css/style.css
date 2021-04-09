@@ -58,14 +58,18 @@ body {
    font-size: 15px;
 }
 
+main {
+   text-align: center;
+}
+
 h1 {
    text-align: center;
-   margin: 4vw 0;
+   /* margin: 4vw 0; */
 }
 
 header {
    text-align: center;
-   margin: 3vw 0;
+   margin: 1.5vw 0;
 }
 .home ul {
    width: 500px;
