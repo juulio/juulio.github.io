@@ -12,7 +12,7 @@
       <a href="index.html">HOME</a>
     </header>
     <main>
-      <h1>Deslice el dedo o mouse para descubrir la imagen.</h1>
+      <h1>Deslice el dedo para descubrir la imagen.</h1>
       
       <div class="sc__wrapper">
         <!-- scratchcard -->
@@ -26,6 +26,12 @@
         </div>
       </div>
 
+      <button id="takeScreenshot">Capturar pantalla</button>
+      <br />
+      <!-- <img id="screenshotImage" src="" alt=""> -->
+      <canvas id="blendedCanvas" height="300" width="300px"></canvas>
+      <img id="blendedImage" src="" alt="">
+    </main>
     <script src="js/scratchcard.min.js"></script>
     <script src="js/scratch.js"></script>
   </body>
