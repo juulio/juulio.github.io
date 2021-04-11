@@ -13,13 +13,13 @@ let scratchContainerHeight = 500;
 // Setup and init all ScratchCard functionality
 let setupScratchCard = (frontImgSrc, BackgroundImgSrc) => {
   sc = new ScratchCard('#js--sc--container', {
-    scratchType: SCRATCH_TYPE.LINE,
+    scratchType: SCRATCH_TYPE.CIRCLE,,
     containerWidth: scContainer.offsetWidth,
     containerHeight: scratchContainerHeight,
     imageForwardSrc: frontImgSrc,
     imageBackgroundSrc: BackgroundImgSrc,
     htmlBackground: '',
-    clearZoneRadius: 40,
+    clearZoneRadius: 30,
     nPoints: 0,
     pointSize: 0,
     callback: function () {
