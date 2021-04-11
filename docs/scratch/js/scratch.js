@@ -19,11 +19,11 @@ let setupScratchCard = (frontImgSrc, BackgroundImgSrc) => {
     imageForwardSrc: frontImgSrc,
     imageBackgroundSrc: BackgroundImgSrc,
     htmlBackground: '',
-    clearZoneRadius: 20,
+    clearZoneRadius: 40,
     nPoints: 0,
     pointSize: 0,
     callback: function () {
-      alert('Now the window will reload !')
+      // alert('Now the window will reload !')
       // window.location.reload()
     }
   })
