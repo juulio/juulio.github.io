@@ -10,9 +10,9 @@
   <body>
     <header>
       <a href="index.html">HOME</a>
+      <span>Deslice el dedo para descubrir la imagen.</span>
     </header>
     <main>
-      <h1>Deslice el dedo o mouse para descubrir la imagen.</h1>
       
       <div class="sc__wrapper">
         <!-- scratchcard -->
@@ -21,12 +21,15 @@
             <!-- canvas generate here -->
         </div>
         <!-- infos -->
-        <div class="sc__infos">
-            <!-- percent -->
-        </div>
       </div>
 
-    <script src="js/scratchcard.min.js"></script>
+      <span class="sc__infos"><!-- percent --></span>
+      <button id="takeScreenshot">N E X T</button>
+
+      <canvas id="blendedCanvas"></canvas>
+      <img id="blendedImage" src="" alt="">
+    </main>
+    <script src="js/scratchcard.js"></script>
     <script src="js/scratch.js"></script>
   </body>
 </html>

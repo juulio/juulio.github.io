@@ -58,17 +58,27 @@ body {
    font-size: 15px;
 }
 
+main {
+   text-align: center;
+}
+
+a {
+   margin-right: 6vw;
+}
+
 h1 {
    text-align: center;
-   margin: 4vw 0;
+   /* margin: 4vw 0; */
 }
 
 header {
    text-align: center;
-   margin: 3vw 0;
+   margin: 1.5vw 0;
 }
+
+ /* home page styles */
 .home ul {
-   width: 500px;
+   width: 300px;
    margin: 0 auto;
    text-align: center;
 }
@@ -88,17 +98,13 @@ header {
 .sc__wrapper {
    display: block;
    width: 100%;
-   height: 300px;
-   max-width: 300px;
-   margin: 0 auto;
-   border: 5px solid white;
+   height: 500px;
 }
 
 .sc__container {
    position: relative;
    overflow: hidden;
-   height: 300px;
-   max-width: 300px;
+   height: 500px;
 }
 
 .sc__container > img {
@@ -106,7 +112,7 @@ header {
    top: 0;
    left: 0;
    width: 100%;
-   height: auto;
+   height: 500px;
 }
 
 .sc__container canvas {
@@ -114,7 +120,7 @@ header {
    top: 0;
    left: 0;
    width: 100%;
-   height: auto;
+   height: 500px;
 }
 
 .sc__infos {
@@ -124,4 +130,9 @@ header {
    margin-top: 5px;
    font-weight: bold;
    font-size: 18px;
+}
+
+#blendedCanvas {
+   display: none;
+   width: 100%;
 }
