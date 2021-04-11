@@ -19,7 +19,7 @@ let setupScratchCard = (frontImgSrc, BackgroundImgSrc) => {
     imageForwardSrc: frontImgSrc,
     imageBackgroundSrc: BackgroundImgSrc,
     htmlBackground: '',
-    clearZoneRadius: 30,
+    clearZoneRadius: 20,
     nPoints: 0,
     pointSize: 0,
     callback: function () {
