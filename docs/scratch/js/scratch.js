@@ -6,9 +6,9 @@
 const scContainer = document.getElementById('js--sc--container')
 const scInfos = document.querySelector('.sc__infos');
 let sc;
-let images = ['red', 'yellow', 'black', 'green', 'blue'];
+let images = ['madc_01.jpg', 'madc_02.jpg', 'madc_03.jpg', 'madc_04.jpg', 'madc_05.jpg', 'madc_06.jpg', 'madc_07.gif', 'madc_08.gif', 'madc_09.gif'];
 let imagesPosition = 0;
-let scratchContainerHeight = 500;
+let scratchContainerHeight = window.innerHeight;
 
 // Setup and init all ScratchCard functionality
 let setupScratchCard = (frontImgSrc, BackgroundImgSrc) => {
@@ -19,7 +19,7 @@ let setupScratchCard = (frontImgSrc, BackgroundImgSrc) => {
     imageForwardSrc: frontImgSrc,
     imageBackgroundSrc: BackgroundImgSrc,
     htmlBackground: '',
-    clearZoneRadius: 20,
+    clearZoneRadius: 220,
     nPoints: 0,
     pointSize: 0,
     callback: function () {
@@ -44,7 +44,7 @@ let setupScratchCard = (frontImgSrc, BackgroundImgSrc) => {
 }
 
 // Screenshot Button
-document.getElementById('takeScreenshot').addEventListener('click', () => {
+document.getElementById('next').addEventListener('click', () => {
   // Take the Canvas' Screenshot and show it on img#screenshotImage
   let ctx = sc.canvas.getContext("2d"),
     viewportWidth = window.innerWidth,
@@ -71,10 +71,10 @@ document.getElementById('takeScreenshot').addEventListener('click', () => {
 
     blendedImage.onload = function() {
       imagesPosition++;
-      if (imagesPosition == 5) {
+      if (imagesPosition == images.length) {
         imagesPosition = 0;
       } 
-      frontImgSrc = './img/' + images[imagesPosition] + '.png';
+      frontImgSrc = './img/' + images[imagesPosition];
       
       // Remove current elements before restarting scratch
       currentCanvas.remove();
@@ -90,4 +90,4 @@ document.getElementById('takeScreenshot').addEventListener('click', () => {
 // Run the project
 // Animated gif image only works on the BackgroundImgSrc parameter
 // setupScratchCard = (frontImgSrc, BackgroundImgSrc)
-setupScratchCard('./img/result.png', './img/green.png');
+setupScratchCard('./img/madc_01.jpg', './img/madc_02.jpg');
