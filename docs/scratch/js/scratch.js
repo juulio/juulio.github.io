@@ -13,17 +13,17 @@ let scratchContainerHeight = window.innerHeight;
 // Setup and init all ScratchCard functionality
 let setupScratchCard = (frontImgSrc, BackgroundImgSrc) => {
   sc = new ScratchCard('#js--sc--container', {
-    scratchType: SCRATCH_TYPE.CIRCLE,
+    scratchType: SCRATCH_TYPE.LINE,
     containerWidth: scContainer.offsetWidth,
     containerHeight: scratchContainerHeight,
     imageForwardSrc: frontImgSrc,
     imageBackgroundSrc: BackgroundImgSrc,
     htmlBackground: '',
-    clearZoneRadius: 220,
+    clearZoneRadius: 20,
     nPoints: 0,
     pointSize: 0,
     callback: function () {
-      // alert('Now the window will reload !')
+      alert('Now the window will reload !')
       // window.location.reload()
     }
   })
