@@ -1,31 +1,91 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Scratch an image</title>
-    <link rel="stylesheet" href="css/style.css">
+    <style>
+      .sc__inner {
+        position: relative;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+      }
+      .sc__wrapper {
+        display: block;
+        width: 100%;
+        height: 300px;
+        max-width: 300px;
+        margin: 0 auto;
+        border: 5px solid white;
+      }
+
+      .sc__container {
+        position: relative;
+        overflow: hidden;
+        height: 300px;
+        max-width: 300px;
+      }
+
+      .sc__container > img {
+        position: relative;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: auto;
+      }
+
+      .sc__container canvas {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: auto;
+      }
+
+      button {
+        position: absolute;
+        top: 100px;
+        height: 60px;
+      }
+    </style>
   </head>
 
   <body>
-    <main>
-      
-      <div class="sc__wrapper">
-        <!-- scratchcard -->
-        <div id="js--sc--container" class="sc__container">
-            <!-- background image insert here by scratchcard-js -->
-            <!-- canvas generate here -->
-        </div>
-        <!-- infos -->
+    <div class="sc__wrapper">
+      <!-- scratchcard -->
+      <div id="js--sc--container" class="sc__container">
+          <!-- background image insert here by scratchcard-js -->
+          <!-- canvas generate here -->
       </div>
+      <button type="button">Click Me!</button>
+    </div>
 
-      <span class="sc__infos"><!-- percent --></span>
-      <button id="next">N E X T</button>
 
-      <canvas id="blendedCanvas"></canvas>
-      <img id="blendedImage" src="" alt="">
-    </main>
-    <script src="js/scratchcard.js"></script>
-    <script src="js/scratch.js"></script>
+    <script src="../js/scratchcard.min.js"></script>
+    <script>
+      const scContainer = document.getElementById('js--sc--container')
+      const scInfos = document.querySelector('.sc__infos');
+      const sc = new ScratchCard('#js--sc--container', {
+        scratchType: SCRATCH_TYPE.LINE,
+        containerWidth: scContainer.offsetWidth,
+        containerHeight: 300,
+        imageForwardSrc: '../img/scratchcard.jpg',
+        imageBackgroundSrc: '../img/result.png',
+        htmlBackground: '',
+        clearZoneRadius: 20,
+        nPoints: 0,
+        pointSize: 0,
+        callback: function () {
+          alert('Now the window will reload !')
+          window.location.reload()
+        }
+      })
+
+      // Init
+      sc.init().then(() => {
+
+      }).catch((error) => {
+        // image not loaded
+        alert(error.message);
+      });
+    </script>
   </body>
 </html>
