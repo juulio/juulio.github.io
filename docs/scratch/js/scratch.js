@@ -59,7 +59,7 @@ screenshotImage.onload = function(){
         if (imagesPosition == images.length) {
             imagesPosition = 0;
         } 
-        frontImgSrc = '../img/' + images[imagesPosition];
+        frontImgSrc = './img/' + images[imagesPosition];
         
         // Remove current elements before restarting scratch
         currentCanvas.remove();
@@ -72,4 +72,4 @@ screenshotImage.onload = function(){
 });
 
 // Run the project
-setupScratchCard('../img/madc_01.jpg', '../img/madc_02.jpg');
+setupScratchCard('./img/madc_01.jpg', './img/madc_02.jpg');
