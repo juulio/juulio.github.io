@@ -72,4 +72,4 @@ screenshotImage.onload = function(){
 });
 
 // Run the project
-setupScratchCard('../img/madc_01.jpg', '../img/madc_02.jpg');
+setupScratchCard('./img/madc_01.jpg', './img/madc_02.jpg');
