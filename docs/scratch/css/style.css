@@ -1,6 +1,6 @@
 /* http://meyerweb.com/eric/tools/css/reset/ 
-   v2.0 | 20110126
-   License: none (public domain)
+v2.0 | 20110126
+License: none (public domain)
 */
 
 html, body, div, span, applet, object, iframe,
@@ -16,133 +16,96 @@ article, aside, canvas, details, embed,
 figure, figcaption, footer, header, hgroup, 
 menu, nav, output, ruby, section, summary,
 time, mark, audio, video {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 100%;
-	font: inherit;
-	vertical-align: baseline;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
 }
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure, 
 footer, header, hgroup, menu, nav, section {
-	display: block;
+  display: block;
 }
 body {
-	line-height: 1;
+  line-height: 1;
 }
 ol, ul {
-	list-style: none;
+  list-style: none;
 }
 blockquote, q {
-	quotes: none;
+  quotes: none;
 }
 blockquote:before, blockquote:after,
 q:before, q:after {
-	content: '';
-	content: none;
+  content: '';
+  content: none;
 }
 table {
-	border-collapse: collapse;
-	border-spacing: 0;
+  border-collapse: collapse;
+  border-spacing: 0;
 }
 
-/******************** Custom Styles ********************/
-body {
-   font-family: 'Roboto', sans-serif;
-   font-style: normal;
-   font-weight: 300;
-   font-smoothing: antialiased;
-   -webkit-font-smoothing: antialiased;
-   -moz-osx-font-smoothing: grayscale;
-   font-size: 15px;
-}
-
-main {
-   position: relative;
-}
-
-a {
-   margin-right: 6vw;
-}
-
-h1 {
-   text-align: center;
-   /* margin: 4vw 0; */
-}
-
-header {
-   text-align: center;
-   margin: 1.5vw 0;
-}
-
- /* home page styles */
-.home ul {
-   width: 300px;
-   margin: 0 auto;
-   text-align: center;
-}
-
-.home li {
-   margin: 4vw 0;
-}
-
-/* Scratch Card Styles */
+/******************** Scratch Card Styles ********************/
 .sc__inner {
-   position: relative;
-   top: 0;
-   left: 0;
-   width: 100%;
-   height: 100%;
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 .sc__wrapper {
-   display: block;
-   width: 100%;
-   height: 100%;
+  display: block;
+  width: 100%;
+  height: 100%
+  /* margin: 0 auto; */
 }
 
 .sc__container {
-   position: relative;
-   overflow: hidden;
-   height: 100%;
+  position: relative;
+  overflow: hidden;
+  /* height: 300px; */
+  /* max-width: 300px; */
 }
 
 .sc__container > img {
-   position: relative;
-   top: 0;
-   left: 0;
-   width: 100%;
-   height: 100%;
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
 }
 
 .sc__container canvas {
-   position: absolute;
-   top: 0;
-   left: 0;
-   width: 100%;
-   height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
 }
 
-.sc__infos {
-   display: none;
-   text-align: center;
-   height: 40px;
-   line-height: 40px;
-   margin-top: 5px;
-   font-weight: bold;
-   font-size: 18px;
+button {
+  position: absolute;
+  top: 100px;
+  height: 60px;
 }
 
 #blendedCanvas,
 #blendedImage {
-   display: none;
-   width: 100%;
+  display: none;
+  width: 100%;
 }
 
 #next {
-   position: absolute;
-   left: 0;
-   padding: 5vw;
-   bottom: 5vw;
-   z-index: 1000;
+  position: absolute;
+  left: 0;
+  padding: 5vw;
+  background-color: green;
+  top: 85%;
+  /* z-index: 2; */
+  /* 
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none; */
 }
