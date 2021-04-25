@@ -2,9 +2,8 @@ const scContainer = document.getElementById('js--sc--container')
 scContainer.style.height = window.innerHeight + "px";
 
 let sc;
-let images = ['01.jpg', '02.jpg', '03.jpg', '04.jpg', '05.jpg', '06.jpg', '07.jpg', '08.jpg', '09.jpg', '10.jpg', '11.gif','12.gif', '13.jpg','14.jpg','15.jpg'];
-
-// let imagesPosition = 0;
+let images = ['madc_01.jpg', 'madc_02.jpg', 'madc_03.jpg', 'madc_04.jpg', 'madc_05.jpg', 'madc_06.jpg', 'madc_07.gif', 'madc_08.gif', 'madc_09.gif'];
+let imagesPosition = 0;
 let scratchContainerHeight = window.innerHeight;
 
 let setupScratchCard = (frontImgSrc, BackgroundImgSrc) => {
@@ -56,15 +55,10 @@ screenshotImage.onload = function(){
     blendedImage.src = blendedCanvas.toDataURL();
 
     blendedImage.onload = function() {
-        // imagesPosition++;
-
-        // Randomize
-        const imagesPosition = Math.floor(Math.random() * images.length);
-        // console.log(random, images[random]);
-
-        // if (imagesPosition == images.length) {
-        //     imagesPosition = 0;
-        // } 
+        imagesPosition++;
+        if (imagesPosition == images.length) {
+            imagesPosition = 0;
+        } 
         frontImgSrc = './img/' + images[imagesPosition];
         
         // Remove current elements before restarting scratch
@@ -78,4 +72,4 @@ screenshotImage.onload = function(){
 });
 
 // Run the project
-setupScratchCard('./img/portada.jpg', './img/01.jpg');
+setupScratchCard('./img/madc_01.jpg', './img/madc_02.jpg');
