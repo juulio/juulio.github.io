@@ -4,7 +4,6 @@ scContainer.style.height = window.innerHeight + "px";
 let sc;
 let images = ['01.jpg', '02.jpg', '03.jpg', '04.jpg', '05.jpg', '06.jpg', '07.jpg', '08.jpg', '09.jpg', '10.jpg', '11.gif','12.gif', '13.jpg','14.jpg','15.jpg'];
 
-// let imagesPosition = 0;
 let scratchContainerHeight = window.innerHeight;
 
 let setupScratchCard = (frontImgSrc, BackgroundImgSrc) => {
@@ -56,26 +55,20 @@ screenshotImage.onload = function(){
     blendedImage.src = blendedCanvas.toDataURL();
 
     blendedImage.onload = function() {
-        // imagesPosition++;
-
-        // Randomize
-        const imagesPosition = Math.floor(Math.random() * images.length);
-        // console.log(random, images[random]);
-
-        // if (imagesPosition == images.length) {
-        //     imagesPosition = 0;
-        // } 
-        frontImgSrc = './img/' + images[imagesPosition];
-        
         // Remove current elements before restarting scratch
         currentCanvas.remove();
         backImage.remove();
 
         // setupScratchCard(frontImgSrc, blendedImage.src);
-        setupScratchCard(blendedImage.src, frontImgSrc);
+        setupScratchCard(blendedImage.src, getRandomImagePath());
     }
 }
 });
 
+let getRandomImagePath = () => {
+    const imagesPosition = Math.floor(Math.random() * images.length);
+    return './img/' + images[imagesPosition];
+}
+
 // Run the project
-setupScratchCard('./img/portada.jpg', './img/01.jpg');
+setupScratchCard('./img/portada.jpg', getRandomImagePath());
