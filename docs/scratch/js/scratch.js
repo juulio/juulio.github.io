@@ -1,10 +1,15 @@
-const scContainer = document.getElementById('js--sc--container')
-scContainer.style.height = window.innerHeight + "px";
-
-let sc;
+let sc, scratchContainerHeight;
 let images = ['01.jpg', '02.jpg', '03.jpg', '04.jpg', '05.jpg', '06.jpg', '07.jpg', '08.jpg', '09.jpg', '10.jpg', '11.gif','12.gif', '13.jpg','14.jpg','15.jpg'];
+let isMobileDevice = (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);
+const scContainer = document.getElementById('js--sc--container')
 
-let scratchContainerHeight = window.innerHeight;
+if (isMobileDevice) {
+    scContainer.style.height = window.innerHeight + "px";
+    scratchContainerHeight = window.innerHeight;
+}
+else {
+    scratchContainerHeight = 900
+}
 
 let setupScratchCard = (frontImgSrc, BackgroundImgSrc) => {
 sc = new ScratchCard('#js--sc--container', {
