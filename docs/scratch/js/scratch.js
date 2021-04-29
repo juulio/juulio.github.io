@@ -1,5 +1,6 @@
 let sc, scratchContainerHeight;
-let images = ['01.jpg', '02.jpg', '03.jpg', '04.jpg', '05.jpg', '06.jpg', '07.jpg', '08.jpg', '09.jpg', '10.jpg', '11.gif','12.gif', '13.jpg','14.jpg','15.jpg'];
+let imagesArray = ['./img/01.jpg', './img/02.jpg', './img/03.jpg', './img/04.jpg', './img/05.jpg', './img/06.jpg', './img/07.jpg', './img/08.jpg', './img/09.jpg', './img/10.jpg', './img/11.gif','./img/12.gif', './img/13.jpg','./img/14.jpg','./img/15.jpg'];
+const imagesArrayLength = imagesArray.length;
 let isMobileDevice = (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);
 const scContainer = document.getElementById('js--sc--container')
 
@@ -71,9 +72,16 @@ screenshotImage.onload = function(){
 });
 
 let getRandomImagePath = () => {
-    const imagesPosition = Math.floor(Math.random() * images.length);
-    return './img/' + images[imagesPosition];
+    const imagesPosition = Math.floor(Math.random() * imagesArrayLength);
+    return imagesArray[imagesPosition];
+}
+
+let preloadImages = ( images ) => {
+    for (let i=0; i<imagesArrayLength; i++){
+        new Image().src = images[i];
+    }
 }
 
 // Run the project
+preloadImages(imagesArray);
 setupScratchCard('./img/portada.jpg', getRandomImagePath());
