@@ -7,6 +7,11 @@ import cloudAsset from '../public/images/textures/cloud.png';
 import lavatileAsset from '../public/images/textures/lavatile.jpg';
 import greenTextureAsset from '../public/images/textures/greenTexture.png';
 import brownTextureAsset from '../public/images/textures/brownTexture.png';
+import volcanoHeightmap from '../public/images/textures/volcano-heightmap.png'
+import sand512 from '../public/images/textures/sand-512.jpg'
+import rock512 from '../public/images/textures/rock-512.jpg'
+import snow512 from '../public/images/textures/snow-512.jpg'
+import volcanic256 from '../public/images/textures/volcanic-256.jpg'
 
 import * as THREE from 'three';
 import { OrbitControls } from 'OrbitControls';
@@ -15,6 +20,9 @@ import vertexShader from '../public/shaders/vertex.glsl';
 import lavaFragmentShader from '../public/shaders/noise.glsl';
 import ringFragmentShader from '../public/shaders/ringTextureFragmentShader.glsl';
 import lunarFragmentShader from '../public/shaders/lunarTextureFragmentShader.glsl';
+import heightmapFragmentShader from '../public/shaders/heightmapFragmentShader.glsl';
+import heightmapVertexShader from '../public/shaders/heightmapVertexShader.glsl';
+
 
 const scene = new THREE.Scene();
 let  camera, renderer, controls;
@@ -37,9 +45,17 @@ function init(font) {
 		isMobile = true;
 	}
 
-	camera = new THREE.PerspectiveCamera( 80, window.innerWidth / window.innerHeight, 0.1, 1000 );
-    camera.position.z = 9.3;
-    camera.position.y = 1;
+	let SCREEN_WIDTH = window.innerWidth,
+		SCREEN_HEIGHT = window.innerHeight,
+		VIEW_ANGLE = 45,
+		ASPECT = SCREEN_WIDTH / SCREEN_HEIGHT,
+		NEAR = 0.1,
+		FAR = 20000;
+	camera = new THREE.PerspectiveCamera( VIEW_ANGLE, ASPECT, NEAR, FAR);
+	scene.add(camera);
+	camera.position.set(0,100,900);
+	camera.lookAt(scene.position);
+
     renderer = new THREE.WebGLRenderer( { antialias: true } );
     renderer.setSize( window.innerWidth, window.innerHeight );
     document.body.appendChild( renderer.domElement );
@@ -48,23 +64,70 @@ function init(font) {
 
 	clock = new THREE.Clock();
 
-	scene.add( new THREE.GridHelper(50, 5, '#000000'));
+	// Mountain Textures
+	// texture used to generate "bumpiness"
+	let bumpTexture = new THREE.TextureLoader().load( volcanoHeightmap );
+	bumpTexture.wrapS = bumpTexture.wrapT = THREE.RepeatWrapping; 
+	// magnitude of normal displacement
+	let bumpScale   = 200.0;
+	
+	let sandyTexture = new THREE.TextureLoader().load( sand512 );
+	sandyTexture.wrapS = sandyTexture.wrapT = THREE.RepeatWrapping; 
+	
+	let rockyTexture = new THREE.TextureLoader().load( rock512 );
+	rockyTexture.wrapS = rockyTexture.wrapT = THREE.RepeatWrapping; 
+	
+	let volcanicTexture = new THREE.TextureLoader().load( volcanic256 );
+	volcanicTexture.wrapS = volcanicTexture.wrapT = THREE.RepeatWrapping;
+
+	var snowyTexture = new THREE.TextureLoader().load( snow512 );
+	snowyTexture.wrapS = snowyTexture.wrapT = THREE.RepeatWrapping; 
+
+	// use "this." to create global object
+	customUniforms = {
+		bumpTexture:		{ type: "t", value: bumpTexture },
+		bumpScale:	    	{ type: "f", value: bumpScale },
+		sandyTexture:		{ type: "t", value: sandyTexture },
+		// grassTexture:		{ type: "t", value: grassTexture },
+		rockyTexture:		{ type: "t", value: rockyTexture },
+		volcanicTexture:	{ type: "t", value: volcanicTexture },
+		snowyTexture:	{ type: "t", value: snowyTexture }
+	};
+	
+	let volcanicMaterial = new THREE.ShaderMaterial( 
+	{
+	    uniforms: customUniforms,
+		vertexShader:   heightmapVertexShader,
+		fragmentShader: heightmapFragmentShader,
+		// side: THREE.DoubleSide
+	}   );
+		
+	let planeGeo = new THREE.PlaneGeometry( 1000, 1000, 100, 100 );
+	var plane = new THREE.Mesh(	planeGeo, volcanicMaterial );
+	plane.rotation.x = -Math.PI / 2;
+	plane.position.y = -100;
+	scene.add( plane );
+
+
+
+
+
 	// scene.add( new THREE.AxesHelper( 50 ));
 	
 	// setupShaderMaterials();
     // renderTextGeometry(font);
 
-	const planeGeometry = new THREE.PlaneGeometry( 50, 50, 32 );
-	const planeMaterial = new THREE.MeshBasicMaterial( {color: 0x585858, side: THREE.DoubleSide} );
-	const plane = new THREE.Mesh( planeGeometry, planeMaterial );
-	plane.rotation.x = Math.PI / 2;
+	// const planeGeometry = new THREE.PlaneGeometry( 50, 50, 32 );
+	// const planeMaterial = new THREE.MeshBasicMaterial( {color: 0x585858, side: THREE.DoubleSide} );
+	// const plane = new THREE.Mesh( planeGeometry, planeMaterial );
+	// plane.rotation.x = Math.PI / 2;
 
-	scene.add( plane );
+	// scene.add( plane );
 
-	lavaMaterial = setupLavaMaterial();
+	// lavaMaterial = setupLavaMaterial();
 	renderMoon();
-	renderVolcano();
-	// renderRings();
+	// renderVolcano();
+	renderRings();
 
     animate();
 }
@@ -116,7 +179,7 @@ let renderVolcano = () => {
  * Render planet Sphere Element
  */
 let renderMoon = () => {
-	const sphereGeometry = new THREE.SphereGeometry(1, 32, 32);
+	const sphereGeometry = new THREE.SphereGeometry(27, 32, 32);
 	const resolution = new THREE.Vector2(window.innerWidth, window.innerHeight);
 
 	const uniforms = {
@@ -135,8 +198,7 @@ let renderMoon = () => {
 
 
 	sphereMesh = new THREE.Mesh(sphereGeometry, material);
-	sphereMesh.position.y = 4;
-	sphereMesh.position.x = 4;
+	sphereMesh.position.y = 180;
 
 	scene.add(sphereMesh);
 	sphereScale = 0;
@@ -146,7 +208,7 @@ let renderMoon = () => {
  * Render planet Sphere Element
  */
  let renderRings = () => {
-	const geometry = new THREE.TorusGeometry( 1.4, 0.09, 16, 100 );
+	const geometry = new THREE.TorusGeometry( 40, 3, 16, 100 );
 
 	const textureLoader = new THREE.TextureLoader();
 	const resolution = new THREE.Vector2(window.innerWidth, window.innerHeight);
@@ -170,7 +232,7 @@ let renderMoon = () => {
 	} );
 
 	ringMesh= new THREE.Mesh( geometry, material );
-	ringMesh.position.y = 4;
+	ringMesh.position.y = 180;
 	scene.add( ringMesh );
  }
 
@@ -184,12 +246,12 @@ function animate() {
 
 	delta = clock.getDelta();
 	// uniforms.u_time.value += delta * 2;
-	customUniforms.time.value += delta;
+	// customUniforms.time.value += delta;
 
-	// ringUniforms[ 'time' ].value = performance.now() / 1000;
-	// ringUniforms[ 'time' ].value += delta / 2;
-	// ringMesh.rotation.x += 0.003;
-	// ringMesh.rotation.y += 0.001;
+	ringUniforms[ 'time' ].value = performance.now() / 1000;
+	ringUniforms[ 'time' ].value += delta / 2;
+	ringMesh.rotation.x += 0.004;
+	ringMesh.rotation.y += 0.002;
 	
 	// sphereScale += 0.0001;
     // sphereMesh.scale.set(sphereScale, sphereScale, sphereScale,);
