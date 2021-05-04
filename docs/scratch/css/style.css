@@ -90,13 +90,14 @@ table {
   width: 100%;
 }
 
-#next {
+button {
   left: 0;
-  top: 85%;
-  padding: 4vw;
-  /* bottom: 10%; */
+  top: 70%;
+  width: 168px;
+  height: 150px;
+  border: transparent;
+  background-color: transparent;
   position: absolute;
-  background-color: red;
 }
 
 
