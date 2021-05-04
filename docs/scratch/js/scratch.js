@@ -81,12 +81,5 @@ let getRandomImagePath = () => {
     return imagesArray[imagesPosition];
 }
 
-let preloadImages = ( images ) => {
-    for (let i=0; i<imagesArrayLength; i++){
-        new Image().src = images[i];
-    }
-}
-
 // Run the project
-preloadImages(imagesArray);
 setupScratchCard('./img/portada.png', getRandomImagePath());
