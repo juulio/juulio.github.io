@@ -91,13 +91,17 @@ table {
 }
 
 button {
-  left: 0;
-  top: 70%;
-  width: 168px;
-  height: 150px;
+  bottom: 3vw;
+  width: 135px;
   border: transparent;
   background-color: transparent;
   position: absolute;
+
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  text-align: center;
 }
 
 
@@ -116,10 +120,8 @@ button {
       height: 900px;
   }
 
-  #next {
-    top: 60%;
-    height: 75px;
-    padding: 0 3vw;
+  button {
+    width: 168px;
     cursor: pointer;
   }
 }
