@@ -110,14 +110,15 @@ button {
   main {
     position: relative;
     max-width: 600px;
-    height: 900px;
+    height: 800px;
     margin: 0 auto;
     cursor: grab;
+    padding: 4vw 0;
   }
 
   .sc__wrapper,
   .sc__container > img {
-      height: 900px;
+      height: 800px;
   }
 
   button {
