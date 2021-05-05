@@ -64,8 +64,6 @@ table {
 .sc__container {
   position: relative;
   overflow: hidden;
-  /* height: 300px; */
-  /* max-width: 300px; */
 }
 
 .sc__container > img {
@@ -73,7 +71,6 @@ table {
   top: 0;
   left: 0;
   width: 100%;
-  /* height: auto; */
 }
 
 .sc__container canvas {
@@ -81,7 +78,6 @@ table {
   top: 0;
   left: 0;
   width: 100%;
-  /* height: auto; */
 }
 
 #blendedCanvas,
@@ -109,20 +105,13 @@ button {
 @media only screen and (min-width: 768px) {
   main {
     position: relative;
-    max-width: 600px;
-    height: 800px;
     margin: 0 auto;
     cursor: grab;
-    padding: 4vw 0;
-  }
-
-  .sc__wrapper,
-  .sc__container > img {
-      height: 800px;
+    padding-top: 8vh;
   }
 
   button {
-    width: 168px;
+    width: 11.66vh;
     cursor: pointer;
   }
 }

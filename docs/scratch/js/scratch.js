@@ -1,4 +1,4 @@
-let sc, scratchContainerHeight;
+let sc;
 let imagesArray = ['./img/01.jpg', './img/02.jpg', './img/03.jpg', './img/04.jpg', './img/05.jpg', './img/06.jpg', './img/07.gif',
  './img/08.gif', './img/09.jpg', './img/10.jpg', './img/11.jpg','./img/12.jpg', './img/13.gif','./img/14.gif','./img/15.jpg',
  './img/16.jpg', './img/17.jpg', './img/18.jpg', './img/19.jpg','./img/20.jpg', './img/21.gif','./img/22.gif','./img/23.jpg',
@@ -9,13 +9,19 @@ const imagesArrayLength = imagesArray.length;
 let isMobileDevice = (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);
 const scContainer = document.getElementById('js--sc--container')
 
-if (isMobileDevice) {
-    scContainer.style.height = window.innerHeight + "px";
-    scratchContainerHeight = window.innerHeight;
+let scratchContainerHeight = window.innerHeight;
+let scratchContainerWidth = 0;
+
+if (!isMobileDevice) {
+    scratchContainerHeight = Math.floor(scratchContainerHeight * 0.79);
+    console.log(scratchContainerHeight);
+    scratchContainerWidth = Math.floor(scratchContainerHeight * 9 / 16);
+    scContainer.style.width = scratchContainerWidth + "px";
+    document.getElementsByTagName('main')[0].style.width =  scratchContainerWidth + "px";
 }
-else {
-    scratchContainerHeight = 900
-}
+
+scContainer.style.height = scratchContainerHeight + "px";
+
 
 let setupScratchCard = (frontImgSrc, BackgroundImgSrc) => {
 sc = new ScratchCard('#js--sc--container', {
