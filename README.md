@@ -7,8 +7,6 @@
 * February 2021 - Added webpack to bundle JS + Threejs
 * October 2019 - Unsuccesfully tried to do a THREE.js daily sketch
 * June 2017 - This project is a GULP + THREEjs Template.
-* 2020 - Webpack + THREEjs
-* 2021 - Creating a realistic 3d volcano
 
 ### installation
 
