@@ -103,11 +103,34 @@ button {
 
 /* Styles for Desktop */
 @media only screen and (min-width: 768px) {
+  body {
+    background-size: cover;
+    background-image: url(../img/fondo_desktop.jpg);
+  }
+
   main {
     position: relative;
-    margin: 0 auto;
+    margin: 8vh auto 0;
     cursor: grab;
-    padding-top: 8vh;
+  }
+
+  main,
+  .sc__container,
+  .sc__container > img {
+    width: 55vw;
+    height: 97.77vw;
+    max-width: 600px;
+    max-height: 1066.66px;
+  }
+  
+  .sc__container > img,
+  .sc__container > canvas {
+    /* width: 55vw; */
+    border-radius: 15px;
+  }
+
+  .sc__container canvas {
+    height: 100%;
   }
 
   button {

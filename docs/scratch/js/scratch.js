@@ -8,78 +8,114 @@ let imagesArray = ['./img/01.jpg', './img/02.jpg', './img/03.jpg', './img/04.jpg
 const imagesArrayLength = imagesArray.length;
 let isMobileDevice = (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);
 const scContainer = document.getElementById('js--sc--container')
-
+const mainElement = document.getElementsByTagName('main')[0];
 let scratchContainerHeight = window.innerHeight;
 let scratchContainerWidth = 0;
+// const scCanvasElement = document.getElementsByClassName('sc__canvas')[0];
 
-if (!isMobileDevice) {
-    scratchContainerHeight = Math.floor(scratchContainerHeight * 0.79);
-    console.log(scratchContainerHeight);
-    scratchContainerWidth = Math.floor(scratchContainerHeight * 9 / 16);
-    scContainer.style.width = scratchContainerWidth + "px";
-    document.getElementsByTagName('main')[0].style.width =  scratchContainerWidth + "px";
+let onWindowResize =  () => {
+    newWidth = mainElement.offsetWidth;
+    newHeight = mainElement.offsetHeight;
+    scContainer.style.width = newWidth + "px";
+    scContainer.style.height = newHeight + "px";
+
+    let ctx = sc.canvas.getContext('2d');
+    let tempCanvas = document.createElement('canvas');
+    let tempContext = tempCanvas.getContext('2d');
+    tempCanvas.width = newWidth;
+    tempCanvas.height = newHeight;
+    tempContext.drawImage(sc.canvas, 0, 0, newWidth, newHeight);
+
+    sc.canvas.width = newWidth;
+    sc.canvas.height = newHeight;
+
+    ctx.drawImage(tempCanvas, 0, 0, newWidth, newHeight);
 }
 
+window.addEventListener( 'resize', onWindowResize, false );
+
+// pageLoad Dimensions Setup for Desktop Only
+if (!isMobileDevice) {
+    scratchContainerWidth = mainElement.offsetWidth;
+    scContainer.style.width = scratchContainerWidth + "px";
+    
+    scratchContainerHeight = mainElement.offsetHeight;
+}
+else {
+    scratchContainerWidth = scContainer.offsetWidth;
+}
+// pageLoad Height for both Desktop and mobile
 scContainer.style.height = scratchContainerHeight + "px";
 
-
 let setupScratchCard = (frontImgSrc, BackgroundImgSrc) => {
-sc = new ScratchCard('#js--sc--container', {
-    scratchType: SCRATCH_TYPE.LINE,
-    containerWidth: scContainer.offsetWidth,
-    containerHeight: scratchContainerHeight,
-    imageForwardSrc: frontImgSrc,
-    imageBackgroundSrc: BackgroundImgSrc,
-    htmlBackground: '',
-    clearZoneRadius: 20,
-    nPoints: 0,
-    pointSize: 0,
-    callback: function () {
-    }
-})
+    sc = new ScratchCard('#js--sc--container', {
+        scratchType: SCRATCH_TYPE.LINE,
+        //containerWidth: scContainer.offsetWidth,
+        containerWidth: scratchContainerWidth,
+        containerHeight: scratchContainerHeight,
+        imageForwardSrc: frontImgSrc,
+        imageBackgroundSrc: BackgroundImgSrc,
+        htmlBackground: '',
+        clearZoneRadius: 20,
+        nPoints: 0,
+        pointSize: 0,
+        callback: function () {
+        }
+    })
 
-// Init
-sc.init().then(() => {
-
-}).catch((error) => {
-    // image not loaded
-    // alert(error.message);
-});
+    // Init
+    sc.init().then(() => {
+    }).catch((error) => {
+        // image not loaded
+        // alert(error.message);
+    });
 }
+
+
 
 document.getElementById('next').addEventListener('click', () => {
-// Take the Canvas' Screenshot and show it on img#screenshotImage
-let ctx = sc.canvas.getContext("2d"),
-    viewportWidth = window.innerWidth,
-    screenshotImage = new Image(),
-    blendedImage = new Image(),
-    base64img = sc.canvas.toDataURL();
-screenshotImage.src = base64img;
+    // Take the Canvas' Screenshot and show it on img#screenshotImage
+    let viewportWidth = window.innerWidth,
+        screenshotImage = new Image(),
+        blendedImage = new Image(),
+        base64img = sc.canvas.toDataURL();
+    screenshotImage.src = base64img;
 
-// let blendedImage = document.getElementById('blendedImage');
-let scContainer = document.getElementById('js--sc--container');
-let backImage = scContainer.getElementsByTagName('img')[0];
-let blendedCanvas = document.getElementById('blendedCanvas');
-let blendedCanvasCtx = blendedCanvas.getContext('2d');
-let currentCanvas = scContainer.getElementsByTagName('canvas')[0];
+    // let blendedImage = document.getElementById('blendedImage');
+    let scContainer = document.getElementById('js--sc--container');
+    let backImage = scContainer.getElementsByTagName('img')[0];
+    let blendedCanvas = document.getElementById('blendedCanvas');
+    let blendedCanvasCtx = blendedCanvas.getContext('2d');
+    let blendedCanvasWidth;
+    // let currentCanvas = scContainer.getElementsByTagName('canvas')[0];
 
-blendedCanvas.width = viewportWidth;
-blendedCanvas.height = scratchContainerHeight;
-blendedCanvasCtx.drawImage(backImage, 0, 0, viewportWidth, scratchContainerHeight);
-
-screenshotImage.onload = function(){
-    blendedCanvasCtx.drawImage(screenshotImage, 0, 0, viewportWidth, scratchContainerHeight);
-    blendedImage.src = blendedCanvas.toDataURL();
-
-    blendedImage.onload = function() {
-        // Remove current elements before restarting scratch
-        currentCanvas.remove();
-        backImage.remove();
-
-        // setupScratchCard(frontImgSrc, blendedImage.src);
-        setupScratchCard(blendedImage.src, getRandomImagePath());
+    if (isMobileDevice) {
+        blendedCanvasWidth = viewportWidth;
     }
-}
+    else {
+        blendedCanvasWidth = sc.canvas.width;
+    }
+
+    blendedCanvas.width = blendedCanvasWidth;
+    blendedCanvas.height = scratchContainerHeight;
+    blendedCanvasCtx.drawImage(backImage, 0, 0, blendedCanvasWidth, scratchContainerHeight);
+
+    screenshotImage.onload = function(){
+        blendedCanvasCtx.drawImage(screenshotImage, 0, 0, blendedCanvasWidth, scratchContainerHeight);
+        blendedImage.src = blendedCanvas.toDataURL();
+
+        blendedImage.onload = function() {
+            // Remove current elements before restarting scratch
+            sc.canvas.remove();
+            backImage.remove();
+
+            // Set Canvas element dimensions
+            scratchContainerWidth = Math.floor(mainElement.offsetWidth);
+            scratchContainerHeight = mainElement.offsetHeight;
+
+            setupScratchCard(blendedImage.src, getRandomImagePath());
+        }
+    }
 });
 
 let getRandomImagePath = () => {
@@ -87,5 +123,5 @@ let getRandomImagePath = () => {
     return imagesArray[imagesPosition];
 }
 
-// Run the project
-setupScratchCard('./img/portada.png', getRandomImagePath());
+// Run the project on pageLoad
+setupScratchCard('./img/portada.png', getRandomImagePath(), scratchContainerWidth, scratchContainerHeight);
