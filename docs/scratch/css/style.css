@@ -104,7 +104,9 @@ button {
 /* Styles for Desktop */
 @media only screen and (min-width: 768px) {
   body {
+    height: 100vh;
     background-size: cover;
+    background-repeat: no-repeat;
     background-image: url(../img/fondo_desktop.jpg);
   }
 
