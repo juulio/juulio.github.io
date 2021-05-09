@@ -1,6 +1,6 @@
 /* http://meyerweb.com/eric/tools/css/reset/ 
-v2.0 | 20110126
-License: none (public domain)
+  v2.0 | 20110126
+  License: none (public domain)
 */
 
 html, body, div, span, applet, object, iframe,
@@ -45,6 +45,10 @@ q:before, q:after {
 table {
   border-collapse: collapse;
   border-spacing: 0;
+}
+/***********************************************/
+html {
+  height: 100%;
 }
 
 /******************** Scratch Card Styles ********************/
@@ -100,43 +104,33 @@ button {
   text-align: center;
 }
 
-
 /* Styles for Desktop */
-@media only screen and (min-width: 768px) {
-  body {
-    height: 100vh;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-image: url(../img/fondo_desktop.jpg);
-  }
-
-  main {
-    position: relative;
-    margin: 8vh auto 0;
-    cursor: grab;
-  }
-
-  main,
-  .sc__container,
-  .sc__container > img {
-    width: 55vw;
-    height: 97.77vw;
-    max-width: 600px;
-    max-height: 1066.66px;
-  }
-  
-  .sc__container > img,
-  .sc__container > canvas {
-    /* width: 55vw; */
-    border-radius: 15px;
-  }
-
-  .sc__container canvas {
-    height: 100%;
-  }
-
-  button {
-    width: 11.66vh;
-    cursor: pointer;
-  }
+body.desktop {
+  max-width: 50vh;
+  margin: 0 auto;
+  padding: 5vh 0;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-image: url(../img/fondo_desktop.jpg);
 }
+
+.desktop main {
+  height: 0;
+  padding-top: 177.77%;
+  background: red;
+  position: relative;
+}
+
+.desktop .mainContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.desktop button {
+  width: 11.66vh;
+  cursor: pointer;
+}
+

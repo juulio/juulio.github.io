@@ -8,20 +8,22 @@
     <link rel="stylesheet" href="css/style.css">
   </head>
 
-  <body>
+  <body class="desktop">
     <main>
-      <div class="sc__wrapper">
-        <!-- scratchcard -->
-        <div id="js--sc--container" class="sc__container">
-            <!-- background image insert here by scratchcard-js -->
-            <!-- canvas generate here -->
+      <div class="mainContainer">
+        <div class="sc__wrapper">
+          <!-- scratchcard -->
+          <div id="js--sc--container" class="sc__container">
+              <!-- background image insert here by scratchcard-js -->
+              <!-- canvas generate here -->
+          </div>
         </div>
+
+        <button id="next"><img src="img/boton.svg" alt=""></button>
+
+        <canvas id="blendedCanvas"></canvas>
+        <img id="blendedImage" src="" alt="">
       </div>
-
-      <button id="next"><img src="img/boton.svg" alt=""></button>
-
-      <canvas id="blendedCanvas"></canvas>
-      <img id="blendedImage" src="" alt="">
     </main>
     <script src="js/scratchcard.min.js"></script>
     <script src="js/scratch.js"></script>

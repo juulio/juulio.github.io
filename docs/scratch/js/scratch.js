@@ -40,6 +40,7 @@ if (!isMobileDevice) {
     scContainer.style.width = scratchContainerWidth + "px";
     
     scratchContainerHeight = mainElement.offsetHeight;
+    document.getElementsByTagName('body')[0].classList.add('desktop');
 }
 else {
     scratchContainerWidth = scContainer.offsetWidth;
