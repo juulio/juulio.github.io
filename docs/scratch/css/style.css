@@ -117,7 +117,6 @@ body.desktop {
 .desktop main {
   height: 0;
   padding-top: 177.77%;
-  background: red;
   position: relative;
 }
 
@@ -132,5 +131,11 @@ body.desktop {
 .desktop button {
   width: 11.66vh;
   cursor: pointer;
+}
+
+.desktop .sc__container > img,
+.desktop .sc__container > canvas {
+  border-radius: 15px;
+  /* width: 55vw; */
 }
 
