@@ -13,6 +13,9 @@ let scratchContainerHeight = window.innerHeight;
 let scratchContainerWidth = 0;
 // const scCanvasElement = document.getElementsByClassName('sc__canvas')[0];
 
+/**
+ * onWindowResize event handler
+ */
 let onWindowResize =  () => {
     newWidth = mainElement.offsetWidth;
     newHeight = mainElement.offsetHeight;
@@ -34,20 +37,11 @@ let onWindowResize =  () => {
 
 window.addEventListener( 'resize', onWindowResize, false );
 
-// pageLoad Dimensions Setup for Desktop Only
-if (!isMobileDevice) {
-    scratchContainerWidth = mainElement.offsetWidth;
-    scContainer.style.width = scratchContainerWidth + "px";
-    
-    scratchContainerHeight = mainElement.offsetHeight;
-    document.getElementsByTagName('body')[0].classList.add('desktop');
-}
-else {
-    scratchContainerWidth = scContainer.offsetWidth;
-}
-// pageLoad Height for both Desktop and mobile
-scContainer.style.height = scratchContainerHeight + "px";
-
+/**
+ * Setup Scratch Card
+ * @param {*} frontImgSrc 
+ * @param {*} BackgroundImgSrc 
+ */
 let setupScratchCard = (frontImgSrc, BackgroundImgSrc) => {
     sc = new ScratchCard('#js--sc--container', {
         scratchType: SCRATCH_TYPE.LINE,
@@ -73,7 +67,9 @@ let setupScratchCard = (frontImgSrc, BackgroundImgSrc) => {
 }
 
 
-
+/**
+ * Next button event handler
+ */
 document.getElementById('next').addEventListener('click', () => {
     // Take the Canvas' Screenshot and show it on img#screenshotImage
     let viewportWidth = window.innerWidth,
@@ -119,10 +115,34 @@ document.getElementById('next').addEventListener('click', () => {
     }
 });
 
+/**
+ * Get Random Image Path
+ */
+
 let getRandomImagePath = () => {
     const imagesPosition = Math.floor(Math.random() * imagesArrayLength);
     return imagesArray[imagesPosition];
 }
 
+
+/**
+ * pageLoad setup
+ */
+// pageLoad Dimensions Setup for Desktop Only
+if (!isMobileDevice) {
+    scratchContainerWidth = mainElement.offsetWidth;
+    scContainer.style.width = scratchContainerWidth + "px";
+    
+    // scratchContainerHeight = mainElement.offsetHeight;
+    scratchContainerHeight = scratchContainerWidth*16/9;
+    document.getElementsByTagName('body')[0].classList.add('desktop');
+}
+else {
+    scratchContainerWidth = scContainer.offsetWidth;
+}
+// pageLoad Height for both Desktop and mobile
+scContainer.style.height = scratchContainerHeight + "px";
+
 // Run the project on pageLoad
 setupScratchCard('./img/portada.png', getRandomImagePath(), scratchContainerWidth, scratchContainerHeight);
+onWindowResize();
