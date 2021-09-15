@@ -30,7 +30,7 @@ let  camera, renderer, controls;
 let clock, shaderMaterial, shaderMaterials, uniforms, letterPosition, textGeometry, textMesh, delta, isMobile;
 let lavaMaterial;
 let sphereMesh, sphereScale, customUniforms;
-let ringMesh, ringUniforms;
+let ringMesh, ringUniforms, volcanoMesh;
 
 
 /**
@@ -80,7 +80,7 @@ function init(font) {
 	let volcanicTexture = new THREE.TextureLoader().load( volcanic256 );
 	volcanicTexture.wrapS = volcanicTexture.wrapT = THREE.RepeatWrapping;
 
-	var snowyTexture = new THREE.TextureLoader().load( snow512 );
+	const snowyTexture = new THREE.TextureLoader().load( snow512 );
 	snowyTexture.wrapS = snowyTexture.wrapT = THREE.RepeatWrapping; 
 
 	// use "this." to create global object
@@ -88,7 +88,6 @@ function init(font) {
 		bumpTexture:		{ type: "t", value: bumpTexture },
 		bumpScale:	    	{ type: "f", value: bumpScale },
 		sandyTexture:		{ type: "t", value: sandyTexture },
-		// grassTexture:		{ type: "t", value: grassTexture },
 		rockyTexture:		{ type: "t", value: rockyTexture },
 		volcanicTexture:	{ type: "t", value: volcanicTexture },
 		snowyTexture:	{ type: "t", value: snowyTexture }
@@ -103,10 +102,10 @@ function init(font) {
 	}   );
 		
 	let planeGeo = new THREE.PlaneGeometry( 1000, 1000, 100, 100 );
-	var plane = new THREE.Mesh(	planeGeo, volcanicMaterial );
-	plane.rotation.x = -Math.PI / 2;
-	plane.position.y = -100;
-	scene.add( plane );
+	volcanoMesh = new THREE.Mesh(	planeGeo, volcanicMaterial );
+	volcanoMesh.rotation.x = -Math.PI / 2;
+	volcanoMesh.position.y = -100;
+	scene.add( volcanoMesh );
 
 
 
@@ -138,9 +137,6 @@ function init(font) {
 let setupLavaMaterial = () => {
 	const noiseTexture = new THREE.TextureLoader().load(cloudAsset);
 	noiseTexture.wrapS = noiseTexture.wrapT = THREE.RepeatWrapping;
-
-	const lavaTexture = new THREE.TextureLoader().load(lavatileAsset);
-	lavaTexture.wrapS = lavaTexture.wrapT = THREE.RepeatWrapping;
 
 	customUniforms = {
 		baseTexture: { type: "t", value: lavaTexture },
@@ -222,8 +218,6 @@ let renderMoon = () => {
 	ringUniforms[ "iChannel0" ].value.wrapS = ringUniforms[ "iChannel0" ].value.wrapT = THREE.RepeatWrapping;
 	ringUniforms[ "iChannel1" ].value.wrapS = ringUniforms[ "iChannel1" ].value.wrapT = THREE.RepeatWrapping;
 
-	// const size = 0.65;
-
 	const material = new THREE.ShaderMaterial( {
 		uniforms: ringUniforms,
 		vertexShader: vertexShader,
@@ -251,11 +245,13 @@ function animate() {
 	ringUniforms[ 'time' ].value = performance.now() / 1000;
 	ringUniforms[ 'time' ].value += delta / 2;
 	ringMesh.rotation.x += 0.004;
-	ringMesh.rotation.y += 0.002;
+	ringMesh.rotation.y += 0.001;
 	
 	// sphereScale += 0.0001;
     // sphereMesh.scale.set(sphereScale, sphereScale, sphereScale,);
  
+	volcanoMesh.rotation.z += 0.001;
+
 	controls.update();
 
     renderer.render( scene, camera );
