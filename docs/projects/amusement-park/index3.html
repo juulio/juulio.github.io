@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>three.js webgl - tween.js</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <style>body {margin: 0px;overflow: hidden;}</style>
+    </head>
+
+    <body>
+
+        <script src="../../js/vendor/three.min.js"></script>
+        <script src="../../js/vendor/tween.js"></script>
+        <script src="../../js/vendor/OrbitControls.js"></script>
+
+        <script>
+            let camera, scene, renderer, controls;
+
+            const PI = Math.PI;
+
+            init();
+            animate();
+
+            function init() {
+                renderer = new THREE.WebGLRenderer();
+                renderer.setClearColor( 0XFFFFFF );
+                renderer.setPixelRatio( window.devicePixelRatio );
+                renderer.setSize( window.innerWidth, window.innerHeight );
+                document.body.appendChild( renderer.domElement );
+
+                scene = new THREE.Scene();
+
+                camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 1000 );
+                camera.position.set( 0, 0, 30 );
+
+                scene.add( new THREE.AmbientLight( 0x222222 ) );
+                
+                controls = new THREE.OrbitControls( camera, renderer.domElement );
+                window.addEventListener( 'resize', onWindowResize, false );
+
+                // renderHelpers();
+                let radius = 40;
+
+                //------------------------------------------------------------------------
+                // 2. Tween 
+                
+                //------------------------------------------------------------------------
+                // let radius01 = 15;
+                // let animationTime01 = 2000;
+                // let startPosition01 = new THREE.Vector3(0, 0, 0);
+
+                // let startAngle01 = PI/2;
+                // let endAngle01 = {value : startAngle01};
+                // let stopAngle01 = {value : -PI*2};
+
+                // let tween01 = new TWEEN.Tween(endAngle01)
+                //     .to(stopAngle01, animationTime01)
+                //     .onUpdate( function() {
+                //         drawLine(startAngle01, endAngle01.value, radius01, startPosition01, 0xFF0000);
+                //     });
+
+                //------------------------------------------------------------------------
+                let radius02 = 60;
+                let animationTime02 = 800;
+                let startPosition02 = new THREE.Vector3(0, 0, 0);
+
+                let startAngle02 = PI;
+                let endAngle02 = {value : startAngle02};
+                let stopAngle02 = {value : -PI};
+
+                let tween02 = new TWEEN.Tween(endAngle02)
+                    .to(stopAngle02, animationTime02)
+                    .onUpdate( function() {
+                        drawLine(startAngle02, endAngle02.value, radius02, startPosition02, 0xFF0000);
+                    });
+
+
+                //------------------------------------------------------------------------
+
+                var loader = new THREE.ObjectLoader();
+                // var jsonPath = 'assets/json/pathsSeparados.json';
+                var jsonPath = 'assets/json/kyokushinKanji.json';
+
+                getJSON(jsonPath,
+                    function(err, data) {
+                        let jsonPoints, jsonPointsLength;
+
+                        if (err != null) {
+                            console.log('Something went wrong: ' + err);
+                        } else {
+                            jsonPoints = data.layers[0].paths[0].points;
+                            jsonPointsLength = jsonPoints.length;
+                            // console.log(jsonPointsLength);
+
+                            let points = { value : 0 };
+                            let totalPoints = { value : jsonPointsLength};
+
+                            let kanjiTween = new TWEEN.Tween(points)
+                                .to(totalPoints, 4000)
+                                .onUpdate(
+                                    function(){
+                                        let catmullRomCurvePoints = [];
+                                        let point;
+
+                                        // Grab points from AI Json file and add them to an array
+                                        for (i=0;i<this.value;i++){
+                                            point = jsonPoints[i];
+                                            catmullRomCurvePoints.push(new THREE.Vector3(point[0], point[1],0));
+                                        }
+
+                                        drawCurve(catmullRomCurvePoints)
+                                        // console.log(points);
+                                    }
+                                );
+
+                            kanjiTween.start();
+
+
+                            // drawKanji(jsonPoints);
+                        }
+                });
+
+            }
+
+            /**
+             *
+             */
+            function drawCurve(catmullRomCurvePoints){
+                // smooth my curve over this many points
+                var numPoints = 200;
+              
+
+                // Add the previous array to a CatmullRomCurve3
+                spline = new THREE.CatmullRomCurve3(catmullRomCurvePoints);
+
+                var material = new THREE.LineBasicMaterial({
+                    color: 0x000000,
+                });
+
+                var geometry = new THREE.Geometry();
+                var splinePoints = spline.getPoints(numPoints);
+
+                for(var i = 0; i < splinePoints.length; i++){
+                    geometry.vertices.push(splinePoints[i]);  
+                }
+
+                var line = new THREE.Line(geometry, material);
+                line.position.set(0, 10, 0);
+                line.rotation.x = Math.PI;
+                line.scale.set(0.1, 0.1, 0.1);
+                scene.add(line);
+            }
+
+            /**
+             * Draws a circular motion animated line between a provided start and stop angle.
+             * If startAngle < stopAngle, it'll draw on a counter-clockwise direction
+             * If startAngle > stopAngle, it'll draw on a clockwise direction
+             * @param(number) startAngle - Angle in Radians where the animation begins
+             * @param(number) stopAngle - Angle that will be tweened from startAngle to endAngle
+             * @param(number) radius - Length of the circle's radius
+             */
+            function drawLine(startAngle, stopAngle, radius, startPosition, color){
+                let i, posX, posY;
+                
+                let material = new THREE.LineBasicMaterial({
+                    color: color
+                });
+
+                let geometry = new THREE.Geometry();
+
+                if(startAngle < stopAngle){
+                    for(i=startAngle;i<stopAngle;i+=1/180){
+                        // if( radius <= 50 ){
+                        //     radius += i/100;
+                        // }
+                        posX = Math.cos(i)*radius;
+                        posY = Math.sin(i)*radius;
+
+                        geometry.vertices.push(new THREE.Vector3(posX, posY, 0));
+                    }
+                }
+                else {
+                    for(i=startAngle;i>stopAngle;i-=1/180){
+                        posX = Math.cos(i)*radius;
+                        posY = Math.sin(i)*radius;
+
+                        geometry.vertices.push(new THREE.Vector3(posX, posY, 0));
+                    }
+                }
+                
+                // console.log(geometry.vertices);
+
+                let line = new THREE.Line( geometry, material );
+                line.position.set(startPosition.x, startPosition.y, startPosition.z);
+                scene.add( line );
+            }
+
+            function drawSquiggle(startPoint, endPoint, startPosition, color){
+                let i, point, posX, posY;
+                
+                let material = new THREE.LineBasicMaterial({
+                    color: color
+                });
+
+                let geometry = new THREE.Geometry();
+
+                for (i=0;i<jsonPoints.length;i++){
+                    point = jsonPoints[i];
+                    geometry.vertices.push(new THREE.Vector3(point[0], point[1],0));
+                }
+
+                // for(i=startPoint;i<endPoint;i+=1/180){
+                //     posX = Math.cos(i)*radius;
+                //     posY = Math.sin(i)*radius;
+
+                //     geometry.vertices.push(new THREE.Vector3(posX, posY, 0));
+                // }
+                
+                // console.log(geometry.vertices);
+
+                let line = new THREE.Line( geometry, material );
+                line.position.set(0, 0, 0);
+                scene.add( line );
+            }
+
+            /**
+             *
+             */
+            function renderSphere(){
+                var geometry = new THREE.SphereGeometry( 15, 32, 32 );
+                var material = new THREE.MeshBasicMaterial( {color: 0xff0000} );
+                var sphere = new THREE.Mesh( geometry, material );
+                scene.add( sphere );
+            }
+
+            /**
+             * Render XYZ Axis Helpers
+             */
+            function renderHelpers(){
+                var gridXZ = new THREE.GridHelper(290, 20);
+                scene.add(gridXZ);
+
+                var axisHelper = new THREE.AxisHelper( 25 );
+                scene.add( axisHelper );
+            }
+
+            function animate(time) {
+                requestAnimationFrame( animate );
+                TWEEN.update( time );
+                renderer.render( scene, camera );
+            }
+
+            function onWindowResize() {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+
+                renderer.setSize( window.innerWidth, window.innerHeight );
+            }
+
+            function getJSON(url, callback) {
+                var xhr = new XMLHttpRequest();
+                xhr.open('GET', url, true);
+                xhr.responseType = 'json';
+                xhr.onload = function() {
+                  var status = xhr.status;
+                  if (status == 200) {
+                    callback(null, xhr.response);
+                  } else {
+                    callback(status);
+                  }
+                };
+                xhr.send();
+            }
+
+        </script>
+
+    </body>
+
+</html>
