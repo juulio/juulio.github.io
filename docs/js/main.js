@@ -222,8 +222,7 @@ var juliodelvalle = window.juliodelvalle || {};
      * Loads the JSON font and call
      */
     function renderTextGeometry(font){
-        let theText = "POSSIBLE",
-        letterWidth = 0,
+        let theText = "3D text",
         letterMesh;
 
         letterPosition = 0;

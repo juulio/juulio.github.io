@@ -48,8 +48,7 @@ function init(font) {
   scene = new THREE.Scene();
 
   camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, .1);
-  // camera.position.set(4, 7, 6);
-  camera.position.set(0, 0, 9);
+  camera.position.set(0, 2.2, 11);
   camera.lookAt(0, 0, 0);
   // camera.lookAt(new THREE.Vector3(0, 1.6, 0));
 
@@ -388,7 +387,7 @@ function drawCubes(){
 /*******************************************************************************
  Draws Text */
 function drawText(font){
-  var theText = "POSSIBLE webVR";
+  var theText = "just move around";
   textColorGrowing = true,
   textColor = {
     r : 0,

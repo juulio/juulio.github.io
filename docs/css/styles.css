@@ -70,10 +70,11 @@ a {
   padding: 3px 4px;
   margin-right: 15px;
   text-decoration: none; }
-  a:hover {
-    color: #000;
-    cursor: pointer;
-    font-weight: bold; }
+
+a:hover {
+  color: #000;
+  cursor: pointer;
+  font-weight: bold; }
 
 span {
   color: #999999; }
@@ -82,10 +83,11 @@ span {
   clear: both; }
 
 .projectList {
-  width: 185px;
+  width: 195px;
   float: left; }
-  .projectList li {
-    margin-top: 20px; }
+
+.projectList li {
+  margin-top: 20px; }
 
 .submenu {
   margin-left: 20px; }
@@ -95,7 +97,7 @@ span {
     letter-spacing: 0.1em; }
 
 #canvasContainer {
-  width: calc(100% - 185px);
+  width: calc(100% - 195px);
   float: left; }
 
 nav {
