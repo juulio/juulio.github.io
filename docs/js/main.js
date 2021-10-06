@@ -17,7 +17,7 @@ var juliodelvalle = window.juliodelvalle || {};
     let scene, loader, camera, controls, renderer,
         clock, geometry, isMobile, windowHalfX, windowHalfY,
         shaderMaterials, planeMesh, // TODO create a plane mesh with lava material
-        fontLoader, textMesh, letterPosition,
+        textMesh, letterPosition,
         uniforms, manager;
 
     /*
