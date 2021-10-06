@@ -57,6 +57,8 @@ var juliodelvalle = window.juliodelvalle || {};
             rotateLetters();
         }
 
+        textMesh.rotation.x += 0.01;
+
         controls.update();
 
         renderer.render(scene, camera);
