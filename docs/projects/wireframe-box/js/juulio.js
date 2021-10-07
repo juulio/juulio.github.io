@@ -65,7 +65,6 @@ var manager = new WebVRManager(renderer, effect, params);
 // Create 3D objects.
 var geometry = new THREE.BoxGeometry(0.2, 0.2, 0.2);
 var material = new THREE.MeshNormalMaterial({
-  color: 0x7777ff,
   wireframe: false
 });
 var cube = new THREE.Mesh(geometry, material);
