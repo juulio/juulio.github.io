@@ -68,8 +68,6 @@ var generative_graphics = window.generative_graphics || {};
     var scene02 = generative_graphics.initScene02();
     generative_graphics.scene.add(scene02);
     
-    renderHelpers();
-
     animate();
 
     // generative_graphics.initNav();
@@ -162,17 +160,6 @@ var generative_graphics = window.generative_graphics || {};
         var selectedObject = scene.getObjectByName(object.name);
         scene.remove( selectedObject );
         animate();
-    }
-
-    /**
-     * Render XYZ Axis Helpers
-     */
-    function renderHelpers(){
-        var gridXZ = new THREE.GridHelper(290, 20);
-        scene.add(gridXZ);
-
-        var axisHelper = new THREE.AxisHelper( 25 );
-        scene.add( axisHelper );
     }
 
 }(generative_graphics));
