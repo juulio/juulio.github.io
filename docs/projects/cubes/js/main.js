@@ -216,7 +216,7 @@ function fullscreen() {
 function loadVoiceCommands(){
   if (annyang) {
     // Let's define our first command. First the text we expect, and then the function it should call
-    var commands = {
+    let commands = {
       'black': function() {
         // theText = 'Possible'
         textMesh.material.materials[0].color.setHex('#FFFFFF');
@@ -239,31 +239,31 @@ function drawCrosshair(){
   innerCrossHairGrowing = true;
   innerCrossHairSquareRotation = 0.03;
 
-  var crosshairPositionZ = -0.9;
-  var material = new THREE.LineBasicMaterial({ color: 0x00FF00 });
+  let crosshairPositionZ = -0.9;
+  let material = new THREE.LineBasicMaterial({ color: 0x00FF00 });
 
-  var x = 0.007, y = 0.007; // crosshair size
+  let x = 0.007, y = 0.007; // crosshair size
 
-  var geometry = new THREE.Geometry();
+  let geometry = new THREE.Geometry();
   geometry.vertices.push(new THREE.Vector3(-x, y, 0));
   geometry.vertices.push(new THREE.Vector3(x, y, 0));
   geometry.vertices.push(new THREE.Vector3(x, -y, 0));
   geometry.vertices.push(new THREE.Vector3(-x, -y, 0));
   geometry.vertices.push(new THREE.Vector3(-x, y, 0));
 
-  var crosshair = new THREE.Line( geometry, material );
+  let crosshair = new THREE.Line( geometry, material );
 
-  var lineGeometry = new THREE.Geometry();
+  let lineGeometry = new THREE.Geometry();
   lineGeometry.vertices.push(new THREE.Vector3(0, 3, 0));
   lineGeometry.vertices.push(new THREE.Vector3(0, 3, -40));
 
-  var crosshairLine = new THREE.Line(lineGeometry, material);
+  let crosshairLine = new THREE.Line(lineGeometry, material);
 
   // place it in the center
-  var crosshairPercentX = 50;
-  var crosshairPercentY = 50;
-  var crosshairPositionX = (crosshairPercentX / 100) * 2 - 1;
-  var crosshairPositionY = (crosshairPercentY / 100) * 2 - 1;
+  let crosshairPercentX = 50;
+  let crosshairPercentY = 50;
+  let crosshairPositionX = (crosshairPercentX / 100) * 2 - 1;
+  let crosshairPositionY = (crosshairPercentY / 100) * 2 - 1;
 
   crosshair.rotation.z = 45 * Math.PI / 180;
   crosshair.position.x = crosshairPositionX * camera.aspect;
@@ -273,7 +273,7 @@ function drawCrosshair(){
   camera.add( crosshair );
 
   // Center square
-  var squareGeometry = new THREE.Geometry();
+  let squareGeometry = new THREE.Geometry();
   squareGeometry.vertices.push(new THREE.Vector3(-x, y, 0));
   squareGeometry.vertices.push(new THREE.Vector3(x, y, 0));
   squareGeometry.vertices.push(new THREE.Vector3(x, -y, 0));
@@ -316,11 +316,11 @@ function updateCrossHair(){
 /*******************************************************************************
  Draws Cubes Walls  */
 function drawCubes(){
-  var geometry = new THREE.BoxGeometry( 1, 1, 1 );
-  // var material = new THREE.MeshLambertMaterial( {color: 0xd3d3d3, wireframe:false} );
+  let material,
+    geometry = new THREE.BoxGeometry( 1, 1, 1 );
 
-  var cubeScale = .3;
-  var rows=10,
+  let cubeScale = .3;
+  let rows=10,
     columns=10,
     r=0,
     c=0;
@@ -330,7 +330,7 @@ function drawCubes(){
     for(c=-columns/2; c<columns;c++){
 
       // Abajo
-      var material = new THREE.MeshLambertMaterial( {color: 0xd3d3d3, wireframe:false} );
+      material = new THREE.MeshLambertMaterial( {color: 0xd3d3d3, wireframe:false} );
       cube = new THREE.Mesh( geometry, material );
       cube.position.set(c,-5,r);
       cube.scale.set(cubeScale,cubeScale,cubeScale);
@@ -338,7 +338,7 @@ function drawCubes(){
       scene.add(cube);
 
       // Arriba
-      var material = new THREE.MeshLambertMaterial( {color: 0xd3d3d3, wireframe:false} );
+      material = new THREE.MeshLambertMaterial( {color: 0xd3d3d3, wireframe:false} );
       cube = new THREE.Mesh( geometry, material );
       cube.position.set(c,9,r);
       cube.scale.set(cubeScale,cubeScale,cubeScale);
@@ -346,7 +346,7 @@ function drawCubes(){
       scene.add(cube);
 
       // Izquierda
-      var material = new THREE.MeshLambertMaterial( {color: 0xd3d3d3, wireframe:false} );
+      material = new THREE.MeshLambertMaterial( {color: 0xd3d3d3, wireframe:false} );
       cube = new THREE.Mesh( geometry, material );
       cube.position.set(-6,c,r);
       cube.scale.set(cubeScale,cubeScale,cubeScale);
@@ -354,7 +354,7 @@ function drawCubes(){
       scene.add(cube);
 
       // Derecha
-      var material = new THREE.MeshLambertMaterial( {color: 0xd3d3d3, wireframe:false} );
+      material = new THREE.MeshLambertMaterial( {color: 0xd3d3d3, wireframe:false} );
       cube = new THREE.Mesh( geometry, material );
       cube.position.set(10,c,r);
       cube.scale.set(cubeScale,cubeScale,cubeScale);
@@ -362,7 +362,7 @@ function drawCubes(){
       scene.add(cube);
 
       // Fondo
-      var material = new THREE.MeshLambertMaterial( {color: 0xd3d3d3, wireframe:false} );
+      material = new THREE.MeshLambertMaterial( {color: 0xd3d3d3, wireframe:false} );
       cube = new THREE.Mesh( geometry, material );
       cube.position.set(c, r, 10);
       cube.scale.set(cubeScale,cubeScale,cubeScale);
@@ -370,7 +370,7 @@ function drawCubes(){
       scene.add(cube);
 
       // Frente
-      var material = new THREE.MeshLambertMaterial( {color: 0xd3d3d3, wireframe:false} );
+      material = new THREE.MeshLambertMaterial( {color: 0xd3d3d3, wireframe:false} );
       cube = new THREE.Mesh( geometry, material );
       cube.position.set(c, r, -6);
       cube.scale.set(cubeScale,cubeScale,cubeScale);
@@ -387,7 +387,7 @@ function drawCubes(){
 /*******************************************************************************
  Draws Text */
 function drawText(font){
-  var theText = "just move around";
+  let theText = "just move around";
   textColorGrowing = true,
   textColor = {
     r : 0,
@@ -395,7 +395,7 @@ function drawText(font){
     b : 0
   };
 
-  var hash = document.location.hash.substr( 1 );
+  let hash = document.location.hash.substr( 1 );
 
   if ( hash.length !== 0 ) {
     theText = hash;
@@ -410,17 +410,21 @@ function drawText(font){
 
   geometry.computeBoundingBox();
 
-  var centerOffset = -0.5 * ( geometry.boundingBox.max.x - geometry.boundingBox.min.x );
+  let centerOffset = -0.5 * ( geometry.boundingBox.max.x - geometry.boundingBox.min.x );
 
-  var material = new THREE.MultiMaterial( [
-    // new THREE.MeshBasicMaterial( { color: Math.random() * 0xffffff, overdraw: 0.5 } ),
+  let material = [
     new THREE.MeshBasicMaterial( { color: 0x7E7E7E, overdraw: 0.5 } ),// FRENTE  de las letras
-    // new THREE.MeshBasicMaterial( { color: 0xA8A8A8 } ) // LADO de las letras
     new THREE.MeshBasicMaterial( { color: textColor } ) // LADO de las letras
-  ] );
+  ];
+  // let material = new THREE.MultiMaterial( [
+  //   // new THREE.MeshBasicMaterial( { color: Math.random() * 0xffffff, overdraw: 0.5 } ),
+    
+  //   // new THREE.MeshBasicMaterial( { color: 0xA8A8A8 } ) // LADO de las letras
+    
+  // ] );
 
-  // var material = new THREE.MeshBasicMaterial( { color: 0x7E7E7E, overdraw: 0.5 } );
-  // var material = new THREE.MeshLambertMaterial( {color: 0xd3d3d3, wireframe:false} );
+  // let material = new THREE.MeshBasicMaterial( { color: 0x7E7E7E, overdraw: 0.5 } );
+  // let material = new THREE.MeshLambertMaterial( {color: 0xd3d3d3, wireframe:false} );
 
   textMesh = new THREE.Mesh( geometry, material );
 
@@ -437,7 +441,7 @@ function drawText(font){
 /*******************************************************************************
  Updates Text - Currently not working */
 function updateText(){
-  var textColorGrowth = 0.01;
+  let textColorGrowth = 0.01;
 
   if(textColorGrowing) {
     textColor.r+=textColorGrowth;
@@ -456,15 +460,13 @@ function updateText(){
   if(textColor.r <= 0){
     textColorGrowing = true;
   }
-
-  textMesh.material.materials[1].color = textColor;
-  // textMesh.material.color = textColor;
+  textMesh.material[0].color = textColor;
 }
 
 /*******************************************************************************
  Adds Two Hex Values */
 function addHexColor(c1, c2) {
-  var hexStr = (parseInt(c1, 16) + parseInt(c2, 16)).toString(16);
+  let hexStr = (parseInt(c1, 16) + parseInt(c2, 16)).toString(16);
   while (hexStr.length < 6) { hexStr = '0' + hexStr; } // Zero pad.
   return hexStr;
 }
@@ -481,17 +483,17 @@ function onMouseMove( event ) {
 /*******************************************************************************
  Verifies Raycaster Array */
 function updateRaycaster(){
-  var intersectedObject;
+  let intersectedObject;
 
   // update the picking ray with the camera and mouse position
   raycaster.setFromCamera(  { x: 0, y: 0 }, camera );
   // raycaster.set(controls.getObject().position, controls.getDirection(new THREE.Vector3()));
 
   // calculate objects intersecting the picking ray
-  var intersects = raycaster.intersectObjects( scene.children, true );
-  // var intersects = raycaster.intersectObjects( scene.getObjectByName('cube').children );
+  let intersects = raycaster.intersectObjects( scene.children, true );
+  // let intersects = raycaster.intersectObjects( scene.getObjectByName('cube').children );
 
-  for ( var i = 0; i < intersects.length; i++ ) {
+  for ( let i = 0; i < intersects.length; i++ ) {
     intersectedObject = intersects[ i ].object;
 
     if(intersectedObject.name == 'cube'){
@@ -505,7 +507,7 @@ function updateRaycaster(){
 /*******************************************************************************
  Spins a cube on the Y axis */
 function spinCube(cube){
-  var rotationCounter = 100;
+  let rotationCounter = 100;
   while(rotationCounter>0){
     cube.rotation.y-=0.1;
     cube.material.color.set(0xff0000);
