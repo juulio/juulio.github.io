@@ -519,6 +519,6 @@ function spinCube(cube){
 
 // Load the JSON font and init all functions
 loader = new THREE.FontLoader();
-loader.load('fonts/gotham_black_regular.json', function(font){
+loader.load('../../fonts/gotham_black_regular.json', function(font){
   init(font);
 });
