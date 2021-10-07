@@ -399,17 +399,12 @@ function drawText(font){
 
   geometry.computeBoundingBox();
 
-  var centerOffset = -0.5 * ( geometry.boundingBox.max.x - geometry.boundingBox.min.x );
+  let centerOffset = -0.5 * ( geometry.boundingBox.max.x - geometry.boundingBox.min.x );
 
-  var material = new THREE.MultiMaterial( [
-    // new THREE.MeshBasicMaterial( { color: Math.random() * 0xffffff, overdraw: 0.5 } ),
+  let material = [
     new THREE.MeshBasicMaterial( { color: 0xAEAEAE, overdraw: 0.5 } ),// FRENTE  de las letras
-    // new THREE.MeshBasicMaterial( { color: 0xA8A8A8 } ) // LADO de las letras
     new THREE.MeshBasicMaterial( { color: textColor } ) // LADO de las letras
-  ] );
-
-  // var material = new THREE.MeshBasicMaterial( { color: 0x7E7E7E, overdraw: 0.5 } );
-  // var material = new THREE.MeshLambertMaterial( {color: 0xd3d3d3} );
+  ];
 
   textMesh = new THREE.Mesh( geometry, material );
 
@@ -446,7 +441,7 @@ function updateText(){
     textColorGrowing = true;
   }
 
-  textMesh.material.materials[1].color = textColor;
+  textMesh.material[1].color = textColor;
   // textMesh.material.color = textColor;
 }
 
