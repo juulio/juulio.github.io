@@ -14,11 +14,13 @@ var juliodelvalle = window.juliodelvalle || {};
      * Declare all global variables
      */
 
-    let scene, loader, camera, controls, renderer,
-        clock, geometry, isMobile, windowHalfX, windowHalfY,
+    let scene, loader, renderer, camera, clock, geometry, isMobile, windowHalfX, windowHalfY,
         shaderMaterials, planeMesh, // TODO create a plane mesh with lava material
         textMesh, letterPosition,
         uniforms, manager;
+    
+    const rendererWidth = window.innerWidth;
+    const rendererHeight = window.innerHeight;
 
     /*
      * Inits all functions
@@ -58,8 +60,6 @@ var juliodelvalle = window.juliodelvalle || {};
         }
 
         textMesh.rotation.x += 0.01;
-
-        controls.update();
 
         renderer.render(scene, camera);
     }
@@ -164,28 +164,18 @@ var juliodelvalle = window.juliodelvalle || {};
      * Basic THREE.js scene init
      */
     function setScene() {
-        let canvasContainer = document.getElementById('canvasContainer'),
-            // rendererHeight = canvasContainer.clientHeight,
-            rendererWidth = '600px',
-            rendererHeight = '400px';
-            // rendererWidth = canvasContainer.clientWidth;
-            // console.log(rendererHeight);
-            // console.log(rendererWidth);
-
-            // rendererHeight = 300,
-            // rendererWidth = 700;
-        // rendererWidth = window.innerWidth;
-
-        renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false});
-        renderer.setSize(rendererWidth, rendererHeight);
-        renderer.setPixelRatio(window.devicePixelRatio);
-        renderer.setClearColor(0xFFFFFF);
-
         scene = new THREE.Scene();
 
         clock = new THREE.Clock();
 
         camera = new THREE.PerspectiveCamera(75, rendererWidth / rendererHeight, .1, 50);
+        
+        renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false});
+        renderer.setPixelRatio(window.devicePixelRatio);
+        renderer.setSize( rendererWidth, rendererHeight );
+        renderer.setClearColor(0xFFFFFF);     
+
+        document.body.appendChild( renderer.domElement );
 
         if(isMobile) {
             camera.position.z = 12;
@@ -193,10 +183,6 @@ var juliodelvalle = window.juliodelvalle || {};
         else {
             camera.position.z = 6;
         }
-
-        controls = new THREE.OrbitControls(camera);
-        controls.enablePan = true;
-        controls.enableZoom = true;
 
         var light = new THREE.AmbientLight( 0x000000 );
         scene.add( light );
@@ -213,11 +199,6 @@ var juliodelvalle = window.juliodelvalle || {};
         scene.add( lights[ 0 ] );
         scene.add( lights[ 1 ] );
         scene.add( lights[ 2 ] );
-
-        // var axisHelper = new THREE.AxisHelper( 5 );
-        // scene.add( axisHelper );
-
-        canvasContainer.appendChild( renderer.domElement );
     }
 
     /*
@@ -287,10 +268,10 @@ var juliodelvalle = window.juliodelvalle || {};
         windowHalfX = window.innerWidth / 2;
         windowHalfY = window.innerHeight / 2;
 
-        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.aspect = rendererWidth / rendererHeight;
         camera.updateProjectionMatrix();
 
-        renderer.setSize( window.innerWidth, window.innerHeight );
+        renderer.setSize( rendererWidth, rendererHeight );
     }
 
     /*

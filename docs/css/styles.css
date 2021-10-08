@@ -70,6 +70,10 @@ body {
   font-family: 'GothamExtraLight';
 }
 
+canvas {
+  display: block;
+}
+
 span {
   color: #999999;
 }
@@ -77,9 +81,12 @@ span {
 /* NAVIGATION STYLES
 -------------------------------------------------- */
 header {
+  top: 0px;
   z-index: 2;
+  width: 100%;
   padding: 1.5vw 2vw;
   position: absolute;
+  box-sizing: border-box;
 }
 
 .projectList {
