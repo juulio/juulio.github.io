@@ -1,0 +1,25 @@
+/* NAVIGATION STYLES
+-------------------------------------------------- */
+header {
+    z-index: 2;
+    padding: 1.5vw 2vw;
+    position: absolute;
+}
+
+.projectList {
+    width: 225px;
+}
+  
+.projectList li {
+    margin-top: 20px; 
+}
+  
+.submenu {
+    margin-left: 20px; 
+}
+
+.submenu li {
+    font-size: 12px;
+    margin-top: 12px;
+    letter-spacing: 0.1em; 
+}
