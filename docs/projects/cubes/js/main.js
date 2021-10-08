@@ -33,10 +33,11 @@ var scene,
 
 /******************************************************************************/
 function init(font) {
-  if ( stereoEnabled && (WEBVR.isLatestAvailable() === false) && !stereoFallbackEnabled ) {
-    // TODO create my own VR enabled message. (desktop, mobile, etc)
-      document.body.appendChild( WEBVR.getMessage() );
-  }
+    let canvasContainer = document.getElementById('canvasContainer');
+
+    if ( stereoEnabled && (WEBVR.isLatestAvailable() === false) && !stereoFallbackEnabled ) {
+        document.body.appendChild( WEBVR.getMessage() );
+    }
 
   /*****************************************************************************
    Basic THREE.js scene objects setup: renderer, scene and camera */
@@ -44,6 +45,7 @@ function init(font) {
   renderer.setSize(window.innerWidth, window.innerHeight);
   renderer.setPixelRatio(window.devicePixelRatio);
   renderer.setClearColor(0x000000);
+  canvasContainer.appendChild( renderer.domElement );
 
   scene = new THREE.Scene();
 
@@ -93,7 +95,7 @@ function init(font) {
   // window.addEventListener('click', onClick);
   window.addEventListener( 'resize', resizeViewport, false );
 
-  document.body.appendChild( renderer.domElement );
+//   document.body.appendChild( renderer.domElement );
 
   resizeViewport();
 

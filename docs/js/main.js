@@ -169,8 +169,8 @@ var juliodelvalle = window.juliodelvalle || {};
             rendererWidth = '600px',
             rendererHeight = '400px';
             // rendererWidth = canvasContainer.clientWidth;
-            console.log(rendererHeight);
-            console.log(rendererWidth);
+            // console.log(rendererHeight);
+            // console.log(rendererWidth);
 
             // rendererHeight = 300,
             // rendererWidth = 700;
