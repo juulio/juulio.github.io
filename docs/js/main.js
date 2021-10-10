@@ -13,25 +13,38 @@ import scene01 from "./scenes/scene01.js";
 // import scene08 from "./scenes/scene08.js";
 // import scene09 from "./scenes/scene09.js";
 import scene10 from "./scenes/scene10.js";
-console.log(scene10);
 
-/**
- * Set all Click Event listeners
- */
 
 /**
  * Set basic THREEjs scene stuff
  */
-let scene;
-const rendererWidth = window.innerWidth;
-const rendererHeight = window.innerHeight;
-const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
-const renderer = new THREE.WebGLRenderer();
-renderer.setSize( rendererWidth, rendererHeight );
-document.body.appendChild( renderer.domElement );
-camera.position.z = 5;
+ let scene;
+ const rendererWidth = window.innerWidth;
+ const rendererHeight = window.innerHeight;
+ const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+ const renderer = new THREE.WebGLRenderer();
+ renderer.setSize( rendererWidth, rendererHeight );
+ document.body.appendChild( renderer.domElement );
+ camera.position.z = 5;
+ 
+ scene = scene01;
+ 
+/**
+ * Set all Click Event listeners
+ */
+const navLinks = document.getElementsByClassName('nav-links');
+Array.from(navLinks).forEach((link) => {
+    link.addEventListener('click', (e) => {
+        e.preventDefault();
+        scene = link.id;
+    });    
+});
 
-scene = scene01;
+// document.getElementById('scene01').addEventListener('click', (e) => {
+//     e.preventDefault();
+//     scene = scene01;
+// }); 
+
 
 /**
  * Init the animate loop to render the Scene
