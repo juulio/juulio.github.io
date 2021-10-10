@@ -3,6 +3,7 @@
  */
 
 
+import sceneObject from "./scenes/scene00.js";
 import scene01 from "./scenes/scene01.js";
 // import scene02 from "./scenes/scene02.js";
 // import scene03 from "./scenes/scene03.js";
@@ -16,6 +17,7 @@ import scene10 from "./scenes/scene10.js";
 
 // const sceneArray = [ scene01, scene02, scene03, scene04, scene05, scene06, scene07, scene08, scene09, scene10];
 const sceneArray = [ scene01, scene10];
+let clock;
 
 /**
  * Set basic THREEjs scene stuff
@@ -31,7 +33,9 @@ renderer.setClearColor ( "#ffffff");
 document.body.appendChild( renderer.domElement );
 camera.position.z = 5;
 
-scene = scene01;
+clock = new THREE.Clock();
+console.log(sceneObject);
+scene = sceneObject.scene00;
  
 /**
  * Set all Click Event listeners
@@ -44,13 +48,32 @@ Array.from(navLinks).forEach((link, index) => {
     });    
 });
 
+ 
+/**
+ * Handles onWindowResize event and updates Projection Matrix
+ */
+const onWindowResize = () => {
+    windowHalfX = window.innerWidth / 2;
+    windowHalfY = window.innerHeight / 2;
+
+    camera.aspect = rendererWidth / rendererHeight;
+    camera.updateProjectionMatrix();
+
+    renderer.setSize( rendererWidth, rendererHeight );
+}
+
 /**
  * Init the animate loop to render the Scene
  */
-function animate() {
+const animate = () => {
 	requestAnimationFrame( animate );
+
+    let delta = clock.getDelta();
+    sceneObject.uniforms.u_time.value += delta * 2;
+
 	renderer.render( scene, camera );
 }
+
 animate();
 
 
