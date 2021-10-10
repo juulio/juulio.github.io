@@ -1,8 +1,11 @@
 
-let scene10 = new THREE.Scene();
+const scene01 = new THREE.Scene();
 const geometry = new THREE.SphereGeometry( 2, 32, 16 );
-const material = new THREE.MeshLambertMaterial( { color: 0xffff00 } );
+const material = new THREE.MeshLambertMaterial( { color: 0xff0000 } );
 const sphere = new THREE.Mesh( geometry, material );
-scene10.add( sphere );
+scene01.add( sphere );
 
-export { scene10 };
+const light = new THREE.AmbientLight( 0x404040 ); // soft white light
+scene01.add( light );
+
+export default scene01;
