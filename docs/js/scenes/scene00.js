@@ -1,106 +1,14 @@
+import shaderMaterials from "../main.js";
+
 const scene00 = new THREE.Scene();
 const loader = new THREE.FontLoader();
-const shaderMaterials = [];
-let uniforms = {
-    u_time: { type: "f", value: 1.0 },
-    u_resolution: { type: "v2", value: new THREE.Vector2() },
-    u_mouse: { type: "v2", value: new THREE.Vector2() }
-};
 
 /**
  * Load the JSON font and call init
  */
 loader.load('./fonts/gotham_black_regular.json', function(font){
-    setupShaderMaterials();
     scene00.add(renderTextGeometry(font));
 });
-
-/**
- * Init Uniforms for shaderMaerial
- * TODO: create a shaderMaterial array to use several shaders on several materials
- */
-const setupShaderMaterials = () => {
-    // uniforms = {
-    //     u_time: { type: "f", value: 1.0 },
-    //     u_resolution: { type: "v2", value: new THREE.Vector2() },
-    //     u_mouse: { type: "v2", value: new THREE.Vector2() }
-    // };
-
-    uniforms.u_resolution.value.x = window.innerWidth;
-    uniforms.u_resolution.value.y = window.innerHeight;
-
-    shaderMaterials.push(
-        new THREE.ShaderMaterial( {
-            name: "Voronoi",
-            uniforms: uniforms,
-            vertexShader: document.getElementById( 'vertexShader' ).textContent,
-            fragmentShader: document.getElementById( 'voronoiFragmentShader' ).textContent
-        })
-    );
-
-    shaderMaterials.push(
-        new THREE.ShaderMaterial( {
-            name: "Jaguar Texture",
-            uniforms: uniforms,
-            vertexShader: document.getElementById( 'vertexShader' ).textContent,
-            fragmentShader: document.getElementById( 'jaguarFragmentShader' ).textContent
-        })
-    );
-
-    shaderMaterials.push(
-        new THREE.ShaderMaterial( {
-            name: "Red Pulse",
-            uniforms: uniforms,
-            vertexShader: document.getElementById( 'vertexShader' ).textContent,
-            fragmentShader: document.getElementById( 'redPulseFragmentShader' ).textContent
-        })
-    );
-
-    shaderMaterials.push(
-        new THREE.ShaderMaterial( {
-            name: "Black & White Matrix",
-            uniforms: uniforms,
-            vertexShader: document.getElementById( 'vertexShader' ).textContent,
-            fragmentShader: document.getElementById( 'bwMatrixFragmentShader' ).textContent
-        })
-    );
-
-    shaderMaterials.push(
-        new THREE.ShaderMaterial( {
-            name: "Rotated Tiles",
-            uniforms: uniforms,
-            vertexShader: document.getElementById( 'vertexShader' ).textContent,
-            fragmentShader: document.getElementById( 'rotatedTilesFragmentShader' ).textContent
-        })
-    );
-
-    shaderMaterials.push(
-        new THREE.ShaderMaterial( {
-            name: "Noise",
-            uniforms: uniforms,
-            vertexShader: document.getElementById( 'vertexShader' ).textContent,
-            fragmentShader: document.getElementById( 'noiseFragmentShader' ).textContent
-        })
-    );
-
-    shaderMaterials.push(
-        new THREE.ShaderMaterial( {
-            name: "Simplex Grid",
-            uniforms: uniforms,
-            vertexShader: document.getElementById( 'vertexShader' ).textContent,
-            fragmentShader: document.getElementById( 'simplexGridFragmentShader' ).textContent
-        })
-    );
-
-    shaderMaterials.push(
-        new THREE.ShaderMaterial( {
-            name: "Displacement",
-            uniforms: uniforms,
-            vertexShader: document.getElementById( 'vertexShader' ).textContent,
-            fragmentShader: document.getElementById( 'displacementFragmentShader' ).textContent
-        })
-    );
-}
 
 /**
  *  Loads the JSON font and call
@@ -142,10 +50,4 @@ const renderTextGeometry = (font) => {
   return textMesh;
 }
 
-// const light = new THREE.AmbientLight( 0x404040 ); // soft white light
-// scene01.add( light );
-
-const sceneObject = {
-    scene00, uniforms
-}
-export default sceneObject;
+export default scene00;
