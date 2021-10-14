@@ -2,11 +2,15 @@
  * Julio Del Valle - Costa Rica 2021
  */
 
-import shaderMaterialsData from './shaderMaterials.js';
+import vertexShaderEl from './shaders/vertexShader.js';
+import shaderMaterialsData from './shaders/shaderMaterials.js';
+
+
 const sceneArray = [ scene00, scene01, scene02, scene03, scene04, scene05, scene06, scene07, scene08, scene09];
 let clock, shaderStuff;
 let shaderMaterials = [];
- /**
+ 
+/**
  * Set uniforms for shader Materials
  */
 let uniforms = {
@@ -20,7 +24,7 @@ let uniforms = {
  * TODO: create a shaderMaterial array to use several shaders on several materials
  */
 const setupShaderMaterials = () => {
-    let vertexShaderEl = document.getElementById( 'vertexShader' ).textContent;
+    // let vertexShaderEl = document.getElementById( 'vertexShader' ).textContent;
     uniforms.u_resolution.value.x = window.innerWidth;
     uniforms.u_resolution.value.y = window.innerHeight;
     
@@ -36,19 +40,6 @@ const setupShaderMaterials = () => {
     }
 }
 
-setupShaderMaterials();
- // console.log(sceneArray);
-
-import scene00 from "./scenes/scene00.js";
-import scene01 from "./scenes/scene01.js";
-import scene02 from "./scenes/scene02.js";
-import scene03 from "./scenes/scene03.js";
-import scene04 from "./scenes/scene04.js";
-import scene05 from "./scenes/scene05.js";
-import scene06 from "./scenes/scene06.js";
-import scene07 from "./scenes/scene07.js";
-import scene08 from "./scenes/scene08.js";
-import scene09 from "./scenes/scene09.js";
 
 
 /**
@@ -100,13 +91,25 @@ const animate = () => {
 	requestAnimationFrame( animate );
 
     let delta = clock.getDelta();
-    // sceneObject.uniforms.u_time.value += delta * 2;
     uniforms.u_time.value += delta * 2;
 
 	renderer.render( scene, camera );
 }
 
+setupShaderMaterials();
+
+import scene00 from "./scenes/scene00.js";
+import scene01 from "./scenes/scene01.js";
+import scene02 from "./scenes/scene02.js";
+import scene03 from "./scenes/scene03.js";
+import scene04 from "./scenes/scene04.js";
+import scene05 from "./scenes/scene05.js";
+import scene06 from "./scenes/scene06.js";
+import scene07 from "./scenes/scene07.js";
+import scene08 from "./scenes/scene08.js";
+import scene09 from "./scenes/scene09.js";
+
 animate();
 
 // export default uniforms;
-export default shaderMaterials;
+export default { shaderMaterials, uniforms };

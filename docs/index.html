@@ -62,15 +62,6 @@
         </ul>
     </header>
 
-    <script id="vertexShader" type="x-shader/x-vertex">
-        uniform float delta;
-
-        void main() {
-            vec4 modelViewPosition = modelViewMatrix * vec4(position, 1.0);
-            gl_Position = projectionMatrix * modelViewPosition;
-       }
-    </script>
-
     <script id="voronoiFragmentShader" type="x-shader/x-fragment">
         // Author: @patriciogv - 2015
         // Title: Tissue
