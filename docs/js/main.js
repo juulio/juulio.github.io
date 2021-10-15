@@ -2,39 +2,50 @@
  * Julio Del Valle - Costa Rica 2021
  */
 
+// Import all stuff for shader materials array
 import vertexShaderEl from './shaders/vertexShader.js';
-import shaderMaterialsData from './shaders/shaderMaterials.js';
-import fireFragmentShader from './shaders/fireFragmentShader.js';
+import redPulseFragmentShader from './shaders/redPulseFragmentShader.js';
+import displacementFragmentShader from './shaders/displacementFragmentShader.js';
+import fireFragmentShader from './shaders/fireFragmentShader.js'
+import jaguarFragmentShader from './shaders/jaguarFragmentShader.js';
+import bwMatrixFragmentShader from './shaders/bwMatrixFragmentShader.js';
+import noiseFragmentShader from './shaders/noiseFragmentShader.js';
+import voronoiFragmentShader from './shaders/voronoiFragmentShader.js';
+
+const fragmentShaders = [
+    fireFragmentShader,
+    redPulseFragmentShader,
+    displacementFragmentShader,
+    jaguarFragmentShader,
+    bwMatrixFragmentShader,
+    noiseFragmentShader,
+    voronoiFragmentShader
+];
+
+const shaderMaterials = [];
 
 const sceneArray = [ scene00, scene01, scene02, scene03, scene04, scene05, scene06, scene07, scene08, scene09];
-let clock, shaderStuff;
-let shaderMaterials = [];
+let clock, uniforms;
  
 /**
- * Set uniforms for shader Materials
- */
-let uniforms = {
-    u_time: { type: "f", value: 1.0 },
-    u_resolution: { type: "v2", value: new THREE.Vector2() },
-    u_mouse: { type: "v2", value: new THREE.Vector2() }
-};
-
- /**
- * Init Uniforms for shaderMaerial
- * TODO: create a shaderMaterial array to use several shaders on several materials
+ * Create shaderMaterials using previously imported shaders
  */
 const setupShaderMaterials = () => {
-    // let vertexShaderEl = document.getElementById( 'vertexShader' ).textContent;
+    uniforms = {
+        u_time: { type: "f", value: 1.0 },
+        u_resolution: { type: "v2", value: new THREE.Vector2() },
+        u_mouse: { type: "v2", value: new THREE.Vector2() }
+    };
+
     uniforms.u_resolution.value.x = window.innerWidth;
     uniforms.u_resolution.value.y = window.innerHeight;
     
-    for (let shaderMaterial of shaderMaterialsData){
+    for (let fragmentShader of fragmentShaders){
         shaderMaterials.push(
             new THREE.ShaderMaterial( {
-                name: shaderMaterial.name,
                 uniforms: uniforms,
                 vertexShader: vertexShaderEl,
-                fragmentShader: document.getElementById( shaderMaterial.id ).textContent
+                fragmentShader: fragmentShader
             })
         );
     }
