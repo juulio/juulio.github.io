@@ -1,5 +1,4 @@
-export default `
-    // Author @kyndinfo - 2016
+export default `// Author @kyndinfo - 2016
     // http://www.kynd.info
     // Title: Displacement
 
