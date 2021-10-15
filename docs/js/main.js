@@ -31,10 +31,22 @@ let clock, uniforms;
  * Create shaderMaterials using previously imported shaders
  */
 const setupShaderMaterials = () => {
+    let baseSpeed = 0.02;
+    let repeatS = 3.0;
+    let repeatT = 4.0;
+
+    let noiseTexture = new THREE.TextureLoader().load('./js/textures/cloud.png');
+    noiseTexture.wrapS = noiseTexture.wrapT = THREE.RepeatWrapping; 
+
+
     uniforms = {
-        u_time: { type: "f", value: 1.0 },
-        u_resolution: { type: "v2", value: new THREE.Vector2() },
-        u_mouse: { type: "v2", value: new THREE.Vector2() }
+        u_time:         { type: "f", value: 1.0 },
+        u_resolution:   { type: "v2", value: new THREE.Vector2() },
+        u_mouse:        { type: "v2", value: new THREE.Vector2() },
+        baseSpeed:		{ type: "f", value: baseSpeed },
+        repeatS:		{ type: "f", value: repeatS },
+        repeatT:		{ type: "f", value: repeatT },
+        noiseTexture:	{ type: "t", value: noiseTexture }
     };
 
     uniforms.u_resolution.value.x = window.innerWidth;
@@ -52,7 +64,6 @@ const setupShaderMaterials = () => {
     }
 }
 
-
 /**
  * Set basic THREEjs scene stuff
  */
@@ -68,7 +79,9 @@ document.body.appendChild( renderer.domElement );
 camera.position.z = 5;
 
 clock = new THREE.Clock();
+
 scene = scene00;
+
  
 /**
  * Set all Click Event listeners
@@ -104,10 +117,15 @@ const animate = () => {
     let delta = clock.getDelta();
     uniforms.u_time.value += delta * 2;
 
+    // sphereMesh.rotation.x += 0.03;
 	renderer.render( scene, camera );
 }
 
 setupShaderMaterials();
+let geometry = new THREE.SphereGeometry( 1, 32, 16 );
+let sphereMesh = new THREE.Mesh( geometry, shaderMaterials[6] );
+scene.add(sphereMesh);
+
 animate();
 
 import scene00 from "./scenes/scene00.js";

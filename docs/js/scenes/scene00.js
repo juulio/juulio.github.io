@@ -3,12 +3,15 @@ import shaderMaterials from "../main.js";
 const scene00 = new THREE.Scene();
 const loader = new THREE.FontLoader();
 
+let noiseTexture = new THREE.TextureLoader().load('./js/textures/cloud.png');
+noiseTexture.wrapS = noiseTexture.wrapT = THREE.RepeatWrapping; 
+
 /**
  * Load the JSON font and call init
  */
 loader.load('./fonts/gotham_black_regular.json', function(font){
     scene00.add(renderTextMesh(font));
-    scene00.add(renderSphereMesh());
+    // scene00.add(renderSphereMesh());
 });
 
 /**
@@ -53,7 +56,7 @@ const renderTextMesh = (font) => {
 
 
 /**
- * 
+ * Render Sphere to test Shader Materials
  */
 const renderSphereMesh = () => {
     const geometry = new THREE.SphereGeometry( 1, 32, 16 );
