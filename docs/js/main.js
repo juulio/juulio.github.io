@@ -13,13 +13,13 @@ import noiseFragmentShader from './shaders/noiseFragmentShader.js';
 import voronoiFragmentShader from './shaders/voronoiFragmentShader.js';
 
 const fragmentShaders = [
-    fireFragmentShader,
-    redPulseFragmentShader,
     displacementFragmentShader,
+    voronoiFragmentShader,
+    redPulseFragmentShader,
     jaguarFragmentShader,
     bwMatrixFragmentShader,
     noiseFragmentShader,
-    voronoiFragmentShader
+    fireFragmentShader
 ];
 
 const shaderMaterials = [];
@@ -45,7 +45,8 @@ const setupShaderMaterials = () => {
             new THREE.ShaderMaterial( {
                 uniforms: uniforms,
                 vertexShader: vertexShaderEl,
-                fragmentShader: fragmentShader
+                fragmentShader: fragmentShader,
+                transparent: true
             })
         );
     }

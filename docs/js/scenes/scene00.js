@@ -57,7 +57,7 @@ const renderTextMesh = (font) => {
  */
 const renderSphereMesh = () => {
     const geometry = new THREE.SphereGeometry( 1, 32, 16 );
-    return new THREE.Mesh( geometry, shaderMaterials[0] );
+    return new THREE.Mesh( geometry, shaderMaterials[6] );
 }
 
 export default scene00;
