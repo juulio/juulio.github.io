@@ -4,7 +4,7 @@
 
 import vertexShaderEl from './shaders/vertexShader.js';
 import shaderMaterialsData from './shaders/shaderMaterials.js';
-
+import fireFragmentShader from './shaders/fireFragmentShader.js';
 
 const sceneArray = [ scene00, scene01, scene02, scene03, scene04, scene05, scene06, scene07, scene08, scene09];
 let clock, shaderStuff;
@@ -39,7 +39,6 @@ const setupShaderMaterials = () => {
         );
     }
 }
-
 
 
 /**
@@ -97,6 +96,7 @@ const animate = () => {
 }
 
 setupShaderMaterials();
+animate();
 
 import scene00 from "./scenes/scene00.js";
 import scene01 from "./scenes/scene01.js";
@@ -109,7 +109,7 @@ import scene07 from "./scenes/scene07.js";
 import scene08 from "./scenes/scene08.js";
 import scene09 from "./scenes/scene09.js";
 
-animate();
+
 
 // export default uniforms;
-export default { shaderMaterials, uniforms };
+export default shaderMaterials;

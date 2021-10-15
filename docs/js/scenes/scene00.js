@@ -7,13 +7,14 @@ const loader = new THREE.FontLoader();
  * Load the JSON font and call init
  */
 loader.load('./fonts/gotham_black_regular.json', function(font){
-    scene00.add(renderTextGeometry(font));
+    scene00.add(renderTextMesh(font));
+    scene00.add(renderSphereMesh());
 });
 
 /**
  *  Loads the JSON font and call
  */
-const renderTextGeometry = (font) => {
+const renderTextMesh = (font) => {
     let theText = "3D text",
         geometry,
         textMesh,
@@ -48,6 +49,15 @@ const renderTextGeometry = (font) => {
     // }
 
   return textMesh;
+}
+
+
+/**
+ * 
+ */
+const renderSphereMesh = () => {
+    const geometry = new THREE.SphereGeometry( 1, 32, 16 );
+    return new THREE.Mesh( geometry, shaderMaterials[0] );
 }
 
 export default scene00;
