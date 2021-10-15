@@ -30,7 +30,8 @@ return mix(r0, r1, f.z)*2.-1.;
 
 void main() {
 vec2 p = -.5 + gl_FragCoord.xy / u_resolution.xy;
-p.x *= u_resolution.x/u_resolution.y;
+p.x *= (u_resolution.x/u_resolution.y) * 4.;
+p.y *= (u_resolution.x/u_resolution.y) * 4.;
 
 float color = 3.0 - (3.*length(2.*p));
 
