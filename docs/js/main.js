@@ -6,7 +6,7 @@
 import vertexShaderEl from './shaders/vertexShader.js';
 import redPulseFragmentShader from './shaders/redPulseFragmentShader.js';
 import displacementFragmentShader from './shaders/displacementFragmentShader.js';
-import fireFragmentShader from './shaders/fireFragmentShader.js'
+// import fireFragmentShader from './shaders/fireFragmentShader.js'
 import jaguarFragmentShader from './shaders/jaguarFragmentShader.js';
 import bwMatrixFragmentShader from './shaders/bwMatrixFragmentShader.js';
 import noiseFragmentShader from './shaders/noiseFragmentShader.js';
@@ -19,7 +19,7 @@ const fragmentShaders = [
     jaguarFragmentShader,
     bwMatrixFragmentShader,
     noiseFragmentShader,
-    fireFragmentShader
+    // fireFragmentShader
 ];
 
 const shaderMaterials = [];
@@ -37,7 +37,6 @@ const setupShaderMaterials = () => {
 
     let noiseTexture = new THREE.TextureLoader().load('./js/textures/cloud.png');
     noiseTexture.wrapS = noiseTexture.wrapT = THREE.RepeatWrapping; 
-
 
     uniforms = {
         u_time:         { type: "f", value: 1.0 },
@@ -123,7 +122,7 @@ const animate = () => {
 
 setupShaderMaterials();
 let geometry = new THREE.SphereGeometry( 1, 32, 16 );
-let sphereMesh = new THREE.Mesh( geometry, shaderMaterials[6] );
+let sphereMesh = new THREE.Mesh( geometry, shaderMaterials[5] );
 scene.add(sphereMesh);
 
 animate();

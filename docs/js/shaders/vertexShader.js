@@ -1,4 +1,6 @@
-export default `
+export default `#ifdef GL_ES
+precision mediump float;
+#endif
 uniform float delta;
 
 uniform sampler2D noiseTexture;

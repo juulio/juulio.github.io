@@ -60,7 +60,12 @@ const renderTextMesh = (font) => {
  */
 const renderSphereMesh = () => {
     const geometry = new THREE.SphereGeometry( 1, 32, 16 );
+    const material = new THREE.MeshPhongMaterial({
+        color: 0xFF0000,    // red (can also use a CSS color string here)
+        flatShading: true,
+      });
     return new THREE.Mesh( geometry, shaderMaterials[6] );
+    // return new THREE.Mesh( geometry, material );
 }
 
 export default scene00;
