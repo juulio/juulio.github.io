@@ -1,24 +1,31 @@
 // Marzo 16 2021 http://stemkoski.github.io/Three.js/Shader-Animate.html
-// Resolver por qué no puedo importar la imagen
 // https://github.com/mrdoob/three.js/blob/master/examples/webgl_geometry_cube.html
-import '../styles/style.scss';
+import '../scss/styles.scss';
 import gotham_black_regular from '../public/fonts/gotham_black_regular.json';
 import cloudAsset from '../public/images/textures/cloud.png';
 import lavatileAsset from '../public/images/textures/lavatile.jpg';
 import greenTextureAsset from '../public/images/textures/greenTexture.png';
 import brownTextureAsset from '../public/images/textures/brownTexture.png';
-import volcanoHeightmap from '../public/images/textures/volcano-heightmap.png'
+import volcanoHeightmap from '../public/images/textures/volcano-heightmap512x512.png'
 import sand512 from '../public/images/textures/sand-512.jpg'
 import rock512 from '../public/images/textures/rock-512.jpg'
 import snow512 from '../public/images/textures/snow-512.jpg'
 import volcanic256 from '../public/images/textures/volcanic-256.jpg'
+import disturb from '../public/images/textures/disturb.jpg'
+import mars_back from '../public/images/skybox/mars_back.png'
+import mars_front from '../public/images/skybox/mars_front.png'
+import mars_right from '../public/images/skybox/mars_right.png'
+import mars_top from '../public/images/skybox/mars_top.png'
+import mars_bottom from '../public/images/skybox/mars_bottom.png'
+import mars_left from '../public/images/skybox/mars_left.png'
+
+
 
 import * as THREE from 'three';
 import { OrbitControls } from 'OrbitControls';
 
 import vertexShader from '../public/shaders/vertex.glsl';
 import lavaFragmentShader from '../public/shaders/noise.glsl';
-import ringFragmentShader from '../public/shaders/ringTextureFragmentShader.glsl';
 import lunarFragmentShader from '../public/shaders/lunarTextureFragmentShader.glsl';
 import heightmapFragmentShader from '../public/shaders/heightmapFragmentShader.glsl';
 import heightmapVertexShader from '../public/shaders/heightmapVertexShader.glsl';
@@ -26,12 +33,9 @@ import heightmapVertexShader from '../public/shaders/heightmapVertexShader.glsl'
 
 const scene = new THREE.Scene();
 let  camera, renderer, controls;
-// let geometry, material, mesh;
 let clock, shaderMaterial, shaderMaterials, uniforms, letterPosition, textGeometry, textMesh, delta, isMobile;
 let lavaMaterial;
-let sphereMesh, sphereScale, customUniforms;
-let ringMesh, ringUniforms, volcanoMesh;
-
+let sphereMesh, customUniforms, volcanoMesh;
 
 /**
   * Sets basic 3D Scene Elements
@@ -58,11 +62,77 @@ function init(font) {
 
     renderer = new THREE.WebGLRenderer( { antialias: true } );
     renderer.setSize( window.innerWidth, window.innerHeight );
+	renderer.setClearColor ( "#ffffff");
     document.body.appendChild( renderer.domElement );
     controls = new OrbitControls( camera, renderer.domElement );
 	window.addEventListener( 'resize', onWindowResize, false );
 
 	clock = new THREE.Clock();
+
+	scene.add( new THREE.AxesHelper( 500 ));
+	scene.add( new THREE.GridHelper( 500, 50 ));
+	
+	// setupShaderMaterials();
+    // renderTextGeometry(font);
+
+	// const planeGeometry = new THREE.PlaneGeometry( 50, 50, 32 );
+	// const planeMaterial = new THREE.MeshBasicMaterial( {color: 0x585858, side: THREE.DoubleSide} );
+	// const plane = new THREE.Mesh( planeGeometry, planeMaterial );
+	// plane.rotation.x = Math.PI / 2;
+
+	// scene.add( plane );
+
+        
+	lavaMaterial = setupLavaMaterial();
+	scene.add(renderSkybox());
+	scene.add(renderMoon());
+	scene.add(renderVolcano());
+	scene.add(renderFerrisWheel());
+
+    animate();
+}
+
+/**
+ * Setup uniforms and attributes for custom shader material 
+ */
+let setupLavaMaterial = () => {
+	const noiseTexture = new THREE.TextureLoader().load(cloudAsset);
+	noiseTexture.wrapS = noiseTexture.wrapT = THREE.RepeatWrapping;
+
+	const lavaTexture = new THREE.TextureLoader().load(lavatileAsset);
+	lavaTexture.wrapS = lavaTexture.wrapT = THREE.RepeatWrapping;
+
+	customUniforms = {
+		baseTexture: { type: "t", value: lavaTexture },
+		baseSpeed: { type: "f", value: 0.06 },
+		noiseTexture: { type: "t", value: noiseTexture },
+		noiseScale: { type: "f", value: 0.2 },
+		alpha: { type: "f", value: 0.7 },
+		time: { type: "f", value: 1.0 }
+	};
+
+	let material = new THREE.ShaderMaterial({
+		uniforms: customUniforms,
+		vertexShader: vertexShader,
+		fragmentShader: lavaFragmentShader
+	});
+
+	// other material properties
+	material.side = THREE.DoubleSide;
+	material.transparent = true;
+
+	return material;
+}
+
+/**
+ * Render volcano cone Mesh with lava material 
+ */
+let renderVolcano = () => {
+	let volcanoHeight = 300;
+	const geometry = new THREE.ConeGeometry( 14, volcanoHeight, 32, 32);
+	const cone = new THREE.Mesh( geometry, lavaMaterial );
+	cone.position.y = volcanoHeight / 2 ;
+	scene.add( cone );
 
 	// Mountain Textures
 	// texture used to generate "bumpiness"
@@ -101,74 +171,13 @@ function init(font) {
 		// side: THREE.DoubleSide
 	}   );
 		
-	let planeGeo = new THREE.PlaneGeometry( 1000, 1000, 100, 100 );
+	let planeGeo = new THREE.PlaneGeometry( 400, 400, 100, 100 );
 	volcanoMesh = new THREE.Mesh(	planeGeo, volcanicMaterial );
 	volcanoMesh.rotation.x = -Math.PI / 2;
-	volcanoMesh.position.y = -100;
-	scene.add( volcanoMesh );
-
-
-
-
-
-	// scene.add( new THREE.AxesHelper( 50 ));
-	
-	// setupShaderMaterials();
-    // renderTextGeometry(font);
-
-	// const planeGeometry = new THREE.PlaneGeometry( 50, 50, 32 );
-	// const planeMaterial = new THREE.MeshBasicMaterial( {color: 0x585858, side: THREE.DoubleSide} );
-	// const plane = new THREE.Mesh( planeGeometry, planeMaterial );
-	// plane.rotation.x = Math.PI / 2;
-
-	// scene.add( plane );
-
-	// lavaMaterial = setupLavaMaterial();
-	renderMoon();
-	// renderVolcano();
-	renderRings();
-
-    animate();
-}
-
-/**
- * Setup uniforms and attributes for custom shader material 
- */
-let setupLavaMaterial = () => {
-	const noiseTexture = new THREE.TextureLoader().load(cloudAsset);
-	noiseTexture.wrapS = noiseTexture.wrapT = THREE.RepeatWrapping;
-
-	customUniforms = {
-		baseTexture: { type: "t", value: lavaTexture },
-		baseSpeed: { type: "f", value: 0.06 },
-		noiseTexture: { type: "t", value: noiseTexture },
-		noiseScale: { type: "f", value: 0.2 },
-		alpha: { type: "f", value: 0.7 },
-		time: { type: "f", value: 1.0 }
-	};
-
-	let material = new THREE.ShaderMaterial({
-		uniforms: customUniforms,
-		vertexShader: vertexShader,
-		fragmentShader: lavaFragmentShader
-	});
-
-	// other material properties
-	material.side = THREE.DoubleSide;
-	material.transparent = true;
-
-	return material;
-}
-
-/**
- * Render volcano cone Mesh with lava material 
- */
-let renderVolcano = () => {
-	let volcanoHeight = 3;
-	const geometry = new THREE.ConeGeometry( 4, volcanoHeight, 32, 32);
-	const cone = new THREE.Mesh( geometry, lavaMaterial );
-	cone.position.y = volcanoHeight / 2 ;
-	scene.add( cone );
+	volcanoMesh.rotation.x = -Math.PI / 2;
+	volcanoMesh.position.x = -60;
+	volcanoMesh.position.y = -60;
+	return volcanoMesh;
 }
 
 /**
@@ -196,39 +205,85 @@ let renderMoon = () => {
 	sphereMesh = new THREE.Mesh(sphereGeometry, material);
 	sphereMesh.position.y = 180;
 
-	scene.add(sphereMesh);
-	sphereScale = 0;
+	return sphereMesh;
+}
+
+
+/**
+ * Render skybox
+ * The urls array order should match the cubeMaterials
+ * Do not modify the images order
+ */
+	let renderSkybox = () => {
+	//
+	let urls = [mars_back, mars_front, mars_top, mars_bottom, mars_right, mars_left];
+	let cubeMaterials = [
+		new THREE.MeshBasicMaterial( {map: new THREE.TextureLoader().load(urls[0]), side: THREE.DoubleSide } ),
+		new THREE.MeshBasicMaterial( {map: new THREE.TextureLoader().load(urls[1]), side: THREE.DoubleSide } ),
+		new THREE.MeshBasicMaterial( {map: new THREE.TextureLoader().load(urls[2]), side: THREE.DoubleSide } ),
+		new THREE.MeshBasicMaterial( {map: new THREE.TextureLoader().load(urls[3]), side: THREE.DoubleSide } ),
+		new THREE.MeshBasicMaterial( {map: new THREE.TextureLoader().load(urls[4]), side: THREE.DoubleSide } ),
+		new THREE.MeshBasicMaterial( {map: new THREE.TextureLoader().load(urls[5]), side: THREE.DoubleSide } ),
+	];
+
+	let skybox = new THREE.Mesh(
+		new THREE.BoxGeometry( 2500, 2500, 2500),
+		cubeMaterials
+	);
+
+	return skybox;
 }
 
 /**
- * Render planet Sphere Element
+ * Render Ferris Wheel
  */
- let renderRings = () => {
-	const geometry = new THREE.TorusGeometry( 40, 3, 16, 100 );
+let renderFerrisWheel = () => {
+	let ferrisWheelGroup = new THREE.Group();
 
-	const textureLoader = new THREE.TextureLoader();
-	const resolution = new THREE.Vector2(window.innerWidth, window.innerHeight);
-	ringUniforms = {
-		"time": { value: 1.0 },
-		"resolution": { type: 'v2', value: resolution },
-		iChannel0:  { type: 't', value: textureLoader.load(greenTextureAsset ) },
-		iChannel1:  { type: 't', value: textureLoader.load(brownTextureAsset ) }
-	};
+	let geometry = new THREE.CylinderGeometry( 65, 65, 2, 50 );
+	let material = new THREE.MeshBasicMaterial( {color: 0xffff00, wireframe: true} );
+	let wheel = new THREE.Mesh( geometry, material );
+	wheel.rotation.x = Math.PI / 2 ;
+	wheel.position.x = -85;
+	wheel.position.y = 70;
+	wheel.position.z = -70;
+	ferrisWheelGroup.add(wheel);
 
-	ringUniforms[ "iChannel0" ].value.wrapS = ringUniforms[ "iChannel0" ].value.wrapT = THREE.RepeatWrapping;
-	ringUniforms[ "iChannel1" ].value.wrapS = ringUniforms[ "iChannel1" ].value.wrapT = THREE.RepeatWrapping;
+	var rustyTexture =  new THREE.TextureLoader().load(disturb);
+	rustyTexture.wrapS = THREE.RepeatWrapping;
+	rustyTexture.wrapT = THREE.RepeatWrapping;
+	rustyTexture.repeat.set( 2, 6 );
+	geometry = new THREE.CylinderGeometry(2, 2, 70, 4);
+	material = new THREE.MeshBasicMaterial( {color: 0xffffff, map: rustyTexture} );
+	
+	let supportColumnFrontLeft = new THREE.Mesh( geometry, material);
+	supportColumnFrontLeft.position.x = -95;
+	supportColumnFrontLeft.position.y = 35;
+	supportColumnFrontLeft.position.z = -66;
+	supportColumnFrontLeft.rotation.z = Math.PI / 10;
+	ferrisWheelGroup.add(supportColumnFrontLeft);
 
-	const material = new THREE.ShaderMaterial( {
-		uniforms: ringUniforms,
-		vertexShader: vertexShader,
-		fragmentShader: ringFragmentShader,
-		side:THREE.DoubleSide
-	} );
+	let supportColumnRearLeft = supportColumnFrontLeft.clone();
+	supportColumnRearLeft.position.z = -74;
+	supportColumnRearLeft.rotation.z = -Math.PI / 10;
+	ferrisWheelGroup.add(supportColumnRearLeft);
 
-	ringMesh= new THREE.Mesh( geometry, material );
-	ringMesh.position.y = 180;
-	scene.add( ringMesh );
- }
+	let supportColumnFrontRight = supportColumnFrontLeft.clone();
+	supportColumnFrontRight.position.x = -72;
+	supportColumnFrontRight.position.z = -66;
+	supportColumnFrontLeft.rotation.z = -Math.PI / 10;
+	ferrisWheelGroup.add(supportColumnFrontRight);
+
+	let supportColumnRearRight = supportColumnFrontRight.clone();
+	supportColumnRearRight.position.x = -72;
+	supportColumnRearRight.position.z = -74;
+	ferrisWheelGroup.add(supportColumnRearRight);
+
+	ferrisWheelGroup.position.x = -140;
+	ferrisWheelGroup.position.z = 260;
+
+	return ferrisWheelGroup;
+}
 
 /**
  * Updates objects on each frame
@@ -241,16 +296,8 @@ function animate() {
 	delta = clock.getDelta();
 	// uniforms.u_time.value += delta * 2;
 	// customUniforms.time.value += delta;
-
-	ringUniforms[ 'time' ].value = performance.now() / 1000;
-	ringUniforms[ 'time' ].value += delta / 2;
-	ringMesh.rotation.x += 0.004;
-	ringMesh.rotation.y += 0.001;
-	
-	// sphereScale += 0.0001;
-    // sphereMesh.scale.set(sphereScale, sphereScale, sphereScale,);
  
-	volcanoMesh.rotation.z += 0.001;
+	// volcanoMesh.rotation.z += 0.001;
 
 	controls.update();
 
@@ -361,14 +408,6 @@ function setupShaderMaterials(){
 	});
 }
 /*
-	shaderMaterials.push(
-		new THREE.ShaderMaterial( {
-			name: "Jaguar Texture",
-			uniforms: uniforms,
-			vertexShader: document.getElementById( 'vertexShader' ).textContent,
-			fragmentShader: document.getElementById( 'jaguarFragmentShader' ).textContent
-		})
-	);
 
 	shaderMaterials.push(
 		new THREE.ShaderMaterial( {
