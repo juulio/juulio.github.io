@@ -1,0 +1,40 @@
+/* NAVIGATION STYLES
+-------------------------------------------------- */
+header {
+    top: 0px;
+    z-index: 2;
+    padding: 1.5vw 2vw;
+    position: absolute;
+    background-color: rgba(226, 159, 59, 0.7);
+    box-sizing: border-box;
+}
+
+.projectList {
+    width: 225px;
+}
+  
+.projectList li {
+    margin-top: 20px; 
+}
+  
+.submenu {
+    margin-left: 20px; 
+}
+
+.submenu li {
+    font-size: 15px;
+    margin-top: 12px;
+    letter-spacing: 0.1em; 
+}
+
+a {
+    color: rgb(137, 136, 143);
+    padding: 3px 4px;
+    margin-right: 15px;
+    text-decoration: none; 
+}
+  
+a:hover {
+    color: #000;
+    cursor: pointer;
+}
