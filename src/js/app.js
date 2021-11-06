@@ -1,6 +1,9 @@
 // Marzo 16 2021 http://stemkoski.github.io/Three.js/Shader-Animate.html
 // https://github.com/mrdoob/three.js/blob/master/examples/webgl_geometry_cube.html
 import '../scss/styles.scss';
+import * as THREE from 'three';
+import { OrbitControls } from 'OrbitControls';
+
 import gotham_black_regular from '../public/fonts/gotham_black_regular.json';
 import cloudAsset from '../public/images/textures/cloud.png';
 import lavatileAsset from '../public/images/textures/lavatile.jpg';
@@ -19,11 +22,6 @@ import mars_top from '../public/images/skybox/mars_top.png'
 import mars_bottom from '../public/images/skybox/mars_bottom.png'
 import mars_left from '../public/images/skybox/mars_left.png'
 
-
-
-import * as THREE from 'three';
-import { OrbitControls } from 'OrbitControls';
-
 import vertexShader from '../public/shaders/vertex.glsl';
 import lavaFragmentShader from '../public/shaders/noise.glsl';
 import lunarFragmentShader from '../public/shaders/lunarTextureFragmentShader.glsl';
@@ -40,7 +38,7 @@ let sphereMesh, customUniforms, volcanoMesh;
 /**
   * Sets basic 3D Scene Elements
   */
-function init(font) {
+let init = (font) => {
 
     // Checks if app is running on a mobile device
 	isMobile = false;
@@ -57,7 +55,7 @@ function init(font) {
 		FAR = 20000;
 	camera = new THREE.PerspectiveCamera( VIEW_ANGLE, ASPECT, NEAR, FAR);
 	scene.add(camera);
-	camera.position.set(0,100,900);
+	camera.position.set(0,300,500);
 	camera.lookAt(scene.position);
 
     renderer = new THREE.WebGLRenderer( { antialias: true } );
@@ -70,18 +68,16 @@ function init(font) {
 	clock = new THREE.Clock();
 
 	scene.add( new THREE.AxesHelper( 500 ));
-	scene.add( new THREE.GridHelper( 500, 50 ));
+	// scene.add( new THREE.GridHelper( 500, 10 ));
 	
 	// setupShaderMaterials();
     // renderTextGeometry(font);
 
-	// const planeGeometry = new THREE.PlaneGeometry( 50, 50, 32 );
-	// const planeMaterial = new THREE.MeshBasicMaterial( {color: 0x585858, side: THREE.DoubleSide} );
-	// const plane = new THREE.Mesh( planeGeometry, planeMaterial );
-	// plane.rotation.x = Math.PI / 2;
-
-	// scene.add( plane );
-
+	const planeGeometry = new THREE.PlaneGeometry( 800, 800, 32 );
+	const planeMaterial = new THREE.MeshBasicMaterial( {color: 0x585858, side: THREE.DoubleSide} );
+	const plane = new THREE.Mesh( planeGeometry, planeMaterial );
+	plane.rotation.x = Math.PI / 2;
+	scene.add( plane );
         
 	lavaMaterial = setupLavaMaterial();
 	scene.add(renderSkybox());
@@ -200,8 +196,6 @@ let renderMoon = () => {
 	} );
 
 	material.wrapS = material.wrapT = THREE.RepeatWrapping;
-
-
 	sphereMesh = new THREE.Mesh(sphereGeometry, material);
 	sphereMesh.position.y = 180;
 
@@ -214,7 +208,7 @@ let renderMoon = () => {
  * The urls array order should match the cubeMaterials
  * Do not modify the images order
  */
-	let renderSkybox = () => {
+let renderSkybox = () => {
 	//
 	let urls = [mars_back, mars_front, mars_top, mars_bottom, mars_right, mars_left];
 	let cubeMaterials = [
@@ -227,7 +221,7 @@ let renderMoon = () => {
 	];
 
 	let skybox = new THREE.Mesh(
-		new THREE.BoxGeometry( 2500, 2500, 2500),
+		new THREE.BoxGeometry( 1200, 1200, 1200),
 		cubeMaterials
 	);
 
@@ -288,7 +282,7 @@ let renderFerrisWheel = () => {
 /**
  * Updates objects on each frame
  */
-function animate() {
+let animate = () => {
  
     requestAnimationFrame( animate );
  
@@ -307,7 +301,7 @@ function animate() {
 /**
   * Handles window resize events
   */
-function onWindowResize(){
+let onWindowResize = () => {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
 
@@ -365,7 +359,7 @@ function renderTextGeometry(font){
 /**
  * Rotates each letter on the Y Axis
  */
- function rotateLetters(){
+ let rotateLetters = () => {
 	let rotationSpeed = 0.3,
 	currentLetterRotationY = textMesh.children[letterPosition].rotation.y;
 
@@ -382,12 +376,13 @@ function renderTextGeometry(font){
 		}
 	}
 }
+
 /**
  * Init Uniforms for shaderMaerial
  * TODO: create a shaderMaterial array to use several shaders on several materials
  */
 // function setupShaderMaterials(){
-function setupShaderMaterials(){
+let setupShaderMaterials = () => {
 	shaderMaterials = [];
 	
 	uniforms = {
