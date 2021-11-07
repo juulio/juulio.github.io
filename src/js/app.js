@@ -9,6 +9,7 @@ import cloudAsset from '../public/images/textures/cloud.png';
 import lavatileAsset from '../public/images/textures/lavatile.jpg';
 import greenTextureAsset from '../public/images/textures/greenTexture.png';
 import brownTextureAsset from '../public/images/textures/brownTexture.png';
+import moonTextureAsset from '../public/images/textures/moonTexture.jpg'
 import volcanoHeightmap from '../public/images/textures/volcano-heightmap512x512.png'
 import sand512 from '../public/images/textures/sand-512.jpg'
 import rock512 from '../public/images/textures/rock-512.jpg'
@@ -28,8 +29,12 @@ import lunarFragmentShader from '../public/shaders/lunarTextureFragmentShader.gl
 import heightmapFragmentShader from '../public/shaders/heightmapFragmentShader.glsl';
 import heightmapVertexShader from '../public/shaders/heightmapVertexShader.glsl';
 
+// import all 3d modules
+import {renderFerrisWheel, rotateFerrisWheel} from './modules/ferrisWheel';
 
 const scene = new THREE.Scene();
+const resolutionVec2 = new THREE.Vector2(window.innerWidth, window.innerHeight);
+
 let  camera, renderer, controls;
 let clock, shaderMaterial, shaderMaterials, uniforms, letterPosition, textGeometry, textMesh, delta, isMobile;
 let lavaMaterial;
@@ -72,24 +77,21 @@ let init = (font) => {
 	
 	// setupShaderMaterials();
     // renderTextGeometry(font);
-
-	const planeGeometry = new THREE.PlaneGeometry( 800, 800, 32 );
-	const planeMaterial = new THREE.MeshBasicMaterial( {color: 0x585858, side: THREE.DoubleSide} );
-	const plane = new THREE.Mesh( planeGeometry, planeMaterial );
-	plane.rotation.x = Math.PI / 2;
-	scene.add( plane );
         
 	lavaMaterial = setupLavaMaterial();
+	scene.add(renderFloor());
 	scene.add(renderSkybox());
 	scene.add(renderMoon());
 	scene.add(renderVolcano());
-	scene.add(renderFerrisWheel());
+	// scene.add(renderFerrisWheel());
+	scene.add(renderFerrisWheel(72, 2));
 
     animate();
 }
 
 /**
  * Setup uniforms and attributes for custom shader material 
+ * @returns THREE.
  */
 let setupLavaMaterial = () => {
 	const noiseTexture = new THREE.TextureLoader().load(cloudAsset);
@@ -122,6 +124,7 @@ let setupLavaMaterial = () => {
 
 /**
  * Render volcano cone Mesh with lava material 
+ * @returns THREE.Mesh Volcano
  */
 let renderVolcano = () => {
 	let volcanoHeight = 300;
@@ -178,14 +181,14 @@ let renderVolcano = () => {
 
 /**
  * Render planet Sphere Element
+ * @returns THREE.Mesh Moon Shpere
  */
 let renderMoon = () => {
 	const sphereGeometry = new THREE.SphereGeometry(27, 32, 32);
-	const resolution = new THREE.Vector2(window.innerWidth, window.innerHeight);
 
 	const uniforms = {
 		"time": { value: 1.0 },
-		"resolution": { type: 'v2', value: resolution },
+		"resolution": { type: 'v2', value: resolutionVec2 },
 	};
 
 	const material = new THREE.ShaderMaterial( {
@@ -202,11 +205,32 @@ let renderMoon = () => {
 	return sphereMesh;
 }
 
+/**
+ * Renders Plane Mesh floor 
+ * @returns THREE.Mesh Floor
+ */
+let renderFloor = () => {
+	const planeGeometry = new THREE.PlaneGeometry( 800, 800, 32 );
+
+	const moonTexture = new THREE.TextureLoader().load(moonTextureAsset);
+	moonTexture.wrapS = moonTexture.wrapT = THREE.RepeatWrapping;
+
+	const moonMaterial = new THREE.MeshBasicMaterial({
+		map: moonTexture,
+		side: THREE.DoubleSide 
+	});
+
+	const floorMesh = new THREE.Mesh( planeGeometry, moonMaterial );
+	floorMesh.rotation.x = Math.PI / 2;
+
+	return floorMesh;
+}
 
 /**
  * Render skybox
  * The urls array order should match the cubeMaterials
  * Do not modify the images order
+ * @returns THREE.Mesh Skybox
  */
 let renderSkybox = () => {
 	//
@@ -221,7 +245,7 @@ let renderSkybox = () => {
 	];
 
 	let skybox = new THREE.Mesh(
-		new THREE.BoxGeometry( 1200, 1200, 1200),
+		new THREE.BoxGeometry( 2000, 2000, 2000),
 		cubeMaterials
 	);
 
@@ -230,11 +254,12 @@ let renderSkybox = () => {
 
 /**
  * Render Ferris Wheel
+ * @returns THREE.Group
  */
-let renderFerrisWheel = () => {
+let renderFerrisWheel2 = () => {
 	let ferrisWheelGroup = new THREE.Group();
 
-	let geometry = new THREE.CylinderGeometry( 65, 65, 2, 50 );
+	let geometry = new THREE.CylinderGeometry( 40, 40, 2, 50 );
 	let material = new THREE.MeshBasicMaterial( {color: 0xffff00, wireframe: true} );
 	let wheel = new THREE.Mesh( geometry, material );
 	wheel.rotation.x = Math.PI / 2 ;
@@ -243,7 +268,7 @@ let renderFerrisWheel = () => {
 	wheel.position.z = -70;
 	ferrisWheelGroup.add(wheel);
 
-	var rustyTexture =  new THREE.TextureLoader().load(disturb);
+	let rustyTexture =  new THREE.TextureLoader().load(brownTextureAsset);
 	rustyTexture.wrapS = THREE.RepeatWrapping;
 	rustyTexture.wrapT = THREE.RepeatWrapping;
 	rustyTexture.repeat.set( 2, 6 );
@@ -292,7 +317,7 @@ let animate = () => {
 	// customUniforms.time.value += delta;
  
 	// volcanoMesh.rotation.z += 0.001;
-
+	rotateFerrisWheel();
 	controls.update();
 
     renderer.render( scene, camera );
