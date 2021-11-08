@@ -8,7 +8,6 @@ import gotham_black_regular from '../public/fonts/gotham_black_regular.json';
 import cloudAsset from '../public/images/textures/cloud.png';
 import lavatileAsset from '../public/images/textures/lavatile.jpg';
 import greenTextureAsset from '../public/images/textures/greenTexture.png';
-import brownTextureAsset from '../public/images/textures/brownTexture.png';
 import moonTextureAsset from '../public/images/textures/moonTexture.jpg'
 import volcanoHeightmap from '../public/images/textures/volcano-heightmap512x512.png'
 import sand512 from '../public/images/textures/sand-512.jpg'
@@ -31,6 +30,8 @@ import heightmapVertexShader from '../public/shaders/heightmapVertexShader.glsl'
 
 // import all 3d modules
 import {renderFerrisWheel, rotateFerrisWheel} from './modules/ferrisWheel';
+import {renderSkybox} from './modules/skyBox';
+import { Vector3 } from 'three';
 
 const scene = new THREE.Scene();
 const resolutionVec2 = new THREE.Vector2(window.innerWidth, window.innerHeight);
@@ -83,8 +84,7 @@ let init = (font) => {
 	scene.add(renderSkybox());
 	scene.add(renderMoon());
 	scene.add(renderVolcano());
-	// scene.add(renderFerrisWheel());
-	scene.add(renderFerrisWheel(72, 2));
+	scene.add(renderFerrisWheel(new Vector3(-140, 0, 260), 30, 2));
 
     animate();
 }
@@ -224,84 +224,6 @@ let renderFloor = () => {
 	floorMesh.rotation.x = Math.PI / 2;
 
 	return floorMesh;
-}
-
-/**
- * Render skybox
- * The urls array order should match the cubeMaterials
- * Do not modify the images order
- * @returns THREE.Mesh Skybox
- */
-let renderSkybox = () => {
-	//
-	let urls = [mars_back, mars_front, mars_top, mars_bottom, mars_right, mars_left];
-	let cubeMaterials = [
-		new THREE.MeshBasicMaterial( {map: new THREE.TextureLoader().load(urls[0]), side: THREE.DoubleSide } ),
-		new THREE.MeshBasicMaterial( {map: new THREE.TextureLoader().load(urls[1]), side: THREE.DoubleSide } ),
-		new THREE.MeshBasicMaterial( {map: new THREE.TextureLoader().load(urls[2]), side: THREE.DoubleSide } ),
-		new THREE.MeshBasicMaterial( {map: new THREE.TextureLoader().load(urls[3]), side: THREE.DoubleSide } ),
-		new THREE.MeshBasicMaterial( {map: new THREE.TextureLoader().load(urls[4]), side: THREE.DoubleSide } ),
-		new THREE.MeshBasicMaterial( {map: new THREE.TextureLoader().load(urls[5]), side: THREE.DoubleSide } ),
-	];
-
-	let skybox = new THREE.Mesh(
-		new THREE.BoxGeometry( 2000, 2000, 2000),
-		cubeMaterials
-	);
-
-	return skybox;
-}
-
-/**
- * Render Ferris Wheel
- * @returns THREE.Group
- */
-let renderFerrisWheel2 = () => {
-	let ferrisWheelGroup = new THREE.Group();
-
-	let geometry = new THREE.CylinderGeometry( 40, 40, 2, 50 );
-	let material = new THREE.MeshBasicMaterial( {color: 0xffff00, wireframe: true} );
-	let wheel = new THREE.Mesh( geometry, material );
-	wheel.rotation.x = Math.PI / 2 ;
-	wheel.position.x = -85;
-	wheel.position.y = 70;
-	wheel.position.z = -70;
-	ferrisWheelGroup.add(wheel);
-
-	let rustyTexture =  new THREE.TextureLoader().load(brownTextureAsset);
-	rustyTexture.wrapS = THREE.RepeatWrapping;
-	rustyTexture.wrapT = THREE.RepeatWrapping;
-	rustyTexture.repeat.set( 2, 6 );
-	geometry = new THREE.CylinderGeometry(2, 2, 70, 4);
-	material = new THREE.MeshBasicMaterial( {color: 0xffffff, map: rustyTexture} );
-	
-	let supportColumnFrontLeft = new THREE.Mesh( geometry, material);
-	supportColumnFrontLeft.position.x = -95;
-	supportColumnFrontLeft.position.y = 35;
-	supportColumnFrontLeft.position.z = -66;
-	supportColumnFrontLeft.rotation.z = Math.PI / 10;
-	ferrisWheelGroup.add(supportColumnFrontLeft);
-
-	let supportColumnRearLeft = supportColumnFrontLeft.clone();
-	supportColumnRearLeft.position.z = -74;
-	supportColumnRearLeft.rotation.z = -Math.PI / 10;
-	ferrisWheelGroup.add(supportColumnRearLeft);
-
-	let supportColumnFrontRight = supportColumnFrontLeft.clone();
-	supportColumnFrontRight.position.x = -72;
-	supportColumnFrontRight.position.z = -66;
-	supportColumnFrontLeft.rotation.z = -Math.PI / 10;
-	ferrisWheelGroup.add(supportColumnFrontRight);
-
-	let supportColumnRearRight = supportColumnFrontRight.clone();
-	supportColumnRearRight.position.x = -72;
-	supportColumnRearRight.position.z = -74;
-	ferrisWheelGroup.add(supportColumnRearRight);
-
-	ferrisWheelGroup.position.x = -140;
-	ferrisWheelGroup.position.z = 260;
-
-	return ferrisWheelGroup;
 }
 
 /**
