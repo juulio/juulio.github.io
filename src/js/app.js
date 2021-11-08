@@ -15,12 +15,6 @@ import rock512 from '../public/images/textures/rock-512.jpg'
 import snow512 from '../public/images/textures/snow-512.jpg'
 import volcanic256 from '../public/images/textures/volcanic-256.jpg'
 import disturb from '../public/images/textures/disturb.jpg'
-import mars_back from '../public/images/skybox/mars_back.png'
-import mars_front from '../public/images/skybox/mars_front.png'
-import mars_right from '../public/images/skybox/mars_right.png'
-import mars_top from '../public/images/skybox/mars_top.png'
-import mars_bottom from '../public/images/skybox/mars_bottom.png'
-import mars_left from '../public/images/skybox/mars_left.png'
 
 import vertexShader from '../public/shaders/vertex.glsl';
 import lavaFragmentShader from '../public/shaders/noise.glsl';
@@ -33,6 +27,7 @@ import {renderFerrisWheel, rotateFerrisWheel} from './modules/ferrisWheel';
 import {renderSkybox} from './modules/skyBox';
 import { Vector3 } from 'three';
 
+// THREEjs basic Scene stuff
 const scene = new THREE.Scene();
 const resolutionVec2 = new THREE.Vector2(window.innerWidth, window.innerHeight);
 
@@ -42,7 +37,7 @@ let lavaMaterial;
 let sphereMesh, customUniforms, volcanoMesh;
 
 /**
-  * Sets basic 3D Scene Elements
+  * Init basic 3D Scene Elements
   */
 let init = (font) => {
 
