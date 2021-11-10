@@ -25,17 +25,18 @@ import heightmapVertexShader from '../public/shaders/heightmapVertexShader.glsl'
 // import all 3d modules
 import {renderFerrisWheel, rotateFerrisWheel} from './modules/ferrisWheel';
 import {renderSkybox} from './modules/skyBox';
+import Particle, {particle} from './modules/particle';
 import { Vector3 } from 'three';
 
 // THREEjs basic Scene stuff
 const scene = new THREE.Scene();
 const resolutionVec2 = new THREE.Vector2(window.innerWidth, window.innerHeight);
 
-let  camera, renderer, controls;
+let camera, renderer, controls;
 let clock, shaderMaterial, shaderMaterials, uniforms, letterPosition, textGeometry, textMesh, delta, isMobile;
 let lavaMaterial;
 let sphereMesh, customUniforms, volcanoMesh;
-
+let part;
 /**
   * Init basic 3D Scene Elements
   */
@@ -69,18 +70,18 @@ let init = (font) => {
 	clock = new THREE.Clock();
 
 	scene.add( new THREE.AxesHelper( 500 ));
-	// scene.add( new THREE.GridHelper( 500, 10 ));
+	scene.add( new THREE.GridHelper( 500, 10 ));
 	
 	// setupShaderMaterials();
     // renderTextGeometry(font);
         
 	lavaMaterial = setupLavaMaterial();
-	scene.add(renderFloor());
-	scene.add(renderSkybox());
-	scene.add(renderMoon());
-	scene.add(renderVolcano());
+	// scene.add(renderFloor());
+	// scene.add(renderSkybox());
+	// scene.add(renderMoon());
+	// scene.add(renderVolcano());
 	scene.add(renderFerrisWheel(new Vector3(-140, 0, 260), 30, 2));
-
+	part = new Particle(0, 50, 10);
     animate();
 }
 
@@ -235,6 +236,7 @@ let animate = () => {
  
 	// volcanoMesh.rotation.z += 0.001;
 	rotateFerrisWheel();
+	part.run();
 	controls.update();
 
     renderer.render( scene, camera );
