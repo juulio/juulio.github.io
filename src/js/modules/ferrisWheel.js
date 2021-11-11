@@ -50,9 +50,6 @@ const renderFerrisWheel = (position, radius, height) => {
 	supportColumnRearRight.position.x = position.x+10;
 	supportColumnRearRight.position.z = position.z+3;
 	ferrisWheelGroup.add(supportColumnRearRight);
-
-	ferrisWheelGroup.position.x = position.x;
-	ferrisWheelGroup.position.z = position.z;
     
     return ferrisWheelGroup;
 }
