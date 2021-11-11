@@ -57,7 +57,7 @@ let init = (font) => {
 		FAR = 20000;
 	camera = new THREE.PerspectiveCamera( VIEW_ANGLE, ASPECT, NEAR, FAR);
 	scene.add(camera);
-	camera.position.set(0,300,500);
+	camera.position.set(0,250,250);
 	camera.lookAt(scene.position);
 
     renderer = new THREE.WebGLRenderer( { antialias: true } );
@@ -80,7 +80,8 @@ let init = (font) => {
 	// scene.add(renderSkybox());
 	// scene.add(renderMoon());
 	// scene.add(renderVolcano());
-	scene.add(renderFerrisWheel(new Vector3(-140, 0, 260), 30, 2));
+	// scene.add(renderFerrisWheel(new Vector3(-140, 0, 260), 30, 2));
+	scene.add(renderFerrisWheel(new Vector3(-100, 0, 0), 30, 2));
 	part = new Particle(0, 50, 10);
     animate();
 }
