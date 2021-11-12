@@ -80,7 +80,8 @@ let init = (font) => {
 	// scene.add(renderSkybox());
 	// scene.add(renderMoon());
 	// scene.add(renderVolcano());
-	scene.add(renderFerrisWheel(new Vector3(-140, 0, 260), 30, 2));
+	// scene.add(renderFerrisWheel(new Vector3(-140, 0, 260), 30, 2));
+	scene.add(renderFerrisWheel(new Vector3(0, 0, 0), 30, 2));
 	part = new Particle(0, 50, 10);
     animate();
 }
