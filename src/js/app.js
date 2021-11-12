@@ -57,7 +57,7 @@ let init = (font) => {
 		FAR = 20000;
 	camera = new THREE.PerspectiveCamera( VIEW_ANGLE, ASPECT, NEAR, FAR);
 	scene.add(camera);
-	camera.position.set(0,300,500);
+	camera.position.set(0,250,250);
 	camera.lookAt(scene.position);
 
     renderer = new THREE.WebGLRenderer( { antialias: true } );

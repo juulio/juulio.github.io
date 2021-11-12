@@ -16,9 +16,9 @@ const renderFerrisWheel = (position, radius, height) => {
     
     wheelMesh.name = 'wheelMesh'; // Name will be used for rotation on update
     wheelMesh.rotation.x = Math.PI / 2 ;
-    wheelMesh.position.x = -85;
-    wheelMesh.position.y = 70;
-    wheelMesh.position.z = -70;
+    wheelMesh.position.x = position.x;
+    wheelMesh.position.y = position.y+70;
+    wheelMesh.position.z = position.z;
     ferrisWheelGroup.add(wheelMesh);
 
     let rustyTexture =  new TextureLoader().load(brownTextureAsset);
@@ -28,30 +28,28 @@ const renderFerrisWheel = (position, radius, height) => {
 	let material = new MeshBasicMaterial( {color: 0xffffff, map: rustyTexture} );
 	
 	let supportColumnFrontLeft = new Mesh( geometry, material);
-	supportColumnFrontLeft.position.x = -95;
-	supportColumnFrontLeft.position.y = 35;
-	supportColumnFrontLeft.position.z = -66;
+	supportColumnFrontLeft.position.x = position.x-10;
+	supportColumnFrontLeft.position.y = position.y + radius + height;
+	supportColumnFrontLeft.position.z = position.z-3;
 	supportColumnFrontLeft.rotation.z = Math.PI / 10;
 	ferrisWheelGroup.add(supportColumnFrontLeft);
 
 	let supportColumnRearLeft = supportColumnFrontLeft.clone();
-	supportColumnRearLeft.position.z = -74;
+	supportColumnRearLeft.position.x = position.x-10;
+	supportColumnRearLeft.position.z = position.z+3;
 	supportColumnRearLeft.rotation.z = -Math.PI / 10;
 	ferrisWheelGroup.add(supportColumnRearLeft);
 
 	let supportColumnFrontRight = supportColumnFrontLeft.clone();
-	supportColumnFrontRight.position.x = -72;
-	supportColumnFrontRight.position.z = -66;
+	supportColumnFrontRight.position.x = position.x+10;
+	supportColumnFrontRight.position.z = position.z-3;
 	supportColumnFrontLeft.rotation.z = -Math.PI / 10;
 	ferrisWheelGroup.add(supportColumnFrontRight);
 
 	let supportColumnRearRight = supportColumnFrontRight.clone();
-	supportColumnRearRight.position.x = -72;
-	supportColumnRearRight.position.z = -74;
+	supportColumnRearRight.position.x = position.x+10;
+	supportColumnRearRight.position.z = position.z+3;
 	ferrisWheelGroup.add(supportColumnRearRight);
-
-	ferrisWheelGroup.position.x = position.x;
-	ferrisWheelGroup.position.z = position.z;
     
     return ferrisWheelGroup;
 }
