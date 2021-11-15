@@ -25,7 +25,8 @@ import heightmapVertexShader from '../public/shaders/heightmapVertexShader.glsl'
 // import all 3d modules
 import {renderFerrisWheel, rotateFerrisWheel} from './modules/ferrisWheel';
 import {renderSkybox} from './modules/skyBox';
-import Particle, {particle} from './modules/particle';
+import Particle from './modules/particle';
+import ParticleSystem from './modules/particleSystem';
 import { Vector3 } from 'three';
 
 // THREEjs basic Scene stuff
@@ -36,7 +37,8 @@ let camera, renderer, controls;
 let clock, shaderMaterial, shaderMaterials, uniforms, letterPosition, textGeometry, textMesh, delta, isMobile;
 let lavaMaterial;
 let sphereMesh, customUniforms, volcanoMesh;
-let part;
+let particleSystem, part;
+
 /**
   * Init basic 3D Scene Elements
   */
@@ -57,7 +59,7 @@ let init = (font) => {
 		FAR = 20000;
 	camera = new THREE.PerspectiveCamera( VIEW_ANGLE, ASPECT, NEAR, FAR);
 	scene.add(camera);
-	camera.position.set(0,250,250);
+	camera.position.set(0,50,180);
 	camera.lookAt(scene.position);
 
     renderer = new THREE.WebGLRenderer( { antialias: true } );
@@ -75,14 +77,16 @@ let init = (font) => {
 	// setupShaderMaterials();
     // renderTextGeometry(font);
         
-	lavaMaterial = setupLavaMaterial();
+	// lavaMaterial = setupLavaMaterial();
 	// scene.add(renderFloor());
 	// scene.add(renderSkybox());
 	// scene.add(renderMoon());
 	// scene.add(renderVolcano());
 	// scene.add(renderFerrisWheel(new Vector3(-140, 0, 260), 30, 2));
-	scene.add(renderFerrisWheel(new Vector3(0, 0, 0), 30, 2));
-	part = new Particle(0, 50, 10);
+	// scene.add(renderFerrisWheel(new Vector3(0, 0, 0), 30, 2));
+	particleSystem = new ParticleSystem(0, 0, 0, 0.8);
+	// part = new Particle(0, 50, 10, 0.5);
+	// scene.add(part.particleMesh);
     animate();
 }
 
@@ -229,15 +233,18 @@ let renderFloor = () => {
 let animate = () => {
  
     requestAnimationFrame( animate );
- 
-
+	
 	delta = clock.getDelta();
 	// uniforms.u_time.value += delta * 2;
 	// customUniforms.time.value += delta;
  
 	// volcanoMesh.rotation.z += 0.001;
-	rotateFerrisWheel();
-	part.run();
+	// rotateFerrisWheel();
+	// part.update();
+	scene.add(particleSystem.addParticle());
+	particleSystem.run();
+	// console.log('length ' + scene.children.length + " PS length: " + particleSystem.particles.length);
+	// console.log(part.lifespan);
 	controls.update();
 
     renderer.render( scene, camera );
@@ -347,6 +354,7 @@ let setupShaderMaterials = () => {
 		fragmentShader: fragmentShader
 	});
 }
+
 /*
 
 	shaderMaterials.push(
