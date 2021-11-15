@@ -13,8 +13,7 @@ export default class Particle {
         const geometry = new SphereBufferGeometry( this.radius, 10, 10);
         const material = new MeshBasicMaterial({
             color: 0xff0000,
-            opacity: this.lifespan,
-            transparent: true
+            transparent: true,
             // wireframe: true
         });
         this.particleMesh = new Mesh( geometry, material );
@@ -64,13 +63,14 @@ export default class Particle {
     }
 
     update() {
-        // console.log(this.particleMesh.position);
         // console.log(this.vel);
         this.vel.add(this.acc);
         this.pos.add(this.vel);
         this.acc.set(0, 0, 0);
         this.acc = new Vector3(0, 0, 0);
         this.lifespan -= 0.003;
+        // console.log(this.particleMesh.material.opacity  + " -> " + this.lifespan);
+        this.particleMesh.material.opacity = this.lifespan;
         this.particleMesh.position.set(this.pos.x, this.pos.y, this.pos.z);
     }
 }
