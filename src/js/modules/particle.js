@@ -1,4 +1,5 @@
 import { Vector2, Vector3, Mesh, SphereBufferGeometry, MeshBasicMaterial, ShapeUtils } from "three";
+import { getRandomArbitrary, getRandomInt} from './utils'
 
 const VIEWPORT_WIDTH = window.innerWidth;
 const VIEWPORT_HEIGHT = window.innerHeight;
@@ -6,8 +7,8 @@ const VIEWPORT_HEIGHT = window.innerHeight;
 export default class Particle {
     constructor(x, y, z, radius) {
         this.pos = new Vector3(x, y, z);
-        this.vel = new Vector3(this.getRandomArbitrary(-0.1, 0.1), 0.1, this.getRandomArbitrary(-0.01, 0.01));
-        this.acc = new Vector3(0, -0.001, 0);
+        this.vel = new Vector3(getRandomArbitrary(-0.2, 0.2), getRandomArbitrary(0, 0.0000000004), getRandomArbitrary(-0.2, 0.2));
+        this.acc = new Vector3(0, getRandomArbitrary(0, 0.000000002), 0);
         this.lifespan = 1;
         this.radius = radius;
         const geometry = new SphereBufferGeometry( this.radius, 10, 10);
@@ -31,22 +32,6 @@ export default class Particle {
         this.acc.add(force);
     }
 
-    /**
-     * Returns a random int between two int values.
-     * @param {int} min 
-     * @param {int} max 
-     * @returns int
-     */
-    getRandomInt(min, max) {
-        min = Math.ceil(min);
-        max = Math.floor(max);
-        return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
-    }
-
-    getRandomArbitrary(min, max) {
-        return Math.random() * (max - min) + min;
-      }
-
     edges() {
         if(this.pos.y >= VIEWPORT_HEIGHT - this.radius) {
             this.pos.y = VIEWPORT_HEIGHT - r;
@@ -67,8 +52,9 @@ export default class Particle {
         this.vel.add(this.acc);
         this.pos.add(this.vel);
         this.acc.set(0, 0, 0);
-        this.acc = new Vector3(0, 0, 0);
-        this.lifespan -= 0.003;
+        // this.acc = new Vector3(0, 0, 0);
+        this.lifespan -= 0.00001;
+        // console.log(this.pos.y);
         // console.log(this.particleMesh.material.opacity  + " -> " + this.lifespan);
         this.particleMesh.material.opacity = this.lifespan;
         this.particleMesh.position.set(this.pos.x, this.pos.y, this.pos.z);
