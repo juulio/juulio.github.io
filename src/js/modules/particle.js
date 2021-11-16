@@ -7,7 +7,7 @@ const VIEWPORT_HEIGHT = window.innerHeight;
 export default class Particle {
     constructor(x, y, z, radius) {
         this.pos = new Vector3(x, y, z);
-        this.vel = new Vector3(getRandomArbitrary(-0.2, 0.2), getRandomArbitrary(0, 0.0000000004), getRandomArbitrary(-0.2, 0.2));
+        this.vel = new Vector3(getRandomArbitrary(-0.2, 0.2), getRandomArbitrary(0, 0.6), getRandomArbitrary(-0.2, 0.2));
         this.acc = new Vector3(0, getRandomArbitrary(0, 0.000000002), 0);
         this.lifespan = 1;
         this.radius = radius;
@@ -53,7 +53,7 @@ export default class Particle {
         this.pos.add(this.vel);
         this.acc.set(0, 0, 0);
         // this.acc = new Vector3(0, 0, 0);
-        this.lifespan -= 0.00001;
+        this.lifespan -= 0.001;
         // console.log(this.pos.y);
         // console.log(this.particleMesh.material.opacity  + " -> " + this.lifespan);
         this.particleMesh.material.opacity = this.lifespan;

@@ -11,18 +11,18 @@ export default class ParticleSystem {
 
     addParticle(){
         let particle = new Particle(this.origin.x, this.origin.y, this.origin.z, getRandomArbitrary(0, this.radius));
-        console.log(particle.radius);
+        // console.log(particle.radius);
         this.particles.push(particle);
-        particle.particleMesh.material.color.r = Math.random();
-        particle.particleMesh.material.color.g = Math.random();
-        particle.particleMesh.material.color.b = Math.random();
+        particle.particleMesh.material.color.r = getRandomArbitrary(0.3, 0.85);
+        particle.particleMesh.material.color.g = getRandomArbitrary(0, 0.3);
+        particle.particleMesh.material.color.b = getRandomArbitrary(0, 0.05);
         return particle.particleMesh;
     }
 
     run(){
-        // console.log(this.particles.length)
+        // console.log(this.particles[0].lifespan);
         for(let particle of this.particles){
-            let gravity = new Vector3(0, 0.01, 0);
+            let gravity = new Vector3(0, -0.001, 0);
             particle.applyForce(gravity);
             particle.update();
         }
