@@ -243,7 +243,7 @@ let animate = () => {
 	// part.update();
 	scene.add(particleSystem.addParticle());
 	particleSystem.run();
-	// console.log('length ' + scene.children.length + " PS length: " + particleSystem.particles.length);
+	console.log('length ' + scene.children.length + " PS length: " + particleSystem.particles.length);
 	// console.log(part.lifespan);
 	controls.update();
 

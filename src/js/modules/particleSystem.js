@@ -21,6 +21,7 @@ export default class ParticleSystem {
 
     run(){
         // console.log(this.particles[0].lifespan);
+        // console.log("Particles.length: " + this.particles.length) + " Scene.children: " + this.particles.parent;
         for(let particle of this.particles){
             let gravity = new Vector3(0, -0.001, 0);
             particle.applyForce(gravity);
@@ -28,8 +29,15 @@ export default class ParticleSystem {
         }
 
         for(let i = this.particles.length -1; i >=0; i--){
-            if(this.particles[i].isDead()){
+            let particle = this.particles[i],
+                scene = particle.particleMesh.parent;
+
+            if(particle.isDead()){
+                console.log("Particles length: " + this.particles.length + " Scene.children: " + scene.children.length);
                 this.particles.splice(i,1);
+                scene.remove(particle.particleMesh); // not working properly
+                // console.log("Particles length: " + this.particles.length + " Scene.children: " + scene.children.length);
+                // console.log("=========================");
             }
         }
     }

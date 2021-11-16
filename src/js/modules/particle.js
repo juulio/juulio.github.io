@@ -53,7 +53,7 @@ export default class Particle {
         this.pos.add(this.vel);
         this.acc.set(0, 0, 0);
         // this.acc = new Vector3(0, 0, 0);
-        this.lifespan -= 0.001;
+        this.lifespan -= 0.002; // keeps 500 particles alive at the same time. No more
         // console.log(this.pos.y);
         // console.log(this.particleMesh.material.opacity  + " -> " + this.lifespan);
         this.particleMesh.material.opacity = this.lifespan;
