@@ -1,7 +1,7 @@
-import { Vector2, Vector3, Mesh, SphereBufferGeometry, MeshBasicMaterial, ShapeUtils, ShaderMaterial, DoubleSide, TextureLoader, NearestFilter } from "three";
+import { Vector2, Vector3, Mesh, SphereBufferGeometry, MeshBasicMaterial, ShapeUtils, ShaderMaterial, DoubleSide, TextureLoader, NearestFilter, Clock } from "three";
 import { getRandomArbitrary, getRandomInt} from './utils'
 
-import lavatileAsset from '../public/images/textures/lavatile.jpg';
+import amberLavaAsset from '../../public/images/textures/amberLava.png';
 import eruptionVertexShader from '../../public/shaders/eruptionVertexShader.glsl';
 import eruptionFragmentShader from '../../public/shaders/eruptionFragmentShader.glsl';
 
@@ -16,33 +16,28 @@ export default class Particle {
         this.lifespan = 1;
         this.radius = radius;
         
+        const texture = new TextureLoader().load(amberLavaAsset, (texture) => {
+            texture.minFilter = NearestFilter;
+        });
+
         this.shaderMaterial = new ShaderMaterial({
-            vertexShader,
-            fragmentShader,
+            vertexShader: eruptionVertexShader,
+            fragmentShader: eruptionFragmentShader,
             uniforms: {
                 uTime: { value: 0},
                 uTexture: { value: texture}
             },
             transparent: true,
             side: DoubleSide
-        });
-
-        const texture = new TextureLoader().load(img, (texture) => {
-            texture.minFilter = NearestFilter;
-        })
+        });     
         
-        const material = new MeshBasicMaterial({
-            color: 0xff0000,
-            transparent: true,
-            // wireframe: true
-        });
         const geometry = new SphereBufferGeometry( this.radius, 10, 10);
-        this.particleMesh = new Mesh( geometry, material );
-
+        this.particleMesh = new Mesh( geometry, this.shaderMaterial );
+        this.clock = new Clock();
     }
 
     updateTimeUniform() {
-        this.shaderMaterial.uniforms.uTime.value = clock.getElapsedTime();
+        this.shaderMaterial.uniforms.uTime.value = this.clock.getElapsedTime();
     }
 
     isDead() {
@@ -83,5 +78,6 @@ export default class Particle {
         // console.log(this.particleMesh.material.opacity  + " -> " + this.lifespan);
         this.particleMesh.material.opacity = this.lifespan;
         this.particleMesh.position.set(this.pos.x, this.pos.y, this.pos.z);
+        this.updateTimeUniform();
     }
 }

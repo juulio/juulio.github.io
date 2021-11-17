@@ -45,7 +45,7 @@ let particleSystem, part;
 let init = (font) => {
 
 	(function(){var script=document.createElement('script');script.onload=function(){var stats=new Stats();document.body.appendChild(stats.dom);requestAnimationFrame(function loop(){stats.update();requestAnimationFrame(loop)});};script.src='//mrdoob.github.io/stats.js/build/stats.min.js';document.head.appendChild(script);})()
-	
+
     // Checks if app is running on a mobile device
 	isMobile = false;
 
@@ -71,7 +71,7 @@ let init = (font) => {
     controls = new OrbitControls( camera, renderer.domElement );
 	window.addEventListener( 'resize', onWindowResize, false );
 
-	clock = new THREE.Clock();
+	// clock = new THREE.Clock();
 
 	scene.add( new THREE.AxesHelper( 500 ));
 	scene.add( new THREE.GridHelper( 500, 10 ));
@@ -86,7 +86,7 @@ let init = (font) => {
 	// scene.add(renderVolcano());
 	// scene.add(renderFerrisWheel(new Vector3(-140, 0, 260), 30, 2));
 	// scene.add(renderFerrisWheel(new Vector3(0, 0, 0), 30, 2));
-	particleSystem = new ParticleSystem(0, 0, 0, 4);
+	particleSystem = new ParticleSystem(0, 0, 0, 2);
 	// part = new Particle(0, 50, 10, 0.5);
 	// scene.add(part.particleMesh);
     animate();
@@ -236,7 +236,7 @@ let animate = () => {
  
     requestAnimationFrame( animate );
 	
-	delta = clock.getDelta();
+	// delta = clock.getDelta();
 	// uniforms.u_time.value += delta * 2;
 	// customUniforms.time.value += delta;
  
@@ -244,6 +244,7 @@ let animate = () => {
 	// rotateFerrisWheel();
 	scene.add(particleSystem.addParticle());
 	particleSystem.run();
+	
 	// console.log('length ' + scene.children.length + " PS length: " + particleSystem.particles.length);
 	// console.log(part.lifespan);
 	controls.update();
