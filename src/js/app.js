@@ -7,18 +7,15 @@ import { OrbitControls } from 'OrbitControls';
 import gotham_black_regular from '../public/fonts/gotham_black_regular.json';
 import cloudAsset from '../public/images/textures/cloud.png';
 import lavatileAsset from '../public/images/textures/lavatile.jpg';
-import greenTextureAsset from '../public/images/textures/greenTexture.png';
 import moonTextureAsset from '../public/images/textures/moonTexture.jpg'
 import volcanoHeightmap from '../public/images/textures/volcano-heightmap512x512.png'
 import sand512 from '../public/images/textures/sand-512.jpg'
 import rock512 from '../public/images/textures/rock-512.jpg'
 import snow512 from '../public/images/textures/snow-512.jpg'
 import volcanic256 from '../public/images/textures/volcanic-256.jpg'
-import disturb from '../public/images/textures/disturb.jpg'
 
 import vertexShader from '../public/shaders/vertex.glsl';
 import lavaFragmentShader from '../public/shaders/noise.glsl';
-import lunarFragmentShader from '../public/shaders/lunarTextureFragmentShader.glsl';
 import heightmapFragmentShader from '../public/shaders/heightmapFragmentShader.glsl';
 import heightmapVertexShader from '../public/shaders/heightmapVertexShader.glsl';
 
@@ -27,7 +24,8 @@ import {renderFerrisWheel, rotateFerrisWheel} from './modules/ferrisWheel';
 import {renderSkybox} from './modules/skyBox';
 import Particle from './modules/particle';
 import ParticleSystem from './modules/particleSystem';
-import { Vector3 } from 'three';
+import {renderMoon, rotateMoon} from './modules/moon';
+import { MeshBasicMaterial, Vector3 } from 'three';
 
 // THREEjs basic Scene stuff
 const scene = new THREE.Scene();
@@ -36,7 +34,7 @@ const resolutionVec2 = new THREE.Vector2(window.innerWidth, window.innerHeight);
 let camera, renderer, controls;
 let shaderMaterial, shaderMaterials, uniforms, letterPosition, textGeometry, textMesh, delta, isMobile;
 let lavaMaterial;
-let sphereMesh, customUniforms, volcanoMesh;
+let customUniforms, volcanoMesh;
 let particleSystem, part;
 
 /**
@@ -82,7 +80,7 @@ let init = (font) => {
 	// lavaMaterial = setupLavaMaterial();
 	// scene.add(renderFloor());
 	scene.add(renderSkybox());
-	// scene.add(renderMoon());
+	scene.add(renderMoon(new Vector3(-190, 190, 60), 20, 6));
 	scene.add(renderVolcano());
 	scene.add(renderFerrisWheel(new Vector3(-140, 0, 260), 30, 2));
 	particleSystem = new ParticleSystem(-10, 120, -36, 2);
@@ -182,32 +180,6 @@ let renderVolcano = () => {
 }
 
 /**
- * Render planet Sphere Element
- * @returns THREE.Mesh Moon Shpere
- */
-let renderMoon = () => {
-	const sphereGeometry = new THREE.SphereGeometry(27, 32, 32);
-
-	const uniforms = {
-		"time": { value: 1.0 },
-		"resolution": { type: 'v2', value: resolutionVec2 },
-	};
-
-	const material = new THREE.ShaderMaterial( {
-		uniforms: uniforms,
-		vertexShader: vertexShader,
-		fragmentShader: lunarFragmentShader,
-		side:THREE.DoubleSide
-	} );
-
-	material.wrapS = material.wrapT = THREE.RepeatWrapping;
-	sphereMesh = new THREE.Mesh(sphereGeometry, material);
-	sphereMesh.position.y = 180;
-
-	return sphereMesh;
-}
-
-/**
  * Renders Plane Mesh floor 
  * @returns THREE.Mesh Floor
  */
@@ -239,7 +211,7 @@ let animate = () => {
 	rotateFerrisWheel();
 	scene.add(particleSystem.addParticle());
 	particleSystem.run();
-	
+	rotateMoon();
 	// console.log('length ' + scene.children.length + " PS length: " + particleSystem.particles.length);
 	// console.log(part.lifespan);
 	controls.update();
