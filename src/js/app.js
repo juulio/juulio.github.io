@@ -34,7 +34,7 @@ const scene = new THREE.Scene();
 const resolutionVec2 = new THREE.Vector2(window.innerWidth, window.innerHeight);
 
 let camera, renderer, controls;
-let clock, shaderMaterial, shaderMaterials, uniforms, letterPosition, textGeometry, textMesh, delta, isMobile;
+let shaderMaterial, shaderMaterials, uniforms, letterPosition, textGeometry, textMesh, delta, isMobile;
 let lavaMaterial;
 let sphereMesh, customUniforms, volcanoMesh;
 let particleSystem, part;
@@ -61,8 +61,8 @@ let init = (font) => {
 		FAR = 20000;
 	camera = new THREE.PerspectiveCamera( VIEW_ANGLE, ASPECT, NEAR, FAR);
 	scene.add(camera);
-	camera.position.set(0,50,180);
-	camera.lookAt(scene.position);
+	camera.position.set(0, 70, 600);
+	// camera.lookAt(scene.position);
 
     renderer = new THREE.WebGLRenderer( { antialias: true } );
     renderer.setSize( window.innerWidth, window.innerHeight );
@@ -71,22 +71,19 @@ let init = (font) => {
     controls = new OrbitControls( camera, renderer.domElement );
 	window.addEventListener( 'resize', onWindowResize, false );
 
-	// clock = new THREE.Clock();
-
-	scene.add( new THREE.AxesHelper( 500 ));
-	scene.add( new THREE.GridHelper( 500, 10 ));
+	// scene.add( new THREE.AxesHelper( 500 ));
+	// scene.add( new THREE.GridHelper( 500, 10 ));
 	
 	// setupShaderMaterials();
     // renderTextGeometry(font);
         
 	// lavaMaterial = setupLavaMaterial();
 	// scene.add(renderFloor());
-	// scene.add(renderSkybox());
+	scene.add(renderSkybox());
 	// scene.add(renderMoon());
-	// scene.add(renderVolcano());
-	// scene.add(renderFerrisWheel(new Vector3(-140, 0, 260), 30, 2));
-	// scene.add(renderFerrisWheel(new Vector3(0, 0, 0), 30, 2));
-	particleSystem = new ParticleSystem(0, 0, 0, 2);
+	scene.add(renderVolcano());
+	scene.add(renderFerrisWheel(new Vector3(-140, 0, 260), 30, 2));
+	particleSystem = new ParticleSystem(-10, 130, -36, 2);
 	// part = new Particle(0, 50, 10, 0.5);
 	// scene.add(part.particleMesh);
     animate();
@@ -134,7 +131,7 @@ let renderVolcano = () => {
 	const geometry = new THREE.ConeGeometry( 14, volcanoHeight, 32, 32);
 	const cone = new THREE.Mesh( geometry, lavaMaterial );
 	cone.position.y = volcanoHeight / 2 ;
-	scene.add( cone );
+	// scene.add( cone );
 
 	// Mountain Textures
 	// texture used to generate "bumpiness"
@@ -236,12 +233,8 @@ let animate = () => {
  
     requestAnimationFrame( animate );
 	
-	// delta = clock.getDelta();
-	// uniforms.u_time.value += delta * 2;
-	// customUniforms.time.value += delta;
- 
 	// volcanoMesh.rotation.z += 0.001;
-	// rotateFerrisWheel();
+	rotateFerrisWheel();
 	scene.add(particleSystem.addParticle());
 	particleSystem.run();
 	
