@@ -33,7 +33,7 @@ export default class ParticleSystem {
                 scene = particle.particleMesh.parent;
 
             if(particle.isDead()){
-                console.log("Particles length: " + this.particles.length + " Scene.children: " + scene.children.length);
+                // console.log("Particles length: " + this.particles.length + " Scene.children: " + scene.children.length);
                 this.particles.splice(i,1);
                 scene.remove(particle.particleMesh); // not working properly
                 // console.log("Particles length: " + this.particles.length + " Scene.children: " + scene.children.length);

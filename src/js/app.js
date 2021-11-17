@@ -44,6 +44,8 @@ let particleSystem, part;
   */
 let init = (font) => {
 
+	(function(){var script=document.createElement('script');script.onload=function(){var stats=new Stats();document.body.appendChild(stats.dom);requestAnimationFrame(function loop(){stats.update();requestAnimationFrame(loop)});};script.src='//mrdoob.github.io/stats.js/build/stats.min.js';document.head.appendChild(script);})()
+	
     // Checks if app is running on a mobile device
 	isMobile = false;
 
@@ -240,10 +242,9 @@ let animate = () => {
  
 	// volcanoMesh.rotation.z += 0.001;
 	// rotateFerrisWheel();
-	// part.update();
 	scene.add(particleSystem.addParticle());
 	particleSystem.run();
-	console.log('length ' + scene.children.length + " PS length: " + particleSystem.particles.length);
+	// console.log('length ' + scene.children.length + " PS length: " + particleSystem.particles.length);
 	// console.log(part.lifespan);
 	controls.update();
 

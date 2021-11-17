@@ -22,7 +22,8 @@ export default class Particle {
     }
 
     isDead() {
-        return this.lifespan < 0;
+        return this.pos.y < 0;
+        // return this.lifespan < 0;
     }
 
     /**
