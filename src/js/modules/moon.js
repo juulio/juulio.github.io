@@ -23,7 +23,7 @@ const renderMoon = (position, radius, segments) => {
 }
 
 /**
- * 
+ * rotate Moon Mesh
  */
 const rotateMoon = () => {
     moonMesh.rotation.y += 0.006;

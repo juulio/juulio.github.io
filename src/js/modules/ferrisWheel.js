@@ -55,7 +55,7 @@ const renderFerrisWheel = (position, radius, height) => {
 }
 
 /**
- * 
+ * rotate Ferris Wheel Mesh
  */
 const rotateFerrisWheel = () => {
     wheelMesh.rotation.y += 0.001;
