@@ -11,7 +11,7 @@ const VIEWPORT_HEIGHT = window.innerHeight;
 export default class Particle {
     constructor(x, y, z, radius) {
         this.pos = new Vector3(x, y, z);
-        this.vel = new Vector3(getRandomArbitrary(-0.2, 0.2), getRandomArbitrary(0, 0.6), getRandomArbitrary(-0.2, 0.2));
+        this.vel = new Vector3(getRandomArbitrary(-0.9, 0.9), getRandomArbitrary(4.0, 4.5), getRandomArbitrary(-0.7, 0.7));
         this.acc = new Vector3(0, getRandomArbitrary(0, 0.000000002), 0);
         this.lifespan = 1;
         this.radius = radius;

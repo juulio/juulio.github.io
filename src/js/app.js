@@ -85,7 +85,7 @@ let init = (font) => {
 	// scene.add(renderMoon());
 	scene.add(renderVolcano());
 	scene.add(renderFerrisWheel(new Vector3(-140, 0, 260), 30, 2));
-	particleSystem = new ParticleSystem(-10, 130, -36, 2);
+	particleSystem = new ParticleSystem(-10, 120, -36, 2);
 	// part = new Particle(0, 50, 10, 0.5);
 	// scene.add(part.particleMesh);
     animate();
