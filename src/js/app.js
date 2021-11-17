@@ -64,6 +64,8 @@ let init = (font) => {
 	camera.position.set(0, 70, 600);
 	// camera.lookAt(scene.position);
 
+	// scene.fog = new THREE.FogExp2( 0xffd1b5, 0.0002 );
+
     renderer = new THREE.WebGLRenderer( { antialias: true } );
     renderer.setSize( window.innerWidth, window.innerHeight );
 	renderer.setClearColor ( "#ffffff");
