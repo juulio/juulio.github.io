@@ -1,5 +1,9 @@
-import { Vector2, Vector3, Mesh, SphereBufferGeometry, MeshBasicMaterial, ShapeUtils } from "three";
+import { Vector2, Vector3, Mesh, SphereBufferGeometry, MeshBasicMaterial, ShapeUtils, ShaderMaterial, DoubleSide, TextureLoader, NearestFilter } from "three";
 import { getRandomArbitrary, getRandomInt} from './utils'
+
+import lavatileAsset from '../public/images/textures/lavatile.jpg';
+import eruptionVertexShader from '../../public/shaders/eruptionVertexShader.glsl';
+import eruptionFragmentShader from '../../public/shaders/eruptionFragmentShader.glsl';
 
 const VIEWPORT_WIDTH = window.innerWidth;
 const VIEWPORT_HEIGHT = window.innerHeight;
@@ -11,14 +15,34 @@ export default class Particle {
         this.acc = new Vector3(0, getRandomArbitrary(0, 0.000000002), 0);
         this.lifespan = 1;
         this.radius = radius;
-        const geometry = new SphereBufferGeometry( this.radius, 10, 10);
+        
+        this.shaderMaterial = new ShaderMaterial({
+            vertexShader,
+            fragmentShader,
+            uniforms: {
+                uTime: { value: 0},
+                uTexture: { value: texture}
+            },
+            transparent: true,
+            side: DoubleSide
+        });
+
+        const texture = new TextureLoader().load(img, (texture) => {
+            texture.minFilter = NearestFilter;
+        })
+        
         const material = new MeshBasicMaterial({
             color: 0xff0000,
             transparent: true,
             // wireframe: true
         });
+        const geometry = new SphereBufferGeometry( this.radius, 10, 10);
         this.particleMesh = new Mesh( geometry, material );
 
+    }
+
+    updateTimeUniform() {
+        this.shaderMaterial.uniforms.uTime.value = clock.getElapsedTime();
     }
 
     isDead() {
