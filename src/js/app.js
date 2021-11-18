@@ -22,7 +22,6 @@ import heightmapVertexShader from '../public/shaders/heightmapVertexShader.glsl'
 // Required THREEjs stuff
 import { MeshBasicMaterial, Vector3 } from 'three';
 
-
 // import all 3d modules
 import {renderFerrisWheel, rotateFerrisWheel} from './modules/ferrisWheel';
 import renderSkybox from './modules/skyBox';
@@ -33,8 +32,6 @@ import theText from './modules/text';
 
 // THREEjs basic Scene stuff
 const scene = new THREE.Scene();
-const resolutionVec2 = new THREE.Vector2(window.innerWidth, window.innerHeight);
-
 let camera, renderer, controls;
 let shaderMaterial, shaderMaterials, uniforms, letterPosition, textGeometry, textMesh, delta, isMobile;
 let lavaMaterial;
@@ -44,7 +41,7 @@ let particleSystem;
 /**
   * Init basic 3D Scene Elements
   */
-let init = (font) => {
+let init = () => {
 
 	(function(){var script=document.createElement('script');script.onload=function(){var stats=new Stats();document.body.appendChild(stats.dom);requestAnimationFrame(function loop(){stats.update();requestAnimationFrame(loop)});};script.src='//mrdoob.github.io/stats.js/build/stats.min.js';document.head.appendChild(script);})()
 
@@ -89,7 +86,7 @@ let init = (font) => {
 	scene.add(renderFerrisWheel(new Vector3(-140, 0, 260), 30, 2));
 	particleSystem = new ParticleSystem(-10, 120, -36, 2);
 	let text = new theText()
-	
+	text.render3dText('webgl');
     animate();
 }
 
