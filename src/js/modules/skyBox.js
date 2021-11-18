@@ -32,4 +32,4 @@ const renderSkybox = () => {
 	return skybox;
 }
 
-export {renderSkybox};
+export default renderSkybox;
