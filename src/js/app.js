@@ -8,16 +8,12 @@ import { OrbitControls } from 'OrbitControls';
 import cloudAsset from '../public/images/textures/cloud.png';
 import lavatileAsset from '../public/images/textures/lavatile.jpg';
 import moonTextureAsset from '../public/images/textures/moonTexture.jpg'
-import volcanoHeightmap from '../public/images/textures/volcano-heightmap512x512.png'
 import sand512 from '../public/images/textures/sand-512.jpg'
-import rock512 from '../public/images/textures/rock-512.jpg'
-import snow512 from '../public/images/textures/snow-512.jpg'
-import volcanic256 from '../public/images/textures/volcanic-256.jpg'
 
 import vertexShader from '../public/shaders/vertex.glsl';
 import lavaFragmentShader from '../public/shaders/noise.glsl';
-import heightmapFragmentShader from '../public/shaders/heightmapFragmentShader.glsl';
-import heightmapVertexShader from '../public/shaders/heightmapVertexShader.glsl';
+// import heightmapFragmentShader from '../public/shaders/heightmapFragmentShader.glsl';
+// import heightmapVertexShader from '../public/shaders/heightmapVertexShader.glsl';
 
 // Required THREEjs stuff
 import { MeshBasicMaterial, Vector3 } from 'three';
@@ -25,10 +21,11 @@ import { MeshBasicMaterial, Vector3 } from 'three';
 // import all 3d modules
 import {renderFerrisWheel, rotateFerrisWheel} from './modules/ferrisWheel';
 import renderSkybox from './modules/skyBox';
-import Particle from './modules/particle';
 import ParticleSystem from './modules/particleSystem';
 import {renderMoon, rotateMoon} from './modules/moon';
+import Volcano from './modules/volcano';
 import theText from './modules/text';
+import Floor from './modules/floor';
 
 // THREEjs basic Scene stuff
 const scene = new THREE.Scene();
@@ -43,6 +40,7 @@ let particleSystem;
   */
 let init = () => {
 
+	// Show Stats like FPS
 	(function(){var script=document.createElement('script');script.onload=function(){var stats=new Stats();document.body.appendChild(stats.dom);requestAnimationFrame(function loop(){stats.update();requestAnimationFrame(loop)});};script.src='//mrdoob.github.io/stats.js/build/stats.min.js';document.head.appendChild(script);})()
 
     // Checks if app is running on a mobile device
@@ -76,8 +74,8 @@ let init = () => {
     controls = new OrbitControls( camera, renderer.domElement );
 	window.addEventListener( 'resize', onWindowResize, false );
 
-	// scene.add( new THREE.AxesHelper( 500 ));
-	// scene.add( new THREE.GridHelper( 500, 10 ));
+	scene.add( new THREE.AxesHelper( 500 ));
+	scene.add( new THREE.GridHelper( 30, 10 ));
 	
 	// setupShaderMaterials();
     // renderTextGeometry(font);
@@ -85,9 +83,9 @@ let init = () => {
 	// lavaMaterial = setupLavaMaterial();
 	// scene.add(renderFloor());
 	// scene.add(renderSkybox());
-	scene.add(renderMoon(new Vector3(-190, 190, 60), 20, 6));
+	scene.add(renderMoon(new Vector3(0, 20, 0), 20, 6));
 	// scene.add(renderVolcano());
-	scene.add(renderFerrisWheel(new Vector3(-140, 0, 260), 30, 2));
+	scene.add(renderFerrisWheel(new Vector3(-40, 0, 0), 30, 2));
 	particleSystem = new ParticleSystem(-10, 120, -36, 2);
 	let text = new theText()
 	scene.add(text.render3dText('webgl'));
@@ -128,84 +126,6 @@ let setupLavaMaterial = () => {
 }
 
 /**
- * Render volcano cone Mesh with lava material 
- * @returns THREE.Mesh Volcano
- */
-let renderVolcano = () => {
-	let volcanoHeight = 300;
-	const geometry = new THREE.ConeGeometry( 14, volcanoHeight, 32, 32);
-	const cone = new THREE.Mesh( geometry, lavaMaterial );
-	cone.position.y = volcanoHeight / 2 ;
-	// scene.add( cone );
-
-	// Mountain Textures
-	// texture used to generate "bumpiness"
-	let bumpTexture = new THREE.TextureLoader().load( volcanoHeightmap );
-	bumpTexture.wrapS = bumpTexture.wrapT = THREE.RepeatWrapping; 
-	// magnitude of normal displacement
-	let bumpScale   = 200.0;
-	
-	let sandyTexture = new THREE.TextureLoader().load( sand512 );
-	sandyTexture.wrapS = sandyTexture.wrapT = THREE.RepeatWrapping; 
-	
-	let rockyTexture = new THREE.TextureLoader().load( rock512 );
-	rockyTexture.wrapS = rockyTexture.wrapT = THREE.RepeatWrapping; 
-	
-	let volcanicTexture = new THREE.TextureLoader().load( volcanic256 );
-	volcanicTexture.wrapS = volcanicTexture.wrapT = THREE.RepeatWrapping;
-
-	const snowyTexture = new THREE.TextureLoader().load( snow512 );
-	snowyTexture.wrapS = snowyTexture.wrapT = THREE.RepeatWrapping; 
-
-	// use "this." to create global object
-	customUniforms = {
-		bumpTexture:		{ type: "t", value: bumpTexture },
-		bumpScale:	    	{ type: "f", value: bumpScale },
-		sandyTexture:		{ type: "t", value: sandyTexture },
-		rockyTexture:		{ type: "t", value: rockyTexture },
-		volcanicTexture:	{ type: "t", value: volcanicTexture },
-		snowyTexture:	{ type: "t", value: snowyTexture }
-	};
-	
-	let volcanicMaterial = new THREE.ShaderMaterial( 
-	{
-	    uniforms: customUniforms,
-		vertexShader:   heightmapVertexShader,
-		fragmentShader: heightmapFragmentShader,
-		// side: THREE.DoubleSide
-	}   );
-		
-	let planeGeo = new THREE.PlaneGeometry( 400, 400, 100, 100 );
-	volcanoMesh = new THREE.Mesh(	planeGeo, volcanicMaterial );
-	volcanoMesh.rotation.x = -Math.PI / 2;
-	volcanoMesh.rotation.x = -Math.PI / 2;
-	volcanoMesh.position.x = -60;
-	volcanoMesh.position.y = -60;
-	return volcanoMesh;
-}
-
-/**
- * Renders Plane Mesh floor 
- * @returns THREE.Mesh Floor
- */
-let renderFloor = () => {
-	const planeGeometry = new THREE.PlaneGeometry( 800, 800, 32 );
-
-	const moonTexture = new THREE.TextureLoader().load(moonTextureAsset);
-	moonTexture.wrapS = moonTexture.wrapT = THREE.RepeatWrapping;
-
-	const moonMaterial = new THREE.MeshBasicMaterial({
-		map: moonTexture,
-		side: THREE.DoubleSide 
-	});
-
-	const floorMesh = new THREE.Mesh( planeGeometry, moonMaterial );
-	floorMesh.rotation.x = Math.PI / 2;
-
-	return floorMesh;
-}
-
-/**
  * Updates objects on each frame
  */
 let animate = () => {
@@ -213,12 +133,10 @@ let animate = () => {
     requestAnimationFrame( animate );
 	
 	// volcanoMesh.rotation.z += 0.001;
-	rotateFerrisWheel();
-	scene.add(particleSystem.addParticle());
-	particleSystem.run();
-	rotateMoon();
-	// console.log('length ' + scene.children.length + " PS length: " + particleSystem.particles.length);
-	// console.log(part.lifespan);
+	// rotateMoon();
+	// rotateFerrisWheel();
+	// scene.add(particleSystem.addParticle());
+	// particleSystem.run();
 	controls.update();
 
     renderer.render( scene, camera );
@@ -234,33 +152,7 @@ let onWindowResize = () => {
     renderer.setSize( window.innerWidth, window.innerHeight );
 }
 
-/*
-* Load the JSON font and launch init
-*/
-// const loader = new THREE.FontLoader();
-// let font = loader.parse(gotham_black_regular);
 init();
-
-/**
- * Rotates each letter on the Y Axis
- */
- let rotateLetters = () => {
-	let rotationSpeed = 0.3,
-	currentLetterRotationY = textMesh.children[letterPosition].rotation.y;
-
-	// Rotate Current Letter on the Y Axis
-	textMesh.children[letterPosition].rotation.y += rotationSpeed;
-
-	if(textMesh.children[letterPosition].rotation.y >= 6.28) {
-		letterPosition++;
-	}
-
-	if(letterPosition < textMesh.children.length-1) {
-		if(currentLetterRotationY >= 2) {
-			textMesh.children[letterPosition + 1].rotation.y += rotationSpeed;
-		}
-	}
-}
 
 /**
  * Init Uniforms for shaderMaerial
@@ -289,7 +181,6 @@ let setupShaderMaterials = () => {
 }
 
 /**
- * TODO: mergear
  * TODO: colocar texto 'under construction'
  * TODO: usar un solo shaderMaterial en las letras para deformarlas y animarlas con shaders
  * TODO: terminar de limpiar app.js

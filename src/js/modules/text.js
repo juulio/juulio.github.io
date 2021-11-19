@@ -40,7 +40,27 @@ export default class theText {
         // this.groupTextMesh.position.x = -2.4;
         // this.groupTextMesh.position.z = -5;
         // this.groupTextMesh.position.z = 2;
-
         return this.groupTextMesh;
+    }
+
+    /**
+     * Rotates each letter on the Y Axis
+     */
+    rotateLetters() {
+        let rotationSpeed = 0.3,
+        currentLetterRotationY = textMesh.children[letterPosition].rotation.y;
+
+        // Rotate Current Letter on the Y Axis
+        textMesh.children[letterPosition].rotation.y += rotationSpeed;
+
+        if(textMesh.children[letterPosition].rotation.y >= 6.28) {
+            letterPosition++;
+        }
+
+        if(letterPosition < textMesh.children.length-1) {
+            if(currentLetterRotationY >= 2) {
+                textMesh.children[letterPosition + 1].rotation.y += rotationSpeed;
+            }
+        }
     }
 }
