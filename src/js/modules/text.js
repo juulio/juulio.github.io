@@ -40,7 +40,7 @@ export default class theText {
         this.groupTextMesh.position.x = -2.4;
         this.groupTextMesh.position.z = -5;
         // this.groupTextMesh.position.z = 2;
-
+        return this.groupTextMesh;
     }
 
     /**

@@ -83,7 +83,8 @@ let init = () => {
 	// scene.add(new Volcano(0, -35, 0, 120, 400, 100));
 	// particleSystem = new ParticleSystem(-10, 120, -36, 2);
 	let text = new theText()
-	text.render3dText('webgl');
+	scene.add(text.render3dText('webgl'));
+	console.log(scene);
     animate();
 }
 
@@ -147,11 +148,6 @@ let onWindowResize = () => {
     renderer.setSize( window.innerWidth, window.innerHeight );
 }
 
-/*
-* Load the JSON font and launch init
-*/
-// const loader = new THREE.FontLoader();
-// let font = loader.parse(gotham_black_regular);
 init();
 
 /**
