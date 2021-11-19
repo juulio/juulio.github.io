@@ -60,8 +60,12 @@ let init = () => {
 		FAR = 20000;
 	camera = new THREE.PerspectiveCamera( VIEW_ANGLE, ASPECT, NEAR, FAR);
 	scene.add(camera);
-	camera.position.set(0, 70, 600);
+	camera.position.set(0, 30, 40);
 	// camera.lookAt(scene.position);
+
+	 // add subtle ambient lighting
+	 var ambientLight = new THREE.AmbientLight(0x0c0c0c);
+	 scene.add(ambientLight);
 
 	// scene.fog = new THREE.FogExp2( 0xffd1b5, 0.0002 );
 
@@ -80,13 +84,13 @@ let init = () => {
         
 	// lavaMaterial = setupLavaMaterial();
 	// scene.add(renderFloor());
-	scene.add(renderSkybox());
+	// scene.add(renderSkybox());
 	scene.add(renderMoon(new Vector3(-190, 190, 60), 20, 6));
-	scene.add(renderVolcano());
+	// scene.add(renderVolcano());
 	scene.add(renderFerrisWheel(new Vector3(-140, 0, 260), 30, 2));
 	particleSystem = new ParticleSystem(-10, 120, -36, 2);
 	let text = new theText()
-	text.render3dText('webgl');
+	scene.add(text.render3dText('webgl'));
     animate();
 }
 

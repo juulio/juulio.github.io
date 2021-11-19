@@ -1,4 +1,4 @@
-import { FontLoader, Group, Mesh, MeshNormalMaterial, TextBufferGeometry, Vector3 } from 'three';
+import { FontLoader, Group, Mesh, MeshPhongMaterial, TextBufferGeometry, Vector3 } from 'three';
 import gotham_black_regular from '../../public/fonts/gotham_black_regular.json';
 
 export default class theText {
@@ -31,15 +31,16 @@ export default class theText {
             // letterMesh = new THREE.Mesh( textGeometry, new THREE.MeshBasicMaterial({wireframe: true, color : 0xFF0000}) );
             // letterMesh = new THREE.Mesh( textGeometry, new THREE.MeshNormalMaterial());
             // letterMesh = new THREE.Mesh( textGeometry, shaderMaterial);
-            letterMesh = new Mesh( textGeometry, new MeshNormalMaterial());
+            letterMesh = new Mesh( textGeometry, new MeshPhongMaterial( { color: 0xffffff, flatShading: true } ));
             letterMesh.position.x = i;
 
             this.groupTextMesh.add( letterMesh)
         }
 
-        this.groupTextMesh.position.x = -2.4;
-        this.groupTextMesh.position.z = -5;
+        // this.groupTextMesh.position.x = -2.4;
+        // this.groupTextMesh.position.z = -5;
         // this.groupTextMesh.position.z = 2;
 
+        return this.groupTextMesh;
     }
 }
