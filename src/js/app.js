@@ -21,11 +21,11 @@ import { MeshBasicMaterial, Vector3 } from 'three';
 // import all 3d modules
 import {renderFerrisWheel, rotateFerrisWheel} from './modules/ferrisWheel';
 import renderSkybox from './modules/skyBox';
-import Particle from './modules/particle';
 import ParticleSystem from './modules/particleSystem';
 import {renderMoon, rotateMoon} from './modules/moon';
 import Volcano from './modules/volcano';
 import theText from './modules/text';
+import Floor from './modules/floor';
 
 // THREEjs basic Scene stuff
 const scene = new THREE.Scene();
@@ -76,12 +76,12 @@ let init = () => {
     // renderTextGeometry(font);
         
 	// lavaMaterial = setupLavaMaterial();
-	scene.add(renderFloor());
+	scene.add(new Floor(0, 0, 0, 1200, 1200));
 	// scene.add(renderSkybox());
-	scene.add(renderMoon(new Vector3(-190, 190, 60), 20, 6));
-	scene.add(renderFerrisWheel(new Vector3(-140, 0, 260), 30, 2));
-	scene.add(new Volcano(0, -35, 0, 120, 400, 100));
-	particleSystem = new ParticleSystem(-10, 120, -36, 2);
+	// scene.add(renderMoon(new Vector3(-190, 190, 60), 20, 6));
+	// scene.add(renderFerrisWheel(new Vector3(-140, 0, 260), 30, 2));
+	// scene.add(new Volcano(0, -35, 0, 120, 400, 100));
+	// particleSystem = new ParticleSystem(-10, 120, -36, 2);
 	let text = new theText()
 	text.render3dText('webgl');
     animate();
@@ -121,28 +121,6 @@ let setupLavaMaterial = () => {
 }
 
 /**
- * Renders Plane Mesh floor 
- * @returns THREE.Mesh Floor
- */
-let renderFloor = () => {
-	const planeGeometry = new THREE.PlaneGeometry( 1200, 1200, 32 );
-
-	// const moonTexture = new THREE.TextureLoader().load(moonTextureAsset);
-	const moonTexture = new THREE.TextureLoader().load(sand512);
-	moonTexture.wrapS = moonTexture.wrapT = THREE.RepeatWrapping;
-
-	const moonMaterial = new THREE.MeshBasicMaterial({
-		map: moonTexture,
-		side: THREE.DoubleSide 
-	});
-
-	const floorMesh = new THREE.Mesh( planeGeometry, moonMaterial );
-	floorMesh.rotation.x = Math.PI / 2;
-
-	return floorMesh;
-}
-
-/**
  * Updates objects on each frame
  */
 let animate = () => {
@@ -150,12 +128,10 @@ let animate = () => {
     requestAnimationFrame( animate );
 	
 	// volcanoMesh.rotation.z += 0.001;
-	rotateFerrisWheel();
-	scene.add(particleSystem.addParticle());
-	particleSystem.run();
-	rotateMoon();
-	// console.log('length ' + scene.children.length + " PS length: " + particleSystem.particles.length);
-	// console.log(part.lifespan);
+	// rotateMoon();
+	// rotateFerrisWheel();
+	// scene.add(particleSystem.addParticle());
+	// particleSystem.run();
 	controls.update();
 
     renderer.render( scene, camera );
@@ -177,27 +153,6 @@ let onWindowResize = () => {
 // const loader = new THREE.FontLoader();
 // let font = loader.parse(gotham_black_regular);
 init();
-
-/**
- * Rotates each letter on the Y Axis
- */
- let rotateLetters = () => {
-	let rotationSpeed = 0.3,
-	currentLetterRotationY = textMesh.children[letterPosition].rotation.y;
-
-	// Rotate Current Letter on the Y Axis
-	textMesh.children[letterPosition].rotation.y += rotationSpeed;
-
-	if(textMesh.children[letterPosition].rotation.y >= 6.28) {
-		letterPosition++;
-	}
-
-	if(letterPosition < textMesh.children.length-1) {
-		if(currentLetterRotationY >= 2) {
-			textMesh.children[letterPosition + 1].rotation.y += rotationSpeed;
-		}
-	}
-}
 
 /**
  * Init Uniforms for shaderMaerial
@@ -226,7 +181,6 @@ let setupShaderMaterials = () => {
 }
 
 /**
- * TODO: mergear
  * TODO: colocar texto 'under construction'
  * TODO: usar un solo shaderMaterial en las letras para deformarlas y animarlas con shaders
  * TODO: terminar de limpiar app.js
