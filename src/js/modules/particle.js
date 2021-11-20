@@ -1,17 +1,13 @@
-import { Vector2, Vector3, Mesh, SphereBufferGeometry, MeshBasicMaterial, ShapeUtils, ShaderMaterial, DoubleSide, TextureLoader, NearestFilter, Clock } from "three";
-import { getRandomArbitrary, getRandomInt} from './utils'
+import { Vector3, Mesh, SphereBufferGeometry, ShaderMaterial, DoubleSide, TextureLoader, NearestFilter, Clock } from "three";
+import { getRandomArbitrary} from './utils'
 
-import amberLavaAsset from '../../public/images/textures/amberLava.png';
+import amberLavaAsset from '../../public/images/textures/lavatile.jpg';
 import eruptionVertexShader from '../../public/shaders/eruptionVertexShader.glsl';
 import eruptionFragmentShader from '../../public/shaders/eruptionFragmentShader.glsl';
-
-const VIEWPORT_WIDTH = window.innerWidth;
-const VIEWPORT_HEIGHT = window.innerHeight;
 
 export default class Particle {
     constructor(x, y, z, radius) {
         this.pos = new Vector3(x, y, z);
-        // this.vel = new Vector3(getRandomArbitrary(-0.2, 0.2), getRandomArbitrary(0.3, 0.5), getRandomArbitrary(-0.7, 0.7));
         this.vel = new Vector3(getRandomArbitrary(-0.1, 0.1), getRandomArbitrary(0.3, 0.5), getRandomArbitrary(-0.1, 0.1));
         this.acc = new Vector3(0, getRandomArbitrary(0.3, 0.4), 0);
         this.lifespan = 1;
