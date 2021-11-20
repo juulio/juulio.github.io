@@ -78,17 +78,19 @@ let init = () => {
 	scene.add( new THREE.GridHelper( 30, 10 ));
 	
 	// setupShaderMaterials();
-    // renderTextGeometry(font);
-        
 	// lavaMaterial = setupLavaMaterial();
-	// scene.add(renderFloor());
+
 	// scene.add(renderSkybox());
 	scene.add(renderMoon(new Vector3(0, 20, 0), 20, 6));
-	// scene.add(renderVolcano());
+	scene.add(new Volcano(0, 0, 0, 20, 40, 30, 4));
 	scene.add(renderFerrisWheel(new Vector3(-40, 0, 0), 30, 2));
 	particleSystem = new ParticleSystem(-10, 120, -36, 2);
+	
 	let text = new theText()
-	scene.add(text.render3dText('webgl'));
+	scene.add(text.render3dText('under construction'));
+	
+	const floor = new Floor(0, 0, 0, 20, 20);
+	scene.add(floor);
     animate();
 }
 
@@ -133,10 +135,10 @@ let animate = () => {
     requestAnimationFrame( animate );
 	
 	// volcanoMesh.rotation.z += 0.001;
-	// rotateMoon();
-	// rotateFerrisWheel();
-	// scene.add(particleSystem.addParticle());
-	// particleSystem.run();
+	rotateMoon();
+	rotateFerrisWheel();
+	scene.add(particleSystem.addParticle());
+	particleSystem.run();
 	controls.update();
 
     renderer.render( scene, camera );
@@ -181,7 +183,6 @@ let setupShaderMaterials = () => {
 }
 
 /**
- * TODO: colocar texto 'under construction'
  * TODO: usar un solo shaderMaterial en las letras para deformarlas y animarlas con shaders
  * TODO: terminar de limpiar app.js
  */

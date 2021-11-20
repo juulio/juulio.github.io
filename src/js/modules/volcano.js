@@ -1,5 +1,4 @@
 import { DoubleSide, Mesh, PlaneBufferGeometry, RepeatWrapping, ShaderMaterial, TextureLoader, Vector3 } from "three";
-import { getRandomArbitrary, getRandomInt} from './utils'
 
 import heightmapFragmentShader from '../../public/shaders/heightmapFragmentShader.glsl';
 import heightmapVertexShader from '../../public/shaders/heightmapVertexShader.glsl';
@@ -52,9 +51,8 @@ export default class Volcano {
             side: DoubleSide
         });
             
-        const planeGeo = new PlaneBufferGeometry(400, 400, 100, 100 );
+        const planeGeo = new PlaneBufferGeometry(baseWidth, baseHeight, 40, 40 );
         this.volcanoMesh = new Mesh( planeGeo, this.volcanicMaterial );
-        this.volcanoMesh.rotation.x = -Math.PI / 2;
         this.volcanoMesh.rotation.x = -Math.PI / 2;
         this.volcanoMesh.position.x = this.pos.x;
         this.volcanoMesh.position.y = this.pos.y;
