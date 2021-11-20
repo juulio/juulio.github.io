@@ -69,27 +69,27 @@ let init = () => {
 
     renderer = new THREE.WebGLRenderer( { antialias: true } );
     renderer.setSize( window.innerWidth, window.innerHeight );
-	renderer.setClearColor ( "#ffffff");
+	renderer.setClearColor ( "#000000");
     document.body.appendChild( renderer.domElement );
     controls = new OrbitControls( camera, renderer.domElement );
 	window.addEventListener( 'resize', onWindowResize, false );
 
 	scene.add( new THREE.AxesHelper( 500 ));
-	scene.add( new THREE.GridHelper( 30, 10 ));
+	// scene.add( new THREE.GridHelper( 30, 10 ));
 	
 	// setupShaderMaterials();
 	// lavaMaterial = setupLavaMaterial();
 
 	// scene.add(renderSkybox());
-	scene.add(renderMoon(new Vector3(0, 20, 0), 20, 6));
-	scene.add(new Volcano(0, 0, 0, 20, 40, 30, 4));
+	scene.add(renderMoon(new Vector3(0, 20, 0), 4, 3));
+	scene.add(new Volcano(20, -7.8, -15, 20, 40, 30, 4));
 	scene.add(renderFerrisWheel(new Vector3(-40, 0, 0), 30, 2));
-	particleSystem = new ParticleSystem(-10, 120, -36, 2);
+	particleSystem = new ParticleSystem(-5, 120, -36, 2);
 	
 	let text = new theText()
 	scene.add(text.render3dText('under construction'));
 	
-	const floor = new Floor(0, 0, 0, 20, 20);
+	const floor = new Floor(0, 0, 0, 70, 50);
 	scene.add(floor);
     animate();
 }
@@ -134,9 +134,8 @@ let animate = () => {
  
     requestAnimationFrame( animate );
 	
-	// volcanoMesh.rotation.z += 0.001;
-	rotateMoon();
-	rotateFerrisWheel();
+	// rotateMoon();
+	// rotateFerrisWheel();
 	scene.add(particleSystem.addParticle());
 	particleSystem.run();
 	controls.update();

@@ -2,8 +2,7 @@ import { DoubleSide, Mesh, PlaneBufferGeometry, RepeatWrapping, ShaderMaterial, 
 
 import heightmapFragmentShader from '../../public/shaders/heightmapFragmentShader.glsl';
 import heightmapVertexShader from '../../public/shaders/heightmapVertexShader.glsl';
-import volcanoHeightmap from '../../public/images/textures/volcano-heightmap512x512.png'
-import sand512 from '../../public/images/textures/sand-512.jpg'
+import volcanoHeightmap from '../../public/images/textures/volcano-heightmap256x256.png'
 import rock512 from '../../public/images/textures/rock-512.jpg'
 import snow512 from '../../public/images/textures/snow-512.jpg'
 import volcanic256 from '../../public/images/textures/volcanic-256.jpg'
@@ -21,9 +20,6 @@ export default class Volcano {
         const bumpTexture = new TextureLoader().load( volcanoHeightmap );
         bumpTexture.wrapS = bumpTexture.wrapT = RepeatWrapping; 
         
-        const sandyTexture = new TextureLoader().load( sand512 );
-        sandyTexture.wrapS = sandyTexture.wrapT = RepeatWrapping; 
-        
         const rockyTexture = new TextureLoader().load( rock512 );
         rockyTexture.wrapS = rockyTexture.wrapT = RepeatWrapping; 
         
@@ -37,7 +33,6 @@ export default class Volcano {
         this.customUniforms = {
             bumpScale:	    	{ type: "f", value: this.bumpScale },
             bumpTexture:		{ type: "t", value: bumpTexture },
-            sandyTexture:		{ type: "t", value: sandyTexture },
             rockyTexture:		{ type: "t", value: rockyTexture },
             volcanicTexture:	{ type: "t", value: volcanicTexture },
             snowyTexture:	{ type: "t", value: snowyTexture }
@@ -51,8 +46,8 @@ export default class Volcano {
             side: DoubleSide
         });
             
-        const planeGeo = new PlaneBufferGeometry(baseWidth, baseHeight, 40, 40 );
-        this.volcanoMesh = new Mesh( planeGeo, this.volcanicMaterial );
+        this.planeGeo = new PlaneBufferGeometry(baseWidth, baseHeight, 40, 40 );
+        this.volcanoMesh = new Mesh( this.planeGeo, this.volcanicMaterial );
         this.volcanoMesh.rotation.x = -Math.PI / 2;
         this.volcanoMesh.position.x = this.pos.x;
         this.volcanoMesh.position.y = this.pos.y;
