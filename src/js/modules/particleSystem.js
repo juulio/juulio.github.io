@@ -1,4 +1,4 @@
-import { Vector2, Vector3 } from 'three';
+import { Vector3 } from 'three';
 import Particle from './particle';
 import { getRandomArbitrary } from './utils';
 
@@ -23,7 +23,7 @@ export default class ParticleSystem {
         // console.log(this.particles[0].lifespan);
         // console.log("Particles.length: " + this.particles.length) + " Scene.children: " + this.particles.parent;
         for(let particle of this.particles){
-            let gravity = new Vector3(0, -0.07, 0);
+            let gravity = new Vector3(0, -0.01, 0);
             particle.applyForce(gravity);
             particle.update();
         }
@@ -33,11 +33,9 @@ export default class ParticleSystem {
                 scene = particle.particleMesh.parent;
 
             if(particle.isDead()){
-                // console.log("Particles length: " + this.particles.length + " Scene.children: " + scene.children.length);
                 this.particles.splice(i,1);
-                scene.remove(particle.particleMesh); // not working properly
+                scene.remove(particle.particleMesh);
                 // console.log("Particles length: " + this.particles.length + " Scene.children: " + scene.children.length);
-                // console.log("=========================");
             }
         }
     }

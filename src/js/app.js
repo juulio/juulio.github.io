@@ -30,7 +30,7 @@ import Floor from './modules/floor';
 // THREEjs basic Scene stuff
 const scene = new THREE.Scene();
 let camera, renderer, controls;
-let shaderMaterial, shaderMaterials, uniforms, letterPosition, textGeometry, textMesh, delta, isMobile;
+let shaderMaterial, shaderMaterials, uniforms, delta, isMobile;
 let lavaMaterial;
 let customUniforms, volcanoMesh;
 let particleSystem;
@@ -58,12 +58,8 @@ let init = () => {
 		FAR = 20000;
 	camera = new THREE.PerspectiveCamera( VIEW_ANGLE, ASPECT, NEAR, FAR);
 	scene.add(camera);
-	camera.position.set(0, 30, 40);
+	camera.position.set(0, 40, 40);
 	// camera.lookAt(scene.position);
-
-	 // add subtle ambient lighting
-	 var ambientLight = new THREE.AmbientLight(0x0c0c0c);
-	 scene.add(ambientLight);
 
 	// scene.fog = new THREE.FogExp2( 0xffd1b5, 0.0002 );
 
@@ -83,8 +79,8 @@ let init = () => {
 	// scene.add(renderSkybox());
 	scene.add(renderMoon(new Vector3(0, 20, 0), 4, 3));
 	scene.add(new Volcano(20, -7.8, -15, 20, 40, 30, 4));
+	particleSystem = new ParticleSystem(20, 0, -16, 1);
 	scene.add(renderFerrisWheel(new Vector3(-40, 0, 0), 30, 2));
-	particleSystem = new ParticleSystem(-5, 120, -36, 2);
 	
 	let text = new theText()
 	scene.add(text.render3dText('under construction'));

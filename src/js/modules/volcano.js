@@ -35,7 +35,8 @@ export default class Volcano {
             bumpTexture:		{ type: "t", value: bumpTexture },
             rockyTexture:		{ type: "t", value: rockyTexture },
             volcanicTexture:	{ type: "t", value: volcanicTexture },
-            snowyTexture:	{ type: "t", value: snowyTexture }
+            snowyTexture:	    { type: "t", value: snowyTexture }
+            
         };
         
         this.volcanicMaterial = new ShaderMaterial ( 
