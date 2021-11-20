@@ -1,4 +1,6 @@
-import { SphereBufferGeometry, MeshBasicMaterial, Mesh } from 'three';
+import { SphereBufferGeometry, Mesh, TextureLoader, MeshPhongMaterial } from 'three';
+import moonTextureAsset from '../../public/images/textures/moonTexture.jpg';
+import moonDisplacementMap from '../../public/images/textures/moonDisplacementMap.jpg';
 
 let moonMesh;
 
@@ -6,27 +8,33 @@ let moonMesh;
  * Render Moon
  * @returns THREE.Mesh
  */
-const renderMoon = (position, radius, segments) => {
-	const sphereGeometry = new SphereBufferGeometry(radius, segments, segments);
+export default class Moon {
+	constructor(position, radius, segments) {
+		this.sphereGeometry = new SphereBufferGeometry(radius, segments, segments);
+		this.texture = new TextureLoader().load( moonTextureAsset );
+		this.displacementMap = new TextureLoader().load( moonDisplacementMap );
 
-	const moonMaterial = new MeshBasicMaterial({
-		wireframe: true,
-		color: 0xF0E68C
-	});
+		this.moonMaterial = new MeshPhongMaterial ( 
+			{
+				color: 0xffffff,
+				map: this.texture,
+				displacementMap: this.displacementMap,
+				displacementScale: 0.06,
+				bumpMap: this.displacementMap,
+				bumpScale: 0.04,
+				reflectivity: 0, 
+				shininess: 0
+			} 
+		);
 
-	moonMesh = new Mesh(sphereGeometry, moonMaterial);
-	moonMesh.position.x = position.x;
-	moonMesh.position.y = position.y;
-	moonMesh.position.z = position.z;
+		this.moonMesh = new Mesh(this.sphereGeometry, this.moonMaterial);
+		this.moonMesh.position.x = position.x;
+		this.moonMesh.position.y = position.y;
+		this.moonMesh.position.z = position.z;
+	}
 
-	return moonMesh;
+	rotateMoon() {
+		this.moonMesh.rotation.x += 0.00001;
+		this.moonMesh.rotation.y += 0.001;
+	}
 }
-
-/**
- * rotate Moon Mesh
- */
-const rotateMoon = () => {
-    moonMesh.rotation.y += 0.001;
-}
-
-export {renderMoon, rotateMoon};

@@ -11,8 +11,8 @@ const VIEWPORT_WIDTH = window.innerWidth;
 const VIEWPORT_HEIGHT = window.innerHeight;
 
 export default class Volcano {
-    constructor(x, y, z, height, baseWidth, baseHeight, baseSegments) {
-        this.pos = new Vector3(x, y, z);
+    constructor(position, height, baseWidth, baseHeight, baseSegments) {
+        this.pos = position;
         this.bumpScale = height; // magnitude of normal displacement
 
         // Mountain Textures

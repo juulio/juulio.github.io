@@ -1,19 +1,19 @@
 import { Vector3, Mesh, SphereBufferGeometry, ShaderMaterial, DoubleSide, TextureLoader, NearestFilter, Clock } from "three";
 import { getRandomArbitrary} from './utils'
 
-import amberLavaAsset from '../../public/images/textures/lavatile.jpg';
+import lavaTileAsset from '../../public/images/textures/lavatile.jpg';
 import eruptionVertexShader from '../../public/shaders/eruptionVertexShader.glsl';
 import eruptionFragmentShader from '../../public/shaders/eruptionFragmentShader.glsl';
 
 export default class Particle {
     constructor(x, y, z, radius) {
         this.pos = new Vector3(x, y, z);
-        this.vel = new Vector3(getRandomArbitrary(-0.1, 0.1), getRandomArbitrary(0.3, 0.5), getRandomArbitrary(-0.1, 0.1));
+        this.vel = new Vector3(getRandomArbitrary(-0.1, 0.1), getRandomArbitrary(0.3, 0.5), getRandomArbitrary(-0.07, 0.07));
         this.acc = new Vector3(0, getRandomArbitrary(0.3, 0.4), 0);
         this.lifespan = 1;
         this.radius = radius;
         
-        const texture = new TextureLoader().load(amberLavaAsset, (texture) => {
+        const texture = new TextureLoader().load(lavaTileAsset, (texture) => {
             texture.minFilter = NearestFilter;
         });
 

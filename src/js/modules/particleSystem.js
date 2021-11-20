@@ -3,8 +3,8 @@ import Particle from './particle';
 import { getRandomArbitrary } from './utils';
 
 export default class ParticleSystem {
-    constructor(x, y, z, radius) {
-        this.origin = new Vector3(x, y, z);
+    constructor(position, radius) {
+        this.origin = position
         this.particles = [];
         this.radius = radius;
     }

@@ -22,7 +22,7 @@ import { MeshBasicMaterial, Vector3 } from 'three';
 import {renderFerrisWheel, rotateFerrisWheel} from './modules/ferrisWheel';
 import renderSkybox from './modules/skyBox';
 import ParticleSystem from './modules/particleSystem';
-import {renderMoon, rotateMoon} from './modules/moon';
+import Moon from './modules/moon';
 import Volcano from './modules/volcano';
 import theText from './modules/text';
 import Floor from './modules/floor';
@@ -32,8 +32,8 @@ const scene = new THREE.Scene();
 let camera, renderer, controls;
 let shaderMaterial, shaderMaterials, uniforms, delta, isMobile;
 let lavaMaterial;
-let customUniforms, volcanoMesh;
-let particleSystem;
+let customUniforms;
+let particleSystem, theMoon;
 
 /**
   * Init basic 3D Scene Elements
@@ -58,8 +58,12 @@ let init = () => {
 		FAR = 20000;
 	camera = new THREE.PerspectiveCamera( VIEW_ANGLE, ASPECT, NEAR, FAR);
 	scene.add(camera);
-	camera.position.set(0, 40, 40);
-	// camera.lookAt(scene.position);
+	camera.position.set(0, 20, 50);
+	camera.lookAt(scene.position);
+	
+	const light = new THREE.DirectionalLight(0xFFFFFF, 1);
+	light.position.set(-10, 10, 30);
+	scene.add(light);
 
 	// scene.fog = new THREE.FogExp2( 0xffd1b5, 0.0002 );
 
@@ -67,26 +71,29 @@ let init = () => {
     renderer.setSize( window.innerWidth, window.innerHeight );
 	renderer.setClearColor ( "#000000");
     document.body.appendChild( renderer.domElement );
-    controls = new OrbitControls( camera, renderer.domElement );
+    // controls = new OrbitControls( camera, renderer.domElement );
 	window.addEventListener( 'resize', onWindowResize, false );
 
-	scene.add( new THREE.AxesHelper( 500 ));
+	// scene.add( new THREE.AxesHelper( 500 ));
 	// scene.add( new THREE.GridHelper( 30, 10 ));
 	
 	// setupShaderMaterials();
 	// lavaMaterial = setupLavaMaterial();
 
 	// scene.add(renderSkybox());
-	scene.add(renderMoon(new Vector3(0, 20, 0), 4, 3));
-	scene.add(new Volcano(20, -7.8, -15, 20, 40, 30, 4));
-	particleSystem = new ParticleSystem(20, 0, -16, 1);
-	scene.add(renderFerrisWheel(new Vector3(-40, 0, 0), 30, 2));
+	theMoon = new Moon(new Vector3(-20, 15, 7), 3, 60);
+	scene.add(theMoon.moonMesh);
+	// scene.add(new Volcano(20, -7.8, -15, 20, 40, 30, 4));
+	scene.add(new Volcano(new Vector3(0, -7.8, 0), 20, 40, 30, 4));
+	particleSystem = new ParticleSystem(new Vector3(0, 0, -1), 1);
+	scene.add(renderFerrisWheel(new Vector3(0, 0, 0), 1, 0.4, 0.2, 6));
 	
-	let text = new theText()
-	scene.add(text.render3dText('under construction'));
+	scene.add(new theText('3D website', -17, 13, 0));
+	scene.add(new theText('under', -17, 12, 0));
+	scene.add(new theText('construction', -17, 11, 0));
 	
-	const floor = new Floor(0, 0, 0, 70, 50);
-	scene.add(floor);
+	// const floor = new Floor(0, 0, 0, 70, 50);
+	// scene.add(floor);
     animate();
 }
 
@@ -130,11 +137,11 @@ let animate = () => {
  
     requestAnimationFrame( animate );
 	
-	// rotateMoon();
+	theMoon.rotateMoon();
 	// rotateFerrisWheel();
 	scene.add(particleSystem.addParticle());
 	particleSystem.run();
-	controls.update();
+	// controls.update();
 
     renderer.render( scene, camera );
 }
