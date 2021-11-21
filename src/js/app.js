@@ -1,42 +1,47 @@
 // Marzo 16 2021 http://stemkoski.github.io/Three.js/Shader-Animate.html
-// Resolver por qué no puedo importar la imagen
 // https://github.com/mrdoob/three.js/blob/master/examples/webgl_geometry_cube.html
-import '../styles/style.scss';
-import gotham_black_regular from '../public/fonts/gotham_black_regular.json';
-import cloudAsset from '../public/images/textures/cloud.png';
-import lavatileAsset from '../public/images/textures/lavatile.jpg';
-import greenTextureAsset from '../public/images/textures/greenTexture.png';
-import brownTextureAsset from '../public/images/textures/brownTexture.png';
-import volcanoHeightmap from '../public/images/textures/volcano-heightmap.png'
-import sand512 from '../public/images/textures/sand-512.jpg'
-import rock512 from '../public/images/textures/rock-512.jpg'
-import snow512 from '../public/images/textures/snow-512.jpg'
-import volcanic256 from '../public/images/textures/volcanic-256.jpg'
-
+import '../scss/styles.scss';
 import * as THREE from 'three';
 import { OrbitControls } from 'OrbitControls';
 
+// import gotham_black_regular from '../public/fonts/gotham_black_regular.json';
+import cloudAsset from '../public/images/textures/cloud.png';
+import lavatileAsset from '../public/images/textures/lavatile.jpg';
+import moonTextureAsset from '../public/images/textures/moonTexture.jpg'
+import sand512 from '../public/images/textures/sand-512.jpg'
+
 import vertexShader from '../public/shaders/vertex.glsl';
 import lavaFragmentShader from '../public/shaders/noise.glsl';
-import ringFragmentShader from '../public/shaders/ringTextureFragmentShader.glsl';
-import lunarFragmentShader from '../public/shaders/lunarTextureFragmentShader.glsl';
-import heightmapFragmentShader from '../public/shaders/heightmapFragmentShader.glsl';
-import heightmapVertexShader from '../public/shaders/heightmapVertexShader.glsl';
+// import heightmapFragmentShader from '../public/shaders/heightmapFragmentShader.glsl';
+// import heightmapVertexShader from '../public/shaders/heightmapVertexShader.glsl';
 
+// Required THREEjs stuff
+import { MeshBasicMaterial, Vector3 } from 'three';
 
+// import all 3d modules
+import {renderFerrisWheel, rotateFerrisWheel} from './modules/ferrisWheel';
+import renderSkybox from './modules/skyBox';
+import ParticleSystem from './modules/particleSystem';
+import Moon from './modules/moon';
+import Volcano from './modules/volcano';
+import theText from './modules/text';
+import Floor from './modules/floor';
+
+// THREEjs basic Scene stuff
 const scene = new THREE.Scene();
-let  camera, renderer, controls;
-// let geometry, material, mesh;
-let clock, shaderMaterial, shaderMaterials, uniforms, letterPosition, textGeometry, textMesh, delta, isMobile;
+let camera, renderer, controls;
+let shaderMaterial, shaderMaterials, uniforms, delta, isMobile;
 let lavaMaterial;
-let sphereMesh, sphereScale, customUniforms;
-let ringMesh, ringUniforms, volcanoMesh;
-
+let customUniforms;
+let particleSystem, theMoon;
 
 /**
-  * Sets basic 3D Scene Elements
+  * Init basic 3D Scene Elements
   */
-function init(font) {
+let init = () => {
+
+	// Show Stats like FPS
+	// (function(){var script=document.createElement('script');script.onload=function(){var stats=new Stats();document.body.appendChild(stats.dom);requestAnimationFrame(function loop(){stats.update();requestAnimationFrame(loop)});};script.src='//mrdoob.github.io/stats.js/build/stats.min.js';document.head.appendChild(script);})()
 
     // Checks if app is running on a mobile device
 	isMobile = false;
@@ -53,90 +58,69 @@ function init(font) {
 		FAR = 20000;
 	camera = new THREE.PerspectiveCamera( VIEW_ANGLE, ASPECT, NEAR, FAR);
 	scene.add(camera);
-	camera.position.set(0,100,900);
-	camera.lookAt(scene.position);
+	camera.position.set(0, 18, 50);
+	// camera.lookAt(scene.position);
+	
+	const light = new THREE.DirectionalLight(0xFFFFFF, 1);
+	light.position.set(-10, 10, 30);
+	scene.add(light);
+
+	// scene.fog = new THREE.FogExp2( 0xffd1b5, 0.0002 );
 
     renderer = new THREE.WebGLRenderer( { antialias: true } );
     renderer.setSize( window.innerWidth, window.innerHeight );
+	renderer.setClearColor ( "#000000");
     document.body.appendChild( renderer.domElement );
-    controls = new OrbitControls( camera, renderer.domElement );
+    // controls = new OrbitControls( camera, renderer.domElement );
 	window.addEventListener( 'resize', onWindowResize, false );
 
-	clock = new THREE.Clock();
-
-	// Mountain Textures
-	// texture used to generate "bumpiness"
-	let bumpTexture = new THREE.TextureLoader().load( volcanoHeightmap );
-	bumpTexture.wrapS = bumpTexture.wrapT = THREE.RepeatWrapping; 
-	// magnitude of normal displacement
-	let bumpScale   = 200.0;
-	
-	let sandyTexture = new THREE.TextureLoader().load( sand512 );
-	sandyTexture.wrapS = sandyTexture.wrapT = THREE.RepeatWrapping; 
-	
-	let rockyTexture = new THREE.TextureLoader().load( rock512 );
-	rockyTexture.wrapS = rockyTexture.wrapT = THREE.RepeatWrapping; 
-	
-	let volcanicTexture = new THREE.TextureLoader().load( volcanic256 );
-	volcanicTexture.wrapS = volcanicTexture.wrapT = THREE.RepeatWrapping;
-
-	const snowyTexture = new THREE.TextureLoader().load( snow512 );
-	snowyTexture.wrapS = snowyTexture.wrapT = THREE.RepeatWrapping; 
-
-	// use "this." to create global object
-	customUniforms = {
-		bumpTexture:		{ type: "t", value: bumpTexture },
-		bumpScale:	    	{ type: "f", value: bumpScale },
-		sandyTexture:		{ type: "t", value: sandyTexture },
-		rockyTexture:		{ type: "t", value: rockyTexture },
-		volcanicTexture:	{ type: "t", value: volcanicTexture },
-		snowyTexture:	{ type: "t", value: snowyTexture }
-	};
-	
-	let volcanicMaterial = new THREE.ShaderMaterial( 
-	{
-	    uniforms: customUniforms,
-		vertexShader:   heightmapVertexShader,
-		fragmentShader: heightmapFragmentShader,
-		// side: THREE.DoubleSide
-	}   );
-		
-	let planeGeo = new THREE.PlaneGeometry( 1000, 1000, 100, 100 );
-	volcanoMesh = new THREE.Mesh(	planeGeo, volcanicMaterial );
-	volcanoMesh.rotation.x = -Math.PI / 2;
-	volcanoMesh.position.y = -100;
-	scene.add( volcanoMesh );
-
-
-
-
-
-	// scene.add( new THREE.AxesHelper( 50 ));
+	// scene.add( new THREE.AxesHelper( 500 ));
+	// scene.add( new THREE.GridHelper( 30, 10 ));
 	
 	// setupShaderMaterials();
-    // renderTextGeometry(font);
-
-	// const planeGeometry = new THREE.PlaneGeometry( 50, 50, 32 );
-	// const planeMaterial = new THREE.MeshBasicMaterial( {color: 0x585858, side: THREE.DoubleSide} );
-	// const plane = new THREE.Mesh( planeGeometry, planeMaterial );
-	// plane.rotation.x = Math.PI / 2;
-
-	// scene.add( plane );
-
 	// lavaMaterial = setupLavaMaterial();
-	renderMoon();
-	// renderVolcano();
-	renderRings();
 
+	// scene.add(renderSkybox());
+
+	let moonPosX = -16,
+		moonRadius = 3,
+		volcanoPosX = 7,
+		particleSystemPosX = 7,
+		textPosX = -15;
+
+	if(isMobile){
+		moonPosX = -2,
+		moonRadius = 2,
+		volcanoPosX = 0,
+		particleSystemPosX = 0,
+		textPosX = -7;
+	}
+
+	theMoon = new Moon(new Vector3(moonPosX, 25, 18), moonRadius, 60);
+	scene.add(theMoon.moonMesh);
+	scene.add(new Volcano(new Vector3(volcanoPosX, -7.8, 0), 20, 40, 30, 4));
+	particleSystem = new ParticleSystem(new Vector3(particleSystemPosX, 0, -1), 1);
+	
+	scene.add(new theText('3D website', textPosX, 20, 0));
+	scene.add(new theText('under', textPosX, 18, 0));
+	scene.add(new theText('construction', textPosX, 16, 0));
+	
+	// scene.add(renderFerrisWheel(new Vector3(0, 0, 0), 1, 0.4, 0.2, 6));
+	// const floor = new Floor(0, 0, 0, 70, 50);
+	// scene.add(floor);
     animate();
 }
 
 /**
  * Setup uniforms and attributes for custom shader material 
+ * @returns THREE.
  */
 let setupLavaMaterial = () => {
 	const noiseTexture = new THREE.TextureLoader().load(cloudAsset);
 	noiseTexture.wrapS = noiseTexture.wrapT = THREE.RepeatWrapping;
+
+	const lavaTexture = new THREE.TextureLoader().load(lavatileAsset);
+	lavaTexture.wrapS = lavaTexture.wrapT = THREE.RepeatWrapping;
 
 	customUniforms = {
 		baseTexture: { type: "t", value: lavaTexture },
@@ -161,98 +145,17 @@ let setupLavaMaterial = () => {
 }
 
 /**
- * Render volcano cone Mesh with lava material 
- */
-let renderVolcano = () => {
-	let volcanoHeight = 3;
-	const geometry = new THREE.ConeGeometry( 4, volcanoHeight, 32, 32);
-	const cone = new THREE.Mesh( geometry, lavaMaterial );
-	cone.position.y = volcanoHeight / 2 ;
-	scene.add( cone );
-}
-
-/**
- * Render planet Sphere Element
- */
-let renderMoon = () => {
-	const sphereGeometry = new THREE.SphereGeometry(27, 32, 32);
-	const resolution = new THREE.Vector2(window.innerWidth, window.innerHeight);
-
-	const uniforms = {
-		"time": { value: 1.0 },
-		"resolution": { type: 'v2', value: resolution },
-	};
-
-	const material = new THREE.ShaderMaterial( {
-		uniforms: uniforms,
-		vertexShader: vertexShader,
-		fragmentShader: lunarFragmentShader,
-		side:THREE.DoubleSide
-	} );
-
-	material.wrapS = material.wrapT = THREE.RepeatWrapping;
-
-
-	sphereMesh = new THREE.Mesh(sphereGeometry, material);
-	sphereMesh.position.y = 180;
-
-	scene.add(sphereMesh);
-	sphereScale = 0;
-}
-
-/**
- * Render planet Sphere Element
- */
- let renderRings = () => {
-	const geometry = new THREE.TorusGeometry( 40, 3, 16, 100 );
-
-	const textureLoader = new THREE.TextureLoader();
-	const resolution = new THREE.Vector2(window.innerWidth, window.innerHeight);
-	ringUniforms = {
-		"time": { value: 1.0 },
-		"resolution": { type: 'v2', value: resolution },
-		iChannel0:  { type: 't', value: textureLoader.load(greenTextureAsset ) },
-		iChannel1:  { type: 't', value: textureLoader.load(brownTextureAsset ) }
-	};
-
-	ringUniforms[ "iChannel0" ].value.wrapS = ringUniforms[ "iChannel0" ].value.wrapT = THREE.RepeatWrapping;
-	ringUniforms[ "iChannel1" ].value.wrapS = ringUniforms[ "iChannel1" ].value.wrapT = THREE.RepeatWrapping;
-
-	const material = new THREE.ShaderMaterial( {
-		uniforms: ringUniforms,
-		vertexShader: vertexShader,
-		fragmentShader: ringFragmentShader,
-		side:THREE.DoubleSide
-	} );
-
-	ringMesh= new THREE.Mesh( geometry, material );
-	ringMesh.position.y = 180;
-	scene.add( ringMesh );
- }
-
-/**
  * Updates objects on each frame
  */
-function animate() {
+let animate = () => {
  
     requestAnimationFrame( animate );
- 
-
-	delta = clock.getDelta();
-	// uniforms.u_time.value += delta * 2;
-	// customUniforms.time.value += delta;
-
-	ringUniforms[ 'time' ].value = performance.now() / 1000;
-	ringUniforms[ 'time' ].value += delta / 2;
-	ringMesh.rotation.x += 0.004;
-	ringMesh.rotation.y += 0.001;
 	
-	// sphereScale += 0.0001;
-    // sphereMesh.scale.set(sphereScale, sphereScale, sphereScale,);
- 
-	volcanoMesh.rotation.z += 0.001;
-
-	controls.update();
+	theMoon.rotateMoon();
+	// rotateFerrisWheel();
+	scene.add(particleSystem.addParticle());
+	particleSystem.run();
+	// controls.update();
 
     renderer.render( scene, camera );
 }
@@ -260,87 +163,21 @@ function animate() {
 /**
   * Handles window resize events
   */
-function onWindowResize(){
+let onWindowResize = () => {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
 
     renderer.setSize( window.innerWidth, window.innerHeight );
 }
 
-/*
-* Load the JSON font and launch init
-*/
-const loader = new THREE.FontLoader();
-let font = loader.parse(gotham_black_regular);
-init(font);
+init();
 
-/**
- * Loads the JSON font for the text geometry
- */
-function renderTextGeometry(font){
-	let theText = "glsl",
-	letterWidth = 0,
-	letterMesh;
-
-	letterPosition = 0;
-
-	textMesh = new THREE.Group();
-
-	for(let i=0;i<theText.length;i++){
-		textGeometry = new THREE.TextGeometry( theText[i], {
-			font: font,
-			size: 1,
-			height: 0.25,
-			curveSegments: 20
-		});
-
-		textGeometry.center();
-
-		// letterMesh = new THREE.Mesh( textGeometry, new THREE.MeshBasicMaterial({wireframe: true, color : 0xFF0000}) );
-		// letterMesh = new THREE.Mesh( textGeometry, new THREE.MeshNormalMaterial());
-		letterMesh = new THREE.Mesh( textGeometry, shaderMaterial);
-		letterMesh.position.x = i;
-
-		textMesh.add( letterMesh)
-	}
-
-	textMesh.position.x = -2.4;
-	textMesh.position.z = -5;
-	// textMesh.position.z = 2;
-
-	if(isMobile){
-		textMesh.position.y = 3.5;
-	}
-
-	scene.add(textMesh);
-}
-
-/**
- * Rotates each letter on the Y Axis
- */
- function rotateLetters(){
-	let rotationSpeed = 0.3,
-	currentLetterRotationY = textMesh.children[letterPosition].rotation.y;
-
-	// Rotate Current Letter on the Y Axis
-	textMesh.children[letterPosition].rotation.y += rotationSpeed;
-
-	if(textMesh.children[letterPosition].rotation.y >= 6.28) {
-		letterPosition++;
-	}
-
-	if(letterPosition < textMesh.children.length-1) {
-		if(currentLetterRotationY >= 2) {
-			textMesh.children[letterPosition + 1].rotation.y += rotationSpeed;
-		}
-	}
-}
 /**
  * Init Uniforms for shaderMaerial
  * TODO: create a shaderMaterial array to use several shaders on several materials
  */
 // function setupShaderMaterials(){
-function setupShaderMaterials(){
+let setupShaderMaterials = () => {
 	shaderMaterials = [];
 	
 	uniforms = {
@@ -360,68 +197,8 @@ function setupShaderMaterials(){
 		fragmentShader: fragmentShader
 	});
 }
-/*
-	shaderMaterials.push(
-		new THREE.ShaderMaterial( {
-			name: "Jaguar Texture",
-			uniforms: uniforms,
-			vertexShader: document.getElementById( 'vertexShader' ).textContent,
-			fragmentShader: document.getElementById( 'jaguarFragmentShader' ).textContent
-		})
-	);
 
-	shaderMaterials.push(
-		new THREE.ShaderMaterial( {
-			name: "Red Pulse",
-			uniforms: uniforms,
-			vertexShader: document.getElementById( 'vertexShader' ).textContent,
-			fragmentShader: document.getElementById( 'redPulseFragmentShader' ).textContent
-		})
-	);
-
-	shaderMaterials.push(
-		new THREE.ShaderMaterial( {
-			name: "Black & White Matrix",
-			uniforms: uniforms,
-			vertexShader: document.getElementById( 'vertexShader' ).textContent,
-			fragmentShader: document.getElementById( 'bwMatrixFragmentShader' ).textContent
-		})
-	);
-
-	shaderMaterials.push(
-		new THREE.ShaderMaterial( {
-			name: "Rotated Tiles",
-			uniforms: uniforms,
-			vertexShader: document.getElementById( 'vertexShader' ).textContent,
-			fragmentShader: document.getElementById( 'rotatedTilesFragmentShader' ).textContent
-		})
-	);
-
-	shaderMaterials.push(
-		new THREE.ShaderMaterial( {
-			name: "Noise",
-			uniforms: uniforms,
-			vertexShader: document.getElementById( 'vertexShader' ).textContent,
-			fragmentShader: document.getElementById( 'noiseFragmentShader' ).textContent
-		})
-	);
-
-	shaderMaterials.push(
-		new THREE.ShaderMaterial( {
-			name: "Simplex Grid",
-			uniforms: uniforms,
-			vertexShader: document.getElementById( 'vertexShader' ).textContent,
-			fragmentShader: document.getElementById( 'simplexGridFragmentShader' ).textContent
-		})
-	);
-
-	shaderMaterials.push(
-		new THREE.ShaderMaterial( {
-			name: "Displacement",
-			uniforms: uniforms,
-			vertexShader: document.getElementById( 'vertexShader' ).textContent,
-			fragmentShader: document.getElementById( 'displacementFragmentShader' ).textContent
-		})
-	);
-	*/
-// }
+/**
+ * TODO: usar un solo shaderMaterial en las letras para deformarlas y animarlas con shaders
+ * TODO: terminar de limpiar app.js
+ */
