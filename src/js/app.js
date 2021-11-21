@@ -82,14 +82,29 @@ let init = () => {
 	// lavaMaterial = setupLavaMaterial();
 
 	// scene.add(renderSkybox());
-	theMoon = new Moon(new Vector3(-16, 25, 18), 4, 60);
+
+	let moonPosX = -16,
+		moonRadius = 3,
+		volcanoPosX = 7,
+		particleSystemPosX = 7,
+		textPosX = -15;
+
+	if(isMobile){
+		moonPosX = -2,
+		moonRadius = 2,
+		volcanoPosX = 0,
+		particleSystemPosX = 0,
+		textPosX = -7;
+	}
+
+	theMoon = new Moon(new Vector3(moonPosX, 25, 18), moonRadius, 60);
 	scene.add(theMoon.moonMesh);
-	scene.add(new Volcano(new Vector3(10, -7.8, 0), 20, 40, 30, 4));
-	particleSystem = new ParticleSystem(new Vector3(10, 0, -1), 1);
+	scene.add(new Volcano(new Vector3(volcanoPosX, -7.8, 0), 20, 40, 30, 4));
+	particleSystem = new ParticleSystem(new Vector3(particleSystemPosX, 0, -1), 1);
 	
-	scene.add(new theText('3D website', -15, 19, 0));
-	scene.add(new theText('under', -15, 17, 0));
-	scene.add(new theText('construction', -15, 15, 0));
+	scene.add(new theText('3D website', textPosX, 20, 0));
+	scene.add(new theText('under', textPosX, 18, 0));
+	scene.add(new theText('construction', textPosX, 16, 0));
 	
 	// scene.add(renderFerrisWheel(new Vector3(0, 0, 0), 1, 0.4, 0.2, 6));
 	// const floor = new Floor(0, 0, 0, 70, 50);
