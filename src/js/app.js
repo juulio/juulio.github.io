@@ -58,8 +58,9 @@ let init = () => {
 		FAR = 20000;
 	camera = new THREE.PerspectiveCamera( VIEW_ANGLE, ASPECT, NEAR, FAR);
 	scene.add(camera);
-	camera.position.set(0, 20, 50);
-	camera.lookAt(scene.position);
+	camera.position.set(0, 18, 50);
+	// camera.lookAt(scene.position);
+	console.log(scene.position);
 	
 	const light = new THREE.DirectionalLight(0xFFFFFF, 1);
 	light.position.set(-10, 10, 30);
@@ -81,17 +82,16 @@ let init = () => {
 	// lavaMaterial = setupLavaMaterial();
 
 	// scene.add(renderSkybox());
-	theMoon = new Moon(new Vector3(-20, 15, 7), 3, 60);
+	theMoon = new Moon(new Vector3(-16, 25, 18), 4, 60);
 	scene.add(theMoon.moonMesh);
-	// scene.add(new Volcano(20, -7.8, -15, 20, 40, 30, 4));
-	scene.add(new Volcano(new Vector3(0, -7.8, 0), 20, 40, 30, 4));
-	particleSystem = new ParticleSystem(new Vector3(0, 0, -1), 1);
-	scene.add(renderFerrisWheel(new Vector3(0, 0, 0), 1, 0.4, 0.2, 6));
+	scene.add(new Volcano(new Vector3(10, -7.8, 0), 20, 40, 30, 4));
+	particleSystem = new ParticleSystem(new Vector3(10, 0, -1), 1);
 	
-	scene.add(new theText('3D website', -17, 13, 0));
-	scene.add(new theText('under', -17, 12, 0));
-	scene.add(new theText('construction', -17, 11, 0));
+	scene.add(new theText('3D website', -15, 19, 0));
+	scene.add(new theText('under', -15, 17, 0));
+	scene.add(new theText('construction', -15, 15, 0));
 	
+	// scene.add(renderFerrisWheel(new Vector3(0, 0, 0), 1, 0.4, 0.2, 6));
 	// const floor = new Floor(0, 0, 0, 70, 50);
 	// scene.add(floor);
     animate();
