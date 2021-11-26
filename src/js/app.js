@@ -10,6 +10,9 @@ import lavatileAsset from '../public/images/textures/lavatile.jpg';
 import moonTextureAsset from '../public/images/textures/moonTexture.jpg'
 import sand512 from '../public/images/textures/sand-512.jpg'
 
+import trumpAsset from '../public/images/trumpSide.png';
+
+
 import vertexShader from '../public/shaders/vertex.glsl';
 import lavaFragmentShader from '../public/shaders/noise.glsl';
 // import heightmapFragmentShader from '../public/shaders/heightmapFragmentShader.glsl';
@@ -33,7 +36,7 @@ let camera, renderer, controls;
 let shaderMaterial, shaderMaterials, uniforms, delta, isMobile;
 let lavaMaterial;
 let customUniforms;
-let particleSystem, theMoon;
+let theMoon, text01, text02, text03, particleSystem, vomitParticleSystem;
 
 /**
   * Init basic 3D Scene Elements
@@ -58,9 +61,9 @@ let init = () => {
 		FAR = 20000;
 	camera = new THREE.PerspectiveCamera( VIEW_ANGLE, ASPECT, NEAR, FAR);
 	scene.add(camera);
-	camera.position.set(0, 18, 50);
+	camera.position.set(-10.5, 20, 40);
 	// camera.lookAt(scene.position);
-	console.log(scene.position);
+	// console.log(scene.position);
 	
 	const light = new THREE.DirectionalLight(0xFFFFFF, 1);
 	light.position.set(-10, 10, 30);
@@ -68,11 +71,12 @@ let init = () => {
 
 	// scene.fog = new THREE.FogExp2( 0xffd1b5, 0.0002 );
 
-    renderer = new THREE.WebGLRenderer( { antialias: true } );
+    renderer = new THREE.WebGLRenderer( { aplha: true, antialias: true } );
     renderer.setSize( window.innerWidth, window.innerHeight );
-	renderer.setClearColor ( "#000000");
+	// renderer.setClearColor ( "#000000");
+	// renderer.setClearColor ( "transparent");
     document.body.appendChild( renderer.domElement );
-    // controls = new OrbitControls( camera, renderer.domElement );
+    controls = new OrbitControls( camera, renderer.domElement );
 	window.addEventListener( 'resize', onWindowResize, false );
 
 	// scene.add( new THREE.AxesHelper( 500 ));
@@ -86,7 +90,9 @@ let init = () => {
 	let moonPosX = -16,
 		moonRadius = 3,
 		volcanoPosX = 7,
-		particleSystemPosX = 7,
+		// particleSystemPosX = 7,
+		vomitParticleSystemPosX = -16,
+		vomitParticleSystemPosY = 16,
 		textPosX = -15;
 
 	if(isMobile){
@@ -97,14 +103,35 @@ let init = () => {
 		textPosX = -7;
 	}
 
-	theMoon = new Moon(new Vector3(moonPosX, 25, 18), moonRadius, 60);
-	scene.add(theMoon.moonMesh);
-	scene.add(new Volcano(new Vector3(volcanoPosX, -7.8, 0), 20, 40, 30, 4));
-	particleSystem = new ParticleSystem(new Vector3(particleSystemPosX, 0, -1), 1);
+	// theMoon = new Moon(new Vector3(moonPosX, 25, 18), moonRadius, 60);
+	// scene.add(theMoon.moonMesh);
+	// scene.add(new Volcano(new Vector3(volcanoPosX, -7.8, 0), 20, 40, 30, 4));
+	// particleSystem = new ParticleSystem(new Vector3(particleSystemPosX, 0, -1), 1);
+	vomitParticleSystem = new ParticleSystem(new Vector3(4, 0, 0), 1);
 	
-	scene.add(new theText('3D website', textPosX, 20, 0));
-	scene.add(new theText('under', textPosX, 18, 0));
-	scene.add(new theText('construction', textPosX, 16, 0));
+	let trumpTexture = new THREE.TextureLoader().load( trumpAsset );
+	let planeGeometry = new THREE.PlaneBufferGeometry;
+
+	let planeMaterial = new THREE.MeshPhongMaterial ( 
+		{
+			color: 0xffffff,
+			map: trumpTexture,
+			reflectivity: 0, 
+			shininess: 0,
+			side: THREE.DoubleSide 
+		} 
+	);
+
+	let planeMesh = new THREE.Mesh( planeGeometry, planeMaterial);
+	planeMesh.scale.set(14, 14, 14);
+	planeMesh.position.set(0, 4, 0);
+	scene.add(planeMesh);
+	// text01 = new theText('3D website', textPosX, 20, 0);
+	// text02 = new theText('under', textPosX, 18, 0);
+	// text03 = new theText('construction', textPosX, 16, 0);
+	// text01.init(scene);
+	// text02.init(scene);
+	// text03.init(scene);
 	
 	// scene.add(renderFerrisWheel(new Vector3(0, 0, 0), 1, 0.4, 0.2, 6));
 	// const floor = new Floor(0, 0, 0, 70, 50);
@@ -152,11 +179,14 @@ let animate = () => {
  
     requestAnimationFrame( animate );
 	
-	theMoon.rotateMoon();
 	// rotateFerrisWheel();
-	scene.add(particleSystem.addParticle());
-	particleSystem.run();
-	// controls.update();
+	// theMoon.rotateMoon();
+	// scene.add(particleSystem.addParticle());
+	// particleSystem.run();
+	scene.add(vomitParticleSystem.addVomitParticle());
+	vomitParticleSystem.run();
+	// text01.updateTimeUniform();
+	controls.update();
 
     renderer.render( scene, camera );
 }
@@ -201,5 +231,4 @@ let setupShaderMaterials = () => {
 
 /**
  * TODO: usar un solo shaderMaterial en las letras para deformarlas y animarlas con shaders
- * TODO: terminar de limpiar app.js
  */

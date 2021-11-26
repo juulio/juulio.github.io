@@ -1,5 +1,6 @@
 import { Vector3 } from 'three';
 import Particle from './particle';
+import VomitParticle from './vomitParticle';
 import { getRandomArbitrary } from './utils';
 
 export default class ParticleSystem {
@@ -19,11 +20,17 @@ export default class ParticleSystem {
         return particle.particleMesh;
     }
 
+    addVomitParticle(){
+        let particle = new VomitParticle(this.origin.x, this.origin.y, this.origin.z, getRandomArbitrary(0, this.radius));
+        this.particles.push(particle);
+        return particle.particleMesh;
+    }
+
     run(){
         // console.log(this.particles[0].lifespan);
         // console.log("Particles.length: " + this.particles.length) + " Scene.children: " + this.particles.parent;
         for(let particle of this.particles){
-            let gravity = new Vector3(0, -0.01, 0);
+            let gravity = new Vector3(0, -0.06, 0);
             particle.applyForce(gravity);
             particle.update();
         }
