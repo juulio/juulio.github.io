@@ -4,6 +4,7 @@
 
 # Project History
 
+* November 2021 - Launched the GLSL Volcanic Eruption 
 * February 2021 - Added webpack to bundle JS + Threejs
 * October 2019 - Unsuccesfully tried to do a THREE.js daily sketch
 * June 2017 - This project is a GULP + THREEjs Template.
