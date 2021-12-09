@@ -1,6 +1,5 @@
 # Javascript Generative Graphics Experiments.
 
-
 # Project History
 
 * November 2021 - Launched the GLSL Volcanic Eruption 
