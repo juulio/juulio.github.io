@@ -2,6 +2,7 @@
 
 # Project History
 
+* December 2021 - Creating new scenes using js modules
 * November 2021 - Launched the GLSL Volcanic Eruption 
 * February 2021 - Added webpack to bundle JS + Threejs
 * October 2019 - Unsuccesfully tried to do a THREE.js daily sketch
