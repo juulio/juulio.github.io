@@ -41,7 +41,7 @@ let particleSystem, theMoon;
 let init = () => {
 
 	// Show Stats like FPS
-	(function(){var script=document.createElement('script');script.onload=function(){var stats=new Stats();document.body.appendChild(stats.dom);requestAnimationFrame(function loop(){stats.update();requestAnimationFrame(loop)});};script.src='//mrdoob.github.io/stats.js/build/stats.min.js';document.head.appendChild(script);})()
+	// (function(){var script=document.createElement('script');script.onload=function(){var stats=new Stats();document.body.appendChild(stats.dom);requestAnimationFrame(function loop(){stats.update();requestAnimationFrame(loop)});};script.src='//mrdoob.github.io/stats.js/build/stats.min.js';document.head.appendChild(script);})()
 
     // Checks if app is running on a mobile device
 	isMobile = false;
@@ -60,7 +60,6 @@ let init = () => {
 	scene.add(camera);
 	camera.position.set(0, 18, 50);
 	// camera.lookAt(scene.position);
-	console.log(scene.position);
 	
 	const light = new THREE.DirectionalLight(0xFFFFFF, 1);
 	light.position.set(-10, 10, 30);
