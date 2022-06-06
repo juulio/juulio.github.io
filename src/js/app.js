@@ -7,7 +7,6 @@ import { OrbitControls } from 'OrbitControls';
 // import gotham_black_regular from '../public/fonts/gotham_black_regular.json';
 import cloudAsset from '../public/images/textures/cloud.png';
 import lavatileAsset from '../public/images/textures/lavatile.jpg';
-import moonTextureAsset from '../public/images/textures/moonTexture.jpg'
 import sand512 from '../public/images/textures/sand-512.jpg'
 
 import vertexShader from '../public/shaders/vertex.glsl';
@@ -21,11 +20,14 @@ import { MeshBasicMaterial, Vector3 } from 'three';
 // import all 3d modules
 import {renderFerrisWheel, rotateFerrisWheel} from './modules/ferrisWheel';
 import renderSkybox from './modules/skyBox';
-import ParticleSystem from './modules/particleSystem';
-import Moon from './modules/moon';
-import Volcano from './modules/volcano';
-import theText from './modules/text';
 import Floor from './modules/floor';
+import Sun from './modules/sun';
+import Moon from './modules/moon';
+
+// import ParticleSystem from './modules/particleSystem';
+// import Volcano from './modules/volcano';
+// import theText from './modules/text';
+// import Jaguar from './modules/jaguar';
 
 // THREEjs basic Scene stuff
 const scene = new THREE.Scene();
@@ -33,7 +35,8 @@ let camera, renderer, controls;
 let shaderMaterial, shaderMaterials, uniforms, delta, isMobile;
 let lavaMaterial;
 let customUniforms;
-let particleSystem, theMoon;
+let theSun, theMoon;
+// let particleSystem, theMoon;
 
 /**
   * Init basic 3D Scene Elements
@@ -75,7 +78,7 @@ let init = () => {
 	window.addEventListener( 'resize', onWindowResize, false );
 
 	// scene.add( new THREE.AxesHelper( 500 ));
-	// scene.add( new THREE.GridHelper( 30, 10 ));
+	scene.add( new THREE.GridHelper( 50, 20 ));
 	
 	// setupShaderMaterials();
 	// lavaMaterial = setupLavaMaterial();
@@ -83,31 +86,42 @@ let init = () => {
 	// scene.add(renderSkybox());
 
 	let moonPosX = -16,
-		moonRadius = 3,
+		moonRadius = 2,
+		sunPosX = 4,
+		sunRadius = 5,
 		volcanoPosX = 7,
 		particleSystemPosX = 7,
 		textPosX = -15;
 
-	if(isMobile){
-		moonPosX = -2,
-		moonRadius = 2,
-		volcanoPosX = 0,
-		particleSystemPosX = 0,
-		textPosX = -7;
-	}
+	// if(isMobile){
+	// 	moonPosX = -2,
+	// 	moonRadius = 2,
+	// 	volcanoPosX = 0,
+	// 	particleSystemPosX = 0,
+	// 	textPosX = -7;
+	// }
+
+	
+	// scene.add(new Volcano(new Vector3(volcanoPosX, -7.8, 0), 20, 40, 30, 4));
+	// particleSystem = new ParticleSystem(new Vector3(particleSystemPosX, 0, -1), 1);
+	
+	// scene.add(new theText('3D website', textPosX, 20, 0));
+	// scene.add(new theText('under', textPosX, 18, 0));
+	// scene.add(new theText('construction', textPosX, 16, 0));
+	
+	// const jaguar = new Jaguar(new Vector3(0, 2, 0));
+	// console.log(jaguar);
+	// scene.add(renderFerrisWheel(new Vector3(0, 0, 0), 1, 0.4, 0.2, 6));
+	const floor = new Floor(0, 0, 0, 70, 50);
+	scene.add(floor);
 
 	theMoon = new Moon(new Vector3(moonPosX, 25, 18), moonRadius, 60);
+	// console.log(theMoon);
 	scene.add(theMoon.moonMesh);
-	scene.add(new Volcano(new Vector3(volcanoPosX, -7.8, 0), 20, 40, 30, 4));
-	particleSystem = new ParticleSystem(new Vector3(particleSystemPosX, 0, -1), 1);
-	
-	scene.add(new theText('3D website', textPosX, 20, 0));
-	scene.add(new theText('under', textPosX, 18, 0));
-	scene.add(new theText('construction', textPosX, 16, 0));
-	
-	// scene.add(renderFerrisWheel(new Vector3(0, 0, 0), 1, 0.4, 0.2, 6));
-	// const floor = new Floor(0, 0, 0, 70, 50);
-	// scene.add(floor);
+
+	theSun = new Sun(new Vector3(sunPosX, 25, 18), sunRadius, 60);
+	// console.log(theSun);
+	scene.add(theSun.sunMesh);
     animate();
 }
 
@@ -152,9 +166,10 @@ let animate = () => {
     requestAnimationFrame( animate );
 	
 	theMoon.rotateMoon();
+	theSun.rotateSun();
 	// rotateFerrisWheel();
-	scene.add(particleSystem.addParticle());
-	particleSystem.run();
+	// scene.add(particleSystem.addParticle());
+	// particleSystem.run();
 	// controls.update();
 
     renderer.render( scene, camera );

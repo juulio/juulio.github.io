@@ -27,12 +27,21 @@ module.exports = {
       {
         test: /\.(png|svg|jpg|jpeg|gif)$/i,
         type: 'asset/resource'
-      }
+      },
+      {
+        test: /\.(gltf)$/i,
+        use: 'raw-loader',
+      },
     ],
   },
   devServer: {
     contentBase: './docs',
-    open: true
+    open: true,
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
+      "Access-Control-Allow-Headers": "X-Requested-With, content-type, Authorization"
+    }
   },
   mode : 'development',
   resolve: {
