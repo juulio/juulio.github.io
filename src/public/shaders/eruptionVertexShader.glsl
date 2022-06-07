@@ -2,11 +2,14 @@ precision mediump float;
 
 varying vec2 vUv;
 uniform float uTime;
+varying vec3 vPos;
 
 void main() {
     vUv = uv;
+    vPos = position;
+    vec3 transformed = position;
+    transformed.x += sin(position.x + uTime);
+    transformed.y += sin(position.y + position.x + position.z + uTime);
 
-    // vec3 transformed = position;
-    // transformed.z += sin(position.y + position.x + position.z + uTime * 7.0);
-    gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+    gl_Position = projectionMatrix * modelViewMatrix * vec4( transformed, 1.0 );
 }
