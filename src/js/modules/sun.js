@@ -1,8 +1,9 @@
-import { SphereBufferGeometry, Mesh, TextureLoader, MeshPhongMaterial } from 'three';
+import { SphereBufferGeometry, Mesh, TextureLoader, ShaderMaterial, DoubleSide, NearestFilter, Clock, Vector3 } from 'three';
 import Particle from './particle';
+import lavaTileAsset from '../../public/images/textures/lavatile.jpg';
 
-import moonTextureAsset from '../../public/images/textures/moonTexture.jpg';
-import moonDisplacementMap from '../../public/images/textures/moonDisplacementMap.jpg';
+import eruptionVertexShader from '../../public/shaders/eruptionVertexShader.glsl';
+import eruptionFragmentShader from '../../public/shaders/eruptionFragmentShader.glsl';
 
 let sunMesh;
 
@@ -13,17 +14,35 @@ let sunMesh;
 export default class Sun {
 	constructor(position, radius, segments) {
 		this.sphereGeometry = new SphereBufferGeometry(radius, segments, segments);
+		this.pos = new Vector3(position.x, position.y, position.z);
 
-		let sun = new Particle(position.x, position.y, position.z, radius);
+		const texture = new TextureLoader().load(lavaTileAsset, (texture) => {
+            texture.minFilter = NearestFilter;
+        });
 
-		this.sunMesh = sun.particleMesh;
-		this.sunMesh.position.x = position.x;
-		this.sunMesh.position.y = position.y;
-		this.sunMesh.position.z = position.z;
+        this.shaderMaterial = new ShaderMaterial({
+            vertexShader: eruptionVertexShader,
+            fragmentShader: eruptionFragmentShader,
+            uniforms: {
+                uTime: { value: 0},
+                uTexture: { value: texture}
+            },
+            transparent: true
+            // side: DoubleSide
+        });     
+        
+        const geometry = new SphereBufferGeometry( this.radius);
+        this.sunMesh = new Mesh( geometry, this.shaderMaterial );
+		this.sunMesh.position.set(this.pos.x, this.pos.y, this.pos.z);
+        this.clock = new Clock();
+
 	}
 
-	rotateSun() {
-		this.sunMesh.rotation.x += 0.00001;
-		this.sunMesh.rotation.y += 0.001;
+	updateTimeUniform() {
+        this.shaderMaterial.uniforms.uTime.value = this.clock.getElapsedTime() / 6;
+    }
+
+	updateSun() {
+		this.updateTimeUniform();
 	}
 }

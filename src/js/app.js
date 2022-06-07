@@ -24,7 +24,7 @@ import Floor from './modules/floor';
 import Sun from './modules/sun';
 import Moon from './modules/moon';
 
-// import ParticleSystem from './modules/particleSystem';
+import ParticleSystem from './modules/particleSystem';
 // import Volcano from './modules/volcano';
 // import theText from './modules/text';
 // import Jaguar from './modules/jaguar';
@@ -36,7 +36,7 @@ let shaderMaterial, shaderMaterials, uniforms, delta, isMobile;
 let lavaMaterial;
 let customUniforms;
 let theSun, theMoon;
-// let particleSystem, theMoon;
+let particleSystem;
 
 /**
   * Init basic 3D Scene Elements
@@ -61,7 +61,7 @@ let init = () => {
 		FAR = 20000;
 	camera = new THREE.PerspectiveCamera( VIEW_ANGLE, ASPECT, NEAR, FAR);
 	scene.add(camera);
-	camera.position.set(0, 18, 50);
+	camera.position.set(0, 5, 10);
 	// camera.lookAt(scene.position);
 	
 	const light = new THREE.DirectionalLight(0xFFFFFF, 1);
@@ -74,7 +74,7 @@ let init = () => {
     renderer.setSize( window.innerWidth, window.innerHeight );
 	renderer.setClearColor ( "#000000");
     document.body.appendChild( renderer.domElement );
-    // controls = new OrbitControls( camera, renderer.domElement );
+    controls = new OrbitControls( camera, renderer.domElement );
 	window.addEventListener( 'resize', onWindowResize, false );
 
 	// scene.add( new THREE.AxesHelper( 500 ));
@@ -88,7 +88,7 @@ let init = () => {
 	let moonPosX = -16,
 		moonRadius = 2,
 		sunPosX = 4,
-		sunRadius = 5,
+		sunRadius = 10,
 		volcanoPosX = 7,
 		particleSystemPosX = 7,
 		textPosX = -15;
@@ -115,12 +115,11 @@ let init = () => {
 	const floor = new Floor(0, 0, 0, 70, 50);
 	scene.add(floor);
 
-	theMoon = new Moon(new Vector3(moonPosX, 25, 18), moonRadius, 60);
+	theMoon = new Moon(new Vector3(moonPosX, 25, 18), moonRadius, 10);
 	// console.log(theMoon);
 	scene.add(theMoon.moonMesh);
 
-	theSun = new Sun(new Vector3(sunPosX, 25, 18), sunRadius, 60);
-	// console.log(theSun);
+	theSun = new Sun(new Vector3(0, 3, 0), sunRadius, 16);
 	scene.add(theSun.sunMesh);
     animate();
 }
@@ -166,7 +165,7 @@ let animate = () => {
     requestAnimationFrame( animate );
 	
 	theMoon.rotateMoon();
-	theSun.rotateSun();
+	theSun.updateSun();
 	// rotateFerrisWheel();
 	// scene.add(particleSystem.addParticle());
 	// particleSystem.run();
