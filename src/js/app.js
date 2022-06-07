@@ -25,7 +25,7 @@ import Sun from './modules/sun';
 import Moon from './modules/moon';
 
 import ParticleSystem from './modules/particleSystem';
-// import Volcano from './modules/volcano';
+import Volcano from './modules/volcano';
 // import theText from './modules/text';
 // import Jaguar from './modules/jaguar';
 
@@ -61,7 +61,7 @@ let init = () => {
 		FAR = 20000;
 	camera = new THREE.PerspectiveCamera( VIEW_ANGLE, ASPECT, NEAR, FAR);
 	scene.add(camera);
-	camera.position.set(0, 5, 10);
+	camera.position.set(0, 10, 30);
 	// camera.lookAt(scene.position);
 	
 	const light = new THREE.DirectionalLight(0xFFFFFF, 1);
@@ -74,18 +74,18 @@ let init = () => {
     renderer.setSize( window.innerWidth, window.innerHeight );
 	renderer.setClearColor ( "#000000");
     document.body.appendChild( renderer.domElement );
-    controls = new OrbitControls( camera, renderer.domElement );
+    // controls = new OrbitControls( camera, renderer.domElement );
 	window.addEventListener( 'resize', onWindowResize, false );
 
 	// scene.add( new THREE.AxesHelper( 500 ));
-	scene.add( new THREE.GridHelper( 50, 20 ));
+	// scene.add( new THREE.GridHelper( 50, 20 ));
 	
 	// setupShaderMaterials();
 	// lavaMaterial = setupLavaMaterial();
 
 	// scene.add(renderSkybox());
 
-	let moonPosX = -16,
+	let moonPosX = -6,
 		moonRadius = 2,
 		sunPosX = 4,
 		sunRadius = 10,
@@ -102,7 +102,7 @@ let init = () => {
 	// }
 
 	
-	// scene.add(new Volcano(new Vector3(volcanoPosX, -7.8, 0), 20, 40, 30, 4));
+	scene.add(new Volcano(new Vector3(volcanoPosX, -7.8, 0), 20, 40, 30, 4));
 	// particleSystem = new ParticleSystem(new Vector3(particleSystemPosX, 0, -1), 1);
 	
 	// scene.add(new theText('3D website', textPosX, 20, 0));
@@ -115,11 +115,11 @@ let init = () => {
 	const floor = new Floor(0, 0, 0, 70, 50);
 	scene.add(floor);
 
-	theMoon = new Moon(new Vector3(moonPosX, 25, 18), moonRadius, 10);
+	theMoon = new Moon(new Vector3(moonPosX, 15, 10), moonRadius, 10);
 	// console.log(theMoon);
 	scene.add(theMoon.moonMesh);
 
-	theSun = new Sun(new Vector3(0, 3, 0), sunRadius, 16);
+	theSun = new Sun(new Vector3(6, 16, 4), sunRadius, 16);
 	scene.add(theSun.sunMesh);
     animate();
 }
