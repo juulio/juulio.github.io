@@ -23,6 +23,8 @@ import renderSkybox from './modules/skyBox';
 import Floor from './modules/floor';
 import Sun from './modules/sun';
 import Moon from './modules/moon';
+import Dragon from './modules/dragon';
+// import TreeTrunk from './modules/treeTrunk';
 
 import ParticleSystem from './modules/particleSystem';
 import Volcano from './modules/volcano';
@@ -35,7 +37,7 @@ let camera, renderer, controls;
 let shaderMaterial, shaderMaterials, uniforms, delta, isMobile;
 let lavaMaterial;
 let customUniforms;
-let theSun, theMoon;
+let theSun, theMoon, theDragon;
 let particleSystem;
 
 /**
@@ -63,10 +65,12 @@ let init = () => {
 	scene.add(camera);
 	camera.position.set(0, 10, 30);
 	// camera.lookAt(scene.position);
-	
+
 	const light = new THREE.DirectionalLight(0xFFFFFF, 1);
 	light.position.set(-10, 10, 30);
 	scene.add(light);
+
+	const color = 0xFFFFFF;
 
 	// scene.fog = new THREE.FogExp2( 0xffd1b5, 0.0002 );
 
@@ -74,12 +78,12 @@ let init = () => {
     renderer.setSize( window.innerWidth, window.innerHeight );
 	renderer.setClearColor ( "#000000");
     document.body.appendChild( renderer.domElement );
-    // controls = new OrbitControls( camera, renderer.domElement );
+    controls = new OrbitControls( camera, renderer.domElement );
 	window.addEventListener( 'resize', onWindowResize, false );
 
-	// scene.add( new THREE.AxesHelper( 500 ));
+	scene.add( new THREE.AxesHelper( 500 ));
 	// scene.add( new THREE.GridHelper( 50, 20 ));
-	
+
 	// setupShaderMaterials();
 	// lavaMaterial = setupLavaMaterial();
 
@@ -91,7 +95,10 @@ let init = () => {
 		sunRadius = 10,
 		volcanoPosX = 7,
 		particleSystemPosX = 7,
-		textPosX = -15;
+		textPosX = -15,
+		dragonPosX = 1,
+		dragonPosY = 10,
+		dragonRadius = 2;
 
 	// if(isMobile){
 	// 	moonPosX = -2,
@@ -101,31 +108,36 @@ let init = () => {
 	// 	textPosX = -7;
 	// }
 
-	
-	scene.add(new Volcano(new Vector3(volcanoPosX, -7.8, 0), 20, 40, 30, 4));
+
+	// scene.add(new Volcano(new Vector3(volcanoPosX, -7.8, 0), 20, 40, 30, 4));
 	// particleSystem = new ParticleSystem(new Vector3(particleSystemPosX, 0, -1), 1);
-	
+
 	// scene.add(new theText('3D website', textPosX, 20, 0));
 	// scene.add(new theText('under', textPosX, 18, 0));
 	// scene.add(new theText('construction', textPosX, 16, 0));
-	
+
 	// const jaguar = new Jaguar(new Vector3(0, 2, 0));
 	// console.log(jaguar);
 	// scene.add(renderFerrisWheel(new Vector3(0, 0, 0), 1, 0.4, 0.2, 6));
-	const floor = new Floor(0, 0, 0, 70, 50);
-	scene.add(floor);
+	// const treeTrunk = new TreeTrunk(new Vector3(0, 2, 0, 5, 5));
+	// scene.add(treeTrunk);
+	// const floor = new Floor(0, 0, 0, 70, 50);
+	// scene.add(floor);
 
 	theMoon = new Moon(new Vector3(moonPosX, 15, 10), moonRadius, 10);
 	// console.log(theMoon);
 	scene.add(theMoon.moonMesh);
 
-	theSun = new Sun(new Vector3(6, 16, 4), sunRadius, 16);
-	scene.add(theSun.sunMesh);
+	// theDragon = new Dragon(new Vector3(dragonPosX, dragonPosY, 0), dragonRadius, 4);
+	// scene.add(theDragon);
+	// theSun shows only one particle, deformed by shaders
+	//theSun = new Sun(new Vector3(6, 16, 4), sunRadius, 16);
+	// scene.add(theSun.sunMesh);
     animate();
 }
 
 /**
- * Setup uniforms and attributes for custom shader material 
+ * Setup uniforms and attributes for custom shader material
  * @returns THREE.
  */
 let setupLavaMaterial = () => {
@@ -161,15 +173,15 @@ let setupLavaMaterial = () => {
  * Updates objects on each frame
  */
 let animate = () => {
- 
+
     requestAnimationFrame( animate );
-	
+
 	theMoon.rotateMoon();
-	theSun.updateSun();
+	// theSun.updateSun();
 	// rotateFerrisWheel();
 	// scene.add(particleSystem.addParticle());
 	// particleSystem.run();
-	// controls.update();
+	controls.update();
 
     renderer.render( scene, camera );
 }
@@ -193,7 +205,7 @@ init();
 // function setupShaderMaterials(){
 let setupShaderMaterials = () => {
 	shaderMaterials = [];
-	
+
 	uniforms = {
 		u_time: { type: "f", value: 1.0 },
 		u_resolution: { type: "v2", value: new THREE.Vector2() },

@@ -14,7 +14,7 @@ export default class Moon {
 		this.texture = new TextureLoader().load( moonTextureAsset );
 		this.displacementMap = new TextureLoader().load( moonDisplacementMap );
 
-		this.moonMaterial = new MeshPhongMaterial ( 
+		this.moonMaterial = new MeshPhongMaterial (
 			{
 				color: 0xffffff,
 				map: this.texture,
@@ -22,9 +22,9 @@ export default class Moon {
 				displacementScale: 0.06,
 				bumpMap: this.displacementMap,
 				bumpScale: 0.04,
-				reflectivity: 0, 
+				reflectivity: 0,
 				shininess: 0
-			} 
+			}
 		);
 
 		this.moonMesh = new Mesh(this.sphereGeometry, this.moonMaterial);
