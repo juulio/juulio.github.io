@@ -9,10 +9,10 @@ export default class Particle {
     constructor(x, y, z, radius) {
         this.pos = new Vector3(x, y, z);
         this.vel = new Vector3(getRandomArbitrary(-0.1, 0.1), getRandomArbitrary(0.3, 0.5), getRandomArbitrary(-0.07, 0.07));
-        this.acc = new Vector3(0, getRandomArbitrary(0.3, 0.4), 0);
+        this.acc = new Vector3(getRandomArbitrary(-1, -0.2), getRandomArbitrary(-0.3, 1), 0);
         this.lifespan = 1;
         this.radius = radius;
-        
+
         const texture = new TextureLoader().load(lavaTileAsset, (texture) => {
             texture.minFilter = NearestFilter;
         });
@@ -26,8 +26,8 @@ export default class Particle {
             },
             transparent: true,
             side: DoubleSide
-        });     
-        
+        });
+
         const geometry = new SphereBufferGeometry( this.radius);
         this.particleMesh = new Mesh( geometry, this.shaderMaterial );
         this.clock = new Clock();
@@ -42,7 +42,7 @@ export default class Particle {
     }
 
     /**
-     * @param {THREE.Vec2} force 
+     * @param {THREE.Vec2} force
      */
     applyForce(force) {
         this.acc.add(force);
