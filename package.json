@@ -15,7 +15,7 @@
         "clean-webpack-plugin": "^3.0.0",
         "cname-webpack-plugin": "^3.0.0",
         "css-loader": "^5.0.2",
-        "favicons": "^6.2.1",
+        "favicons": "^7.1.2",
         "favicons-webpack-plugin": "^5.0.2",
         "glsl-shader-loader": "^0.1.6",
         "html-webpack-partials-plugin": "^0.8.0",

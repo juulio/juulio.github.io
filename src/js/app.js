@@ -35,7 +35,7 @@ let camera, renderer, controls;
 let shaderMaterial, shaderMaterials, uniforms, delta, isMobile;
 let lavaMaterial;
 let customUniforms;
-let theSun, theMoon;
+let theSun, theMoon, sunPosY;
 let particleSystem;
 
 /**
@@ -87,22 +87,32 @@ let init = () => {
 
 	let moonPosX = -6,
 		moonRadius = 2,
-		sunPosX = 4,
+		sunPosX = 6,
 		sunRadius = 10,
 		volcanoPosX = 7,
+		volcanoHeight = 20,
+		volcanoBaseWidth = 30,
 		particleSystemPosX = 7,
 		textPosX = -15;
 
-	// if(isMobile){
-	// 	moonPosX = -2,
-	// 	moonRadius = 2,
-	// 	volcanoPosX = 0,
-	// 	particleSystemPosX = 0,
-	// 	textPosX = -7;
-	// }
+		sunPosY = 11;
+
+
+	if(isMobile){
+		moonPosX = -2,
+		moonRadius = 1,
+		sunPosX = 1,
+		sunPosY = 7,
+		sunRadius = 10,
+		volcanoPosX = 0,
+		volcanoHeight = 15,
+		volcanoBaseWidth = 22,
+		particleSystemPosX = 0,
+		textPosX = -7;
+	}
 
 	
-	scene.add(new Volcano(new Vector3(volcanoPosX, -7.8, 0), 20, 40, 30, 4));
+	scene.add(new Volcano(new Vector3(volcanoPosX, -7.8, 0), volcanoHeight, volcanoBaseWidth, 30, 4));
 	// particleSystem = new ParticleSystem(new Vector3(particleSystemPosX, 0, -1), 1);
 	
 	// scene.add(new theText('3D website', textPosX, 20, 0));
@@ -119,7 +129,7 @@ let init = () => {
 	// console.log(theMoon);
 	scene.add(theMoon.moonMesh);
 
-	theSun = new Sun(new Vector3(6, 16, 4), sunRadius, 16);
+	theSun = new Sun(new Vector3(sunPosX, sunPosY, 4), sunRadius, 16);
 	scene.add(theSun.sunMesh);
     animate();
 }
@@ -165,7 +175,8 @@ let animate = () => {
     requestAnimationFrame( animate );
 	
 	theMoon.rotateMoon();
-	theSun.updateSun();
+	theSun.updateSunPosition(sunPosY+=0.003);
+	// theSun.updateSun();
 	// rotateFerrisWheel();
 	// scene.add(particleSystem.addParticle());
 	// particleSystem.run();

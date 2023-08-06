@@ -42,6 +42,10 @@ export default class Sun {
         this.shaderMaterial.uniforms.uTime.value = this.clock.getElapsedTime() / 6;
     }
 
+    updateSunPosition(posY) {
+        this.sunMesh.position.setY(posY);
+    }
+
 	updateSun() {
 		this.updateTimeUniform();
 	}
