@@ -61,7 +61,7 @@ let init = () => {
 		FAR = 20000;
 	camera = new THREE.PerspectiveCamera( VIEW_ANGLE, ASPECT, NEAR, FAR);
 	scene.add(camera);
-	camera.position.set(0, 10, 30);
+	camera.position.set(0, 10, 40);
 	// camera.lookAt(scene.position);
 	
 	const light = new THREE.DirectionalLight(0xFFFFFF, 1);
@@ -88,11 +88,12 @@ let init = () => {
 	let moonPosX = -6,
 		moonRadius = 2,
 		sunPosX = 6,
-		sunRadius = 10,
+		sunRadius = 3,
 		volcanoPosX = 7,
 		volcanoHeight = 20,
 		volcanoBaseWidth = 30,
 		particleSystemPosX = 7,
+		particleSystemPosY = 15,
 		textPosX = -15;
 
 		sunPosY = 11;
@@ -103,17 +104,18 @@ let init = () => {
 		moonRadius = 1,
 		sunPosX = 1,
 		sunPosY = 7,
-		sunRadius = 10,
+		sunRadius = 3,
 		volcanoPosX = 0,
 		volcanoHeight = 15,
 		volcanoBaseWidth = 22,
 		particleSystemPosX = 0,
+		particleSystemPosY = 11,
 		textPosX = -7;
 	}
 
 	
 	scene.add(new Volcano(new Vector3(volcanoPosX, -7.8, 0), volcanoHeight, volcanoBaseWidth, 30, 4));
-	// particleSystem = new ParticleSystem(new Vector3(particleSystemPosX, 0, -1), 1);
+	particleSystem = new ParticleSystem(new Vector3(particleSystemPosX, particleSystemPosY, -1), 0.3);
 	
 	// scene.add(new theText('3D website', textPosX, 20, 0));
 	// scene.add(new theText('under', textPosX, 18, 0));
@@ -175,11 +177,13 @@ let animate = () => {
     requestAnimationFrame( animate );
 	
 	theMoon.rotateMoon();
-	theSun.updateSunPosition(sunPosY+=0.003);
-	// theSun.updateSun();
+	theSun.updateSunPosition(sunPosY+=0.02);
+	theSun.updateSun();
 	// rotateFerrisWheel();
-	// scene.add(particleSystem.addParticle());
-	// particleSystem.run();
+	if(sunPosY > 11.5){
+		scene.add(particleSystem.addParticle());
+		particleSystem.run();
+	}
 	// controls.update();
 
     renderer.render( scene, camera );

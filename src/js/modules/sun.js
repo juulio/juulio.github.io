@@ -31,7 +31,7 @@ export default class Sun {
             // side: DoubleSide
         });     
         
-        const geometry = new SphereBufferGeometry( this.radius);
+        const geometry = new SphereBufferGeometry(this.radius);
         this.sunMesh = new Mesh( geometry, this.shaderMaterial );
 		this.sunMesh.position.set(this.pos.x, this.pos.y, this.pos.z);
         this.clock = new Clock();
