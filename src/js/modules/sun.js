@@ -13,7 +13,8 @@ let sunMesh;
  */
 export default class Sun {
 	constructor(position, radius, segments) {
-		this.sphereGeometry = new SphereBufferGeometry(radius, segments, segments);
+        this.radius = radius;
+        this.segments = segments;
 		this.pos = new Vector3(position.x, position.y, position.z);
 
 		const texture = new TextureLoader().load(lavaTileAsset, (texture) => {
@@ -31,8 +32,8 @@ export default class Sun {
             // side: DoubleSide
         });     
         
-        const geometry = new SphereBufferGeometry(this.radius);
-        this.sunMesh = new Mesh( geometry, this.shaderMaterial );
+        this.sphereGeometry = new SphereBufferGeometry(this.radius, this.segments, this.segments);
+        this.sunMesh = new Mesh(this.sphereGeometry, this.shaderMaterial );
 		this.sunMesh.position.set(this.pos.x, this.pos.y, this.pos.z);
         this.clock = new Clock();
 

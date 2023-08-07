@@ -36,7 +36,7 @@ let shaderMaterial, shaderMaterials, uniforms, delta, isMobile;
 let lavaMaterial;
 let customUniforms;
 let theSun, theMoon, sunPosY;
-let particleSystem;
+let particleSystem, particleSystemPosY, showParticleSystem;
 
 /**
   * Init basic 3D Scene Elements
@@ -88,31 +88,32 @@ let init = () => {
 	let moonPosX = -6,
 		moonRadius = 2,
 		sunPosX = 6,
-		sunRadius = 3,
+		sunRadius = 0.5,
 		volcanoPosX = 7,
 		volcanoHeight = 20,
 		volcanoBaseWidth = 30,
 		particleSystemPosX = 7,
-		particleSystemPosY = 15,
 		textPosX = -15;
-
+		
 		sunPosY = 11;
+		particleSystemPosY = 11;
 
 
 	if(isMobile){
 		moonPosX = -2,
 		moonRadius = 1,
-		sunPosX = 1,
+		sunPosX = 0.2,
 		sunPosY = 7,
-		sunRadius = 3,
+		sunRadius = 0.4,
 		volcanoPosX = 0,
 		volcanoHeight = 15,
 		volcanoBaseWidth = 22,
 		particleSystemPosX = 0,
-		particleSystemPosY = 11,
+		particleSystemPosY = 6,
 		textPosX = -7;
 	}
 
+	showParticleSystem = false;
 	
 	scene.add(new Volcano(new Vector3(volcanoPosX, -7.8, 0), volcanoHeight, volcanoBaseWidth, 30, 4));
 	particleSystem = new ParticleSystem(new Vector3(particleSystemPosX, particleSystemPosY, -1), 0.3);
@@ -177,14 +178,21 @@ let animate = () => {
     requestAnimationFrame( animate );
 	
 	theMoon.rotateMoon();
-	theSun.updateSunPosition(sunPosY+=0.02);
+	theSun.updateSunPosition(sunPosY+=0.09);
 	theSun.updateSun();
 	// rotateFerrisWheel();
-	if(sunPosY > 11.5){
+	if(showParticleSystem == false && sunPosY > 17 ){
+		showParticleSystem = true;
+		theSun.sunMesh.geometry.dispose();
+		theSun.sunMesh.material.dispose();
+		scene.remove(theSun.sunMesh);
+	}
+	
+	if(showParticleSystem){
 		scene.add(particleSystem.addParticle());
 		particleSystem.run();
 	}
-	// controls.update();
+		
 
     renderer.render( scene, camera );
 }
