@@ -35,7 +35,7 @@ let camera, renderer, controls;
 let shaderMaterial, shaderMaterials, uniforms, delta, isMobile;
 let lavaMaterial;
 let customUniforms;
-let theSun, theMoon, sunPosY;
+let theSun, theMoon, theVolcano, sunPosY;
 let particleSystem, particleSystemPosY, showParticleSystem;
 
 /**
@@ -62,7 +62,7 @@ let init = () => {
 	camera = new THREE.PerspectiveCamera( VIEW_ANGLE, ASPECT, NEAR, FAR);
 	scene.add(camera);
 	camera.position.set(0, 10, 40);
-	// camera.lookAt(scene.position);
+	// camera.lookAt(new Vector3(0, 0, 0));
 	
 	const light = new THREE.DirectionalLight(0xFFFFFF, 1);
 	light.position.set(-10, 10, 30);
@@ -87,15 +87,18 @@ let init = () => {
 
 	let moonPosX = -6,
 		moonRadius = 2,
-		sunPosX = 6,
+		sunPosX = 15,
+		sunPosZ = -16,
 		sunRadius = 0.5,
-		volcanoPosX = 7,
+		volcanoPosX = 15,
+		volcanoPosZ = -17,
 		volcanoHeight = 20,
 		volcanoBaseWidth = 30,
-		particleSystemPosX = 7,
+		particleSystemPosX = 15,
+		particleSystemPosZ = -17,
 		textPosX = -15;
 		
-		sunPosY = 11;
+		sunPosY = 10;
 		particleSystemPosY = 11;
 
 
@@ -115,8 +118,9 @@ let init = () => {
 
 	showParticleSystem = false;
 	
-	scene.add(new Volcano(new Vector3(volcanoPosX, -7.8, 0), volcanoHeight, volcanoBaseWidth, 30, 4));
-	particleSystem = new ParticleSystem(new Vector3(particleSystemPosX, particleSystemPosY, -1), 0.3);
+	theVolcano = new Volcano(new Vector3(volcanoPosX, -7.8, volcanoPosZ), volcanoHeight, volcanoBaseWidth, 30, 4);
+	scene.add(theVolcano.volcanoMesh);
+	particleSystem = new ParticleSystem(new Vector3(particleSystemPosX, particleSystemPosY, particleSystemPosZ), 0.3);
 	
 	// scene.add(new theText('3D website', textPosX, 20, 0));
 	// scene.add(new theText('under', textPosX, 18, 0));
@@ -129,10 +133,10 @@ let init = () => {
 	scene.add(floor);
 
 	theMoon = new Moon(new Vector3(moonPosX, 15, 10), moonRadius, 10);
-	// console.log(theMoon);
 	scene.add(theMoon.moonMesh);
+	// console.log(theMoon);
 
-	theSun = new Sun(new Vector3(sunPosX, sunPosY, 4), sunRadius, 16);
+	theSun = new Sun(new Vector3(sunPosX, sunPosY, sunPosZ), sunRadius, 16);
 	scene.add(theSun.sunMesh);
     animate();
 }
@@ -178,6 +182,7 @@ let animate = () => {
     requestAnimationFrame( animate );
 	
 	theMoon.rotateMoon();
+	// theVolcano.rotateVolcano();
 	theSun.updateSunPosition(sunPosY+=0.09);
 	theSun.updateSun();
 	// rotateFerrisWheel();
@@ -193,6 +198,9 @@ let animate = () => {
 		particleSystem.run();
 	}
 		
+
+	// camera.rotation.y += Math.PI/200
+	
 
     renderer.render( scene, camera );
 }

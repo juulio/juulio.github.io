@@ -53,6 +53,12 @@ export default class Volcano {
         this.volcanoMesh.position.x = this.pos.x;
         this.volcanoMesh.position.y = this.pos.y;
         this.volcanoMesh.position.z = this.pos.z;
-        return this.volcanoMesh;
+        // return this.volcanoMesh;
     }
+
+    rotateVolcano() {
+		// this.volcanoMesh.rotation.z += 0.001;
+        // this.volcanoMesh.translateZ(0.01);
+        // console.log(this.volcanoMesh.position.y);
+	}
 }
