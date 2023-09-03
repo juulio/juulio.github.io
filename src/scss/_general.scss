@@ -14,7 +14,30 @@ span {
     color: #999999; 
 }
 
-h1,
-h2 {
+h1{
+    color: #000;
+    font-size: 11vw;
+    font-family: Garamond, serif;
+    
+    // Desktop version
+    @media only screen and (min-width: 768px) {
+        font-size: 6vw;
+    }
+}
 
+h2 {
+    color: #0a0a0a;
+    font-size: 5vw;
+    
+    // Desktop version
+    @media only screen and (min-width: 768px) {
+        font-size: 2.6vw;
+    }
+}
+
+.mainTitle {
+    width: 100%;
+    position: fixed;
+    padding-top: 1vh;
+    text-align: center;
 }

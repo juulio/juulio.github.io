@@ -28,6 +28,7 @@ import ParticleSystem from './modules/particleSystem';
 import Volcano from './modules/volcano';
 // import theText from './modules/text';
 // import Jaguar from './modules/jaguar';
+import htmlTextDiv from './modules/htmlTextDiv';
 
 // THREEjs basic Scene stuff
 const scene = new THREE.Scene();
@@ -43,6 +44,15 @@ let particleSystem, particleSystemPosY, showParticleSystem;
   */
 let init = () => {
 
+	// add HTML text content (not related to 3D threejs elements)	
+	// let div = document.createElement('div');
+	// div.id = 'container';
+	// div.innerHTML = 'Hi there!';
+	// div.className = 'border pad';
+	// document.body.appendChild(div);
+	document.body.appendChild(new htmlTextDiv('Julio Del Valle', 'Creative Software Developer', 'mainTitle'));
+
+	// init all 3D threejs stuff
 	// Show Stats like FPS
 	// (function(){var script=document.createElement('script');script.onload=function(){var stats=new Stats();document.body.appendChild(stats.dom);requestAnimationFrame(function loop(){stats.update();requestAnimationFrame(loop)});};script.src='//mrdoob.github.io/stats.js/build/stats.min.js';document.head.appendChild(script);})()
 
@@ -72,7 +82,7 @@ let init = () => {
 
     renderer = new THREE.WebGLRenderer( { antialias: true } );
     renderer.setSize( window.innerWidth, window.innerHeight );
-	renderer.setClearColor ( "#000000");
+	renderer.setClearColor ( "#f2f2f2");
     document.body.appendChild( renderer.domElement );
     // controls = new OrbitControls( camera, renderer.domElement );
 	window.addEventListener( 'resize', onWindowResize, false );
@@ -122,9 +132,9 @@ let init = () => {
 	scene.add(theVolcano.volcanoMesh);
 	particleSystem = new ParticleSystem(new Vector3(particleSystemPosX, particleSystemPosY, particleSystemPosZ), 0.3);
 	
-	// scene.add(new theText('3D website', textPosX, 20, 0));
-	// scene.add(new theText('under', textPosX, 18, 0));
-	// scene.add(new theText('construction', textPosX, 16, 0));
+	// scene.add(new theText('Julio Del Valle', textPosX, 24, 0));
+	// scene.add(new theText('Creative Software Developer', textPosX, 22, 0));
+	// scene.add(new theText('Front End Developer', textPosX, 19, 0));
 	
 	// const jaguar = new Jaguar(new Vector3(0, 2, 0));
 	// console.log(jaguar);
@@ -134,6 +144,8 @@ let init = () => {
 
 	theMoon = new Moon(new Vector3(moonPosX, 15, 10), moonRadius, 10);
 	scene.add(theMoon.moonMesh);
+	scene.add(theMoon.transparentSphereMesh);
+
 	// console.log(theMoon);
 
 	theSun = new Sun(new Vector3(sunPosX, sunPosY, sunPosZ), sunRadius, 16);

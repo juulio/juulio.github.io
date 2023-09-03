@@ -33,7 +33,7 @@ export default class theText {
             // letterMesh = new THREE.Mesh( textGeometry, new THREE.MeshBasicMaterial({wireframe: true, color : 0xFF0000}) );
             // letterMesh = new THREE.Mesh( textGeometry, new THREE.MeshNormalMaterial());
             // letterMesh = new THREE.Mesh( textGeometry, shaderMaterial);
-            letterMesh = new Mesh( textGeometry, new MeshBasicMaterial( { color: 0xffffff, flatShading: true } ));
+            letterMesh = new Mesh( textGeometry, new MeshBasicMaterial( { color: 0x0a0a0f, flatShading: true } ));
             letterMesh.position.x = i;
 
             this.groupTextMesh.add( letterMesh)

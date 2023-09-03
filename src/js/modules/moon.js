@@ -1,4 +1,4 @@
-import { SphereBufferGeometry, Mesh, TextureLoader, MeshPhongMaterial } from 'three';
+import { SphereBufferGeometry, Mesh, TextureLoader, MeshBasicMaterial, MeshPhongMaterial } from 'three';
 import moonTextureAsset from '../../public/images/textures/moonTexture.jpg';
 import moonDisplacementMap from '../../public/images/textures/moonDisplacementMap.jpg';
 
@@ -31,6 +31,15 @@ export default class Moon {
 		this.moonMesh.position.x = position.x;
 		this.moonMesh.position.y = position.y;
 		this.moonMesh.position.z = position.z;
+
+		this.sphereGeom =  new SphereBufferGeometry( 4, 32, 16 );
+		this.blueMaterial = new MeshBasicMaterial( { color: 0x0000ff, transparent: true, opacity: 0.2 } );
+		this.transparentSphereMesh = new Mesh( this.sphereGeom, this.blueMaterial );
+
+		this.transparentSphereMesh.position.x = position.x;
+		this.transparentSphereMesh.position.y = position.y;
+		this.transparentSphereMesh.position.z = position.z;
+
 	}
 
 	rotateMoon() {
