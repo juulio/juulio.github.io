@@ -32,7 +32,7 @@ export default class Moon {
 		this.moonMesh.position.y = position.y;
 		this.moonMesh.position.z = position.z;
 
-		this.sphereGeom =  new SphereBufferGeometry( 4, 32, 16 );
+		this.sphereGeom =  new SphereBufferGeometry( radius*1.2, segments, segments );
 		this.blueMaterial = new MeshBasicMaterial( { color: 0x0000ff, transparent: true, opacity: 0.2 } );
 		this.transparentSphereMesh = new Mesh( this.sphereGeom, this.blueMaterial );
 
