@@ -1,6 +1,11 @@
 import { SphereBufferGeometry, Mesh, TextureLoader, MeshBasicMaterial, MeshPhongMaterial } from 'three';
+import {ShaderMaterial, DoubleSide, NearestFilter, Clock} from 'three';
 import moonTextureAsset from '../../public/images/textures/moonTexture.jpg';
 import moonDisplacementMap from '../../public/images/textures/moonDisplacementMap.jpg';
+
+import transparentSphereAsset from '../../public/images/textures/disturb.jpg';
+import eruptionVertexShader from '../../public/shaders/eruptionVertexShader.glsl';
+import eruptionFragmentShader from '../../public/shaders/eruptionFragmentShader.glsl';
 
 let moonMesh;
 
@@ -32,15 +37,36 @@ export default class Moon {
 		this.moonMesh.position.y = position.y;
 		this.moonMesh.position.z = position.z;
 
+		// Transparent sphere
+		const texture = new TextureLoader().load(transparentSphereAsset, (texture) => {
+            texture.minFilter = NearestFilter;
+        });
+
+		this.shaderMaterial = new ShaderMaterial({
+            vertexShader: eruptionVertexShader,
+            fragmentShader: eruptionFragmentShader,
+            uniforms: {
+                uTime: { value: 0},
+                uTexture: { value: texture}
+            },
+            transparent: true,
+            side: DoubleSide
+        });
+
 		this.sphereGeom =  new SphereBufferGeometry( radius*1.2, segments, segments );
-		this.blueMaterial = new MeshBasicMaterial( { color: 0x0000ff, transparent: true, opacity: 0.2 } );
-		this.transparentSphereMesh = new Mesh( this.sphereGeom, this.blueMaterial );
+		// this.blueMaterial = new MeshBasicMaterial( { color: 0xaa0010, transparent: true, opacity: 0.2 } );
+		this.transparentSphereMesh = new Mesh( this.sphereGeom, this.shaderMaterial );
 
 		this.transparentSphereMesh.position.x = position.x;
 		this.transparentSphereMesh.position.y = position.y;
 		this.transparentSphereMesh.position.z = position.z;
 
+        this.clock = new Clock();
 	}
+
+	updateTimeUniform() {
+        this.shaderMaterial.uniforms.uTime.value = this.clock.getElapsedTime();
+    }
 
 	rotateMoon() {
 		this.moonMesh.rotation.x += 0.00001;

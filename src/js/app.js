@@ -194,6 +194,7 @@ let animate = () => {
     requestAnimationFrame( animate );
 	
 	theMoon.rotateMoon();
+	theMoon.updateTimeUniform();
 	// theVolcano.rotateVolcano();
 	theSun.updateSunPosition(sunPosY+=0.09);
 	theSun.updateSun();
@@ -210,10 +211,8 @@ let animate = () => {
 		particleSystem.run();
 	}
 		
-
 	// camera.rotation.y += Math.PI/200
 	
-
     renderer.render( scene, camera );
 }
 

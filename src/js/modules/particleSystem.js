@@ -35,7 +35,7 @@ export default class ParticleSystem {
             if(particle.isDead()){
                 this.particles.splice(i,1);
                 scene.remove(particle.particleMesh);
-                console.log("Particles length: " + this.particles.length + " Scene.children: " + scene.children.length);
+                // console.log("Particles length: " + this.particles.length + " Scene.children: " + scene.children.length);
             }
         }
     }
