@@ -3,8 +3,8 @@ import {ShaderMaterial, DoubleSide, NearestFilter, Clock} from 'three';
 import moonTextureAsset from '../../public/images/textures/moonTexture.jpg';
 import moonDisplacementMap from '../../public/images/textures/moonDisplacementMap.jpg';
 
-import transparentSphereAsset from '../../public/images/textures/disturb.jpg';
-import eruptionVertexShader from '../../public/shaders/eruptionVertexShader.glsl';
+import transparentSphereAsset from '../../public/images/textures/cloud.png';
+import eruptionVertexShader from '../../public/shaders/moonVertexShader.glsl';
 import eruptionFragmentShader from '../../public/shaders/eruptionFragmentShader.glsl';
 
 let moonMesh;
@@ -53,7 +53,7 @@ export default class Moon {
             side: DoubleSide
         });
 
-		this.sphereGeom =  new SphereBufferGeometry( radius*1.2, segments, segments );
+		this.sphereGeom =  new SphereBufferGeometry( radius*1.1, segments, segments );
 		// this.blueMaterial = new MeshBasicMaterial( { color: 0xaa0010, transparent: true, opacity: 0.2 } );
 		this.transparentSphereMesh = new Mesh( this.sphereGeom, this.shaderMaterial );
 
