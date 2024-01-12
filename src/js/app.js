@@ -50,7 +50,7 @@ let init = () => {
 	// div.innerHTML = 'Hi there!';
 	// div.className = 'border pad';
 	// document.body.appendChild(div);
-	document.body.appendChild(new htmlTextDiv('Julio Del Valle', 'Creative Software Developer', 'mainTitle'));
+	document.body.appendChild(new htmlTextDiv('julio del valle - creative software developer', 'mainTitle'));
 
 	// init all 3D threejs stuff
 	// Show Stats like FPS

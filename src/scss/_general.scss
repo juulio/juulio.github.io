@@ -15,19 +15,18 @@ span {
 }
 
 h1{
-    color: #000;
-    font-size: 11vw;
-    font-family: Garamond, serif;
+    color: #C0C0C0;
+    font-size: 6vw;
     
     // Desktop version
     @media only screen and (min-width: 768px) {
-        font-size: 6vw;
+        font-size: 2vw;
     }
 }
 
 h2 {
     color: #0a0a0a;
-    font-size: 5vw;
+    font-size: 3vw;
     
     // Desktop version
     @media only screen and (min-width: 768px) {
@@ -38,6 +37,7 @@ h2 {
 .mainTitle {
     width: 100%;
     position: fixed;
-    padding-top: 1vh;
+    padding: 1vh 5 vw;
     text-align: center;
+	border-bottom: solid 1px #C0C0C0;
 }

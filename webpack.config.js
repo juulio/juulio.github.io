@@ -17,8 +17,20 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.s[ac]ss$/i,
+        test: /\.(sa|sc|c)ss$/,
         use: [ "style-loader", "css-loader", "sass-loader"],
+      },
+      {
+        test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name].[ext]',
+              outputPath: 'fonts/'
+            }
+          }
+        ]
       },
       {
         test: /\.(frag|vert|glsl)$/,
@@ -35,7 +47,7 @@ module.exports = {
     ],
   },
   devServer: {
-    contentBase: './docs',
+    static: './docs',
     open: true,
     headers: {
       "Access-Control-Allow-Origin": "*",
