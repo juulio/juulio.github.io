@@ -11,10 +11,13 @@ header {
 
 .projectList {
     width: 225px;
+    float: left;
+    margin-top: 55px;
 }
   
 .projectList li {
     margin-top: 20px; 
+    list-style: none;
 }
   
 .submenu {

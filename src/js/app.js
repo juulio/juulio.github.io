@@ -28,7 +28,9 @@ import ParticleSystem from './modules/particleSystem';
 import Volcano from './modules/volcano';
 // import theText from './modules/text';
 // import Jaguar from './modules/jaguar';
+import jsonProjectsData from '../public/data/projects.json';
 import htmlTextDiv from './modules/htmlTextDiv';
+import htmlNavigation from './modules/htmlNavigation';
 
 // THREEjs basic Scene stuff
 const scene = new THREE.Scene();
@@ -43,14 +45,9 @@ let particleSystem, particleSystemPosY, showParticleSystem;
   * Init basic 3D Scene Elements
   */
 let init = () => {
-
-	// add HTML text content (not related to 3D threejs elements)	
-	// let div = document.createElement('div');
-	// div.id = 'container';
-	// div.innerHTML = 'Hi there!';
-	// div.className = 'border pad';
-	// document.body.appendChild(div);
 	document.body.appendChild(new htmlTextDiv('julio del valle - creative software developer', 'mainTitle'));
+	const htmlNav = new htmlNavigation(jsonProjectsData.projectList);
+	document.body.appendChild(htmlNav.generateList());
 
 	// init all 3D threejs stuff
 	// Show Stats like FPS
@@ -82,7 +79,7 @@ let init = () => {
 
     renderer = new THREE.WebGLRenderer( { antialias: true } );
     renderer.setSize( window.innerWidth, window.innerHeight );
-	renderer.setClearColor ( "#f2f2f2");
+	renderer.setClearColor ( "#fff");
     document.body.appendChild( renderer.domElement );
     // controls = new OrbitControls( camera, renderer.domElement );
 	window.addEventListener( 'resize', onWindowResize, false );
