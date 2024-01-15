@@ -1,10 +1,10 @@
+// 2024 TODO: Verificar qué hace theSun
 // Marzo 16 2021 http://stemkoski.github.io/Three.js/Shader-Animate.html
 // https://github.com/mrdoob/three.js/blob/master/examples/webgl_geometry_cube.html
 import '../scss/styles.scss';
 import * as THREE from 'three';
 import { OrbitControls } from 'OrbitControls';
-
-// import gotham_black_regular from '../public/fonts/gotham_black_regular.json';
+import Stats from 'stats.js';
 import cloudAsset from '../public/images/textures/cloud.png';
 import lavatileAsset from '../public/images/textures/lavatile.jpg';
 import sand512 from '../public/images/textures/sand-512.jpg'
@@ -26,24 +26,57 @@ import Moon from './modules/moon';
 
 import ParticleSystem from './modules/particleSystem';
 import Volcano from './modules/volcano';
-// import theText from './modules/text';
 // import Jaguar from './modules/jaguar';
 import jsonData from '../public/data/projects.json';
 import htmlText from './modules/htmlText';
 
 // THREEjs basic Scene stuff
 const scene = new THREE.Scene();
-let camera, renderer, controls;
+let stats, axesHelper, camera, renderer, controls, theMoon, theVolcano,particleSystem, particleSystemPosY, particleSystemPosX, showParticleSystem;
 let shaderMaterial, shaderMaterials, uniforms, delta, isMobile;
 let lavaMaterial;
 let customUniforms;
-let theSun, theMoon, theVolcano, sunPosY;
-let particleSystem, particleSystemPosY, showParticleSystem;
+let theSun,  sunPosY;
 
 /**
-  * Init basic 3D Scene Elements
+ * Check hostname to verify Development Environment
+ */    
+const developmentEnvironment = () => window.location.host != 'juliodelvalle.com';
+
+
+/*
+	* Checks if app is running on a mobile device
+	*/	isMobile = false;
+
+if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+	isMobile = true;
+}
+/**
+ * Set up and show Javascript Performance Monitor
+ */
+const showStats = () => {
+	stats = new Stats();
+	stats.showPanel( 0 ); // 0: fps, 1: ms, 2: mb, 3+: custom
+	document.body.appendChild( stats.dom );
+}
+
+/**
+ * Show Axes Helpers for 3D
+ */
+const showAxesHelper = () => {
+	axesHelper = new THREE.AxesHelper( 6 );
+	scene.add( axesHelper );
+}
+
+/**
+  * Init all functions 
   */
 let init = () => {
+	if (developmentEnvironment()){
+		showStats();
+		showAxesHelper();
+	}
+
 	const mainContainer = document.createElement('main');
 	const headerContainer = document.createElement('header');
 	
@@ -58,14 +91,9 @@ let init = () => {
 
 	// init all 3D threejs stuff
 	// Show Stats like FPS
-	// (function(){var script=document.createElement('script');script.onload=function(){var stats=new Stats();document.body.appendChild(stats.dom);requestAnimationFrame(function loop(){stats.update();requestAnimationFrame(loop)});};script.src='//mrdoob.github.io/stats.js/build/stats.min.js';document.head.appendChild(script);})()
+	//(function(){var script=document.createElement('script');script.onload=function(){var stats=new Stats();document.body.appendChild(stats.dom);requestAnimationFrame(function loop(){stats.update();requestAnimationFrame(loop)});};script.src='//mrdoob.github.io/stats.js/build/stats.min.js';document.head.appendChild(script);})()
 
-    // Checks if app is running on a mobile device
-	isMobile = false;
 
-	if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
-		isMobile = true;
-	}
 
 	let SCREEN_WIDTH = window.innerWidth,
 		SCREEN_HEIGHT = window.innerHeight,
@@ -197,6 +225,12 @@ let animate = () => {
  
     requestAnimationFrame( animate );
 	
+	if (developmentEnvironment()){
+		stats.begin();
+	}
+	
+	
+	
 	theMoon.rotateMoon();
 	theMoon.updateTimeUniform();
 	// theVolcano.rotateVolcano();
@@ -218,6 +252,11 @@ let animate = () => {
 	// camera.rotation.y += Math.PI/200
 	
     renderer.render( scene, camera );
+
+	if (developmentEnvironment()){
+		stats.end();
+	}
+
 }
 
 /**
