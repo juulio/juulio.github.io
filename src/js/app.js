@@ -49,7 +49,7 @@ let init = () => {
 	
 	const theHtmlText = new htmlText(jsonData); 
 	headerContainer.appendChild(theHtmlText.generateMainTitle());
-	headerContainer.appendChild(theHtmlText.generateNavigation());
+	// headerContainer.appendChild(theHtmlText.generateNavigation());
 	mainContainer.appendChild(headerContainer);
 	document.body.appendChild(mainContainer);
 	
