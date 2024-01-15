@@ -1,4 +1,4 @@
-export default class htmlTextDiv {
+export default class htmlMainTitle {
     constructor(h1text, className) {
         this.divElement = document.createElement('div');
         this.divElement.className = className;

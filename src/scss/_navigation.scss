@@ -1,18 +1,18 @@
 /* NAVIGATION STYLES
 -------------------------------------------------- */
 header {
-    top: 0px;
-    z-index: 2;
-    padding: 1.5vw 2vw;
-    position: absolute;
-    background-color: rgba(226, 159, 59, 0.7);
-    box-sizing: border-box;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 60px;
+    z-index: 1000;
+    padding: calc(2vw + 2vh + 2vmin);
+}
+
+.mainTitle {
 }
 
 .projectList {
-    width: 225px;
-    float: left;
-    margin-top: 55px;
 }
   
 .projectList li {

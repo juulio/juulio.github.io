@@ -28,9 +28,8 @@ import ParticleSystem from './modules/particleSystem';
 import Volcano from './modules/volcano';
 // import theText from './modules/text';
 // import Jaguar from './modules/jaguar';
-import jsonProjectsData from '../public/data/projects.json';
-import htmlTextDiv from './modules/htmlTextDiv';
-import htmlNavigation from './modules/htmlNavigation';
+import jsonData from '../public/data/projects.json';
+import htmlText from './modules/htmlText';
 
 // THREEjs basic Scene stuff
 const scene = new THREE.Scene();
@@ -45,9 +44,17 @@ let particleSystem, particleSystemPosY, showParticleSystem;
   * Init basic 3D Scene Elements
   */
 let init = () => {
-	document.body.appendChild(new htmlTextDiv('julio del valle - creative software developer', 'mainTitle'));
-	const htmlNav = new htmlNavigation(jsonProjectsData.projectList);
-	document.body.appendChild(htmlNav.generateList());
+	const mainContainer = document.createElement('main');
+	const headerContainer = document.createElement('header');
+	
+	const theHtmlText = new htmlText(jsonData); 
+	headerContainer.appendChild(theHtmlText.generateMainTitle());
+	headerContainer.appendChild(theHtmlText.generateNavigation());
+	mainContainer.appendChild(headerContainer);
+	document.body.appendChild(mainContainer);
+	
+	// const htmlNav = new htmlNavigation(jsonProjectsData.projectList);
+	// document.body.appendChild(htmlNav.generateList());
 
 	// init all 3D threejs stuff
 	// Show Stats like FPS
@@ -80,7 +87,7 @@ let init = () => {
     renderer = new THREE.WebGLRenderer( { antialias: true } );
     renderer.setSize( window.innerWidth, window.innerHeight );
 	renderer.setClearColor ( "#fff");
-    document.body.appendChild( renderer.domElement );
+    mainContainer.appendChild( renderer.domElement );
     // controls = new OrbitControls( camera, renderer.domElement );
 	window.addEventListener( 'resize', onWindowResize, false );
 

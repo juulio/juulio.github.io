@@ -7,6 +7,8 @@ body{
 }
 
 canvas {
+    position: absolute;
+    z-index: 0;
     display: block;
 }
 
@@ -37,11 +39,4 @@ h2 {
     @media only screen and (min-width: 768px) {
         font-size: 2.6vw;
     }
-}
-
-.mainTitle {
-    width: 100%;
-    position: fixed;
-    padding: 1vh 5vw;
-	border-bottom: solid 1px #C0C0C0;
 }
