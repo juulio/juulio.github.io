@@ -1,6 +1,5 @@
 /* 2024 TODO: 
 	limpiar app.js
-	Verificar qué hace theSun
 	usar un solo shaderMaterial en las letras para deformarlas y animarlas con shaders
  */
 // Marzo 16 2021 http://stemkoski.github.io/Three.js/Shader-Animate.html
@@ -33,7 +32,7 @@ import sand512 from '../public/images/textures/sand-512.jpg'
 // THREEjs basic Scene stuff
 
 const scene = new THREE.Scene();
-let stats, axesHelper, camera, renderer, controls, theMoon, theVolcano,particleSystem, particleSystemPosY, particleSystemPosX, showParticleSystem;
+let stats, axesHelper, camera, renderer, controls, theFloor, theMoon, theVolcano,particleSystem, particleSystemPosY, particleSystemPosX, showParticleSystem, clock;
 let shaderMaterial, shaderMaterials, uniforms, delta, isMobile;
 let lavaMaterial;
 let customUniforms;
@@ -65,12 +64,12 @@ const showStats = () => {
  * Show Axes Helpers for 3D
  */
 const showHelpers = () => {
-	scene.add( new THREE.AxesHelper( 6 ) ); 
+	scene.add( new THREE.AxesHelper( 16 ) ); 
 	scene.add( new THREE.GridHelper( 50, 20 ));
 }
 
 /**
- * 
+ * Set Scene
  */
 const setScene = (mainContainerElement) => {
 	let SCREEN_WIDTH = window.innerWidth,
@@ -83,6 +82,7 @@ const setScene = (mainContainerElement) => {
 	scene.add(camera);
 	camera.position.set(0, 10, 40);
 	// camera.lookAt(new Vector3(0, 0, 0));
+	// camera.lookAt(new Vector3(0, 10, 0));
 	
 	const light = new THREE.DirectionalLight(0xFFFFFF, 1);
 	light.position.set(-10, 10, 30);
@@ -95,16 +95,19 @@ const setScene = (mainContainerElement) => {
 	renderer.setClearColor ( "#fafafa");
 	mainContainerElement.appendChild( renderer.domElement );
 }
+
 /**
   * Init all functions 
   */
 const init = () => {
+	clock = new THREE.Clock();
 	const mainContainer = document.createElement('main');
 	const headerContainer = document.createElement('header');
 	
+	console.log('title ' + jsonData.title);
 	const theHtmlText = new htmlText(jsonData); 
 	headerContainer.appendChild(theHtmlText.generateMainTitle());
-	// headerContainer.appendChild(theHtmlText.generateNavigation());
+	headerContainer.appendChild(theHtmlText.generateNavigation());
 	mainContainer.appendChild(headerContainer);
 	document.body.appendChild(mainContainer);
 
@@ -124,7 +127,7 @@ const init = () => {
 
 	// scene.add(renderSkybox());
 
-	let moonPosX = -6,
+	let moonPosX = -2,
 		moonRadius = 2,
 		sunPosX = 15,
 		sunPosZ = -16,
@@ -134,8 +137,7 @@ const init = () => {
 		volcanoHeight = 20,
 		volcanoBaseWidth = 30,
 		particleSystemPosX = 15,
-		particleSystemPosZ = -17,
-		textPosX = -15;
+		particleSystemPosZ = -17;
 		
 		sunPosY = 10;
 		particleSystemPosY = 11;
@@ -151,32 +153,31 @@ const init = () => {
 		volcanoHeight = 15,
 		volcanoBaseWidth = 22,
 		particleSystemPosX = 0,
-		particleSystemPosY = 6,
-		textPosX = -7;
+		particleSystemPosY = 6;
 	}
 
-	showParticleSystem = false;
+	showParticleSystem = true;
 	
 	theVolcano = new Volcano(new Vector3(volcanoPosX, -7.8, volcanoPosZ), volcanoHeight, volcanoBaseWidth, 30, 4);
-	// scene.add(theVolcano.volcanoMesh);
-	// particleSystem = new ParticleSystem(new Vector3(particleSystemPosX, particleSystemPosY, particleSystemPosZ), 0.3);
+	// theVolcano.volcanoMesh.add(camera);
+	particleSystem = new ParticleSystem(new Vector3(particleSystemPosX, particleSystemPosY, particleSystemPosZ), 0.3);
 	
-	// scene.add(new theText('Julio Del Valle', textPosX, 24, 0));
-	// scene.add(new theText('Creative Software Developer', textPosX, 22, 0));
-	// scene.add(new theText('Front End Developer', textPosX, 19, 0));
+	theFloor = new Floor(0, 0, 0, 70, 50);
+	theMoon = new Moon(new Vector3(moonPosX, 15, 10), moonRadius, 10);
 	
+	scene.add(theVolcano.volcanoMesh);
+	scene.add(theFloor);
+	scene.add(theMoon.moonMesh);
+	scene.add(theMoon.transparentSphereMesh);
+
+	// theVolcano.volcanoMesh.add(camera);
+	
+
+	// scene.add(particleSystem);
 	// const jaguar = new Jaguar(new Vector3(0, 2, 0));
 	// console.log(jaguar);
 	// scene.add(renderFerrisWheel(new Vector3(0, 0, 0), 1, 0.4, 0.2, 6));
-	const floor = new Floor(0, 0, 0, 70, 50);
-	// scene.add(floor);
-
-	theMoon = new Moon(new Vector3(moonPosX, 15, 10), moonRadius, 10);
-	// scene.add(theMoon.moonMesh);
-	// scene.add(theMoon.transparentSphereMesh);
-
 	// console.log(theMoon);
-
 	// theSun = new Sun(new Vector3(sunPosX, sunPosY, sunPosZ), sunRadius, 16);
 	// scene.add(theSun.sunMesh);
     animate();
@@ -221,32 +222,33 @@ const setupLavaMaterial = () => {
 const animate = () => {
  
     requestAnimationFrame( animate );
-	
+	const time = clock.getElapsedTime();
 	if (developmentEnvironment()){
 		stats.begin();
 	}
 	
 	theMoon.rotateMoon();
 	theMoon.updateTimeUniform();
-	// theVolcano.rotateVolcano();
+	theVolcano.rotateVolcano();
 	// theSun.updateSunPosition(sunPosY+=0.09);
 	// theSun.updateSun();
 	// rotateFerrisWheel();
 	if(showParticleSystem == false && sunPosY > 17 ){
 		showParticleSystem = true;
-		theSun.sunMesh.geometry.dispose();
-		theSun.sunMesh.material.dispose();
-		scene.remove(theSun.sunMesh);
+		// theSun.sunMesh.geometry.dispose();
+		// theSun.sunMesh.material.dispose();
+		// scene.remove(theSun.sunMesh);
 	}
 	
-	if(showParticleSystem){
-		console.log('adding a particle')
+	if(showParticleSystem && particleSystem.particles.length < 30){
+		// console.log('adding a particle')
 		scene.add(particleSystem.addParticle());
-		particleSystem.run();
 	}
-		
-	// camera.rotation.y += Math.PI/200
-	
+	particleSystem.run();
+	// camera.position.x += Math.PI/700
+	// camera.position.x = Math.sin( time ) * 2;
+    // camera.position.z = Math.cos( time ) * 2;
+	// camera.lookAt(theVolcano.volcanoMesh);
     renderer.render( scene, camera );
 
 	if (developmentEnvironment()){

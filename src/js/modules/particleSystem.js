@@ -23,7 +23,7 @@ export default class ParticleSystem {
         // console.log(this.particles[0].lifespan);
         // console.log("Particles.length: " + this.particles.length) + " Scene.children: " + this.particles.parent;
         for(let particle of this.particles){
-            let gravity = new Vector3(0, -0.013, 0);//gravity regulates total amount of particles
+            let gravity = new Vector3(0, -0.002, 0);//gravity regulates total amount of particles
             particle.applyForce(gravity);
             particle.update();
         }

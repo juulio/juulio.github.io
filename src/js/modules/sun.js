@@ -5,8 +5,6 @@ import lavaTileAsset from '../../public/images/textures/lavatile.jpg';
 import eruptionVertexShader from '../../public/shaders/eruptionVertexShader.glsl';
 import eruptionFragmentShader from '../../public/shaders/eruptionFragmentShader.glsl';
 
-let sunMesh;
-
 /**
  * Render Moon
  * @returns THREE.Mesh

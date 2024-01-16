@@ -41,6 +41,10 @@ module.exports = {
         type: 'asset/resource'
       },
       {
+        test: /\.json$/,
+        type: 'json'
+      },
+      {
         test: /\.(gltf)$/i,
         use: 'raw-loader',
       },
