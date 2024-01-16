@@ -1,36 +1,37 @@
-// 2024 TODO: Verificar qué hace theSun
+/* 2024 TODO: 
+	limpiar app.js
+	Verificar qué hace theSun
+	usar un solo shaderMaterial en las letras para deformarlas y animarlas con shaders
+ */
 // Marzo 16 2021 http://stemkoski.github.io/Three.js/Shader-Animate.html
 // https://github.com/mrdoob/three.js/blob/master/examples/webgl_geometry_cube.html
 import '../scss/styles.scss';
 import * as THREE from 'three';
-import { OrbitControls } from 'OrbitControls';
+import { Vector3 } from 'three';
+
 import Stats from 'stats.js';
 import cloudAsset from '../public/images/textures/cloud.png';
 import lavatileAsset from '../public/images/textures/lavatile.jpg';
-import sand512 from '../public/images/textures/sand-512.jpg'
-
 import vertexShader from '../public/shaders/vertex.glsl';
 import lavaFragmentShader from '../public/shaders/noise.glsl';
-// import heightmapFragmentShader from '../public/shaders/heightmapFragmentShader.glsl';
-// import heightmapVertexShader from '../public/shaders/heightmapVertexShader.glsl';
-
-// Required THREEjs stuff
-import { MeshBasicMaterial, Vector3 } from 'three';
-
-// import all 3d modules
-import {renderFerrisWheel, rotateFerrisWheel} from './modules/ferrisWheel';
-import renderSkybox from './modules/skyBox';
 import Floor from './modules/floor';
 import Sun from './modules/sun';
 import Moon from './modules/moon';
-
 import ParticleSystem from './modules/particleSystem';
 import Volcano from './modules/volcano';
-// import Jaguar from './modules/jaguar';
 import jsonData from '../public/data/projects.json';
 import htmlText from './modules/htmlText';
 
+import { OrbitControls } from 'OrbitControls';
+import sand512 from '../public/images/textures/sand-512.jpg'
+// import heightmapFragmentShader from '../public/shaders/heightmapFragmentShader.glsl';
+// import heightmapVertexShader from '../public/shaders/heightmapVertexShader.glsl';
+// import Jaguar from './modules/jaguar';
+// import {renderFerrisWheel, rotateFerrisWheel} from './modules/ferrisWheel';
+// import renderSkybox from './modules/skyBox';
+
 // THREEjs basic Scene stuff
+
 const scene = new THREE.Scene();
 let stats, axesHelper, camera, renderer, controls, theMoon, theVolcano,particleSystem, particleSystemPosY, particleSystemPosX, showParticleSystem;
 let shaderMaterial, shaderMaterials, uniforms, delta, isMobile;
@@ -43,14 +44,14 @@ let theSun,  sunPosY;
  */    
 const developmentEnvironment = () => window.location.host != 'juliodelvalle.com';
 
-
 /*
-	* Checks if app is running on a mobile device
-	*/	isMobile = false;
-
+* Checks if app is running on a mobile device
+*/
+isMobile = false;
 if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
 	isMobile = true;
 }
+
 /**
  * Set up and show Javascript Performance Monitor
  */
@@ -63,38 +64,15 @@ const showStats = () => {
 /**
  * Show Axes Helpers for 3D
  */
-const showAxesHelper = () => {
-	axesHelper = new THREE.AxesHelper( 6 );
-	scene.add( axesHelper );
+const showHelpers = () => {
+	scene.add( new THREE.AxesHelper( 6 ) ); 
+	scene.add( new THREE.GridHelper( 50, 20 ));
 }
 
 /**
-  * Init all functions 
-  */
-let init = () => {
-	if (developmentEnvironment()){
-		showStats();
-		showAxesHelper();
-	}
-
-	const mainContainer = document.createElement('main');
-	const headerContainer = document.createElement('header');
-	
-	const theHtmlText = new htmlText(jsonData); 
-	headerContainer.appendChild(theHtmlText.generateMainTitle());
-	// headerContainer.appendChild(theHtmlText.generateNavigation());
-	mainContainer.appendChild(headerContainer);
-	document.body.appendChild(mainContainer);
-	
-	// const htmlNav = new htmlNavigation(jsonProjectsData.projectList);
-	// document.body.appendChild(htmlNav.generateList());
-
-	// init all 3D threejs stuff
-	// Show Stats like FPS
-	//(function(){var script=document.createElement('script');script.onload=function(){var stats=new Stats();document.body.appendChild(stats.dom);requestAnimationFrame(function loop(){stats.update();requestAnimationFrame(loop)});};script.src='//mrdoob.github.io/stats.js/build/stats.min.js';document.head.appendChild(script);})()
-
-
-
+ * 
+ */
+const setScene = (mainContainerElement) => {
 	let SCREEN_WIDTH = window.innerWidth,
 		SCREEN_HEIGHT = window.innerHeight,
 		VIEW_ANGLE = 45,
@@ -114,13 +92,32 @@ let init = () => {
 
     renderer = new THREE.WebGLRenderer( { antialias: true } );
     renderer.setSize( window.innerWidth, window.innerHeight );
-	renderer.setClearColor ( "#fff");
-    mainContainer.appendChild( renderer.domElement );
+	renderer.setClearColor ( "#fafafa");
+	mainContainerElement.appendChild( renderer.domElement );
+}
+/**
+  * Init all functions 
+  */
+const init = () => {
+	const mainContainer = document.createElement('main');
+	const headerContainer = document.createElement('header');
+	
+	const theHtmlText = new htmlText(jsonData); 
+	headerContainer.appendChild(theHtmlText.generateMainTitle());
+	// headerContainer.appendChild(theHtmlText.generateNavigation());
+	mainContainer.appendChild(headerContainer);
+	document.body.appendChild(mainContainer);
+
+	setScene(mainContainer);
+
+	if (developmentEnvironment()){
+		showStats();
+		showHelpers();
+	}
+	
     // controls = new OrbitControls( camera, renderer.domElement );
 	window.addEventListener( 'resize', onWindowResize, false );
 
-	// scene.add( new THREE.AxesHelper( 500 ));
-	// scene.add( new THREE.GridHelper( 50, 20 ));
 	
 	// setupShaderMaterials();
 	// lavaMaterial = setupLavaMaterial();
@@ -161,8 +158,8 @@ let init = () => {
 	showParticleSystem = false;
 	
 	theVolcano = new Volcano(new Vector3(volcanoPosX, -7.8, volcanoPosZ), volcanoHeight, volcanoBaseWidth, 30, 4);
-	scene.add(theVolcano.volcanoMesh);
-	particleSystem = new ParticleSystem(new Vector3(particleSystemPosX, particleSystemPosY, particleSystemPosZ), 0.3);
+	// scene.add(theVolcano.volcanoMesh);
+	// particleSystem = new ParticleSystem(new Vector3(particleSystemPosX, particleSystemPosY, particleSystemPosZ), 0.3);
 	
 	// scene.add(new theText('Julio Del Valle', textPosX, 24, 0));
 	// scene.add(new theText('Creative Software Developer', textPosX, 22, 0));
@@ -172,16 +169,16 @@ let init = () => {
 	// console.log(jaguar);
 	// scene.add(renderFerrisWheel(new Vector3(0, 0, 0), 1, 0.4, 0.2, 6));
 	const floor = new Floor(0, 0, 0, 70, 50);
-	scene.add(floor);
+	// scene.add(floor);
 
 	theMoon = new Moon(new Vector3(moonPosX, 15, 10), moonRadius, 10);
-	scene.add(theMoon.moonMesh);
-	scene.add(theMoon.transparentSphereMesh);
+	// scene.add(theMoon.moonMesh);
+	// scene.add(theMoon.transparentSphereMesh);
 
 	// console.log(theMoon);
 
-	theSun = new Sun(new Vector3(sunPosX, sunPosY, sunPosZ), sunRadius, 16);
-	scene.add(theSun.sunMesh);
+	// theSun = new Sun(new Vector3(sunPosX, sunPosY, sunPosZ), sunRadius, 16);
+	// scene.add(theSun.sunMesh);
     animate();
 }
 
@@ -189,7 +186,7 @@ let init = () => {
  * Setup uniforms and attributes for custom shader material 
  * @returns THREE.
  */
-let setupLavaMaterial = () => {
+const setupLavaMaterial = () => {
 	const noiseTexture = new THREE.TextureLoader().load(cloudAsset);
 	noiseTexture.wrapS = noiseTexture.wrapT = THREE.RepeatWrapping;
 
@@ -221,7 +218,7 @@ let setupLavaMaterial = () => {
 /**
  * Updates objects on each frame
  */
-let animate = () => {
+const animate = () => {
  
     requestAnimationFrame( animate );
 	
@@ -229,13 +226,11 @@ let animate = () => {
 		stats.begin();
 	}
 	
-	
-	
 	theMoon.rotateMoon();
 	theMoon.updateTimeUniform();
 	// theVolcano.rotateVolcano();
-	theSun.updateSunPosition(sunPosY+=0.09);
-	theSun.updateSun();
+	// theSun.updateSunPosition(sunPosY+=0.09);
+	// theSun.updateSun();
 	// rotateFerrisWheel();
 	if(showParticleSystem == false && sunPosY > 17 ){
 		showParticleSystem = true;
@@ -245,6 +240,7 @@ let animate = () => {
 	}
 	
 	if(showParticleSystem){
+		console.log('adding a particle')
 		scene.add(particleSystem.addParticle());
 		particleSystem.run();
 	}
@@ -262,7 +258,7 @@ let animate = () => {
 /**
   * Handles window resize events
   */
-let onWindowResize = () => {
+const onWindowResize = () => {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
 
@@ -276,7 +272,7 @@ init();
  * TODO: create a shaderMaterial array to use several shaders on several materials
  */
 // function setupShaderMaterials(){
-let setupShaderMaterials = () => {
+const setupShaderMaterials = () => {
 	shaderMaterials = [];
 	
 	uniforms = {
@@ -296,8 +292,3 @@ let setupShaderMaterials = () => {
 		fragmentShader: fragmentShader
 	});
 }
-
-/**
- * TODO: usar un solo shaderMaterial en las letras para deformarlas y animarlas con shaders
- * TODO: terminar de limpiar app.js
- */
