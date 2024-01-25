@@ -1,6 +1,8 @@
-/* 2024 TODO: 
-	limpiar app.js
-	usar un solo shaderMaterial en las letras para deformarlas y animarlas con shaders
+/**
+ * 2024 TODO
+ * Fiddle de camera rotation https://jsfiddle.net/2v58xefr/ 
+ * limpiar app.js
+ * usar un solo shaderMaterial en las letras para deformarlas y animarlas con shaders
  */
 // Marzo 16 2021 http://stemkoski.github.io/Three.js/Shader-Animate.html
 // https://github.com/mrdoob/three.js/blob/master/examples/webgl_geometry_cube.html

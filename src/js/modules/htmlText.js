@@ -23,7 +23,8 @@ export default class htmlText {
 
       this.jsonData.projectList.forEach(category => {
         const liCategory = document.createElement("li");
-        liCategory.textContent = category.name;
+        let liCategoryTitle = document.createElement("h3");
+        liCategoryTitle.textContent = category.name;
   
         const ulProjects = document.createElement("ul");
         ulProjects.classList = "submenu";
@@ -36,6 +37,7 @@ export default class htmlText {
           ulProjects.appendChild(liProject);
         });
   
+        liCategory.appendChild(liCategoryTitle);
         liCategory.appendChild(ulProjects);
         ulElement.appendChild(liCategory);
       });
