@@ -6,8 +6,8 @@ import sand512 from '../../public/images/textures/sand-512.jpg'
  * @returns THREE.Mesh Floor
  */
 export default class Floor {
-    constructor(x, y, z, width, height) {
-        this.pos = new Vector3(x, y, z);
+    constructor(position, width, height) {
+        this.pos = position;
         this.planeGeometry = new PlaneBufferGeometry( width, height );
 
         this.sandTexture = new TextureLoader().load(sand512);

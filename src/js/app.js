@@ -34,9 +34,8 @@ import sand512 from '../public/images/textures/sand-512.jpg'
 // THREEjs basic Scene stuff
 
 const scene = new THREE.Scene();
-let stats, axesHelper, camera, renderer, controls, theFloor, theMoon, theVolcano, particleSystem, particleSystemPosY, particleSystemPosX, showParticleSystem, clock;
-let shaderMaterial, shaderMaterials, uniforms, delta, isMobile;
-let lavaMaterial;
+let stats, camera, renderer, controls, theFloor, theMoon, theVolcano, particleSystem, showParticleSystem, clock;
+let  lavaMaterial, shaderMaterial, shaderMaterials, uniforms, delta, isMobile;
 let customUniforms;
 let theSun,  sunPosY;
 let rotationMesh;
@@ -82,7 +81,7 @@ const setScene = (mainContainerElement) => {
 		NEAR = 0.01,
 		FAR = 200;
 	camera = new THREE.PerspectiveCamera( VIEW_ANGLE, ASPECT, NEAR, FAR);
-	camera.position.set( 0, 6, 14);
+	camera.position.set( 0, 12, 0);
 
 	// camera.lookAt(new Vector3(0, 0, 0));
 	// camera.lookAt(new Vector3(0, 10, 0));
@@ -107,10 +106,9 @@ const init = () => {
 	const mainContainer = document.createElement('main');
 	const headerContainer = document.createElement('header');
 	
-	// console.log('title ' + jsonData.title);
 	const theHtmlText = new htmlText(jsonData); 
 	headerContainer.appendChild(theHtmlText.generateMainTitle());
-	headerContainer.appendChild(theHtmlText.generateNavigation());
+	// headerContainer.appendChild(theHtmlText.generateNavigation());
 	mainContainer.appendChild(headerContainer);
 	document.body.appendChild(mainContainer);
 
@@ -121,7 +119,7 @@ const init = () => {
 		showHelpers();
 	}
 	
-    controls = new OrbitControls( camera, renderer.domElement );
+    // controls = new OrbitControls( camera, renderer.domElement );
 	window.addEventListener( 'resize', onWindowResize, false );
 
 	
@@ -130,32 +128,27 @@ const init = () => {
 
 	// scene.add(renderSkybox());
 
-	let moonPosX = -1,
-	    moonPosY  = 10,
+	let moonPos = new Vector3(4, 8, -10),
+		volcanoPos = new Vector3(0, -4.5, 0),
+		particleSystemPos = new Vector3(0, 5, 0),
+		floorPos = new Vector3(0, 0, 0),
 		moonRadius = 1,
 		sunPosX = 15,
 		sunPosZ = -16,
 		sunRadius = 0.5,
-		volcanoPosX = 0,
-		volcanoPosY = -4.5,
-		volcanoPosZ = 0,
 		volcanoHeight = 10,
-		volcanoBaseWidth = 25,
-		particleSystemPosX = 0,
-		particleSystemPosY = 5,
-		particleSystemPosZ = 0;
+		volcanoBaseWidth = 25;
 
 	if(isMobile){
-		moonPosX = -2,
+		moonPos = new Vector3(-1, 10, 0),
+		volcanoPos = new Vector3(0, -4.5, 0),
+		particleSystemPos = new Vector3(0, 5, 0),
 		moonRadius = 0.1,
 		sunPosX = 0.2,
 		sunPosY = 7,
 		sunRadius = 0.4,
-		volcanoPosX = 0,
 		volcanoHeight = 15,
-		volcanoBaseWidth = 22,
-		particleSystemPosX = 0,
-		particleSystemPosY = 6;
+		volcanoBaseWidth = 22;
 	}
 
 	showParticleSystem = true;
@@ -166,11 +159,11 @@ const init = () => {
     rotationMesh = new THREE.Mesh( geometry, material );
     scene.add( rotationMesh );
 	rotationMesh.add( camera );
-	theVolcano = new Volcano(new Vector3(volcanoPosX, volcanoPosY, volcanoPosZ), volcanoHeight, volcanoBaseWidth, 30, 4);
-	particleSystem = new ParticleSystem(new Vector3(particleSystemPosX, particleSystemPosY, particleSystemPosZ), 0.3);
+	theVolcano = new Volcano(volcanoPos, volcanoHeight, volcanoBaseWidth, 30, 4);
+	particleSystem = new ParticleSystem(particleSystemPos, 0.3);
 	
-	theFloor = new Floor(0, 0, 0, 70, 50);
-	theMoon = new Moon(new Vector3(moonPosX, moonPosY, 10), moonRadius, 10);
+	theFloor = new Floor(floorPos, 40, 40);
+	theMoon = new Moon(moonPos, moonRadius, 10);
 	
 	scene.add(theVolcano.volcanoMesh);
 	scene.add(theFloor);
@@ -248,7 +241,6 @@ const animate = () => {
 		scene.add(particleSystem.addParticle());
 	}
 	particleSystem.run();
-	// camera.position.x += Math.PI/700
 	camera.position.x = Math.sin( time / 10 ) * 25;
     camera.position.z = Math.cos( time / 10 ) * 25;
 	// camera.lookAt( rotationMesh.position)
