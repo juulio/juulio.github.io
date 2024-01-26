@@ -9,7 +9,7 @@ export default class Particle {
     constructor(x, y, z, radius) {
         this.pos = new Vector3(x, y, z);
         this.vel = new Vector3(getRandomArbitrary(-0.1, 0.1), getRandomArbitrary(0.1, 0.4), getRandomArbitrary(-0.07, 0.07));
-        this.acc = new Vector3(getRandomArbitrary(-0.2, -0.02), getRandomArbitrary(-0.1, 0), 0);
+        this.acc = new Vector3(getRandomArbitrary(-0.2, -0.02), getRandomArbitrary(-0.1, 0), getRandomArbitrary(-0.1, 0.1) );
         this.lifespan = 1;
         this.radius = radius;
 

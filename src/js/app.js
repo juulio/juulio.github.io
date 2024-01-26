@@ -34,11 +34,12 @@ import sand512 from '../public/images/textures/sand-512.jpg'
 // THREEjs basic Scene stuff
 
 const scene = new THREE.Scene();
-let stats, axesHelper, camera, renderer, controls, theFloor, theMoon, theVolcano,particleSystem, particleSystemPosY, particleSystemPosX, showParticleSystem, clock;
+let stats, axesHelper, camera, renderer, controls, theFloor, theMoon, theVolcano, particleSystem, particleSystemPosY, particleSystemPosX, showParticleSystem, clock;
 let shaderMaterial, shaderMaterials, uniforms, delta, isMobile;
 let lavaMaterial;
 let customUniforms;
 let theSun,  sunPosY;
+let rotationMesh;
 
 /**
  * Check hostname to verify Development Environment
@@ -76,13 +77,13 @@ const showHelpers = () => {
 const setScene = (mainContainerElement) => {
 	let SCREEN_WIDTH = window.innerWidth,
 		SCREEN_HEIGHT = window.innerHeight,
-		VIEW_ANGLE = 45,
+		VIEW_ANGLE = 70,
 		ASPECT = SCREEN_WIDTH / SCREEN_HEIGHT,
-		NEAR = 0.1,
-		FAR = 20000;
+		NEAR = 0.01,
+		FAR = 200;
 	camera = new THREE.PerspectiveCamera( VIEW_ANGLE, ASPECT, NEAR, FAR);
-	scene.add(camera);
-	camera.position.set(0, 10, 40);
+	camera.position.set( 0, 6, 14);
+
 	// camera.lookAt(new Vector3(0, 0, 0));
 	// camera.lookAt(new Vector3(0, 10, 0));
 	
@@ -94,7 +95,7 @@ const setScene = (mainContainerElement) => {
 
     renderer = new THREE.WebGLRenderer( { antialias: true } );
     renderer.setSize( window.innerWidth, window.innerHeight );
-	renderer.setClearColor ( "#fafafa");
+	renderer.setClearColor ( "#e0eafa");
 	mainContainerElement.appendChild( renderer.domElement );
 }
 
@@ -106,7 +107,7 @@ const init = () => {
 	const mainContainer = document.createElement('main');
 	const headerContainer = document.createElement('header');
 	
-	console.log('title ' + jsonData.title);
+	// console.log('title ' + jsonData.title);
 	const theHtmlText = new htmlText(jsonData); 
 	headerContainer.appendChild(theHtmlText.generateMainTitle());
 	headerContainer.appendChild(theHtmlText.generateNavigation());
@@ -120,7 +121,7 @@ const init = () => {
 		showHelpers();
 	}
 	
-    // controls = new OrbitControls( camera, renderer.domElement );
+    controls = new OrbitControls( camera, renderer.domElement );
 	window.addEventListener( 'resize', onWindowResize, false );
 
 	
@@ -129,25 +130,24 @@ const init = () => {
 
 	// scene.add(renderSkybox());
 
-	let moonPosX = -2,
-		moonRadius = 2,
+	let moonPosX = -1,
+	    moonPosY  = 10,
+		moonRadius = 1,
 		sunPosX = 15,
 		sunPosZ = -16,
 		sunRadius = 0.5,
-		volcanoPosX = 15,
-		volcanoPosZ = -17,
-		volcanoHeight = 20,
-		volcanoBaseWidth = 30,
-		particleSystemPosX = 15,
-		particleSystemPosZ = -17;
-		
-		sunPosY = 10;
-		particleSystemPosY = 11;
-
+		volcanoPosX = 0,
+		volcanoPosY = -4.5,
+		volcanoPosZ = 0,
+		volcanoHeight = 10,
+		volcanoBaseWidth = 25,
+		particleSystemPosX = 0,
+		particleSystemPosY = 5,
+		particleSystemPosZ = 0;
 
 	if(isMobile){
 		moonPosX = -2,
-		moonRadius = 1,
+		moonRadius = 0.1,
 		sunPosX = 0.2,
 		sunPosY = 7,
 		sunRadius = 0.4,
@@ -160,26 +160,27 @@ const init = () => {
 
 	showParticleSystem = true;
 	
-	theVolcano = new Volcano(new Vector3(volcanoPosX, -7.8, volcanoPosZ), volcanoHeight, volcanoBaseWidth, 30, 4);
-	// theVolcano.volcanoMesh.add(camera);
+	const geometry = new THREE.BoxGeometry();
+    const material = new THREE.MeshNormalMaterial();
+
+    rotationMesh = new THREE.Mesh( geometry, material );
+    scene.add( rotationMesh );
+	rotationMesh.add( camera );
+	theVolcano = new Volcano(new Vector3(volcanoPosX, volcanoPosY, volcanoPosZ), volcanoHeight, volcanoBaseWidth, 30, 4);
 	particleSystem = new ParticleSystem(new Vector3(particleSystemPosX, particleSystemPosY, particleSystemPosZ), 0.3);
 	
 	theFloor = new Floor(0, 0, 0, 70, 50);
-	theMoon = new Moon(new Vector3(moonPosX, 15, 10), moonRadius, 10);
+	theMoon = new Moon(new Vector3(moonPosX, moonPosY, 10), moonRadius, 10);
 	
 	scene.add(theVolcano.volcanoMesh);
 	scene.add(theFloor);
 	scene.add(theMoon.moonMesh);
 	scene.add(theMoon.transparentSphereMesh);
 
-	// theVolcano.volcanoMesh.add(camera);
-	
-
 	// scene.add(particleSystem);
 	// const jaguar = new Jaguar(new Vector3(0, 2, 0));
 	// console.log(jaguar);
 	// scene.add(renderFerrisWheel(new Vector3(0, 0, 0), 1, 0.4, 0.2, 6));
-	// console.log(theMoon);
 	// theSun = new Sun(new Vector3(sunPosX, sunPosY, sunPosZ), sunRadius, 16);
 	// scene.add(theSun.sunMesh);
     animate();
@@ -222,16 +223,16 @@ const setupLavaMaterial = () => {
  * Updates objects on each frame
  */
 const animate = () => {
- 
-    requestAnimationFrame( animate );
+ 	requestAnimationFrame( animate );
 	const time = clock.getElapsedTime();
+
 	if (developmentEnvironment()){
 		stats.begin();
 	}
 	
 	theMoon.rotateMoon();
 	theMoon.updateTimeUniform();
-	theVolcano.rotateVolcano();
+	// theVolcano.rotateVolcano();
 	// theSun.updateSunPosition(sunPosY+=0.09);
 	// theSun.updateSun();
 	// rotateFerrisWheel();
@@ -242,15 +243,16 @@ const animate = () => {
 		// scene.remove(theSun.sunMesh);
 	}
 	
-	if(showParticleSystem && particleSystem.particles.length < 30){
+	if(showParticleSystem && particleSystem.particles.length < 25){
 		// console.log('adding a particle')
 		scene.add(particleSystem.addParticle());
 	}
 	particleSystem.run();
 	// camera.position.x += Math.PI/700
-	// camera.position.x = Math.sin( time ) * 2;
-    // camera.position.z = Math.cos( time ) * 2;
-	// camera.lookAt(theVolcano.volcanoMesh);
+	camera.position.x = Math.sin( time / 10 ) * 25;
+    camera.position.z = Math.cos( time / 10 ) * 25;
+	// camera.lookAt( rotationMesh.position)
+	camera.lookAt(theVolcano.volcanoMesh.position);
     renderer.render( scene, camera );
 
 	if (developmentEnvironment()){

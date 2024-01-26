@@ -18,16 +18,16 @@ span {
 
 h1{
     color: #939191;
-    font-size: 4vw;
     
     // Desktop version
     @media only screen and (min-width: 768px) {
-        font-size: 2.3vw;
+        font-size: 2.6vw;
+        margin-bottom: 3vh;
     }
 
     // Large screen desktop version
     @media only screen and (min-width: 1920px) {
-        font-size: 1.5rem;
+        font-size: 50px;
     }
 }
 
@@ -42,6 +42,6 @@ h2 {
 
     // Large screen desktop version
     @media only screen and (min-width: 1920px) {
-        font-size: 1.5rem;
+        font-size: 31px;
     }
 }
