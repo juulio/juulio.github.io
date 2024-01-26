@@ -119,7 +119,7 @@ const init = () => {
 		showHelpers();
 	}
 	
-    // controls = new OrbitControls( camera, renderer.domElement );
+    controls = new OrbitControls( camera, renderer.domElement );
 	window.addEventListener( 'resize', onWindowResize, false );
 
 	
@@ -137,18 +137,20 @@ const init = () => {
 		sunPosZ = -16,
 		sunRadius = 0.5,
 		volcanoHeight = 10,
-		volcanoBaseWidth = 25;
+		volcanoBaseWidth = 25,
+		volcanoBaseHeight = 25;
 
 	if(isMobile){
-		moonPos = new Vector3(-1, 10, 0),
+		moonPos = new Vector3(4, 6, -5),
 		volcanoPos = new Vector3(0, -4.5, 0),
 		particleSystemPos = new Vector3(0, 5, 0),
-		moonRadius = 0.1,
+		moonRadius = 0.6,
 		sunPosX = 0.2,
 		sunPosY = 7,
 		sunRadius = 0.4,
-		volcanoHeight = 15,
-		volcanoBaseWidth = 22;
+		volcanoHeight = 9,
+		volcanoBaseWidth = 14,
+		volcanoBaseHeight = 14;
 	}
 
 	showParticleSystem = true;
@@ -159,7 +161,7 @@ const init = () => {
     rotationMesh = new THREE.Mesh( geometry, material );
     scene.add( rotationMesh );
 	rotationMesh.add( camera );
-	theVolcano = new Volcano(volcanoPos, volcanoHeight, volcanoBaseWidth, 30, 4);
+	theVolcano = new Volcano(volcanoPos, volcanoHeight, volcanoBaseWidth, volcanoBaseHeight, 4);
 	particleSystem = new ParticleSystem(particleSystemPos, 0.3);
 	
 	theFloor = new Floor(floorPos, 40, 40);
