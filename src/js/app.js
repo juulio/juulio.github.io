@@ -23,12 +23,12 @@ import ParticleSystem from './modules/particleSystem';
 import Volcano from './modules/volcano';
 import jsonData from '../public/data/projects.json';
 import htmlText from './modules/htmlText';
+import Jaguar from './modules/jaguar';
 
 import { OrbitControls } from 'OrbitControls';
 import sand512 from '../public/images/textures/sand-512.jpg'
 // import heightmapFragmentShader from '../public/shaders/heightmapFragmentShader.glsl';
 // import heightmapVertexShader from '../public/shaders/heightmapVertexShader.glsl';
-// import Jaguar from './modules/jaguar';
 // import {renderFerrisWheel, rotateFerrisWheel} from './modules/ferrisWheel';
 // import renderSkybox from './modules/skyBox';
 
@@ -178,10 +178,10 @@ const init = () => {
 	scene.add(theFloor);
 	scene.add(theMoon.moonMesh);
 	scene.add(theMoon.transparentSphereMesh);
-
+	
 	// scene.add(particleSystem);
-	// const jaguar = new Jaguar(new Vector3(0, 2, 0));
-	// console.log(jaguar);
+	const jaguar = new Jaguar(new Vector3(10, 5, 0), scene);
+	// scene.add(jaguar);
 	// scene.add(renderFerrisWheel(new Vector3(0, 0, 0), 1, 0.4, 0.2, 6));
 	// theSun = new Sun(new Vector3(sunPosX, sunPosY, sunPosZ), sunRadius, 16);
 	// scene.add(theSun.sunMesh);
