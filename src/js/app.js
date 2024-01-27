@@ -9,6 +9,7 @@
 import '../scss/styles.scss';
 import * as THREE from 'three';
 import { Vector3 } from 'three';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
 import Stats from 'stats.js';
 import cloudAsset from '../public/images/textures/cloud.png';
@@ -71,6 +72,12 @@ const showHelpers = () => {
 }
 
 /**
+ * Enables orbit controls for local development
+ */
+const enableOrbitControls = () => {
+    controls = new OrbitControls( camera, renderer.domElement );
+}
+/**
  * Set Scene
  */
 const setScene = (mainContainerElement) => {
@@ -117,9 +124,9 @@ const init = () => {
 	if (developmentEnvironment()){
 		showStats();
 		showHelpers();
+		enableOrbitControls();
 	}
 	
-    controls = new OrbitControls( camera, renderer.domElement );
 	window.addEventListener( 'resize', onWindowResize, false );
 
 	
