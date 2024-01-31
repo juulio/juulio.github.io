@@ -3,6 +3,7 @@
  * Fiddle de camera rotation https://jsfiddle.net/2v58xefr/ 
  * limpiar app.js
  * usar un solo shaderMaterial en las letras para deformarlas y animarlas con shaders
+ * Para verificar si un gltf funciona en three.js, probarlo en https://gltf-viewer.donmccurdy.com/
  */
 // Marzo 16 2021 http://stemkoski.github.io/Three.js/Shader-Animate.html
 // https://github.com/mrdoob/three.js/blob/master/examples/webgl_geometry_cube.html
@@ -26,6 +27,9 @@ import htmlText from './modules/htmlText';
 import Jaguar from './modules/jaguar';
 
 import { OrbitControls } from 'OrbitControls';
+
+import jaguarModel from '../public/models/jaguar.gltf';
+import angelModel from '../public/models/angel.glb';
 import sand512 from '../public/images/textures/sand-512.jpg'
 // import heightmapFragmentShader from '../public/shaders/heightmapFragmentShader.glsl';
 // import heightmapVertexShader from '../public/shaders/heightmapVertexShader.glsl';
@@ -93,8 +97,8 @@ const setScene = (mainContainerElement) => {
 	// camera.lookAt(new Vector3(0, 0, 0));
 	// camera.lookAt(new Vector3(0, 10, 0));
 	
-	const light = new THREE.DirectionalLight(0xFFFFFF, 1);
-	light.position.set(-10, 10, 30);
+	const light = new THREE.DirectionalLight(0x00FF00, 1);
+	light.position.set(0, 1, 6);
 	scene.add(light);
 
 	// scene.fog = new THREE.FogExp2( 0xffd1b5, 0.0002 );
@@ -115,16 +119,16 @@ const init = () => {
 	
 	const theHtmlText = new htmlText(jsonData); 
 	headerContainer.appendChild(theHtmlText.generateMainTitle());
-	// headerContainer.appendChild(theHtmlText.generateNavigation());
 	mainContainer.appendChild(headerContainer);
 	document.body.appendChild(mainContainer);
-
+	
 	setScene(mainContainer);
-
+	
 	if (developmentEnvironment()){
 		showStats();
 		showHelpers();
 		enableOrbitControls();
+		headerContainer.appendChild(theHtmlText.generateNavigation());
 	}
 	
 	window.addEventListener( 'resize', onWindowResize, false );
@@ -174,14 +178,29 @@ const init = () => {
 	theFloor = new Floor(floorPos, 40, 40);
 	theMoon = new Moon(moonPos, moonRadius, 10);
 	
-	scene.add(theVolcano.volcanoMesh);
+	// scene.add(theVolcano.volcanoMesh);
 	scene.add(theFloor);
 	scene.add(theMoon.moonMesh);
 	scene.add(theMoon.transparentSphereMesh);
 	
-	// scene.add(particleSystem);
-	const jaguar = new Jaguar(new Vector3(10, 5, 0), scene);
-	// scene.add(jaguar);
+	let modelLoader = new GLTFLoader ();
+
+	modelLoader.load(
+		// jaguarModel,
+		angelModel, 
+		function ( gltf ) {
+			console.log(gltf.scene.children)
+			scene.add(gltf.scene);
+		}, 
+		function ( xhr ) {
+			console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+		},
+		function ( error ) {
+			console.error( error );
+		}
+	);
+	const jaguar = new Jaguar(new Vector3(10, 5, 0));
+	
 	// scene.add(renderFerrisWheel(new Vector3(0, 0, 0), 1, 0.4, 0.2, 6));
 	// theSun = new Sun(new Vector3(sunPosX, sunPosY, sunPosZ), sunRadius, 16);
 	// scene.add(theSun.sunMesh);
@@ -250,10 +269,10 @@ const animate = () => {
 		scene.add(particleSystem.addParticle());
 	}
 	particleSystem.run();
-	camera.position.x = Math.sin( time / 10 ) * 25;
-    camera.position.z = Math.cos( time / 10 ) * 25;
-	// camera.lookAt( rotationMesh.position)
-	camera.lookAt(theVolcano.volcanoMesh.position);
+	// camera.position.x = Math.sin( time / 10 ) * 25;
+    // camera.position.z = Math.cos( time / 10 ) * 25;
+	// // camera.lookAt( rotationMesh.position)
+	// camera.lookAt(theVolcano.volcanoMesh.position);
     renderer.render( scene, camera );
 
 	if (developmentEnvironment()){
