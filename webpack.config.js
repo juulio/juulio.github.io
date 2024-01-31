@@ -5,6 +5,7 @@ const CnameWebpackPlugin = require('cname-webpack-plugin');
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 
 const path = require('path');
+const { type } = require("os");
 
 module.exports = {
   entry: {
@@ -37,16 +38,12 @@ module.exports = {
         use: ['glsl-shader-loader']
       },
       {
-        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        test: /\.(png|svg|jpg|jpeg|gif|gltf|glb)$/i,
         type: 'asset/resource'
       },
       {
         test: /\.json$/,
         type: 'json'
-      },
-      {
-        test: /\.(gltf)$/i,
-        use: 'raw-loader',
       },
     ],
   },
