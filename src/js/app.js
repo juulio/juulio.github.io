@@ -9,14 +9,14 @@
  * Marzo 16 2021 http://stemkoski.github.io/Three.js/Shader-Animate.html
  * https://github.com/mrdoob/three.js/blob/master/examples/webgl_geometry_cube.html
  **/
-
+import GUI from 'lil-gui'
 import '../scss/styles.scss';
 import * as THREE from 'three';
 import { Vector3 } from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
 import Stats from 'stats.js';
-// import cloudAsset from '../public/images/textures/cloud.png';
+import cloudAsset from '../public/images/textures/cloud.png';
 // import lavatileAsset from '../public/images/textures/lavatile.jpg';
 import Sun from './modules/sun';
 // import vertexShader from '../public/shaders/vertex.glsl';
@@ -48,6 +48,7 @@ let theSun,  sunPosY;
 let rotationMesh;
 let angelMesh
 let angelLoaded = false;
+let gui, ambientLight, directionalLight;
 
 /**
  * Check hostname to verify Development Environment
@@ -69,6 +70,11 @@ const showStats = () => {
 	stats = new Stats();
 	stats.showPanel( 0 ); // 0: fps, 1: ms, 2: mb, 3+: custom
 	document.body.appendChild( stats.dom );
+
+	// Debug
+	if(developmentEnvironment){
+		
+	}
 }
 
 /**
@@ -101,9 +107,36 @@ const setScene = (mainContainerElement) => {
 	// camera.lookAt(new Vector3(0, 0, 0));
 	// camera.lookAt(new Vector3(0, 10, 0));
 	
-	const light = new THREE.DirectionalLight(0x00FF00, 1);
-	light.position.set(0, 1, 6);
-	scene.add(light);
+	// Ambient light
+	ambientLight = new THREE.AmbientLight(0xffffff, 0.3)
+	// scene.add(ambientLight)
+	
+	// Directional light
+	const directionalLight = new THREE.DirectionalLight(0xffffff, 0.3)
+	directionalLight.position.set(1, 4, 3)
+	scene.add(directionalLight)
+	directionalLight.castShadow = true
+	directionalLight.shadow.mapSize.width = 1024
+	directionalLight.shadow.mapSize.height = 1024
+	directionalLight.shadow.camera.near = 1
+	directionalLight.shadow.camera.far = 6
+	directionalLight.shadow.camera.right = 2
+	directionalLight.shadow.camera.top = 2
+	directionalLight.shadow.camera.bottom = -2
+	directionalLight.shadow.camera.left = -2
+	directionalLight.shadow.radius = 5
+
+	if(developmentEnvironment()){
+		const directionalLightCameraHelper = new THREE.CameraHelper(directionalLight.shadow.camera)
+		scene.add(directionalLightCameraHelper)
+		gui = new GUI()
+
+		gui.add(ambientLight, 'intensity').min(0).max(3).step(0.001)
+		gui.add(directionalLight, 'intensity').min(0).max(1).step(0.001)
+		gui.add(directionalLight.position, 'x').min(- 5).max(5).step(0.001)
+		gui.add(directionalLight.position, 'y').min(- 5).max(5).step(0.001)
+		gui.add(directionalLight.position, 'z').min(- 5).max(5).step(0.001)
+	}
 
 	// scene.fog = new THREE.FogExp2( 0xffd1b5, 0.0002 );
 
@@ -131,7 +164,7 @@ const init = () => {
 	if (developmentEnvironment()){
 		showStats();
 		showHelpers();
-		// enableOrbitControls();
+		enableOrbitControls();
 		headerContainer.appendChild(theHtmlText.generateNavigation());
 	}
 	
@@ -194,16 +227,28 @@ const init = () => {
 		// '../public/models/angel.glb',
 		angelModel,
 		function ( gltf ) {
-			console.log(gltf.scene.children)
 			scene.add(gltf.scene);
 			angelMesh = gltf.scene.children[0];
+
+			const noiseTexture = new THREE.TextureLoader().load(cloudAsset);
+			noiseTexture.wrapS = noiseTexture.wrapT = THREE.RepeatWrapping;
+
+			angelMesh.material = new THREE.MeshPhysicalMaterial({
+				color: 0xfefef0,
+				clearcoatMap: noiseTexture,
+				clearcoat: 0.3,
+				clearcoatRoughness: 0.2,
+				transmission: 0.9
+			})
+			angelMesh.receiveShadow = true
+			// console.log(angelMesh)
 			angelLoaded = true
 		}, 
 		function ( xhr ) {
-			console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+			// console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
 		},
 		function ( error ) {
-			console.error( error );
+			// console.error( error );
 		}
 	);
 	// const jaguar = new Jaguar(new Vector3(10, 5, 0));
@@ -281,7 +326,7 @@ const animate = () => {
 	// // camera.lookAt( rotationMesh.position)
 	// camera.lookAt(theVolcano.volcanoMesh.position);
 	if(angelLoaded){
-		angelMesh.rotation.z -= 0.02
+		angelMesh.rotation.z -= 0.006
 	}
 
     renderer.render( scene, camera );
