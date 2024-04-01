@@ -4,21 +4,24 @@
  * limpiar app.js
  * usar un solo shaderMaterial en las letras para deformarlas y animarlas con shaders
  * Para verificar si un gltf funciona en three.js, probarlo en https://gltf-viewer.donmccurdy.com/
- */
-// Marzo 16 2021 http://stemkoski.github.io/Three.js/Shader-Animate.html
-// https://github.com/mrdoob/three.js/blob/master/examples/webgl_geometry_cube.html
+ * 
+ * Portafolio de Takashi Yoshinaga https://vizyoshinaga.sakura.ne.jp/en/
+ * Marzo 16 2021 http://stemkoski.github.io/Three.js/Shader-Animate.html
+ * https://github.com/mrdoob/three.js/blob/master/examples/webgl_geometry_cube.html
+ **/
+
 import '../scss/styles.scss';
 import * as THREE from 'three';
 import { Vector3 } from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
 import Stats from 'stats.js';
-import cloudAsset from '../public/images/textures/cloud.png';
-import lavatileAsset from '../public/images/textures/lavatile.jpg';
-import vertexShader from '../public/shaders/vertex.glsl';
-import lavaFragmentShader from '../public/shaders/noise.glsl';
-import Floor from './modules/floor';
+// import cloudAsset from '../public/images/textures/cloud.png';
+// import lavatileAsset from '../public/images/textures/lavatile.jpg';
 import Sun from './modules/sun';
+// import vertexShader from '../public/shaders/vertex.glsl';
+// import lavaFragmentShader from '../public/shaders/noise.glsl';
+import Floor from './modules/floor';
 import Moon from './modules/moon';
 import ParticleSystem from './modules/particleSystem';
 import Volcano from './modules/volcano';
@@ -28,7 +31,7 @@ import Jaguar from './modules/jaguar';
 
 import { OrbitControls } from 'OrbitControls';
 
-import jaguarModel from '../public/models/jaguar.gltf';
+// import jaguarModel from '../public/models/jaguar.gltf';
 import angelModel from '../public/models/angel.glb';
 import sand512 from '../public/images/textures/sand-512.jpg'
 // import heightmapFragmentShader from '../public/shaders/heightmapFragmentShader.glsl';
@@ -37,13 +40,14 @@ import sand512 from '../public/images/textures/sand-512.jpg'
 // import renderSkybox from './modules/skyBox';
 
 // THREEjs basic Scene stuff
-
 const scene = new THREE.Scene();
 let stats, camera, renderer, controls, theFloor, theMoon, theVolcano, particleSystem, showParticleSystem, clock;
 let  lavaMaterial, shaderMaterial, shaderMaterials, uniforms, delta, isMobile;
 let customUniforms;
 let theSun,  sunPosY;
 let rotationMesh;
+let angelMesh
+let angelLoaded = false;
 
 /**
  * Check hostname to verify Development Environment
@@ -92,7 +96,7 @@ const setScene = (mainContainerElement) => {
 		NEAR = 0.01,
 		FAR = 200;
 	camera = new THREE.PerspectiveCamera( VIEW_ANGLE, ASPECT, NEAR, FAR);
-	camera.position.set( 0, 12, 0);
+	camera.position.set( 0, 2, 4);
 
 	// camera.lookAt(new Vector3(0, 0, 0));
 	// camera.lookAt(new Vector3(0, 10, 0));
@@ -127,7 +131,7 @@ const init = () => {
 	if (developmentEnvironment()){
 		showStats();
 		showHelpers();
-		enableOrbitControls();
+		// enableOrbitControls();
 		headerContainer.appendChild(theHtmlText.generateNavigation());
 	}
 	
@@ -170,8 +174,9 @@ const init = () => {
     const material = new THREE.MeshNormalMaterial();
 
     rotationMesh = new THREE.Mesh( geometry, material );
-    scene.add( rotationMesh );
-	rotationMesh.add( camera );
+    // scene.add( rotationMesh );
+	// rotationMesh.add( camera );
+	
 	theVolcano = new Volcano(volcanoPos, volcanoHeight, volcanoBaseWidth, volcanoBaseHeight, 4);
 	particleSystem = new ParticleSystem(particleSystemPos, 0.3);
 	
@@ -186,11 +191,13 @@ const init = () => {
 	let modelLoader = new GLTFLoader ();
 
 	modelLoader.load(
-		// jaguarModel,
-		angelModel, 
+		// '../public/models/angel.glb',
+		angelModel,
 		function ( gltf ) {
 			console.log(gltf.scene.children)
 			scene.add(gltf.scene);
+			angelMesh = gltf.scene.children[0];
+			angelLoaded = true
 		}, 
 		function ( xhr ) {
 			console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
@@ -199,7 +206,7 @@ const init = () => {
 			console.error( error );
 		}
 	);
-	const jaguar = new Jaguar(new Vector3(10, 5, 0));
+	// const jaguar = new Jaguar(new Vector3(10, 5, 0));
 	
 	// scene.add(renderFerrisWheel(new Vector3(0, 0, 0), 1, 0.4, 0.2, 6));
 	// theSun = new Sun(new Vector3(sunPosX, sunPosY, sunPosZ), sunRadius, 16);
@@ -266,13 +273,17 @@ const animate = () => {
 	
 	if(showParticleSystem && particleSystem.particles.length < 25){
 		// console.log('adding a particle')
-		scene.add(particleSystem.addParticle());
+		//scene.add(particleSystem.addParticle());
 	}
-	particleSystem.run();
+	//particleSystem.run();
 	// camera.position.x = Math.sin( time / 10 ) * 25;
     // camera.position.z = Math.cos( time / 10 ) * 25;
 	// // camera.lookAt( rotationMesh.position)
 	// camera.lookAt(theVolcano.volcanoMesh.position);
+	if(angelLoaded){
+		angelMesh.rotation.z -= 0.02
+	}
+
     renderer.render( scene, camera );
 
 	if (developmentEnvironment()){
