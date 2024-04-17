@@ -70,11 +70,6 @@ const showStats = () => {
 	stats = new Stats();
 	stats.showPanel( 0 ); // 0: fps, 1: ms, 2: mb, 3+: custom
 	document.body.appendChild( stats.dom );
-
-	// Debug
-	if(developmentEnvironment){
-		
-	}
 }
 
 /**
@@ -90,6 +85,7 @@ const showHelpers = () => {
  */
 const enableOrbitControls = () => {
     controls = new OrbitControls( camera, renderer.domElement );
+	controls.enableDamping = true
 }
 /**
  * Set Scene
