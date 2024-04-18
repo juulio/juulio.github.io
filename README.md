@@ -2,6 +2,7 @@
 
 # Project History
 
+* April 2024 - removing webpack, adding vite.
 * December 2022 - Adding React to create a Projects' Portfolio
 * December 2021 - Creating new scenes using js modules
 * November 2021 - Launched the GLSL Volcanic Eruption
@@ -19,7 +20,7 @@ npm -v
 
 2. Clone this repo into the desired folder.
 
-3. Go into the recently cloned project folder, Make sure there's a package.json file and type **npm install**.
+3. Go into the recently cloned project folder, Make sure there's a package.json file and type **npm i**.
 After this command is properly finished, there will be a new 'node_modules' folder.
 
 4. To run the project type
@@ -27,6 +28,8 @@ npm run dev
 
 5. To build the project type
 npm run build
+
+6. Only the contents of the /docs folder will be published to the site's URL juliodelvalle.com
 
 ### gitignore
 There's a .gitignore file. It avoids the following files and folders to be included on the git repository.
