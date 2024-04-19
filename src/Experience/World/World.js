@@ -9,7 +9,20 @@ export default class World {
         this.experience = new Experience()
         this.scene = this.experience.scene
         this.resources = this.experience.resources
+        this.debug = this.experience.debug
 
+        // Debug
+        if(this.debug.active)
+        {
+            this.debugFolder = this.debug.ui.addFolder('scenes')
+            const debugObject = {
+                showScene01: () => { console.log('show scene 01') },
+                showScene02: () => { console.log('show scene 02') },
+            }
+            this.debugFolder.add(debugObject, 'showScene01')
+            this.debugFolder.add(debugObject, 'showScene02')
+        }
+        
         // Wait for resources
         this.resources.on('ready', () => {
             // Setup

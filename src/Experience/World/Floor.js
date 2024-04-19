@@ -1,4 +1,6 @@
 import Experience from '../Experience.js'
+import eruptionVertexShader from '../../shaders/eruptionVertexShader.glsl'
+import eruptionFragmentShader from '../../shaders/eruptionFragmentShader.glsl';
 import * as THREE from 'three'
 
 export default class Floor
@@ -42,6 +44,21 @@ export default class Floor
         this.material = new THREE.MeshStandardMaterial({
             map: this.textures.color,
             normalMap: this.textures.normal
+        })
+
+        this.texture = new TextureLoader().load(lavaTileAsset, (texture) => {
+            texture.minFilter = NearestFilter;
+        });
+
+        this.shaderMaterial = new ShaderMaterial({
+            vertexShader: eruptionVertexShader,
+            fragmentShader: eruptionFragmentShader,
+            uniforms: {
+                uTime: { value: 0},
+                uTexture: { value: this.texture}
+            },
+            transparent: true,
+            side: DoubleSide
         })
     }
 
