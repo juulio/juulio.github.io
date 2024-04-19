@@ -1,6 +1,8 @@
 import Experience from '../Experience.js'
 import eruptionVertexShader from '../../shaders/eruptionVertexShader.glsl'
 import eruptionFragmentShader from '../../shaders/eruptionFragmentShader.glsl';
+import lavaTileAsset from '../../../static/images/textures/lavatile.jpg';
+
 import * as THREE from 'three'
 
 export default class Floor
@@ -46,11 +48,11 @@ export default class Floor
             normalMap: this.textures.normal
         })
 
-        this.texture = new TextureLoader().load(lavaTileAsset, (texture) => {
-            texture.minFilter = NearestFilter;
+        this.texture = new THREE.TextureLoader().load(lavaTileAsset, (texture) => {
+            texture.minFilter = THREE.NearestFilter;
         });
 
-        this.shaderMaterial = new ShaderMaterial({
+        this.shaderMaterial = new THREE.ShaderMaterial({
             vertexShader: eruptionVertexShader,
             fragmentShader: eruptionFragmentShader,
             uniforms: {
@@ -58,15 +60,21 @@ export default class Floor
                 uTexture: { value: this.texture}
             },
             transparent: true,
-            side: DoubleSide
+            side: THREE.DoubleSide
         })
     }
 
     setMesh()
     {
-        this.mesh = new THREE.Mesh(this.geometry, this.material)
+        // this.mesh = new THREE.Mesh(this.geometry, this.material)
+        this.mesh = new THREE.Mesh(this.geometry, this.shaderMaterial)
         this.mesh.rotation.x = - Math.PI * 0.5
         this.mesh.receiveShadow = true
         this.scene.add(this.mesh)
+    }
+
+    // Update the shader material's time uniform
+    update() {
+        this.shaderMaterial.uniforms.uTime.value = this.experience.time.elapsed * 0.0001;
     }
 }

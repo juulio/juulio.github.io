@@ -3,6 +3,7 @@ import Experience from '../Experience'
 import Environment from './Environment.js'
 import Floor from './Floor.js'
 import Fox from './Fox.js'
+import { exp } from 'three/examples/jsm/nodes/Nodes.js'
 
 export default class World {
     constructor(){
@@ -35,6 +36,9 @@ export default class World {
     update() {
         if(this.fox) {
             this.fox.update()
+        }
+        if(this.floor) {
+            this.floor.update()
         }
     }
 }
