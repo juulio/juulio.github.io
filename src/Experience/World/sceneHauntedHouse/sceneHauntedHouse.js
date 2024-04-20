@@ -1,16 +1,70 @@
 import * as THREE from 'three'
 import Experience from '../../Experience'
 import Fog from '../../World/Fog'
-import AnimatedBush from './AnimatedBush';
+import AnimatedBush from './AnimatedBush'
+import House from './House'
+import HauntedHouseFloor from './HauntedHouseFloor'
 
 export default class SceneHauntedHouse {
     constructor(){
-        this.fog = new Fog()
+        this.fog = new Fog('#262837', 1, 15)
         this.experience = new Experience()
         this.scene = this.experience.scene
         this.resources = this.experience.resources
+
+         // Wait for resources
+         this.resources.on('ready', () => {
+            // Setup
+            this.setTextures()
+            this.initBushes()
+            this.initGraves()
+            this.initAnimatedBushes()
+            this.house = new House()
+            this.hauntedHouseFloor = new HauntedHouseFloor()
+        })
     }
 
+    setTextures(){
+        this.grassColorTexture = this.resources.items.grassColorTexture
+        this.grassAmbientOcclusionTexture = this.resources.items.grassAmbientOcclusionTexture
+        this.grassNormalTexture = this.resources.items.grassNormalTexture
+        this.grassRoughnessTexture = this.resources.items.grassRoughnessTexture
+        this.bricksColorTexture = this.resources.items.bricksColorTexture
+        this.doorColorTexture = this.resources.items.doorColorTexture
+        this.particleTexture = this.resources.items.particleTexture
+
+        this.grassColorTexture.repeat.set(8, 8)
+        this.grassAmbientOcclusionTexture.repeat.set(8, 8)
+        this.grassNormalTexture.repeat.set(8, 8)
+        this.grassRoughnessTexture.repeat.set(8, 8)
+
+        this.grassColorTexture.wrapS = THREE.RepeatWrapping
+        this.grassAmbientOcclusionTexture.wrapS = THREE.RepeatWrapping
+        this.grassNormalTexture.wrapS = THREE.RepeatWrapping
+        this.grassRoughnessTexture.wrapS = THREE.RepeatWrapping
+
+        this.grassColorTexture.wrapT = THREE.RepeatWrapping
+        this.grassAmbientOcclusionTexture.wrapT = THREE.RepeatWrapping
+        this.grassNormalTexture.wrapT = THREE.RepeatWrapping
+        this.grassRoughnessTexture.wrapT = THREE.RepeatWrapping
+
+        this.bricksColorTexture.colorSpace = THREE.SRGBColorSpace
+        this.doorColorTexture.colorSpace = THREE.SRGBColorSpace
+        this.grassColorTexture.colorSpace = THREE.SRGBColorSpace
+    }
+
+    initBushes(){
+
+    }
+
+    initGraves(){
+    
+    }
+
+    initAnimatedBushes(){
+    
+    }
+    
     update() {
         //console.log('SceneHauntedHouse update')
     }
@@ -18,65 +72,6 @@ export default class SceneHauntedHouse {
 
 
 
-
-
-
-// // Fog
-// const fog = new THREE.Fog('#262837', 1, 15)
-// const fogFolder = gui.addFolder('Fog')
-// fogFolder.add(fog, 'near').min(0).max(10).step(0.1)
-// scene.fog = fog
-
-// /**
-//  * Textures
-//  */
-// const textureLoader = new THREE.TextureLoader()
-// const doorColorTexture = textureLoader.load('./textures/door/color.jpg')
-// const doorAlphaTexture = textureLoader.load('./textures/door/alpha.jpg')
-// const doorAmbientOcclusionTexture = textureLoader.load('./textures/door/ambientOcclusion.jpg')
-// const doorHeightTexture = textureLoader.load('./textures/door/height.jpg')
-// const doorNormalTexture = textureLoader.load('./textures/door/normal.jpg')
-// const doorMetalnessTexture = textureLoader.load('./textures/door/metalness.jpg')
-// const doorRoughnessTexture = textureLoader.load('./textures/door/roughness.jpg')
-
-// const bricksColorTexture = textureLoader.load('./textures/bricks/color.jpg')
-// const bricksAmbientOcclusionTexture = textureLoader.load('./textures/bricks/ambientOcclusion.jpg')
-// const bricksNormalTexture = textureLoader.load('./textures/bricks/normal.jpg')
-// const bricksRoughnessTexture = textureLoader.load('./textures/bricks/roughness.jpg')
-
-// const grassColorTexture = textureLoader.load('./textures/grass/color.jpg')
-// const grassAmbientOcclusionTexture = textureLoader.load('./textures/grass/ambientOcclusion.jpg')
-// const grassNormalTexture = textureLoader.load('./textures/grass/normal.jpg')
-// const grassRoughnessTexture = textureLoader.load('./textures/grass/roughness.jpg')
-// const particleTexture = textureLoader.load('./textures/particles/2.png')
-
-// grassColorTexture.repeat.set(8, 8)
-// grassAmbientOcclusionTexture.repeat.set(8, 8)
-// grassNormalTexture.repeat.set(8, 8)
-// grassRoughnessTexture.repeat.set(8, 8)
-
-// grassColorTexture.wrapS = THREE.RepeatWrapping
-// grassAmbientOcclusionTexture.wrapS = THREE.RepeatWrapping
-// grassNormalTexture.wrapS = THREE.RepeatWrapping
-// grassRoughnessTexture.wrapS = THREE.RepeatWrapping
-
-// grassColorTexture.wrapT = THREE.RepeatWrapping
-// grassAmbientOcclusionTexture.wrapT = THREE.RepeatWrapping
-// grassNormalTexture.wrapT = THREE.RepeatWrapping
-// grassRoughnessTexture.wrapT = THREE.RepeatWrapping
-
-// bricksColorTexture.colorSpace = THREE.SRGBColorSpace
-// doorColorTexture.colorSpace = THREE.SRGBColorSpace
-// grassColorTexture.colorSpace = THREE.SRGBColorSpace
-
-// /**
-//  * Animated Bushes
-//  */
-// const particlesCount = 100
-// const particlesRadius = 0.2
-// const animatedBush = new AnimatedBush(particleTexture, particlesCount, particlesRadius);
-// // animatedBush.animatedBushMesh.position.set(0, 1, 3)
-// scene.add(animatedBush.animatedBushMesh);
 
 // /**
 //  * House
@@ -126,6 +121,7 @@ export default class SceneHauntedHouse {
 // door.position.y = 1
 // house.add(door)
 
+
 // // Bushes
 // const bushGeometry = new THREE.SphereGeometry(1, 16, 16)
 // const bushMateirl = new THREE.MeshStandardMaterial({ color: '#89c854' })
@@ -148,6 +144,14 @@ export default class SceneHauntedHouse {
 
 // house.add(bush1, bush2, bush3, bush4)
 
+// /**
+//  * Animated Bushes
+//  */
+// const particlesCount = 100
+// const particlesRadius = 0.2
+// const animatedBush = new AnimatedBush(particleTexture, particlesCount, particlesRadius);
+// // animatedBush.animatedBushMesh.position.set(0, 1, 3)
+// scene.add(animatedBush.animatedBushMesh);
 
 // // Graves
 // const graves = new THREE.Group()
