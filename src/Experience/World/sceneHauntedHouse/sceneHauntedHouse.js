@@ -16,9 +16,7 @@ export default class SceneHauntedHouse {
          this.resources.on('ready', () => {
             // Setup
             this.setTextures()
-            this.initBushes()
             this.initGraves()
-            this.initAnimatedBushes()
             this.house = new House()
             this.hauntedHouseFloor = new HauntedHouseFloor()
         })
@@ -53,140 +51,14 @@ export default class SceneHauntedHouse {
         this.grassColorTexture.colorSpace = THREE.SRGBColorSpace
     }
 
-    initBushes(){
-
-    }
-
     initGraves(){
     
     }
 
-    initAnimatedBushes(){
-    
-    }
-    
     update() {
         //console.log('SceneHauntedHouse update')
     }
 }
-
-
-
-
-// /**
-//  * House
-//  */
-// const house = new THREE.Group();
-// scene.add(house)
-
-// // Walls
-// const walls = new THREE.Mesh(
-//     new THREE.BoxGeometry(4, 2.5, 4),
-//     new THREE.MeshStandardMaterial({
-//         map: bricksColorTexture,
-//         aoMap: bricksAmbientOcclusionTexture,
-//         normalMap: bricksNormalTexture,
-//         roughnessMap: bricksRoughnessTexture
-//      })
-// )
-// walls.position.y = 2.5 / 2
-// house.add(walls)
-
-
-// // Roof
-// const roof = new THREE.Mesh(
-//     new THREE.ConeGeometry(3.5, 1, 4),
-//     new THREE.MeshStandardMaterial({ color: '#b35f45' })
-// )
-// roof.position.y = 3
-// roof.rotation.y = Math.PI / 4
-// house.add(roof)
-
-// // Door
-// const door = new THREE.Mesh(
-//     new THREE.PlaneGeometry(2.2, 2.2),
-//     new THREE.MeshStandardMaterial({
-//         map: doorColorTexture,
-//         transparent: true,
-//         alphaMap: doorAlphaTexture,
-//         aoMap: doorAmbientOcclusionTexture,
-//         displacementMap: doorHeightTexture,
-//         displacementScale: 0.1,
-//         normalMap: doorNormalTexture,
-//         metalnessMap: doorMetalnessTexture,
-//         roughnessMap: doorRoughnessTexture
-//     })
-// )
-// door.position.z = 2 + 0.01
-// door.position.y = 1
-// house.add(door)
-
-
-// // Bushes
-// const bushGeometry = new THREE.SphereGeometry(1, 16, 16)
-// const bushMateirl = new THREE.MeshStandardMaterial({ color: '#89c854' })
-
-// const bush1 = new THREE.Mesh(bushGeometry, bushMateirl)
-// bush1.scale.set(0.5, 0.5, 0.5)
-// bush1.position.set(0.8, 0.2, 2.2)
-
-// const bush2 = new THREE.Mesh(bushGeometry, bushMateirl)
-// bush2.scale.set(0.25, 0.25, 0.25)
-// bush2.position.set(1.4, 0.1, 2.1)
-
-// const bush3 = new THREE.Mesh(bushGeometry, bushMateirl)
-// bush3.scale.set(0.4, 0.4, 0.4)
-// bush3.position.set(- 0.8, 0.1, 2.2)
-
-// const bush4 = new THREE.Mesh(bushGeometry, bushMateirl)
-// bush4.scale.set(0.15, 0.15, 0.15)
-// bush4.position.set(- 1, 0.05, 2.6)
-
-// house.add(bush1, bush2, bush3, bush4)
-
-// /**
-//  * Animated Bushes
-//  */
-// const particlesCount = 100
-// const particlesRadius = 0.2
-// const animatedBush = new AnimatedBush(particleTexture, particlesCount, particlesRadius);
-// // animatedBush.animatedBushMesh.position.set(0, 1, 3)
-// scene.add(animatedBush.animatedBushMesh);
-
-// // Graves
-// const graves = new THREE.Group()
-// scene.add(graves)
-
-// const graveGeometry = new THREE.BoxGeometry(0.6, 0.8, 0.2)
-// const graveMaterial = new THREE.MeshStandardMaterial({ color: '#b2b6b1'})
-
-// for(let i=0; i<60; i++){
-//     const angle = Math.random() * Math.PI * 2
-//     const radius = 3 + Math.random() * 6
-//     const x = Math.sin(angle) * radius
-//     const z = Math.cos(angle) * radius
-
-//     const grave = new THREE.Mesh(graveGeometry, graveMaterial)
-//     grave.position.set(x, 0.3, z)
-//     grave.rotation.y = (Math.random() - 0.5) * 0.4
-//     grave.rotation.z = (Math.random() - 0.5) * 0.4
-//     grave.castShadow = true
-//     graves.add(grave)
-// }
-
-// // Floor
-// const floor = new THREE.Mesh(
-//     new THREE.PlaneGeometry(20, 20),
-//     new THREE.MeshStandardMaterial({ 
-//         map: grassColorTexture,
-//         aoMap: grassAmbientOcclusionTexture,
-//         normalMap: grassNormalTexture,
-//         roughnessMap: grassRoughnessTexture
-//     })
-// )
-// floor.rotation.x = - Math.PI * 0.5
-// floor.position.y = 0
-// scene.add(floor)
 
 // /**
 //  * Lights
@@ -205,10 +77,7 @@ export default class SceneHauntedHouse {
 // gui.add(moonLight.position, 'z').min(- 5).max(5).step(0.001)
 // scene.add(moonLight)
 
-// // Door light
-// const doorLight = new THREE.PointLight('#ff7d46', 3, 6)
-// doorLight.position.set(0, 2.2, 2.7)
-// house.add(doorLight)
+
 
 // /**
 //  * Ghosts
@@ -248,27 +117,6 @@ export default class SceneHauntedHouse {
 // ghost4.add(animatedBush.animatedBushMesh)
 // scene.add(ghost4)
 
-// /**
-//  * Sizes
-//  */
-// const sizes = {
-//     width: window.innerWidth,
-//     height: window.innerHeight
-// }
-
-// window.addEventListener('resize', () =>
-// {
-//     // Update sizes
-//     sizes.width = window.innerWidth
-//     sizes.height = window.innerHeight
-
-//     // Update camera
-//     camera.aspect = sizes.width / sizes.height
-//     camera.updateProjectionMatrix()
-
-//     // Update renderer
-//     renderer.setSize(sizes.width, sizes.height)
-//     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 //     renderer.setClearColor('#262837')
 // })
   
@@ -283,18 +131,6 @@ export default class SceneHauntedHouse {
 // camera.position.z = 5
 // scene.add(camera)
 
-// // Controls
-// const controls = new OrbitControls(camera, canvas)
-// controls.enableDamping = true
-
-// /**
-//  * Renderer
-//  */
-// const renderer = new THREE.WebGLRenderer({
-//     canvas: canvas
-// })
-// renderer.setSize(sizes.width, sizes.height)
-// renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 
 // /**
 //  * Shadows
