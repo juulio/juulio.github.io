@@ -4,6 +4,6 @@ export default class SceneHauntedHouse {
     }
 
     update() {
-        console.log('SceneHauntedHouse update')
+        //console.log('SceneHauntedHouse update')
     }
 }
