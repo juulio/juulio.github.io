@@ -2,11 +2,11 @@ import Sizes from './Utils/Sizes'
 import Time from './Utils/Time'
 import Camera from './Camera'
 import Renderer from './Renderer'
+import SceneAnimatedFox from './World/sceneAnimatedFox/SceneAnimatedFox'
 import World from './World/World'
 import Resources from './Utils/Resources'
 import sources from './sources.js'
 import Debug from './Utils/Debug.js'
-
 import * as THREE from 'three'
 
 let instance = null

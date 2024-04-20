@@ -1,9 +1,7 @@
 import * as THREE from 'three'
 import Experience from '../Experience'
-import Environment from './Environment.js'
-import Floor from './Floor.js'
-import Fox from './Fox.js'
-import { exp } from 'three/examples/jsm/nodes/Nodes.js'
+import SceneAnimatedFox from './sceneAnimatedFox/SceneAnimatedFox'
+import SceneHauntedHouse from './sceneHauntedHouse/SceneHauntedHouse'
 
 export default class World {
     constructor(){
@@ -24,21 +22,18 @@ export default class World {
             this.debugFolder.add(debugObject, 'showScene02')
         }
         
-        // Wait for resources
-        this.resources.on('ready', () => {
-            // Setup
-            this.floor = new Floor()
-            this.fox = new Fox()
-            this.environment = new Environment()
-        })
+        this.scenes = {
+            animatedFox: new SceneAnimatedFox(),
+            hauntedHouse: new SceneHauntedHouse()
+        }
     }
 
     update() {
-        if(this.fox) {
-            this.fox.update()
+        if(this.scenes.animatedFox) {
+            this.scenes.animatedFox.update()
         }
-        if(this.floor) {
-            this.floor.update()
+        if(this.scenes.hauntedHouse) {
+            this.scenes.hauntedHouse.update()
         }
     }
 }

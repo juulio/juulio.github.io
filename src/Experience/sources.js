@@ -27,5 +27,10 @@ export default [
         name: 'foxModel',
         type: 'gltfModel',
         path: 'models/Fox/glTF/Fox.gltf'
+    },
+    {
+        name: 'lavaTileTexture',
+        type: 'texture',
+        path: 'textures/lavatile.jpg'
     }
 ]

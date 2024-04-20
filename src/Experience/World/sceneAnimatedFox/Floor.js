@@ -1,8 +1,6 @@
-import Experience from '../Experience.js'
-import eruptionVertexShader from '../../shaders/eruptionVertexShader.glsl'
-import eruptionFragmentShader from '../../shaders/eruptionFragmentShader.glsl';
-import lavaTileAsset from '../../../static/images/textures/lavatile.jpg';
-
+import Experience from '../../Experience.js'
+import eruptionVertexShader from '../../../shaders/eruptionVertexShader.glsl';
+import eruptionFragmentShader from '../../../shaders/eruptionFragmentShader.glsl';
 import * as THREE from 'three'
 
 export default class Floor
@@ -29,7 +27,8 @@ export default class Floor
     {
         this.textures = {}
 
-        this.textures.color = this.resources.items.grassColorTexture
+        // this.textures.color = this.resources.items.grassColorTexture
+        this.textures.color = this.resources.items.lavaTileTexture
         this.textures.color.colorSpace = THREE.SRGBColorSpace
         this.textures.color.repeat.set(1.5, 1.5)
         this.textures.color.wrapS = THREE.RepeatWrapping
@@ -48,26 +47,26 @@ export default class Floor
             normalMap: this.textures.normal
         })
 
-        this.texture = new THREE.TextureLoader().load(lavaTileAsset, (texture) => {
-            texture.minFilter = THREE.NearestFilter;
-        });
+        // this.texture = new THREE.TextureLoader().load(lavaTileAsset, (texture) => {
+        //     texture.minFilter = THREE.NearestFilter;
+        // });
 
-        this.shaderMaterial = new THREE.ShaderMaterial({
-            vertexShader: eruptionVertexShader,
-            fragmentShader: eruptionFragmentShader,
-            uniforms: {
-                uTime: { value: 0},
-                uTexture: { value: this.texture}
-            },
-            transparent: true,
-            side: THREE.DoubleSide
-        })
+        // this.shaderMaterial = new THREE.ShaderMaterial({
+        //     vertexShader: eruptionVertexShader,
+        //     fragmentShader: eruptionFragmentShader,
+        //     uniforms: {
+        //         uTime: { value: 0},
+        //         uTexture: { value: this.texture}
+        //     },
+        //     transparent: true,
+        //     side: THREE.DoubleSide
+        // })
     }
 
     setMesh()
     {
-        // this.mesh = new THREE.Mesh(this.geometry, this.material)
-        this.mesh = new THREE.Mesh(this.geometry, this.shaderMaterial)
+        this.mesh = new THREE.Mesh(this.geometry, this.material)
+        // this.mesh = new THREE.Mesh(this.geometry, this.shaderMaterial)
         this.mesh.rotation.x = - Math.PI * 0.5
         this.mesh.receiveShadow = true
         this.scene.add(this.mesh)
@@ -75,6 +74,6 @@ export default class Floor
 
     // Update the shader material's time uniform
     update() {
-        this.shaderMaterial.uniforms.uTime.value = this.experience.time.elapsed * 0.0001;
+        // this.shaderMaterial.uniforms.uTime.value = this.experience.time.elapsed * 0.0001;
     }
 }
