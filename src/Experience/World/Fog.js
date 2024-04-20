@@ -2,10 +2,13 @@ import Experience from "../Experience"
 import * as THREE from 'three'
 
 export default class Fog {
-    constructor() {
+    constructor(fogColor, near, far) {
         this.experience = new Experience()
         this.scene = this.experience.scene
-        this.fog = new THREE.Fog('#262837', 1, 15)
+        this.fogColor = fogColor
+        this.near = near
+        this.far = far
+        this.fog = new THREE.Fog(this.fogColor, this.near, this.far)
         this.scene.fog = this.fog
         // Setup
         this.debug = this.experience.debug
