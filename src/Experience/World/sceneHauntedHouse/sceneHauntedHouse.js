@@ -26,12 +26,12 @@ export default class SceneHauntedHouse {
          this.resources.on('ready', () => {
             // Setup
             this.setTextures()
-            // this.setGraves()
+            this.setGraves()
             this.setAnimatedBush()
             this.setGhosts()
-            // this.house = new House()
+            this.house = new House()
             this.hauntedHouseFloor = new HauntedHouseFloor()
-            // this.lights= new Lights()
+            this.lights= new Lights()
             this.setShadows()
         })
     }
@@ -92,13 +92,12 @@ export default class SceneHauntedHouse {
 
 
     setGhosts(){
-        this.ghost1 = new Ghost(0, 1, 0)
-        this.ghost2 = new Ghost(0, 1, 0)
-        this.ghost3 = new Ghost(0, 1, 0)
-        this.ghost4 = new Ghost(0, 2, 3)
+        this.ghost1 = new Ghost(0, 1, 0, 0xfff0ff, true)
+        this.ghost2 = new Ghost(0, 1, 0, 0xf0203f, true)
+        this.ghost3 = new Ghost(0, 1, 0, 0x00ffff, true)
+        this.ghost4 = new Ghost(0, 2, 3, 0xabfff0)
         this.ghost4.pointLight.add(this.animatedBush1.animatedBushMesh)
 
-        // this.scene.add(this.ghost1.pointLight)
         this.scene.add(
             this.ghost1.pointLight,
             this.ghost2.pointLight,
@@ -130,19 +129,13 @@ export default class SceneHauntedHouse {
             this.ghost2.update(0.32, 4, 4)
         }
         if(this.ghost3){
-            this.ghost3.update(0.18, 7 + Math.sin(this.time.elapsed * 0.32), 7 + Math.sin(this.time.elapsed * 0.5))
+            this.ghost3.update(0.18, 7, 7 )
         }
         if(this.ghost4){
-            this.ghost4.update(0.18, 4 + Math.sin(this.time.elapsed * 0.12), 4 + Math.sin(this.time.elapsed * 0.5))
+            this.ghost4.update(0.18, 4, 6)
         }
         if(this.animatedBush1){
             this.animatedBush1.updateParticles()
         }
     }
 }
-
-
-// // console.log(animatedBush.animatedBushMesh.position)
-
-//     animatedBush.updateParticles()
-//     // animatedBush.animatedBushMesh.geometry.attributes.position.needsUpdate = true
