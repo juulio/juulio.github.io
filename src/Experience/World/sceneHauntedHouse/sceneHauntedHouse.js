@@ -10,7 +10,7 @@ import AnimatedBush from './AnimatedBush'
 
 export default class SceneHauntedHouse {
     constructor(){
-        this.fog = new Fog('#262837', 2, 15)
+        // this.fog = new Fog('#262837', 2, 15)
         this.experience = new Experience()
         this.time = this.experience.time
         this.scene = this.experience.scene
@@ -91,16 +91,16 @@ export default class SceneHauntedHouse {
 
 
     setGhosts(){
-        this.ghost1 = new Ghost(0, 1, 0, 0xfff0ff, true)
-        this.ghost2 = new Ghost(0, 1, 0, 0xf0203f, true)
-        this.ghost3 = new Ghost(0, 1, 0, 0x00ffff, true)
-        this.ghost4 = new Ghost(0, 2, 3, 0xabfff0)
+        // this.ghost1 = new Ghost(0, 1, 0, 0xfff0ff, true)
+        // this.ghost2 = new Ghost(0, 1, 0, 0xf0203f, true)
+        // this.ghost3 = new Ghost(0, 1, 0, 0x00ffff, true)
+        this.ghost4 = new Ghost(0, 1, 3, 0xabfff0)
         this.ghost4.pointLight.add(this.animatedBush1.animatedBushMesh)
 
         this.scene.add(
-            this.ghost1.pointLight,
-            this.ghost2.pointLight,
-            this.ghost3.pointLight,
+            // this.ghost1.pointLight,
+            // this.ghost2.pointLight,
+            // this.ghost3.pointLight,
             this.ghost4.pointLight
         )
     }
@@ -128,7 +128,7 @@ export default class SceneHauntedHouse {
             this.ghost3.update(0.18, 7, 7 )
         }
         if(this.ghost4){
-            this.ghost4.update(0.18, 4, 6)
+            this.ghost4.update(0.18, 3, 5)
         }
         if(this.animatedBush1){
             this.animatedBush1.updateParticles()
