@@ -15,7 +15,6 @@ export default class House {
         this.setRoof()
         this.setDoor()
         this.setBushes()
-        this.setShadows()
 
         this.scene.add(this.houseGroup)
     }
@@ -32,6 +31,7 @@ export default class House {
         )
         this.walls.position.y = 2.5 / 2
         this.houseGroup.add(this.walls)
+        // this.walls.castShadow = true
     }
 
     setRoof(){
@@ -80,9 +80,5 @@ export default class House {
         this.bush4 = new Bush(0.15, { x: - 1, y: 0.05, z: 2.6 })
 
         this.houseGroup.add(this.bush1.bushMesh, this.bush2.bushMesh, this.bush3.bushMesh, this.bush4.bushMesh)
-    }
-
-    setShadows(){
-        this.walls.castShadow = true
     }
 }

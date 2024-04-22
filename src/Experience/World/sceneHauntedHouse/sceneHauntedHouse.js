@@ -19,6 +19,7 @@ export default class SceneHauntedHouse {
         
         this.camera = this.experience.camera
         this.camera.instance.position.set(4, 4, 9)
+        this.lights= new Lights()
         
         this.adjustRenderer()
 
@@ -31,8 +32,6 @@ export default class SceneHauntedHouse {
             this.setGhosts()
             this.house = new House()
             this.hauntedHouseFloor = new HauntedHouseFloor()
-            this.lights= new Lights()
-            this.setShadows()
         })
     }
 
@@ -84,7 +83,6 @@ export default class SceneHauntedHouse {
             this.grave.graveMesh.position.set(x, 0.3, z)
             this.grave.graveMesh.rotation.y = (Math.random() - 0.5) * 0.4
             this.grave.graveMesh.rotation.z = (Math.random() - 0.5) * 0.4
-            this.grave.graveMesh.castShadow = true
             this.gravesGroup.add(this.grave.graveMesh)
         }
         this.scene.add(this.gravesGroup)
@@ -116,9 +114,6 @@ export default class SceneHauntedHouse {
         )
         this.animatedBush1.animatedBushMesh.castShadow = true
         this.scene.add(this.animatedBush1.animatedBushMesh)
-    }
-
-    setShadows(){
     }
 
     update() {
