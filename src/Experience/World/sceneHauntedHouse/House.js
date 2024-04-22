@@ -17,7 +17,6 @@ export default class House {
         this.setDoor()
         this.setBushes()
         this.setAnimatedBushes()
-        this.setGraves()
 
         this.scene.add(this.houseGroup)
     }
@@ -90,25 +89,5 @@ export default class House {
         )
 
         this.houseGroup.add(this.animatedBush1.animatedBushMesh)
-    }
-
-    setGraves() {
-        this.gravesGroup = new THREE.Group()
-        this.houseGroup.add(this.gravesGroup)
-
-        for(let i=0; i<60; i++){
-            this.angle = Math.random() * Math.PI * 2
-            this.radius = 3 + Math.random() * 6
-            const x = Math.sin(this.angle) * this.radius
-            const z = Math.cos(this.angle) * this.radius
-            this.scale = Math.random() * 0.5 + 0.5
-
-            this.grave = new Grave(this.scale, { x, y: 0.3, z })
-            this.grave.graveMesh.position.set(x, 0.3, z)
-            this.grave.graveMesh.rotation.y = (Math.random() - 0.5) * 0.4
-            this.grave.graveMesh.rotation.z = (Math.random() - 0.5) * 0.4
-            this.grave.graveMesh.castShadow = true
-            this.gravesGroup.add(this.grave.graveMesh)
-        }
     }
 }

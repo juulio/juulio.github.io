@@ -1,24 +1,31 @@
 import * as THREE from 'three'
 import Experience from '../../Experience'
 import Fog from '../../World/Fog'
-import AnimatedBush from './AnimatedBush'
 import House from './House'
 import HauntedHouseFloor from './HauntedHouseFloor'
-
+import Lights from './Lights'
+import Grave from './Grave'
+import Ghost from './Ghost'
+import AnimatedBush from './AnimatedBush'
 export default class SceneHauntedHouse {
     constructor(){
         this.fog = new Fog('#262837', 1, 15)
         this.experience = new Experience()
         this.scene = this.experience.scene
         this.resources = this.experience.resources
+        this.time = this.experience.time
+        this.camera = this.experience.camera
 
          // Wait for resources
          this.resources.on('ready', () => {
             // Setup
+            this.setCamera()
             this.setTextures()
-            this.initGraves()
+            this.setGraves()
+            this.setGhosts()
             this.house = new House()
             this.hauntedHouseFloor = new HauntedHouseFloor()
+            this.lights= new Lights()
         })
     }
 
@@ -51,85 +58,68 @@ export default class SceneHauntedHouse {
         this.grassColorTexture.colorSpace = THREE.SRGBColorSpace
     }
 
-    initGraves(){
-    
+    setGraves() {
+        this.gravesGroup = new THREE.Group()
+
+        for(let i=0; i<60; i++){
+            this.angle = Math.random() * Math.PI * 2
+            this.radius = 3 + Math.random() * 6
+            const x = Math.sin(this.angle) * this.radius
+            const z = Math.cos(this.angle) * this.radius
+            this.scale = Math.random() * 0.5 + 0.5
+
+            this.grave = new Grave(this.scale, { x, y: 0.3, z })
+            this.grave.graveMesh.position.set(x, 0.3, z)
+            this.grave.graveMesh.rotation.y = (Math.random() - 0.5) * 0.4
+            this.grave.graveMesh.rotation.z = (Math.random() - 0.5) * 0.4
+            this.grave.graveMesh.castShadow = true
+            this.gravesGroup.add(this.grave.graveMesh)
+        }
+        this.scene.add(this.gravesGroup)
+    }
+
+
+    setGhosts(){
+        this.ghost1 = new Ghost(new THREE.Vector3(0, 1, 0))
+        this.ghost2 = new Ghost(new THREE.Vector3(0, 1, 0))
+        this.ghost3 = new Ghost(new THREE.Vector3(0, 1, 0))
+        this.ghost4 = new Ghost(new THREE.Vector3(0, 1, 3))
+
+        this.scene.add(
+            this.ghost1.pointLight,
+            this.ghost2.pointLight,
+            this.ghost3.pointLight,
+            this.ghost4.pointLight
+        )
+    }
+
+    setCamera(){
+        console.log(this.camera)
+        this.camera.instance.position.set(4, 4, 9)
     }
 
     update() {
+        if(this.ghost1){
+            this.ghost1.update(0.5, 4, 4)
+        }
+        if(this.ghost2){
+            this.ghost2.update(0.32, 4, 4)
+        }
+        if(this.ghost3){
+            this.ghost3.update(0.18, 7 + Math.sin(this.time.elapsed * 0.32), 7 + Math.sin(this.time.elapsed * 0.5))
+        }
+        if(this.ghost4){
+            this.ghost4.update(0.18, 4 + Math.sin(this.time.elapsed * 0.12), 4 + Math.sin(this.time.elapsed * 0.5))
+        }
         //console.log('SceneHauntedHouse update')
     }
 }
 
-// /**
-//  * Lights
-//  */
-// // Ambient light
-// const ambientLight = new THREE.AmbientLight('#b9d5ff', 0.12)
-// gui.add(ambientLight, 'intensity').min(0).max(1).step(0.001)
-// scene.add(ambientLight)
-
-// // Directional light
-// const moonLight = new THREE.DirectionalLight('#b9d5ff', 0.26 )
-// moonLight.position.set(4, 5, - 2)
-// gui.add(moonLight, 'intensity').min(0).max(1).step(0.001)
-// gui.add(moonLight.position, 'x').min(- 5).max(5).step(0.001)
-// gui.add(moonLight.position, 'y').min(- 5).max(5).step(0.001)
-// gui.add(moonLight.position, 'z').min(- 5).max(5).step(0.001)
-// scene.add(moonLight)
-
-
-
-// /**
-//  * Ghosts
-//  */
-// const coneGeometry = new THREE.ConeGeometry(0.5, 1, 4)
-
-// const ghost1 = new THREE.PointLight('#ff00ff', 2, 3)
-// ghost1.position.y = 1
-// const ghost1Cone = new THREE.Mesh(
-//     coneGeometry,
-//     new THREE.MeshBasicMaterial({ color: '#ff00ff', transparent: true, opacity: 0.3})
-// )
-// ghost1.add(ghost1Cone)
-// scene.add(ghost1)
-
-// const ghost2 = new THREE.PointLight('#00ffff', 2, 3)
-// ghost2.position.y = 1
-// const ghost2Cone = new THREE.Mesh(
-//     coneGeometry,
-//     new THREE.MeshBasicMaterial({ color: '#00ffff', transparent: true, opacity: 0.3})
-// )
-// ghost2.add(ghost2Cone)
-// scene.add(ghost2)
-
-
-// const ghost3 = new THREE.PointLight('#ffff00', 2, 3)
-// ghost3.position.y = 1
-// const ghost3Cone = new THREE.Mesh(
-//     coneGeometry,
-//     new THREE.MeshBasicMaterial({ color: '#ffff00', transparent: true, opacity: 0.3})
-// )
-// ghost3.add(ghost3Cone)
-// scene.add(ghost3)
-
-// const ghost4 = new THREE.PointLight('#00ff00', 2, 3)
-// ghost4.position.set(0, 1, 3)
-// ghost4.add(animatedBush.animatedBushMesh)
-// scene.add(ghost4)
 
 //     renderer.setClearColor('#262837')
 // })
   
 
-// /**
-//  * Camera
-//  */
-// // Base camera
-// const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 100)
-// camera.position.x = 4
-// camera.position.y = 2
-// camera.position.z = 5
-// scene.add(camera)
 
 
 // /**
@@ -190,21 +180,7 @@ export default class SceneHauntedHouse {
 //     // Update controls
 //     controls.update()
 
-//     const ghost1Angle = elapsedTime * 0.5
-//     ghost1.position.x = Math.cos(ghost1Angle) * 4
-//     ghost1.position.z = Math.sin(ghost1Angle) * 4
 
-//     const ghost2Angle = - elapsedTime * 0.32
-//     ghost2.position.x = Math.cos(ghost2Angle) * 4
-//     ghost2.position.z = Math.sin(ghost2Angle) * 4
-
-//     const ghost3Angle = elapsedTime * 0.18
-//     ghost3.position.x = Math.cos(ghost3Angle) * (7 + Math.sin(elapsedTime * 0.32))
-//     ghost3.position.z = Math.sin(ghost3Angle) * (7 + Math.sin(elapsedTime * 0.5))
-
-//     const ghost4Angle = elapsedTime * 0.18
-//     ghost4.position.x = Math.cos(ghost4Angle) * (4 + Math.sin(elapsedTime * 0.12))
-//     ghost4.position.z = Math.sin(ghost4Angle) * (4 + Math.sin(elapsedTime * 0.5))
 
 //     animatedBush.updateParticles()
 //     // animatedBush.animatedBushMesh.geometry.attributes.position.needsUpdate = true
