@@ -30,8 +30,8 @@ export default class House {
              })
         )
         this.walls.position.y = 2.5 / 2
+        this.walls.castShadow = true
         this.houseGroup.add(this.walls)
-        // this.walls.castShadow = true
     }
 
     setRoof(){

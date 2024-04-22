@@ -10,7 +10,7 @@ import AnimatedBush from './AnimatedBush'
 
 export default class SceneHauntedHouse {
     constructor(){
-        // this.fog = new Fog('#262837', 1, 15)
+        this.fog = new Fog('#262837', 2, 15)
         this.experience = new Experience()
         this.time = this.experience.time
         this.scene = this.experience.scene
@@ -40,6 +40,7 @@ export default class SceneHauntedHouse {
         this.renderer.instance.shadowMap.enabled = true
         this.renderer.instance.shadowMap.type = THREE.PCFSoftShadowMap
     }
+
     setTextures(){
         this.grassColorTexture = this.resources.items.grassColorTexture
         this.grassAmbientOcclusionTexture = this.resources.items.grassAmbientOcclusionTexture

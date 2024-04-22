@@ -15,12 +15,13 @@ export default class World {
             this.debugFolder = this.debug.ui.addFolder('scenes')
             const debugObject = {
                 showScene01: () => {
-                    // new SceneAnimatedFox()
-                    console.log('show scene 01')
+                    // this.experience.destroy()
+                    new SceneAnimatedFox()
                 },
                 showScene02: () => {
-                    // new SceneHauntedHouse()
-                    console.log('show scene 02')
+                    // this.experience.destroy()
+                    new SceneHauntedHouse()
+                    // console.log('show scene 02')
                 },
             }
             this.debugFolder.add(debugObject, 'showScene01')
@@ -28,7 +29,7 @@ export default class World {
         }
         
         this.scenes = {
-            animatedFox: new SceneAnimatedFox(),
+            // animatedFox: new SceneAnimatedFox(),
             hauntedHouse: new SceneHauntedHouse()
         }
     }

@@ -12,9 +12,9 @@ export default class SceneAnimatedFox {
         // Wait for resources
         this.resources.on('ready', () => {
             // Setup
-            // this.floor = new Floor()
-            // this.fox = new Fox()
-            // this.environment = new Environment()
+            this.floor = new Floor()
+            this.fox = new Fox()
+            this.environment = new Environment()
         })
     }
 
