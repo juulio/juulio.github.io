@@ -14,8 +14,14 @@ export default class World {
         {
             this.debugFolder = this.debug.ui.addFolder('scenes')
             const debugObject = {
-                showScene01: () => { console.log('show scene 01') },
-                showScene02: () => { console.log('show scene 02') },
+                showScene01: () => {
+                    // new SceneAnimatedFox()
+                    console.log('show scene 01')
+                },
+                showScene02: () => {
+                    // new SceneHauntedHouse()
+                    console.log('show scene 02')
+                },
             }
             this.debugFolder.add(debugObject, 'showScene01')
             this.debugFolder.add(debugObject, 'showScene02')

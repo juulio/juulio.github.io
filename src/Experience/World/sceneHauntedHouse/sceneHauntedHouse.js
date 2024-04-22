@@ -14,22 +14,24 @@ export default class SceneHauntedHouse {
         this.experience = new Experience()
         this.time = this.experience.time
         this.scene = this.experience.scene
-        this.camera = this.experience.camera
         this.renderer = this.experience.renderer
         this.resources = this.experience.resources
+        
+        this.camera = this.experience.camera
+        this.camera.instance.position.set(4, 4, 9)
+        
+        this.adjustRenderer()
 
          // Wait for resources
          this.resources.on('ready', () => {
             // Setup
-            this.adjustRenderer()
-            this.setCamera()
             this.setTextures()
-            this.setGraves()
+            // this.setGraves()
             this.setAnimatedBush()
             this.setGhosts()
-            this.house = new House()
+            // this.house = new House()
             this.hauntedHouseFloor = new HauntedHouseFloor()
-            this.lights= new Lights()
+            // this.lights= new Lights()
             this.setShadows()
         })
     }
@@ -90,22 +92,19 @@ export default class SceneHauntedHouse {
 
 
     setGhosts(){
-        this.ghost1 = new Ghost(new THREE.Vector3(0, 1, 0))
-        this.ghost2 = new Ghost(new THREE.Vector3(0, 1, 0))
-        this.ghost3 = new Ghost(new THREE.Vector3(0, 1, 0))
-        this.ghost4 = new Ghost(new THREE.Vector3(0, 1, 3))
+        this.ghost1 = new Ghost(0, 1, 0)
+        this.ghost2 = new Ghost(0, 1, 0)
+        this.ghost3 = new Ghost(0, 1, 0)
+        this.ghost4 = new Ghost(0, 2, 3)
         this.ghost4.pointLight.add(this.animatedBush1.animatedBushMesh)
 
+        // this.scene.add(this.ghost1.pointLight)
         this.scene.add(
             this.ghost1.pointLight,
             this.ghost2.pointLight,
             this.ghost3.pointLight,
             this.ghost4.pointLight
         )
-    }
-
-    setCamera(){
-        this.camera.instance.position.set(4, 4, 9)
     }
 
     setAnimatedBush(){
@@ -117,7 +116,6 @@ export default class SceneHauntedHouse {
             this.particlesRadius
         )
         this.animatedBush1.animatedBushMesh.castShadow = true
-
         this.scene.add(this.animatedBush1.animatedBushMesh)
     }
 
@@ -143,27 +141,8 @@ export default class SceneHauntedHouse {
     }
 }
 
-// /**
-//  * Animate
-//  */
-// const clock = new THREE.Clock()
 
 // // console.log(animatedBush.animatedBushMesh.position)
 
-// const tick = () =>
-// {
-//     const elapsedTime = clock.getElapsedTime()
-
-
 //     animatedBush.updateParticles()
 //     // animatedBush.animatedBushMesh.geometry.attributes.position.needsUpdate = true
-
-
-//     // Render
-//     renderer.render(scene, camera)
-
-//     // Call tick again on the next frame
-//     window.requestAnimationFrame(tick)
-// }
-
-// tick()

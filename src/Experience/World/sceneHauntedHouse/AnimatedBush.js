@@ -32,8 +32,8 @@ export default class AnimatedBush {
         let theta = 0, phi = 0;
 
         this.particlesGeometry.setAttribute( 'position', new THREE.Float32BufferAttribute( this.positions, 3 ) );
-
         this.animatedBushMesh = new THREE.Points(this.particlesGeometry, this.particlesMaterial)
+        this.animatedBushMesh.name = 'Animated Bush Mesh'
     }
 
     /**
