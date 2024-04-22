@@ -28,6 +28,7 @@ export default class Lights {
     setDirectionalLight(){
         this.directionalLight = new THREE.DirectionalLight('#b9d5ff', 0.12)
         this.directionalLight.position.set(4, 5, -2)
+        this.directionalLight.castShadow = true
         this.experience.scene.add(this.directionalLight)
 
         if(this.debug.active){

@@ -1,7 +1,6 @@
 import Experience from "../../Experience"
 import AnimatedBush from "./AnimatedBush"
 import Bush from "./Bush"
-import Grave from "./Grave"
 import * as THREE from 'three'
 
 export default class House {
@@ -16,7 +15,7 @@ export default class House {
         this.setRoof()
         this.setDoor()
         this.setBushes()
-        this.setAnimatedBushes()
+        this.setShadows()
 
         this.scene.add(this.houseGroup)
     }
@@ -64,8 +63,12 @@ export default class House {
         this.door.position.z = 2 + 0.01
         this.door.position.y = 1
         this.houseGroup.add(this.door)
-
+        
         this.doorLight = new THREE.PointLight('#ff7d46', 3, 6)
+        this.doorLight.castShadow = true
+        this.doorLight.shadow.mapSize.width = 256
+        this.doorLight.shadow.mapSize.height = 256
+        this.doorLight.shadow.camera.far = 7
         this.doorLight.position.set(0, 2.2, 2.7)
         this.houseGroup.add(this.doorLight)
     }
@@ -79,15 +82,7 @@ export default class House {
         this.houseGroup.add(this.bush1.bushMesh, this.bush2.bushMesh, this.bush3.bushMesh, this.bush4.bushMesh)
     }
 
-    setAnimatedBushes(){
-        this.particlesCount = 100
-        this.particlesRadius = 0.2
-        this.animatedBush1 = new AnimatedBush(
-            this.resources.items.particleTexture,
-            this.particlesCount,
-            this.particlesRadius
-        )
-
-        this.houseGroup.add(this.animatedBush1.animatedBushMesh)
+    setShadows(){
+        this.walls.castShadow = true
     }
 }

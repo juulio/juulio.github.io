@@ -6,6 +6,7 @@ export default class HauntedHouseFloor {
         this.experience = new Experience()
         this.scene = this.experience.scene
         this.resources = this.experience.resources
+        this.receiveShadow = true
 
         // Setup
         this.setGeometry()

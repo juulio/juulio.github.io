@@ -7,28 +7,38 @@ import Lights from './Lights'
 import Grave from './Grave'
 import Ghost from './Ghost'
 import AnimatedBush from './AnimatedBush'
+
 export default class SceneHauntedHouse {
     constructor(){
-        this.fog = new Fog('#262837', 1, 15)
+        // this.fog = new Fog('#262837', 1, 15)
         this.experience = new Experience()
-        this.scene = this.experience.scene
-        this.resources = this.experience.resources
         this.time = this.experience.time
+        this.scene = this.experience.scene
         this.camera = this.experience.camera
+        this.renderer = this.experience.renderer
+        this.resources = this.experience.resources
 
          // Wait for resources
          this.resources.on('ready', () => {
             // Setup
+            this.adjustRenderer()
             this.setCamera()
             this.setTextures()
             this.setGraves()
+            this.setAnimatedBush()
             this.setGhosts()
             this.house = new House()
             this.hauntedHouseFloor = new HauntedHouseFloor()
             this.lights= new Lights()
+            this.setShadows()
         })
     }
 
+    adjustRenderer(){
+        this.renderer.instance.setClearColor('#262837')
+        this.renderer.instance.shadowMap.enabled = true
+        this.renderer.instance.shadowMap.type = THREE.PCFSoftShadowMap
+    }
     setTextures(){
         this.grassColorTexture = this.resources.items.grassColorTexture
         this.grassAmbientOcclusionTexture = this.resources.items.grassAmbientOcclusionTexture
@@ -84,6 +94,7 @@ export default class SceneHauntedHouse {
         this.ghost2 = new Ghost(new THREE.Vector3(0, 1, 0))
         this.ghost3 = new Ghost(new THREE.Vector3(0, 1, 0))
         this.ghost4 = new Ghost(new THREE.Vector3(0, 1, 3))
+        this.ghost4.pointLight.add(this.animatedBush1.animatedBushMesh)
 
         this.scene.add(
             this.ghost1.pointLight,
@@ -94,8 +105,23 @@ export default class SceneHauntedHouse {
     }
 
     setCamera(){
-        console.log(this.camera)
         this.camera.instance.position.set(4, 4, 9)
+    }
+
+    setAnimatedBush(){
+        this.particlesCount = 100
+        this.particlesRadius = 0.2
+        this.animatedBush1 = new AnimatedBush(
+            this.resources.items.particleTexture,
+            this.particlesCount,
+            this.particlesRadius
+        )
+        this.animatedBush1.animatedBushMesh.castShadow = true
+
+        this.scene.add(this.animatedBush1.animatedBushMesh)
+    }
+
+    setShadows(){
     }
 
     update() {
@@ -111,60 +137,11 @@ export default class SceneHauntedHouse {
         if(this.ghost4){
             this.ghost4.update(0.18, 4 + Math.sin(this.time.elapsed * 0.12), 4 + Math.sin(this.time.elapsed * 0.5))
         }
-        //console.log('SceneHauntedHouse update')
+        if(this.animatedBush1){
+            this.animatedBush1.updateParticles()
+        }
     }
 }
-
-
-//     renderer.setClearColor('#262837')
-// })
-  
-
-
-
-// /**
-//  * Shadows
-//  */
-// renderer.shadowMap.enabled = true
-// renderer.shadowMap.type = THREE.PCFSoftShadowMap
-// moonLight.castShadow = true
-// doorLight.castShadow = true
-// ghost1.castShadow = true
-// ghost2.castShadow = true
-// ghost3.castShadow = true
-// ghost4.castShadow = true
-
-// walls.castShadow = true
-// bush1.castShadow = true
-// bush2.castShadow = true
-// bush3.castShadow = true
-// bush4.castShadow = true
-// animatedBush.animatedBushMesh.castShadow = true
-
-// floor.receiveShadow = true
-
-// doorLight.shadow.mapSize.width = 256
-// doorLight.shadow.mapSize.height = 256
-// doorLight.shadow.camera.far = 7
-
-// ghost1.shadow.mapSize.width = 256
-// ghost1.shadow.mapSize.height = 256
-// ghost1.shadow.camera.far = 7
-
-// ghost2.shadow.mapSize.width = 256
-// ghost2.shadow.mapSize.height = 256
-// ghost2.shadow.camera.far = 7
-
-// ghost3.shadow.mapSize.width = 256
-// ghost3.shadow.mapSize.height = 256
-// ghost3.shadow.camera.far = 7
-
-// ghost4.shadow.mapSize.width = 256
-// ghost4.shadow.mapSize.height = 256
-// ghost4.shadow.camera.far = 7
-
-
-
 
 // /**
 //  * Animate
@@ -176,10 +153,6 @@ export default class SceneHauntedHouse {
 // const tick = () =>
 // {
 //     const elapsedTime = clock.getElapsedTime()
-
-//     // Update controls
-//     controls.update()
-
 
 
 //     animatedBush.updateParticles()
