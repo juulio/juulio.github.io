@@ -91,16 +91,16 @@ export default class SceneHauntedHouse {
 
 
     setGhosts(){
-        // this.ghost1 = new Ghost(0, 1, 0, 0xfff0ff, true)
-        // this.ghost2 = new Ghost(0, 1, 0, 0xf0203f, true)
-        // this.ghost3 = new Ghost(0, 1, 0, 0x00ffff, true)
-        this.ghost4 = new Ghost(0, 1, 3, 0xabfff0)
+        this.ghost1 = new Ghost(0, 1, 0, 0xfff0ff, true)
+        this.ghost2 = new Ghost(0, 1, 0, 0xf0203f, true)
+        this.ghost3 = new Ghost(0, 1, 0, 0x00ffff, true)
+        this.ghost4 = new Ghost(0, 1, 3, 0x00ff00)
         this.ghost4.pointLight.add(this.animatedBush1.animatedBushMesh)
 
         this.scene.add(
-            // this.ghost1.pointLight,
-            // this.ghost2.pointLight,
-            // this.ghost3.pointLight,
+            this.ghost1.pointLight,
+            this.ghost2.pointLight,
+            this.ghost3.pointLight,
             this.ghost4.pointLight
         )
     }
