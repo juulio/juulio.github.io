@@ -9,7 +9,7 @@ export default class Ghost {
         this.color = color
         this.position = { x: posX, y: posY, z: posZ }
 
-        this.pointLight  = new THREE.PointLight(this.color, 2, 3)
+        this.pointLight  = new THREE.PointLight(this.color, 10, 10)
         this.pointLight.castShadow = true
         this.pointLight.shadow.mapSize.width = 256
         this.pointLight.shadow.mapSize.height = 256

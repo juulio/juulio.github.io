@@ -94,7 +94,7 @@ export default class SceneHauntedHouse {
         this.ghost1 = new Ghost(0, 1, 0, 0xfff0ff, true)
         this.ghost2 = new Ghost(0, 1, 0, 0xf0203f, true)
         this.ghost3 = new Ghost(0, 1, 0, 0x00ffff, true)
-        this.ghost4 = new Ghost(0, 1, 3, 0x00ff00)
+        this.ghost4 = new Ghost(0, 1.1, 2, 0x00ff00)
         this.ghost4.pointLight.add(this.animatedBush1.animatedBushMesh)
 
         this.scene.add(
@@ -106,15 +106,14 @@ export default class SceneHauntedHouse {
     }
 
     setAnimatedBush(){
-        this.particlesCount = 100
-        this.particlesRadius = 0.2
+        this.particlesCount = 200
+        this.particlesRadius = 0.1
         this.animatedBush1 = new AnimatedBush(
             this.resources.items.particleTexture,
             this.particlesCount,
             this.particlesRadius
         )
         this.animatedBush1.animatedBushMesh.castShadow = true
-        this.scene.add(this.animatedBush1.animatedBushMesh)
     }
 
     update() {
@@ -128,7 +127,7 @@ export default class SceneHauntedHouse {
             this.ghost3.update(0.18, 7, 7 )
         }
         if(this.ghost4){
-            this.ghost4.update(0.18, 3, 5)
+            this.ghost4.update(0.06, 3, 5)
         }
         if(this.animatedBush1){
             this.animatedBush1.updateParticles()
