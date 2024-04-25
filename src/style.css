@@ -8,6 +8,7 @@ html,
 body
 {
     overflow: hidden;
+    font-family: Arial, sans-serif;
 }
 
 .webgl
@@ -16,4 +17,28 @@ body
     top: 0;
     left: 0;
     outline: none;
+}
+
+a {
+    text-decoration: none;
+     
+}
+
+h1 {
+    font-size: 2rem;
+    display: inline;
+    font-weight: 400;
+}
+
+/* Navigation Styles */
+header {
+    z-index: 2;
+    position: fixed;
+    margin: 2rem;
+}
+
+header a {
+    display: none;
+    color: white;
+    font-size: 1.5rem;
 }
