@@ -92,7 +92,7 @@ h1{
 
     @media only screen and (min-width: 768px) {
         font-size: 2.6vw;
-        margin-bottom: 3vh;
+        margin-bottom: 1.2vh;
     }
 
     @media only screen and (min-width: 1920px) {
@@ -112,16 +112,8 @@ h2 {
         font-size: 31px;
     }
 }
-/*
-span {
-    color: #999999; 
-}
 
 
-
-
-
-*/
 a {
     text-decoration: none;
      
@@ -137,13 +129,15 @@ header {
     left: 0;
     height: 60px;
     z-index: 1000;
-    padding: calc(2vw + 2vh + 2vmin);
+    padding: calc(1vw + 1vh + 2vmin);
 }
 
 .mainTitle {
+    margin-bottom: 5vh;
 }
 
 .projectList {
+    font-size: 1.7vw;
 }
   
 .projectList li {
@@ -156,11 +150,14 @@ header {
 }
 
 .submenu li {
-    font-size: 15px;
-    margin-top: 12px;
-    letter-spacing: 0.1em; 
+    /* font-size: 15px; */
+    margin-top: 1.3vw;
+    letter-spacing: 0.22em; 
 }
 
+.projectList a {
+    font-size: 1.2vw;
+}
 a {
     color: rgb(137, 136, 143);
     padding: 3px 4px;
@@ -171,4 +168,5 @@ a {
 a:hover {
     color: #000;
     cursor: pointer;
+    font-weight: bold;
 }
