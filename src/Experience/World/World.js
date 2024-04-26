@@ -12,7 +12,13 @@ export default class World {
 
         this.light = new THREE.AmbientLight(0xffffff, 1)
         
-        this.cubeGeometry = new THREE.BoxGeometry(0.4, 0.4, 0.4)
+        if(this.experience.isMobile()) {
+            this.cubeGeometry = new THREE.BoxGeometry(0.3, 0.3, 0.3)
+        }
+        else {
+            this.cubeGeometry = new THREE.BoxGeometry(0.4, 0.4, 0.4)
+        }
+
         this.cubeMaterial = new THREE.MeshBasicMaterial({
             transparent: true,
             color: 0xff0000
@@ -35,17 +41,23 @@ export default class World {
             new THREE.MeshBasicMaterial({ color: 0xf000f })
         )
         
-        
-        this.cube01.position.set(0, 0, 0)
-        this.cube02.position.set(0.7, 0, 0)
-        this.cube03.position.set(-0.7, 0, 0)
-        
+        if(this.experience.isMobile()) {
+            this.cube01.position.set(0, 0, 0)
+            this.cube02.position.set(0.6, 0, 0)
+            this.cube03.position.set(-0.6, 0, 0)
+        }
+        else {
+            this.cube01.position.set(0, 0, 0)
+            this.cube02.position.set(1, 0, 0)
+            this.cube03.position.set(-1, 0, 0)
+        }
+
         this.scene.add(this.light)
         this.scene.add(this.cube01)
         this.scene.add(this.cube02)
         this.scene.add(this.cube03)
         
-
+        console.log(this.experience.isMobile())
         // Debug
         if(this.debug.active)
         {

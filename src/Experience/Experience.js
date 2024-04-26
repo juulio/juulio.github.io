@@ -60,6 +60,10 @@ export default class Experience {
         this.renderer.update()
     }
 
+    isMobile(){
+        return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+    }
+
     destroy() {
         this.sizes.off('resize')
         this.time.off('tick')
