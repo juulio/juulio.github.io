@@ -1,9 +1,14 @@
 export default class Navigation {
     constructor(projectsList) {
         this.projectsListData = projectsList
+        this.projectsList = []
         this.createNavigation()
+        this.createClickEventHandlers()
     }
 
+    /**
+     * Read the projectsListData and create domElements for the nav layout
+     */
     createNavigation() {
         this.header = this.projectsListData[0].domElement   
         this.rootElement = document.createElement(this.projectsListData[0].domElement)
@@ -17,6 +22,7 @@ export default class Navigation {
             project.domElements.forEach((element, index) => {
                 let elementItem = document.createElement(element.domElement)
                 if(project.className === 'projectList'){
+                    this.projectsList.push(element.content)
                     let anchorElement = document.createElement('a')
                     anchorElement.innerText = element.content
                     anchorElement.href = '#'
@@ -31,36 +37,13 @@ export default class Navigation {
         })
     }
 
-}
-
-
-/**
- *     loadNavigationItems(){
-        // Load project names
-        for(const project of this.projectsList)
-        {
-            if(project.type === 'project')
-            {
-                console.log(project.name)
-            }
-        }
-        this.item01 = document.getElementById('project01')
-        this.item02 = document.getElementById('project02')
-        this.item03 = document.getElementById('project03')
-
-        this.item01.addEventListener('click', () => {
-            this.hideCubes()
-            this.cube01.visible = true
-        })
-
-        this.item02.addEventListener('click', () => {
-            this.hideCubes()
-            this.cube02.visible = true
-        })
-
-        this.item03.addEventListener('click', () => {
-            this.hideCubes()
-            this.cube03.visible = true
+    createClickEventHandlers() {
+        this.projectsList.forEach((project) => {
+            document.getElementById(project).addEventListener('click', () => {
+                console.log(project)
+                //     this.hideCubes()
+                // this.projectGroup.visible = true
+            })
         })
     }
- */
+}

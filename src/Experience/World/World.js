@@ -2,6 +2,11 @@ import * as THREE from 'three'
 import Experience from '../Experience'
 import SceneAnimatedFox from './sceneAnimatedFox/SceneAnimatedFox'
 import SceneHauntedHouse from './sceneHauntedHouse/SceneHauntedHouse'
+import projectsData from '../projectsList'
+import Navigation from './navigation'
+import project01 from './project01/environment'
+import project02 from './project02/environment'
+import project03 from './project03/environment'
 
 export default class World {
     constructor(){
@@ -9,55 +14,24 @@ export default class World {
         this.scene = this.experience.scene
         this.debug = this.experience.debug
         this.camera = this.experience.camera
+        this.projectsData = projectsData
+        this.projects = []
 
+        this.navigation = new Navigation(this.projectsData)
+        
+        this.project01 = new project01()
+        this.projects.push(this.project01.projectID)
+
+        this.project02 = new project02()
+        this.projects.push(this.project02.projectID)
+        
+        this.project03 = new project03()
+        this.projects.push(this.project03.projectID)
+        /////////////////////////////////////////////
         this.light = new THREE.AmbientLight(0xffffff, 1)
+        // this.scene.add(this.light)
+    
         
-        if(this.experience.isMobile()) {
-            this.cubeGeometry = new THREE.BoxGeometry(0.3, 0.3, 0.3)
-        }
-        else {
-            this.cubeGeometry = new THREE.BoxGeometry(0.4, 0.4, 0.4)
-        }
-
-        this.cubeMaterial = new THREE.MeshBasicMaterial({
-            transparent: true,
-            color: 0xff0000
-        })
-        
-        this.cube01 = new THREE.Mesh(
-            this.cubeGeometry,
-            new THREE.MeshBasicMaterial({ color: 0xff0000 })
-        )
-        
-        this.cubeMaterial.color.set(0x00ff00)
-        this.cube02 = new THREE.Mesh(
-            this.cubeGeometry,
-            new THREE.MeshBasicMaterial({ color: 0x0ff000 })
-        )
-
-        this.cubeMaterial.color.set(0x0000ff)
-        this.cube03 = new THREE.Mesh(
-            this.cubeGeometry,
-            new THREE.MeshBasicMaterial({ color: 0xf000f })
-        )
-        
-        if(this.experience.isMobile()) {
-            this.cube01.position.set(0, 0, 0)
-            this.cube02.position.set(0.6, 0, 0)
-            this.cube03.position.set(-0.6, 0, 0)
-        }
-        else {
-            this.cube01.position.set(0, 0, 0)
-            this.cube02.position.set(1, 0, 0)
-            this.cube03.position.set(-1, 0, 0)
-        }
-
-        this.scene.add(this.light)
-        this.scene.add(this.cube01)
-        this.scene.add(this.cube02)
-        this.scene.add(this.cube03)
-        
-        console.log(this.experience.isMobile())
         // Debug
         if(this.debug.active)
         {
@@ -82,24 +56,7 @@ export default class World {
             // hauntedHouse: new SceneHauntedHouse()
         }
 
-        this.item01 = document.getElementById('project01')
-        this.item02 = document.getElementById('project02')
-        this.item03 = document.getElementById('project03')
 
-        this.item01.addEventListener('click', () => {
-            this.hideCubes()
-            this.cube01.visible = true
-        })
-
-        this.item02.addEventListener('click', () => {
-            this.hideCubes()
-            this.cube02.visible = true
-        })
-
-        this.item03.addEventListener('click', () => {
-            this.hideCubes()
-            this.cube03.visible = true
-        })
     }
 
 
@@ -117,9 +74,11 @@ export default class World {
             this.scenes.hauntedHouse.update()
         }
 
-        this.cube01.rotation.y += 0.01
-        this.cube02.rotation.y += 0.01
-        this.cube03.rotation.y += 0.01
+        // this.cube01.rotation.y += 0.01
+        // this.cube02.rotation.y += 0.01
+        // this.cube03.rotation.y += 0.01
 
     }
+
+
 }
