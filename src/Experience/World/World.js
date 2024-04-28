@@ -4,9 +4,9 @@ import SceneAnimatedFox from './sceneAnimatedFox/SceneAnimatedFox'
 import SceneHauntedHouse from './sceneHauntedHouse/SceneHauntedHouse'
 import projectsData from '../projectsList'
 import Navigation from './navigation'
-import project01 from './project01/environment'
-import project02 from './project02/environment'
-import project03 from './project03/environment'
+import project01 from './project01/Environment'
+import project02 from './project02/Environment'
+import project03 from './project03/Environment'
 
 export default class World {
     constructor(){
@@ -16,17 +16,29 @@ export default class World {
         this.camera = this.experience.camera
         this.projectsData = projectsData
         this.projects = []
+        this.currentVisibleProject = null
 
         this.navigation = new Navigation(this.projectsData)
         
-        this.project01 = new project01()
-        this.projects.push(this.project01.projectID)
-
-        this.project02 = new project02()
-        this.projects.push(this.project02.projectID)
+        this.project01 = new project01('project01')
+        this.projects.push(this.project01.projectId)
         
-        this.project03 = new project03()
-        this.projects.push(this.project03.projectID)
+        this.project02 = new project02('project02')
+        this.projects.push(this.project02.projectId)
+        
+        this.project03 = new project03('project03')
+        this.projects.push(this.project03.projectId)
+        
+        this.projects.forEach((project) => {
+            document.getElementById(project).addEventListener('click', () => {
+                if(this.currentVisibleProject) {
+                    this.scene.getObjectByName(this.currentVisibleProject).visible = false
+                }
+                this.scene.getObjectByName(project).visible = true
+                this.currentVisibleProject = project
+            })
+        })
+        
         /////////////////////////////////////////////
         this.light = new THREE.AmbientLight(0xffffff, 1)
         // this.scene.add(this.light)
@@ -57,13 +69,6 @@ export default class World {
         }
 
 
-    }
-
-
-    hideCubes() {
-        this.cube01.visible = false
-        this.cube02.visible = false
-        this.cube03.visible = false
     }
 
     update() {

@@ -3,7 +3,7 @@ export default class Navigation {
         this.projectsListData = projectsList
         this.projectsList = []
         this.createNavigation()
-        this.createClickEventHandlers()
+        // this.createClickEventHandlers()
     }
 
     /**

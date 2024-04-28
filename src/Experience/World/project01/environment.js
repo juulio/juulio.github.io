@@ -2,9 +2,8 @@ import * as THREE from 'three'
 import Experience from '../../Experience.js'
 
 export default class Environment {
-    constructor()
-    {
-        this.projectName = 'project01'
+    constructor(projectId) {
+        this.projectId = projectId
         this.Experience = new Experience()
         this.scene = this.Experience.scene
         this.debug = this.Experience.debug
@@ -16,6 +15,8 @@ export default class Environment {
         })
         
         this.projectGroup = new THREE.Group()
+        this.projectGroup.name = projectId
+        
         this.cube01 = new THREE.Mesh(
             this.cubeGeometry,
             new THREE.MeshBasicMaterial({ color: 0xff0000 })

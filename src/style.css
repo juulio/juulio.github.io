@@ -148,23 +148,16 @@ header {
 }
 
 .mainTitle {
-    margin-bottom: 5vh;
+    margin-bottom: 6vh;
 }
 
 .projectList {
     font-size: 1.7vw;
+    /* margin-left: 20px;  */
 }
   
 .projectList li {
-    margin-top: 20px; 
     list-style: none;
-}
-  
-.submenu {
-    margin-left: 20px; 
-}
-
-.submenu li {
     margin-top: 4vw;
     letter-spacing: 0.22em; 
 
