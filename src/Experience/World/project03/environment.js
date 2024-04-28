@@ -20,12 +20,15 @@ export default class scene03 {
             this.cubeGeometry,
             new THREE.MeshBasicMaterial({ color: 0x0000ff })
         )
+        this.cube01.position.x = -1
         this.projectGroup.add(this.cube01)
 
         this.cube02 = new THREE.Mesh(
             this.cubeGeometry,
             new THREE.MeshBasicMaterial({ color: 0x0000ff })
         )
+        this.cube02.position.x = -1
+        this.cube02.position.y = 1
         this.projectGroup.add(this.cube02)
 
         this.scene.add(this.projectGroup)

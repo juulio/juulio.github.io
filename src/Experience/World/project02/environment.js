@@ -20,6 +20,7 @@ export default class Environment {
             this.cubeGeometry,
             new THREE.MeshBasicMaterial({ color: 0x00ff00 })
         )
+        this.cube01.position.x = 1
         this.projectGroup.add(this.cube01)
 
         this.cube02 = new THREE.Mesh(
