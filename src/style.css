@@ -155,6 +155,10 @@ header {
     margin-bottom: 6vh;
 }
 
+.projectDescription {
+    padding-top: 1vh;
+}
+
 .projects {
     font-size: 1.7vw;
     /* margin-left: 20px;  */

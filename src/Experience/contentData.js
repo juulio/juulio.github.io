@@ -22,6 +22,10 @@ export default [
                 ]
             },
             {
+                domElement: 'div',
+                className: 'projectDescription',
+            },
+            {
                 domElement: 'ul',
                 className: 'projects',
                 domElements:
@@ -43,10 +47,7 @@ export default [
                     }
                 ]
             },
-            {
-                domElement: 'div',
-                className: 'projectDescription',
-            }
+
         ]
         
     },
