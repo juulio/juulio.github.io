@@ -2,7 +2,7 @@ import * as THREE from 'three'
 import Experience from '../Experience'
 import SceneAnimatedFox from './sceneAnimatedFox/SceneAnimatedFox'
 import SceneHauntedHouse from './sceneHauntedHouse/SceneHauntedHouse'
-import projectsData from '../projectsList'
+import contentData from '../contentData'
 import Navigation from './navigation'
 import project01 from './project01/Environment'
 import project02 from './project02/Environment'
@@ -14,11 +14,11 @@ export default class World {
         this.scene = this.experience.scene
         this.debug = this.experience.debug
         this.camera = this.experience.camera
-        this.projectsData = projectsData
+        this.contentData = contentData
         this.projects = []
         this.currentVisibleProject = null
 
-        this.navigation = new Navigation(this.projectsData)
+        this.navigation = new Navigation(this.contentData)
         
         this.project01 = new project01('project01')
         this.projects.push(this.project01.projectId)
@@ -51,6 +51,7 @@ export default class World {
             })
         })
         
+        this.project01.projectGroup.visible = true
         /////////////////////////////////////////////
         this.light = new THREE.AmbientLight(0xffffff, 1)
         // this.scene.add(this.light)

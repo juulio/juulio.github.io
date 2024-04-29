@@ -23,25 +23,29 @@ export default [
             },
             {
                 domElement: 'ul',
-                className: 'projectList',
+                className: 'projects',
                 domElements:
                 [
                     {
                         domElement: 'li',
-                        className: 'project',
-                        content: 'project01'
+                        projectName: 'project01',
+                        content: 'Description for project 01'
                     },
                     {
                         domElement: 'li',
-                        className: 'project',
-                        content: 'project02'
+                        projectName: 'project02',
+                        content: 'Description for project 02'
                     },
                     {
                         domElement: 'li',
-                        className: 'project',
-                        content: 'project03'
+                        projectName: 'project03',
+                        content: 'Description for project 03'
                     }
                 ]
+            },
+            {
+                domElement: 'div',
+                className: 'projectDescription',
             }
         ]
         

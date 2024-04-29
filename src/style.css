@@ -139,24 +139,28 @@ a {
 /* NAVIGATION STYLES
 -------------------------------------------------- */
 header {
+    width: 100%;
     position: fixed;
     top: 0;
     left: 0;
-    height: 60px;
+    /*height: 60px;*/
     z-index: 1000;
-    padding: calc(1vw + 1vh + 2vmin);
+    padding: calc(1vw + 2vmin);
+
+    display: grid;
+    grid-template-columns: [nav] 20% [description] 70%;
 }
 
 .mainTitle {
     margin-bottom: 6vh;
 }
 
-.projectList {
+.projects {
     font-size: 1.7vw;
     /* margin-left: 20px;  */
 }
   
-.projectList li {
+.projects li {
     list-style: none;
     margin-top: 4vw;
     letter-spacing: 0.22em; 
@@ -170,7 +174,7 @@ header {
     }
 }
 
-.projectList a {
+.projects a {
     font-size: 4vw;
 
     @media only screen and (min-width: 768px) {
