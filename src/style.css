@@ -189,7 +189,7 @@ a {
     text-decoration: none; 
 }
   
-a:hover {
+a:hover, a.active  {
     color: #000;
     cursor: pointer;
     font-weight: bold;

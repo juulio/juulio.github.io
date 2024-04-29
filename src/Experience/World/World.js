@@ -30,12 +30,24 @@ export default class World {
         this.projects.push(this.project03.projectId)
         
         this.projects.forEach((project) => {
-            document.getElementById(project).addEventListener('click', () => {
+            let currentClickedDomElement = document.getElementById(project)
+  
+            currentClickedDomElement.addEventListener('click', () => {
+                
                 if(this.currentVisibleProject) {
                     this.scene.getObjectByName(this.currentVisibleProject).visible = false
                 }
                 this.scene.getObjectByName(project).visible = true
                 this.currentVisibleProject = project
+                
+                if(!this.experience.isMobile()) {
+                    console.log('desktop')
+                    let activeElements = document.querySelector(".active");
+                    if(activeElements !==null){
+                        activeElements.classList.remove("active");
+                    }
+                    currentClickedDomElement.classList.add('active')
+                }
             })
         })
         
