@@ -1,9 +1,14 @@
+import Experience from '../Experience.js'
+
 export default class Navigation {
     constructor(contentData) {
+        this.experience = new Experience()
+        this.scene = this.experience.scene
         this.contentData = contentData
         this.projectsList = []
         this.createNavigation()
-        // this.createClickEventHandlers()
+        this.createClickEventHandlers()
+        this.currentVisibleProject = null
     }
 
     /**
@@ -42,10 +47,23 @@ export default class Navigation {
 
     createClickEventHandlers() {
         this.projectsList.forEach((project) => {
-            document.getElementById(project).addEventListener('click', () => {
-                console.log(project)
-                //     this.hideCubes()
-                // this.projectGroup.visible = true
+            let currentClickedDomElement = document.getElementById(project)
+  
+            currentClickedDomElement.addEventListener('click', () => {
+                
+                if(this.currentVisibleProject) {
+                    this.scene.getObjectByName(this.currentVisibleProject).visible = false
+                }
+                this.scene.getObjectByName(project).visible = true
+                this.currentVisibleProject = project
+                
+                if(!this.experience.isMobile()) {
+                    let activeElements = document.querySelector(".active");
+                    if(activeElements !==null){
+                        activeElements.classList.remove("active");
+                    }
+                    currentClickedDomElement.classList.add('active')
+                }
             })
         })
     }

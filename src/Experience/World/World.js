@@ -15,41 +15,14 @@ export default class World {
         this.debug = this.experience.debug
         this.camera = this.experience.camera
         this.contentData = contentData
-        this.projects = []
-        this.currentVisibleProject = null
+  
 
+        // Generate Navigation and click event handlers
         this.navigation = new Navigation(this.contentData)
         
         this.project01 = new project01('project01')
-        this.projects.push(this.project01.projectId)
-        
         this.project02 = new project02('project02')
-        this.projects.push(this.project02.projectId)
-        
         this.project03 = new project03('project03')
-        this.projects.push(this.project03.projectId)
-        
-        this.projects.forEach((project) => {
-            let currentClickedDomElement = document.getElementById(project)
-  
-            currentClickedDomElement.addEventListener('click', () => {
-                
-                if(this.currentVisibleProject) {
-                    this.scene.getObjectByName(this.currentVisibleProject).visible = false
-                }
-                this.scene.getObjectByName(project).visible = true
-                this.currentVisibleProject = project
-                
-                if(!this.experience.isMobile()) {
-                    console.log('desktop')
-                    let activeElements = document.querySelector(".active");
-                    if(activeElements !==null){
-                        activeElements.classList.remove("active");
-                    }
-                    currentClickedDomElement.classList.add('active')
-                }
-            })
-        })
         
         this.project01.projectGroup.visible = true
         /////////////////////////////////////////////
