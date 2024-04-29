@@ -61,6 +61,11 @@ export default class World {
     }
 
     update() {
+        if(this.project01.projectGroup.visible) {
+            this.project01.update()
+        }
+
+
         if(this.scenes.animatedFox) {
             this.scenes.animatedFox.update()
         }
