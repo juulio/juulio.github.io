@@ -7,7 +7,6 @@ export default class Navigation {
         this.contentData = contentData
         this.projectsList = []
         this.createNavigation()
-        this.createClickEventHandlers()
         this.currentVisibleProject = null
     }
 
@@ -35,6 +34,8 @@ export default class Navigation {
                         anchorElement.href = '#'
                         anchorElement.id = element.projectName
                         elementItem.appendChild(anchorElement)
+
+                        this.createClickEventHandler(anchorElement, element.projectName)
                     }
                     else {
                         elementItem.innerText = element.content
@@ -45,10 +46,31 @@ export default class Navigation {
         })
     }
 
+    createClickEventHandler(anchorElement, projectName) {
+        console.log(anchorElement)
+           anchorElement.addEventListener('click', () => {
+                
+                if(this.currentVisibleProject) {
+                    this.scene.getObjectByName(this.currentVisibleProject).visible = false
+                }
+                this.scene.getObjectByName(projectName).visible = true
+                this.currentVisibleProject = projectName
+                
+                if(!this.experience.isMobile()) {
+                    let activeElements = document.querySelector(".active");
+                    if(activeElements !== null){
+                        activeElements.classList.remove("active");
+                    }
+                    anchorElement.classList.add('active')
+                }
+            })
+    }
+
+    /**
     createClickEventHandlers() {
         this.projectsList.forEach((project) => {
             let currentClickedDomElement = document.getElementById(project)
-  
+
             currentClickedDomElement.addEventListener('click', () => {
                 
                 if(this.currentVisibleProject) {
@@ -67,4 +89,5 @@ export default class Navigation {
             })
         })
     }
+    */
 }

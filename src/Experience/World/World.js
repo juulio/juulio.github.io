@@ -25,6 +25,9 @@ export default class World {
         this.project03 = new project03('project03')
         
         this.project01.projectGroup.visible = true
+
+
+        
         /////////////////////////////////////////////
         this.light = new THREE.AmbientLight(0xffffff, 1)
         // this.scene.add(this.light)
