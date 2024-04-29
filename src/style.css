@@ -143,12 +143,13 @@ header {
     position: fixed;
     top: 0;
     left: 0;
-    /*height: 60px;*/
     z-index: 1000;
     padding: calc(1vw + 2vmin);
 
-    display: grid;
-    grid-template-columns: [nav] 20% [description] 70%;
+    @media only screen and (min-width: 768px) {
+        display: grid;
+        grid-template-columns: [nav] 20% [description] 70%;
+    }
 }
 
 .mainTitle {
