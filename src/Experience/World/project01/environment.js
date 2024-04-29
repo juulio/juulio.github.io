@@ -10,12 +10,14 @@ export default class Environment {
         this.projectId = projectId
         this.Experience = new Experience()
         this.scene = this.Experience.scene
+        this.camera = this.Experience.camera
         this.debug = this.Experience.debug
         this.timestep = 1 / 60
         this.projectGroup = new THREE.Group()
         this.projectGroup.name = projectId
-        this.gravity = new CANNON.Vec3(0, -9.82, 0)
-
+        this.gravity = new CANNON.Vec3(5, 1, 0)
+        this.gravityIsGoingUp = true
+        this.camera.instance.position.set(0, 3, 5)
         this.setLights()
         this.setPhysicsWorld()
         this.set3DObjects()
@@ -65,9 +67,10 @@ export default class Environment {
 
         this.spherePhysicsMaterial = new CANNON.Material('sphereMaterial')
         this.sphereBody = new CANNON.Body({
-            mass: 0.1,
+            mass: 0.02,
             shape: new CANNON.Sphere(0.1),
-            position: new CANNON.Vec3(0, 1.8, 0),
+            //position: new CANNON.Vec3(0, 1.8, 0),
+            position: new CANNON.Vec3(0, 0.5, 0),
             material: this.spherePhysicsMaterial
         })
         this.world.addBody(this.sphereBody)
@@ -75,15 +78,14 @@ export default class Environment {
             this.planePhysicsMaterial,
             this.spherePhysicsMaterial,
             {
-                friction: 0.0,
-                restitution: 0.5
+                friction: 0.1,
+                restitution: 0.6
             }
         )
         this.world.addContactMaterial(this.planeSphereContactMaterial)
     }
 
     set3DObjects() {
-        console.log(this.scene.renderer)
         // ground plane mesh
         this.planeGeometry = new THREE.PlaneGeometry(3, 3)
         this.planeMaterial = new THREE.MeshStandardMaterial({ 
@@ -113,5 +115,19 @@ export default class Environment {
         this.sphereMesh.position.copy(this.sphereBody.position)
         this.sphereMesh.quaternion.copy(this.sphereBody.quaternion)
 
+        if(this.gravityIsGoingUp && this.gravity.y <= 1.3) {
+            this.gravity.y += 3
+            if(this.gravity.y >= 1.3) {
+                this.gravityIsGoingUp = false
+                console.log('punto máximo')
+            } 
+        }
+        
+        if(!this.gravityIsGoingUp) {
+            console.log('gravity is going down')
+            this.gravity.y -= 0.1
+        }
+        
+        this.world.gravity.set(0, this.gravity.y, 0)
     }
 }
