@@ -1,5 +1,16 @@
 export default [
     {
+        name: 'volcanoModel',
+        type: 'objModel',
+        path: 'models/volcano/fujiSan.obj'
+    },
+    {
+        name: 'volcanicTexture',
+        type: 'texture',
+        //path: 'textures/greenTexture.png'
+        path: 'textures/sand-512.jpg'
+    },
+    {
         name: 'environmentMapTexture',
         type: 'cubeTexture',
         path:
