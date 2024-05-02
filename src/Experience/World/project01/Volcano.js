@@ -1,6 +1,7 @@
 import Experience from "../../Experience";
 import * as THREE from "three";
 
+const AMOUNT_OF_PARTICLES = 40
 export default class Volcano {
     constructor(position) {
         this.Experience = new Experience()
