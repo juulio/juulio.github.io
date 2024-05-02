@@ -24,7 +24,7 @@ export default class Renderer {
         this.instance.setSize(this.sizes.width, this.sizes.height)
         this.instance.setPixelRatio(Math.min(window.devicePixelRatio, 2))
         this.instance.setPixelRatio(this.sizes.pixelRatio)
-        this.instance.setClearColor(0x6f6249, 1)
+        //this.instance.setClearColor(0x6f6249, 1)
     }
 
     resize(){

@@ -11,6 +11,11 @@ export default [
         path: 'textures/sand-512.jpg'
     },
     {
+        name: 'sceneBackgroundMars',
+        type: 'texture',
+        path: 'textures/mars.png'
+    },
+    {
         name: 'environmentMapTexture',
         type: 'cubeTexture',
         path:

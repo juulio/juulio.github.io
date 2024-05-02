@@ -2,6 +2,7 @@ import * as THREE from 'three'
 import Experience from '../../Experience.js'
 import * as CANNON from 'cannon-es'
 import Volcano from './Volcano.js'
+import { positionGeometry } from 'three/examples/jsm/nodes/Nodes.js'
 
 // TODO Este video explica como hacer esferas que rebotan, usando Canon.js
 // https://www.youtube.com/watch?v=mTPDaw2piKg&t=0s
@@ -19,13 +20,16 @@ export default class Environment {
         this.timestep = 1 / 60
         this.projectGroup = new THREE.Group()
         this.projectGroup.name = projectId
-        this.projectGroup.backgroundColor = new THREE.Color(0x6f6249)
+//        this.projectGroup.backgroundColor = new THREE.Color(0xF5D0A7)
+        this.projectGroup.backgroundColor = new THREE.Color(0xF7e5bc)
+        //faded4    F7e5bc
+        console.log(this.projectGroup.backgroundColor)
 
         //this.gravity = new CANNON.Vec3(5, 1, 9)
         this.gravity = new CANNON.Vec3(0, -9.82, 0)
 
         this.gravityIsGoingUp = true
-        this.camera.instance.position.set(-2, 1.5, 5)
+        this.camera.instance.position.set(-1.2, 1.2, 5.3)
 
         this.setLights()
         this.scene.fog = new THREE.Fog('#6F6249', 0.2, 19)
@@ -82,7 +86,8 @@ export default class Environment {
         this.planeBody = new CANNON.Body({
             type: CANNON.Body.STATIC,
             shape: new CANNON.Plane(),
-            material: this.planePhysicsMaterial
+            material: this.planePhysicsMaterial,
+            position: new CANNON.Vec3(0, 0, 4)
         })
         this.planeBody.quaternion.setFromEuler(-Math.PI / 2, 0, 0)
         this.world.addBody(this.planeBody)
@@ -92,7 +97,7 @@ export default class Environment {
             mass: 0.02,
             shape: new CANNON.Sphere(0.1),
             //position: new CANNON.Vec3(0, 1.8, 0),
-            position: new CANNON.Vec3(.8, 0.8, -1),
+            position: new CANNON.Vec3(0.5, 0.7, 1.7),
             material: this.spherePhysicsMaterial
         })
         this.world.addBody(this.sphereBody)
@@ -117,7 +122,7 @@ export default class Environment {
         this.material.map = this.volcanoTexture 
 
         // ground plane mesh
-        this.planeGeometry = new THREE.PlaneGeometry(20, 20)
+        this.planeGeometry = new THREE.PlaneGeometry(10, 10)
         this.volcanoTexture = this.resources.items.volcanicTexture
         this.volcanoTexture.wrapT = THREE.RepeatWrapping;
         this.volcanoTexture.wrapS = THREE.RepeatWrapping;

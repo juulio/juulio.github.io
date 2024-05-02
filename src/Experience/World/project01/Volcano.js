@@ -24,6 +24,6 @@ export default class Volcano {
         this.volcano = this.resources.items.volcanoModel
         this.volcano.children[0].receiveShadow = true // the volcanoMesh receives the shadow. Must be the mesh.
         this.volcano.scale.set(0.06, 0.28, 0.1)
-        this.volcano.position.set(0.8, 0, -1)
+        this.volcano.position.set(0.5, 0, 1.7)
     }
 }
