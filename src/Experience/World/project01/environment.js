@@ -1,8 +1,10 @@
 import * as THREE from 'three'
 import Experience from '../../Experience.js'
 import * as CANNON from 'cannon-es'
+import CannonUtils from 'cannon-utils'
+
 import Volcano from './Volcano.js'
-import { positionGeometry } from 'three/examples/jsm/nodes/Nodes.js'
+import { ConvexGeometry } from 'three/addons/geometries/ConvexGeometry.js';
 
 // TODO Este video explica como hacer esferas que rebotan, usando Canon.js
 // https://www.youtube.com/watch?v=mTPDaw2piKg&t=0s
@@ -25,14 +27,15 @@ export default class Environment {
         //faded4    F7e5bc
 
         //this.gravity = new CANNON.Vec3(5, 1, 9)
-        this.gravity = new CANNON.Vec3(0, -9.82, 0)
+        this.gravity = new CANNON.Vec3(0, -1.82, 0)
+        //this.gravity = new CANNON.Vec3(0, -9.82, 0)
 
         this.camera.instance.position.set(-1.2, 1.2, 5.3)
 
         this.setLights()
         this.scene.fog = new THREE.Fog('#6F6249', 0.2, 19)
         this.axesHelper = new THREE.AxesHelper( 5 );
-        //this.scene.add( this.axesHelper );
+        this.scene.add( this.axesHelper );
         this.volcanoPosition = new THREE.Vector3(0.5, 0, 1.7)
 
         this.resources.on('ready', () => {
@@ -40,6 +43,7 @@ export default class Environment {
             this.projectGroup.add(this.volcano.volcano)
             this.setPhysicsWorld()
             this.set3DObjects()
+            this.setVolcanoBody()
         })
 
         if(this.Experience.isMobile()) {
@@ -102,12 +106,13 @@ export default class Environment {
             material: this.spherePhysicsMaterial
         })
 
-        this.sphereVelocity = new THREE.Vector3(-0.3, 3.5, 0.2);
+        // this.sphereVelocity = new THREE.Vector3(-0.3, 3.5, 0.2); // Original velocity
+        this.sphereVelocity = new THREE.Vector3(0, 0.5, 0);
         //this.sphereVelocity.applyQuaternion(camera.quaternion);
         //this.sphereVelocity.multiplyScalar(5);
         this.sphereBody.velocity.set(this.sphereVelocity.x, this.sphereVelocity.y, this.sphereVelocity.z);
-
         this.world.addBody(this.sphereBody)
+
         this.planeSphereContactMaterial = new CANNON.ContactMaterial(
             this.planePhysicsMaterial,
             this.spherePhysicsMaterial,
@@ -117,6 +122,77 @@ export default class Environment {
             }
         )
         this.world.addContactMaterial(this.planeSphereContactMaterial)
+    }
+
+    CreateTrimesh(geometry) {
+        let vertices
+        if (geometry.index === null) {
+          vertices = (geometry.attributes.position).array
+        } else {
+          vertices = (geometry.clone().toNonIndexed().attributes.position).array
+        }
+        const indices = Object.keys(vertices).map(Number)
+        return new CANNON.Trimesh(vertices , indices)
+    }
+    
+    setVolcanoBody(volcanoGeometry) {
+        // step 1. Create ConvexHull
+        this.volcanoMesh = this.volcano.volcano.children[0]
+        this.volcanoGeometry = this.volcanoMesh.geometry
+        this.position = this.volcanoGeometry.attributes.position.array
+        this.points = []
+
+        for (let i = 0; i < this.position.length; i += 3) {
+            this.points.push(
+                new THREE.Vector3(this.position[i], this.position[i + 1], this.position[i + 2])
+            )
+        }
+
+        this.convexGeometry = new ConvexGeometry(this.points)
+        this.convexHull = new THREE.Mesh(
+            this.convexGeometry,
+            new THREE.MeshBasicMaterial({
+                color: 0xff0000,
+                wireframe: true,
+            })
+        )
+        this.convexHull.scale.set(0.06, 0.26, 0.1)
+        this.convexHull.position.set(0.5, 0, 1.7)
+        this.scene.add(this.convexHull)
+        //this.convexHull.position.set(this.volcanoPosition.x, this.volcanoPosition.y, this.volcanoPosition.z)
+        
+        // step 2. Create a Physics World Body (volcano shaped)
+        this.shape = this.CreateTrimesh(this.convexHull.geometry)
+        this.volcanoBodyPhysicsMaterial = new CANNON.Material('volcanoBodyPhysicsMaterial')
+
+        this.volcanoBody = new CANNON.Body({
+            mass: 1,
+            shape: this.shape,
+//            position: new CANNON.Vec3(this.volcanoPosition.x, this.volcanoPosition.y, this.volcanoPosition.z),
+
+            //position: new CANNON.Vec3(0.5, 0, 1.7),
+            position: new CANNON.Vec3(0.5, 0, 1.7),
+            //quaternion: new CANNON.vec(0, 0, 0, 1),
+            allowSleep: true,
+            material: this.volcanoBodyPhysicsMaterial
+        
+        })
+
+        this.volcanoBody.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), Math.PI / 2)
+
+        this.world.addBody(this.volcanoBody)
+        console.log( this.volcanoBody)
+
+
+        this.volcanoSphereContactMaterial = new CANNON.ContactMaterial(
+            this.volcanoBodyPhysicsMaterial,
+            this.spherePhysicsMaterial,
+            {
+                friction: 0.1,
+                restitution: 0.1
+            }
+        )
+        this.world.addContactMaterial(this.volcanoSphereContactMaterial)
     }
 
     set3DObjects() {
@@ -159,8 +235,6 @@ export default class Environment {
             
             this.sphereMesh.position.copy(this.sphereBody.position)
             this.sphereMesh.quaternion.copy(this.sphereBody.quaternion)
-    
-            //console.log(this.sphereBody.position.y)
         }
     }
 }
