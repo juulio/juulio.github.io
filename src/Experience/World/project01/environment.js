@@ -23,7 +23,6 @@ export default class Environment {
 //        this.projectGroup.backgroundColor = new THREE.Color(0xF5D0A7)
         this.projectGroup.backgroundColor = new THREE.Color(0xF7e5bc)
         //faded4    F7e5bc
-        console.log(this.projectGroup.backgroundColor)
 
         //this.gravity = new CANNON.Vec3(5, 1, 9)
         this.gravity = new CANNON.Vec3(0, -9.82, 0)
@@ -35,9 +34,10 @@ export default class Environment {
         this.scene.fog = new THREE.Fog('#6F6249', 0.2, 19)
         this.axesHelper = new THREE.AxesHelper( 5 );
         //this.scene.add( this.axesHelper );
+        this.volcanoPosition = new THREE.Vector3(0.5, 0, 1.7)
 
         this.resources.on('ready', () => {
-            this.volcano = new Volcano()
+            this.volcano = new Volcano(this.volcanoPosition)
             this.projectGroup.add(this.volcano.volcano)
             this.setPhysicsWorld()
             this.set3DObjects()
@@ -82,6 +82,7 @@ export default class Environment {
             gravity: this.gravity
         })
 
+        // plane body
         this.planePhysicsMaterial = new CANNON.Material('groundMaterial')
         this.planeBody = new CANNON.Body({
             type: CANNON.Body.STATIC,
@@ -92,14 +93,21 @@ export default class Environment {
         this.planeBody.quaternion.setFromEuler(-Math.PI / 2, 0, 0)
         this.world.addBody(this.planeBody)
 
+        // sphere body
         this.spherePhysicsMaterial = new CANNON.Material('sphereMaterial')
         this.sphereBody = new CANNON.Body({
-            mass: 0.02,
+            mass: 0.014,
             shape: new CANNON.Sphere(0.1),
             //position: new CANNON.Vec3(0, 1.8, 0),
             position: new CANNON.Vec3(0.5, 0.7, 1.7),
             material: this.spherePhysicsMaterial
         })
+
+        this.sphereVelocity = new THREE.Vector3(-0.4, 3.5, 0.7);
+        //this.sphereVelocity.applyQuaternion(camera.quaternion);
+        //this.sphereVelocity.multiplyScalar(5);
+        this.sphereBody.velocity.set(this.sphereVelocity.x, this.sphereVelocity.y, this.sphereVelocity.z);
+
         this.world.addBody(this.sphereBody)
         this.planeSphereContactMaterial = new CANNON.ContactMaterial(
             this.planePhysicsMaterial,
@@ -136,7 +144,7 @@ export default class Environment {
         this.planeMesh.receiveShadow = true
         this.projectGroup.add(this.planeMesh)
 
-        this.sphereGeometry = new THREE.SphereGeometry(0.02, 32, 32)
+        this.sphereGeometry = new THREE.SphereGeometry(0.014, 32, 32)
         this.sphereMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000 })
         this.sphereMesh = new THREE.Mesh(this.sphereGeometry, this.sphereMaterial)
         this.sphereMesh.castShadow = true
@@ -170,7 +178,7 @@ export default class Environment {
                 this.gravity.y -= 0.1
             }
             
-            this.world.gravity.set(0, this.gravity.y, 0)
+            //this.world.gravity.set(0, this.gravity.y, 0)
         }
     }
 }

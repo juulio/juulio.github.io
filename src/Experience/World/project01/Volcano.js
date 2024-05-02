@@ -2,12 +2,14 @@ import Experience from "../../Experience";
 import * as THREE from "three";
 
 export default class Volcano {
-    constructor() {
+    constructor(position) {
         this.Experience = new Experience()
         this.resources = this.Experience.resources
         this.scene = this.Experience.scene
+        this.volcanoPosition = position
         this.time = this.Experience.time
 
+        this.eruptionStartingPosition = new THREE.Vector3(this.volcanoPosition.x, this.volcanoPosition.y, this.volcanoPosition.z)
         // Setup
         this.debug = this.Experience.debug
 
@@ -23,7 +25,7 @@ export default class Volcano {
         this.material.map = this.volcanoTexture 
         this.volcano = this.resources.items.volcanoModel
         this.volcano.children[0].receiveShadow = true // the volcanoMesh receives the shadow. Must be the mesh.
-        this.volcano.scale.set(0.06, 0.28, 0.1)
-        this.volcano.position.set(0.5, 0, 1.7)
+        this.volcano.scale.set(0.06, 0.26, 0.1)
+        this.volcano.position.set(this.volcanoPosition.x, this.volcanoPosition.y, this.volcanoPosition.z)
     }
 }
