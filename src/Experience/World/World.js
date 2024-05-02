@@ -30,7 +30,7 @@ export default class World {
         
         /////////////////////////////////////////////
         this.light = new THREE.AmbientLight(0xffffff, 1)
-        // this.scene.add(this.light)
+        //this.scene.add(this.light)
     
         
         // Debug
