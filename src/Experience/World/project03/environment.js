@@ -6,7 +6,8 @@ export default class scene03 {
         this.projectId = projectId
         this.Experience = new Experience()
         this.scene = this.Experience.scene
-
+        this.backgroundColor = new THREE.Color(0xFFFFFF);
+        
         this.cubeGeometry = new THREE.BoxGeometry(0.4, 0.4, 0.4)
         this.cubeMaterial = new THREE.MeshBasicMaterial({
             transparent: true,
@@ -15,7 +16,8 @@ export default class scene03 {
 
         this.projectGroup = new THREE.Group()
         this.projectGroup.name = projectId
-
+        this.projectGroup.backgroundColor = new THREE.Color(0xffffff)
+        
         this.cube01 = new THREE.Mesh(
             this.cubeGeometry,
             new THREE.MeshBasicMaterial({ color: 0x0000ff })

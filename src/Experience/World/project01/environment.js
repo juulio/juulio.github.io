@@ -19,11 +19,14 @@ export default class Environment {
         this.timestep = 1 / 60
         this.projectGroup = new THREE.Group()
         this.projectGroup.name = projectId
-        this.gravity = new CANNON.Vec3(5, 1, 9)
+        this.projectGroup.backgroundColor = new THREE.Color(0x6f6249)
+
+        //this.gravity = new CANNON.Vec3(5, 1, 9)
+        this.gravity = new CANNON.Vec3(0, -9.82, 0)
+
         this.gravityIsGoingUp = true
         this.camera.instance.position.set(-2, 1.5, 5)
-        this.renderer.setClearColor(0x6f6249);
-        
+
         this.setLights()
         this.scene.fog = new THREE.Fog('#6F6249', 0.2, 19)
         this.axesHelper = new THREE.AxesHelper( 5 );
@@ -147,6 +150,8 @@ export default class Environment {
             this.sphereMesh.position.copy(this.sphereBody.position)
             this.sphereMesh.quaternion.copy(this.sphereBody.quaternion)
     
+            //console.log(this.sphereBody.position.y)
+
             if(this.gravityIsGoingUp && this.gravity.y <= 1.3) {
                 this.gravity.y += 3
                 if(this.gravity.y >= 1.3) {
@@ -156,7 +161,7 @@ export default class Environment {
             }
             
             if(!this.gravityIsGoingUp) {
-                console.log('gravity is going down')
+                //console.log('gravity is going down')
                 this.gravity.y -= 0.1
             }
             

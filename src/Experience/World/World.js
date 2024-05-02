@@ -25,7 +25,7 @@ export default class World {
         this.project03 = new project03('project03')
         
         this.project01.projectGroup.visible = true
-
+        this.scene.background = this.project01.projectGroup.backgroundColor
 
         
         /////////////////////////////////////////////

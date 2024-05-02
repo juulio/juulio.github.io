@@ -15,6 +15,7 @@ export default class Environment {
 
         this.projectGroup = new THREE.Group()
         this.projectGroup.name = projectId
+        this.projectGroup.backgroundColor = new THREE.Color(0xffffff)
 
         this.cube01 = new THREE.Mesh(
             this.cubeGeometry,

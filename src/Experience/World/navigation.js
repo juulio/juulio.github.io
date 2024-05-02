@@ -7,7 +7,7 @@ export default class Navigation {
         this.contentData = contentData
         this.projectsList = []
         this.createNavigation()
-        this.currentVisibleProject = null
+        this.currentVisibleProject = 'project01'
     }
 
     /**
@@ -53,6 +53,7 @@ export default class Navigation {
                 this.scene.getObjectByName(this.currentVisibleProject).visible = false
             }
             this.scene.getObjectByName(projectName).visible = true
+            this.scene.background = this.scene.getObjectByName(projectName).backgroundColor
             this.currentVisibleProject = projectName
 
             if(!this.experience.isMobile()) {
