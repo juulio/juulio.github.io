@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import './Nav.css'
 import linkedinLogo from './assets/icon-linkedin.png'
 import githubLogo from './assets/icon-github.png'
-import youtubeLogo from './assets/icon-youtube.png'
+import youtubeLogo from './assets/icon-youtube.svg'
 
 export default function Header() {
   return (

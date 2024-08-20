@@ -5,6 +5,7 @@ import BlockHome from './BlockHome'
 import BlockSoftware from './BlockSoftware'
 import BlockKarate from './BlockKarate'
 import Footer from './Footer'
+
 function App() {
   return (
     <>
