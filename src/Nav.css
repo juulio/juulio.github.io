@@ -1,0 +1,67 @@
+nav {
+  padding: 1rem 0;
+  margin: 0 1rem;
+
+  h1 {
+    margin: 0;
+    display: inline;
+    color: #000;
+    font-size: 15px;
+  }
+
+  a {
+    font-size: 14px;
+    text-decoration: none;
+    margin-left: 3vw;
+
+    &:hover {
+      text-shadow: 2px 2px 10px #808080;
+    }
+
+    img {
+      width: 3.4vw;
+    }
+  }
+
+  ul {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .socialNav a {
+    margin-left: 2vw;
+  }
+
+  li:first-child > a {
+    margin-left: 0;
+  }
+
+  @media only screen and (min-width: 640px) {
+    h1 {
+      font-size: 2.5vw;
+    }
+
+    a {
+      font-size: 2.2vw;
+    }
+  }
+
+  @media only screen and (min-width: 960px) {
+    h1 {
+      font-size: 22px;
+    }
+
+    a {
+      font-size: 19px;
+    }
+
+    a img {
+      width: 30px;
+    }
+
+    .socialNav a {
+      margin-left: 25px;
+    }
+  }
+}
