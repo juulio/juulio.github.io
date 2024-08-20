@@ -1,8 +1,49 @@
-# Julio Del Valle Costa Rica 2023
+# Julio Del Valle Costa Rica 2024
 
-3d web portfolio + Kyokushin Karate
+# 3d web portfolio -javascript generative graphics experiments.
 
-# React + TypeScript + Vite
+# My Kyokushin Karate Biography
+
+# Project History
+
+- August 2024 -launch new Portfolio website
+- April 2024 - removing webpack, adding vite.
+- December 2022 - Adding React to create a Projects' Portfolio
+- December 2021 - Creating new scenes using js modules
+- November 2021 - Launched the GLSL Volcanic Eruption
+- February 2021 - Added webpack to bundle JS + Threejs
+- October 2019 - Unsuccesfully tried to do a THREE.js daily sketch
+- June 2017 - This project is a GULP + THREEjs Template.
+
+### installation
+
+1. Make sure you have npm and Node.js installed on your local machine.
+   To install Node and NPM go to [https://nodejs.org/en/download/](https://nodejs.org/en/download/)
+   To check your current version, on a terminal type:
+   node -v
+   npm -v
+
+2. Clone this repo into the desired folder.
+
+3. Go into the recently cloned project folder, Make sure there's a package.json file and type **npm i**.
+   After this command is properly finished, there will be a new 'node_modules' folder.
+
+4. To run the project type
+   npm run dev
+
+5. To build the project type
+   npm run build
+
+6. Only the contents of the /docs folder will be published to the site's URL juliodelvalle.com
+
+### gitignore
+
+There's a .gitignore file. It avoids the following files and folders to be included on the git repository.
+
+- the node_modules folder
+- DS_Store files
+- sass-cache files
+- dist production folder
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
