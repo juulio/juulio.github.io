@@ -2,11 +2,16 @@ footer {
   padding: 1rem;
   text-align: center;
 
-  .socialNav a {
-    margin-left: 2vw;
+  .socialNav {
+    width: 40vw;
+    margin: 0 auto;
 
-    img {
-      width: 3.4vw;
+    a {
+      margin-left: 2vw;
+
+      img {
+        width: 3.4vw;
+      }
     }
   }
 

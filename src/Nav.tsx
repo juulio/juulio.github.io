@@ -7,20 +7,19 @@ export default function Header() {
       <ul>
         <li>
           <Link to="/">
-            <h1>Julio Del Valle</h1>
+            <h1>julio del valle</h1>
           </Link>
         </li>
         <li>
           <ul>
             <li>
-              <Link to="/software">Portfolio</Link>
+              <Link to="/software">portfolio</Link>
             </li>
             <li>
-              <Link to="/karate">Karate</Link>
+              <Link to="/karate">karate</Link>
             </li>
           </ul>
         </li>
-        <li></li>
       </ul>
     </nav>
   )
