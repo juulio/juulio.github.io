@@ -8,18 +8,27 @@ footer {
 
     a {
       margin-left: 2vw;
+    }
 
-      img {
-        width: 3.4vw;
-      }
+    img {
+      width: 3.4vw;
     }
   }
 
   h3 {
     font-size: 1.6vw;
-
-    @media only screen and (min-width: 960px) {
+  }
+  @media only screen and (min-width: 960px) {
+    h3 {
       font-size: 15px;
+    }
+
+    .socialNav {
+      width: 384px;
+
+      img {
+        width: 32px;
+      }
     }
   }
 }
