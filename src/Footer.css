@@ -2,6 +2,14 @@ footer {
   padding: 1rem;
   text-align: center;
 
+  .socialNav a {
+    margin-left: 2vw;
+
+    img {
+      width: 3.4vw;
+    }
+  }
+
   h3 {
     font-size: 1.6vw;
 

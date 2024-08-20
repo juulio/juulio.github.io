@@ -23,16 +23,6 @@ nav {
     }
   }
 
-  ul {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .socialNav a {
-    margin-left: 2vw;
-  }
-
   li:first-child > a {
     margin-left: 0;
   }
