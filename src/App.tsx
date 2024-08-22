@@ -5,10 +5,16 @@ import BlockHome from './BlockHome'
 import BlockSoftware from './BlockSoftware'
 import BlockKarate from './BlockKarate'
 import Footer from './Footer'
+import { Canvas } from '@react-three/fiber'
+
+import Block3d from './Block3d'
 
 function App() {
   return (
     <>
+      <Canvas>
+        <Block3d />
+      </Canvas>
       <BrowserRouter>
         <Nav />
         <main>

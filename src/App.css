@@ -194,6 +194,16 @@ ul {
   justify-content: space-between;
 }
 
+canvas {
+  width: 100vw;
+  height: 100vh;
+  /* display: block; */
+  /* position: fixed; */
+  /* top: 0; */
+  /* left: 0; */
+  /* z-index: -9999; */ */
+}
+
 @media only screen and (min-width: 960px) {
   #root {
     max-width: 65vw;
