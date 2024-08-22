@@ -12,7 +12,7 @@ import Block3d from './Block3d'
 function App() {
   return (
     <>
-      <Canvas>
+      <Canvas style={{ width: '100vw', height: '100vh', position: 'fixed' }}>
         <Block3d />
       </Canvas>
       <BrowserRouter>
