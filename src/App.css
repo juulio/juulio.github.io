@@ -145,7 +145,8 @@ a {
 #root {
   width: 100%;
   margin: 0 auto;
-  background-color: #fff;
+  /* background-color: #fff; */
+  background-color: transparent;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -205,7 +206,8 @@ canvas {
 }
 
 @media only screen and (min-width: 960px) {
-  #root {
+  .maxWidth {
+    margin: 0 auto;
     max-width: 65vw;
   }
 

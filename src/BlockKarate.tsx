@@ -2,7 +2,7 @@ import './BlockKarate.css'
 
 export default function BlockKarate() {
   return (
-    <>
+    <div className="blockKarate">
       <h2>I'm a Black Belt Karate Teacher</h2>
 
       <p>
@@ -40,6 +40,6 @@ export default function BlockKarate() {
         </a>{' '}
         organization.
       </p>
-    </>
+    </div>
   )
 }

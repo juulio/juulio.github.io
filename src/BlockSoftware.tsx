@@ -13,6 +13,18 @@ export default function BlockSoftware() {
         </a>{' '}
         framework.
       </p>
+
+      <h3>Web Development Projects</h3>
+      <p>
+        <a href="http://tamashiiarts.net/" target="_blank">
+          Tamashii Martial Arts
+        </a>
+      </p>
+      <p>
+        <a href="https://anas-harp.com/" target="_blank">
+          Ana's Harp
+        </a>
+      </p>
       <p>
         <span>2022-2024</span> I worked for Microsoft as a software engineer. I
         was part of a team that handles maintenance and development of two
