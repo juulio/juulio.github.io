@@ -16,7 +16,7 @@
 .mcb-section-5e6d505f0 {
   padding-top: 11%;
   padding-bottom: 8%;
-  background-image: url(./img/bkg_equipo.webp);
+  background-image: url(../img/bkg_equipo.webp);
   background-repeat: no-repeat;
   background-position: top center;
   background-size: cover;
@@ -35,7 +35,7 @@
   padding-top: 10%;
   padding-bottom: 4%;
   margin-top: -190px;
-  background-image: url(./img/fondo-2-scaled.webp);
+  background-image: url(../img/fondo-2-scaled.webp);
   background-repeat: no-repeat;
   background-position: top center;
   background-size: cover;
@@ -116,7 +116,7 @@
   margin-left: 0px;
 }
 .mcb-section-1db454b60 {
-  background-image: url(./img/testimonials.webp);
+  background-image: url(../img/testimonials.webp);
   background-repeat: no-repeat;
   background-position: top center;
   background-size: cover;
