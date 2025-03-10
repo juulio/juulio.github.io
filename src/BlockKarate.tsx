@@ -1,4 +1,5 @@
 import './BlockKarate.css'
+import fotoJulioKarate from './assets/julioKarate2023.jpg'
 
 export default function BlockKarate() {
   return (
@@ -10,6 +11,11 @@ export default function BlockKarate() {
         people while practicing, learning, competing, teaching and sharing a
         good time through karate events.
       </p>
+      <img
+        className="imgKarate"
+        src={fotoJulioKarate}
+        alt="Julio Del Valle Kyokushin Karate"
+      />
       <p>
         In 2004 I was lucky enough to fully dedicate myself to the practice of
         karate. I was part of an uchi deshi program (internship student) at the
@@ -18,8 +24,9 @@ export default function BlockKarate() {
         experiences had a positive impact on my entire life.
       </p>
       <p>
-        I participated in 4 Kyokushin World Tournaments in Japan, in the years
-        2003, 2007, 2009 and 2011. Feel free to check some of my fights in my
+        I participated in 4 Kyokushin World Open Weight Karate Tournaments in
+        Japan, in the years 2003, 2007, 2009 and 2011. Feel free to check some
+        of my fights in my
         <a href="https://www.youtube.com/@julioDelValle" target="_blank">
           YouTube channel
         </a>

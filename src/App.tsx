@@ -23,7 +23,7 @@ function App() {
         <Block3d />
       </Canvas>
       <BrowserRouter>
-        <div className="max Width">
+        <div className="maxWidth">
           <Nav />
           <main>
             <Routes>

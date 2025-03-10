@@ -1,0 +1,13 @@
+.blockKarate {
+  text-align: center;
+
+  .imgKarate {
+    height: 50vh;
+  }
+
+  @media only screen and (min-width: 960px) {
+    .imgKarate {
+      height: 40vh;
+    }
+  }
+}
