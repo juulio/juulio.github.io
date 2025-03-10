@@ -32,7 +32,7 @@
   }
 }
 .testimonios-section .tp-leftarrow:before {
-  content: url('./img/chevron-left.svg') !important;
+  content: url('../img/chevron-left.svg') !important;
 }
 @media only screen and (max-width: 767px) {
   .testimonios-section .tp-rightarrow {
@@ -40,7 +40,7 @@
   }
 }
 .testimonios-section .tp-rightarrow:before {
-  content: url('./img/chevron-right.svg') !important;
+  content: url('../img/chevron-right.svg') !important;
 }
 
 @media only screen and (min-width: 1240px) {
@@ -54,7 +54,7 @@
 }
 
 html:not([lang='en-US']) #Footer {
-  background-image: url('./img/fondo-test.png') !important;
+  background-image: url('../img/fondo-test.png') !important;
 }
 @media only screen and (min-width: 1600px) {
   html:not([lang='en-US']) #Footer .widgets_wrapper {
