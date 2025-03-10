@@ -54,7 +54,8 @@
 }
 
 html:not([lang='en-US']) #Footer {
-  background-image: url('../img/fondo-test.png') !important;
+  /* background-image: url('../img/fondo-test.png') !important; */
+  background-image: url('https://juliodelvalle.com/tfccr/img/fondo-test.png') !important;
 }
 @media only screen and (min-width: 1600px) {
   html:not([lang='en-US']) #Footer .widgets_wrapper {
