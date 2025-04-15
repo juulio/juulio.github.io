@@ -686,7 +686,7 @@ p {
   padding-bottom: 13vh;
   background-size: cover;
   background-repeat: repeat-x;
-  background-image: url(./assets/bg_equipo-Bj2b8Mo7.webp);
+  background-image: url(./bg_equipo-Bj2b8Mo7.webp);
 }
 .about-us .bg-container section {
   place-items: center;
@@ -827,7 +827,7 @@ p {
   .contact-us .bg-container {
     padding-bottom: 3vw;
     background-size: contain;
-    background-image: url(./assets/bg_contact-Cz1K52gf.webp);
+    background-image: url(./bg_contact-Cz1K52gf.webp);
   }
   .contact-us .module {
     margin-top: 4.38vw;
@@ -902,7 +902,7 @@ p {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: top center;
-  background-image: url(./assets/bg_testimonials-DUNK1Ydl.webp);
+  background-image: url(./bg_testimonials-DUNK1Ydl.webp);
 }
 .testimonials section {
   grid-template-columns: unset;
