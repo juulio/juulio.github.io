@@ -18871,9 +18871,9 @@ function $v() {
 }
 var Wv = $v()
 const Ih = mm(Wv),
-  Fv = '/slider_asesoria_financiera.webp',
-  Iv = '/slider_ejecucion_cursos.webp',
-  ey = '/slider_experiencia.webp',
+  Fv = '/tfccr/slider_asesoria_financiera.webp',
+  Iv = '/tfccr/slider_ejecucion_cursos.webp',
+  ey = '/tfccr/slider_experiencia.webp',
   ty = () => {
     const { t: c } = aa(),
       r = {
