@@ -14910,9 +14910,9 @@ var ov = ['color'],
       })
     )
   })
-const hv = '/logo.svg',
-  gv = '/es-flag.svg',
-  pv = '/en-flag.svg',
+const hv = '/tfccr/logo.svg',
+  gv = '/tfccr/es-flag.svg',
+  pv = '/tfccr/en-flag.svg',
   mv = () => {
     const { t: c, i18n: r } = aa(),
       [u, s] = tt.useState(!1),
