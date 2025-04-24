@@ -14921,7 +14921,7 @@ const hv = './logo.svg',
       },
       g = () => {
         const y = r.language === 'en' ? 'es' : 'en'
-        r.changeLanguage(y)
+        r.changeLanguage(y), s(!u)
       }
     return $.jsx('nav', {
       className: 'navbar max-width',
@@ -18871,9 +18871,9 @@ function $v() {
 }
 var Wv = $v()
 const Ih = mm(Wv),
-  Fv = '/tfccr/slider_asesoria_financiera.webp',
-  Iv = '/tfccr/slider_ejecucion_cursos.webp',
-  ey = '/tfccr/slider_experiencia.webp',
+  Fv = './slider_asesoria_financiera.webp',
+  Iv = './slider_ejecucion_cursos.webp',
+  ey = './slider_experiencia.webp',
   ty = () => {
     const { t: c } = aa(),
       r = {
@@ -18919,7 +18919,7 @@ const Ih = mm(Wv),
       }),
     })
   },
-  ny = '../tfccr/assets/img_margarita-DNSoDgrI.webp',
+  ny = './assets/img_margarita-DNSoDgrI.webp',
   ay = () => {
     const { t: c } = aa()
     return $.jsxs('div', {
@@ -18976,11 +18976,11 @@ const Ih = mm(Wv),
       ],
     })
   },
-  iy = '../tfccr/assets/servicio_valoracion_financiera-BiX5BsxJ.webp',
-  ly = '../tfccr/assets/servicio_fusiones_adquisiciones-CWAmjpr3.webp',
-  ry = '../tfccr/assets/servicio_analisis_financiero-DkA9GOYW.webp',
-  uy = '../tfccr/assets/servicio_presupuestacion-CbRaSebX.webp',
-  sy = '../tfccr/assets/servicio_asesoria_juntas_directivas-CmQD0xR_.webp',
+  iy = './assets/servicio_valoracion_financiera-BiX5BsxJ.webp',
+  ly = './assets/servicio_fusiones_adquisiciones-CWAmjpr3.webp',
+  ry = './assets/servicio_analisis_financiero-DkA9GOYW.webp',
+  uy = './assets/servicio_presupuestacion-CbRaSebX.webp',
+  sy = './assets/servicio_asesoria_juntas_directivas-CmQD0xR_.webp',
   oy = () => {
     const { t: c } = aa()
     return $.jsxs('div', {
@@ -19052,7 +19052,7 @@ const Ih = mm(Wv),
       ],
     })
   },
-  cy = '../tfccr/assets/logo-footer-3D_V8v-4.svg',
+  cy = './assets/logo-footer-3D_V8v-4.svg',
   fy =
     "data:image/svg+xml,%3c?xml%20version='1.0'%20encoding='UTF-8'?%3e%3csvg%20xmlns='http://www.w3.org/2000/svg'%20width='20'%20height='20'%20viewBox='0%200%2020%2020'%20fill='none'%3e%3cpath%20d='M6.44112%200.961776C6.14035%200.235245%205.34742%20-0.151456%204.58964%200.0555658L1.15229%200.993025C0.472635%201.18052%200%201.79768%200%202.50077C0%2012.1644%207.83559%2020%2017.4992%2020C18.2023%2020%2018.8195%2019.5274%2019.007%2018.8477L19.9444%2015.4104C20.1515%2014.6526%2019.7648%2013.8596%2019.0382%2013.5589L15.2884%2011.9964C14.6517%2011.7308%2013.9134%2011.9144%2013.4799%2012.4496L11.9018%2014.3752C9.15194%2013.0745%206.92548%2010.8481%205.62475%208.09818L7.55045%206.52403C8.08558%206.08655%208.26917%205.35221%208.00355%204.71552L6.44112%200.965682V0.961776Z'%20fill='%23F0640F'%3e%3c/path%3e%3c/svg%3e",
   dy =
