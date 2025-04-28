@@ -685,14 +685,14 @@ p {
 }
 .about-us img {
   width: 75vw;
-  margin: 15vh 0 8.14vw;
+  margin: 18vh 0 8.14vw;
   border-radius: 10px;
 }
 .about-us section {
   margin-bottom: 3vw;
 }
 .about-us .bg-container {
-  padding-bottom: 18vh;
+  padding-bottom: 24vh;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: top;
