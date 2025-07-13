@@ -1,5 +1,5 @@
 import './BlockKarate.css'
-import fotoJulioKarate from './assets/julioKarate2023.jpg'
+// import fotoJulioKarate from './assets/julioKarate2023.jpg'
 
 export default function BlockKarate() {
   return (
@@ -11,11 +11,11 @@ export default function BlockKarate() {
         people while practicing, learning, competing, teaching and sharing a
         good time through karate events.
       </p>
-      <img
+      {/* <img
         className="imgKarate"
         src={fotoJulioKarate}
         alt="Julio Del Valle Kyokushin Karate"
-      />
+      /> */}
       <p>
         In 2004 I was lucky enough to fully dedicate myself to the practice of
         karate. I was part of an uchi deshi program (internship student) at the

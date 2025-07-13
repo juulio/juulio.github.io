@@ -24,12 +24,8 @@ export default function Block3d() {
   useFrame(({ clock }) => {
     if (shaderMaterialRef.current?.uniforms) {
       // console.log(shaderMaterialRef.current.uniforms)
-      shaderMaterialRef.current.uniforms.uTime = clock.elapsedTime * 10
+      shaderMaterialRef.current.uniforms.uTime.value = clock.elapsedTime * 2
     }
-    // shaderMaterialRef.current?.uniforms.uTime = clock.elapsedTime * 10
-    // console.log(shaderMaterialRef.current!.uniforms.uTime)
-
-    // shaderMaterialRef.current?.material.uTime = clock.elapsedTime * 10
   })
 
   return (
