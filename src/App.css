@@ -163,7 +163,7 @@ main {
   padding: 1rem;
   border-top: solid 1px #cbd5e1;
   border-bottom: solid 1px #cbd5e1;
-  background-color: #f1f5f9;
+  background-color: rgba(241, 245, 249, 0.3);
 
   ul {
     display: block;
