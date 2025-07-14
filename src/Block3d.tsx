@@ -1,6 +1,6 @@
 import { useMemo, useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
-import { ShaderMaterial, Color } from 'three'
+import { ShaderMaterial } from 'three'
 
 import fragmentShader from './shaders/f.glsl?raw'
 import vertexShader from './shaders/vertexShader.glsl?raw'
@@ -15,8 +15,6 @@ export default function Block3d() {
       uTime: {
         value: 0.0,
       },
-      u_colorA: { value: new Color('#00E426') },
-      u_colorB: { value: new Color('#FEB3A9') },
     }),
     []
   )
