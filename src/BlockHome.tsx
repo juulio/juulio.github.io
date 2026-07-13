@@ -2,17 +2,14 @@ import './BlockHome.css'
 
 export default function BlockHome() {
   return (
-    <>
-      <h2>Julio Del Valle | Software Engineer</h2>
-
-      <ul>
-        <li>
-          I create high-performance immersive web experiences designed for
-          scalability and user engagement.
-        </li>
-        <li>I'm from Costa Rica</li>
-        <li>I'm a Karate Teacher</li>
-      </ul>
-    </>
+    <div className="home">
+      <h2>I'm a Software Engineer</h2>
+      <p>
+        I create high-performance immersive web experiences designed for
+        scalability and user engagement.
+      </p>
+      <p> I'm from Costa Rica</p>
+      <p> I'm a Karate Teacher</p>
+    </div>
   )
 }

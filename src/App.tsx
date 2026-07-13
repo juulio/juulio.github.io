@@ -29,6 +29,7 @@ function App() {
             <Routes>
               <Route path="/software" element={<BlockSoftware />} />
               <Route path="/karate" element={<BlockKarate />} />
+              {/* <Route path="/about" element={<BlockAbout />} /> */}
               <Route path="/" element={<BlockHome />} />
             </Routes>
           </main>

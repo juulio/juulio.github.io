@@ -129,18 +129,64 @@ void main() {
     fireflyColors[1] = vec3(0.2, 0.8, 1.0);    // light blue
     fireflyColors[2] = vec3(0.7, 0.4, 1.0);    // purple
     fireflyColors[3] = vec3(0.5, 1.0, 0.9);    // turquoise
-    float fireflyGlow = 0.0;
-    vec3 fireflyColorSum = vec3(0.0);
+    
+    // Store firefly positions for line connections
+    vec2 fireflyPositions[8];
     for (float i = 0.0; i < 8.0; i += 1.0) {
         float t = time * (0.7 + i * 0.13);
         float phase = i * 2.3;
-        vec2 pos = vec2(sin(t + phase), cos(t * 0.8 - phase)) * (0.5 + 0.2 * sin(t + phase * 0.7));
+        fireflyPositions[int(i)] = vec2(sin(t + phase), cos(t * 0.8 - phase)) * (0.5 + 0.2 * sin(t + phase * 0.7));
+    }
+    
+    float fireflyGlow = 0.0;
+    vec3 fireflyColorSum = vec3(0.0);
+    
+    // Draw fireflies and their connections
+    for (float i = 0.0; i < 8.0; i += 1.0) {
+        vec2 pos = fireflyPositions[int(i)];
         float d = length(uv - pos);
         float flicker = 0.7 + 0.3 * sin(time * 2.0 + i * 1.7 + sin(time + i));
         float glow = 0.13 * flicker / (d * 30.0 + 0.04);
         int colorIdx = int(mod(i, 4.0));
         fireflyColorSum += glow * fireflyColors[colorIdx];
     }
+    
+    // Draw subtle connecting lines between nearby fireflies
+    float lineStrength = 0.0;
+    vec3 lineColor = vec3(0.0);
+    float connectionDist = 0.35; // threshold for connection
+    
+    for (float i = 0.0; i < 8.0; i += 1.0) {
+        for (float j = i + 1.0; j < 8.0; j += 1.0) {
+            vec2 p1 = fireflyPositions[int(i)];
+            vec2 p2 = fireflyPositions[int(j)];
+            float dist = length(p1 - p2);
+            
+            // Only connect if close enough
+            if (dist < connectionDist) {
+                // Point to line segment distance
+                vec2 pa = uv - p1;
+                vec2 ba = p2 - p1;
+                float h = clamp(dot(pa, ba) / dot(ba, ba), 0.0, 1.0);
+                float lineDistance = length(pa - ba * h);
+                
+                // Line thickness and fade
+                float line = smoothstep(0.02, 0.002, lineDistance);
+                
+                // Fade based on how close the fireflies are (vanish when far)
+                float connectivity = 1.0 - smoothstep(0.1, connectionDist, dist);
+                
+                lineStrength += line * connectivity * 0.08;
+                
+                // Blend colors of the two connected fireflies
+                vec3 col1 = fireflyColors[int(mod(i, 4.0))];
+                vec3 col2 = fireflyColors[int(mod(j, 4.0))];
+                lineColor += line * connectivity * mix(col1, col2, 0.5) * 0.08;
+            }
+        }
+    }
+    
+    color += lineColor;
     color += fireflyColorSum;
 
     // Vignette for focus
