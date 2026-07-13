@@ -1,0 +1,39 @@
+.projectsGrid {
+  width: 100%;
+}
+
+.projectsGrid__count {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 1.5rem;
+  margin-top: -1rem;
+}
+
+.projectsGrid__container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  width: 100%;
+}
+
+.projectsGrid__empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 3rem 1rem;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 1rem;
+}
+
+@media (max-width: 1024px) {
+  .projectsGrid__container {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.25rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .projectsGrid__container {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}

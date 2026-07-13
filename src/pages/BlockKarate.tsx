@@ -1,5 +1,5 @@
-import './BlockKarate.css'
-// import fotoJulioKarate from './assets/julioKarate2023.jpg'
+import '../styles/BlockKarate.css'
+// import fotoJulioKarate from '../assets/julioKarate2023.jpg'
 
 export default function BlockKarate() {
   return (

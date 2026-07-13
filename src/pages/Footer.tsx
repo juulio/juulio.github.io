@@ -1,8 +1,8 @@
-import './Footer.css'
-import xLogo from './assets/icon-x.png'
-import githubLogo from './assets/icon-github.png'
-import linkedinLogo from './assets/icon-linkedin.png'
-import youtubeLogo from './assets/icon-youtube.svg'
+import '../styles/Footer.css'
+import xLogo from '../assets/icon-x.png'
+import githubLogo from '../assets/icon-github.png'
+import linkedinLogo from '../assets/icon-linkedin.png'
+import youtubeLogo from '../assets/icon-youtube.svg'
 
 export default function BlockHome() {
   return (

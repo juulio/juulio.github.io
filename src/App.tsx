@@ -1,13 +1,14 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import './App.css'
-import Nav from './Nav'
-import BlockHome from './BlockHome'
-import BlockSoftware from './BlockSoftware'
-import BlockKarate from './BlockKarate'
-import Footer from './Footer'
+import Nav from './pages/Nav'
+import BlockHome from './pages/BlockHome'
+import BlockWork from './pages/BlockWork'
+import BlockKarate from './pages/BlockKarate'
+import BlockAbout from './pages/BlockAbout'
+import Footer from './pages/Footer'
 import { Canvas } from '@react-three/fiber'
 
-import Block3d from './Block3d'
+import Block3d from './pages/Block3d'
 
 function App() {
   return (
@@ -27,9 +28,9 @@ function App() {
           <Nav />
           <main>
             <Routes>
-              <Route path="/software" element={<BlockSoftware />} />
+              <Route path="/software" element={<BlockWork />} />
               <Route path="/karate" element={<BlockKarate />} />
-              {/* <Route path="/about" element={<BlockAbout />} /> */}
+              <Route path="/about" element={<BlockAbout />} />
               <Route path="/" element={<BlockHome />} />
             </Routes>
           </main>

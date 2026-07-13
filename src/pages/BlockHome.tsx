@@ -1,4 +1,4 @@
-import './BlockHome.css'
+import '../styles/BlockHome.css'
 
 export default function BlockHome() {
   return (

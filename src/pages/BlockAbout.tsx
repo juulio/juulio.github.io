@@ -1,8 +1,8 @@
-import './BlockSoftware.css'
+import '../styles/BlockAbout.css'
 
-export default function BlockSoftware() {
+export default function BlockAbout() {
   return (
-    <div className="blockSoftware">
+    <div className="blockAbout">
       <h2>I'm a software developer</h2>
 
       <p>
@@ -15,16 +15,6 @@ export default function BlockSoftware() {
       </p>
 
       <h3>Web Development Projects</h3>
-      <p>
-        <a href="http://tamashiiarts.net/" target="_blank">
-          Tamashii Martial Arts
-        </a>
-      </p>
-      <p>
-        <a href="https://anas-harp.com/" target="_blank">
-          Ana's Harp
-        </a>
-      </p>
       <p>
         <span>Since 2022</span> I worked for Microsoft as a software engineer. I
         was part of a team that handles maintenance and development of two

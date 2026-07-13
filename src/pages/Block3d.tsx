@@ -2,8 +2,8 @@ import { useMemo, useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
 import { ShaderMaterial } from 'three'
 
-import fragmentShader from './shaders/f.glsl?raw'
-import vertexShader from './shaders/vertexShader.glsl?raw'
+import fragmentShader from '../shaders/f.glsl?raw'
+import vertexShader from '../shaders/vertexShader.glsl?raw'
 
 export default function Block3d() {
   const shaderMaterialRef = useRef<ShaderMaterial>(null)
@@ -16,7 +16,7 @@ export default function Block3d() {
         value: 0.0,
       },
     }),
-    []
+    [],
   )
 
   useFrame(({ clock }) => {

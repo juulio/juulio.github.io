@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import './Nav.css'
+import '../styles/Nav.css'
 
 export default function Header() {
   return (
@@ -14,9 +14,9 @@ export default function Header() {
         <li>
           <Link to="/karate">karate</Link>
         </li>
-        {/* <li>
-            <Link to="/about">about</Link>
-          </li> */}
+        <li>
+          <Link to="/about">about</Link>
+        </li>
       </ul>
     </nav>
     // <nav>
