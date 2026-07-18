@@ -7,10 +7,10 @@ import BlockKarate from './pages/BlockKarate'
 import BlockAbout from './pages/BlockAbout'
 import Footer from './pages/Footer'
 import { Canvas } from '@react-three/fiber'
+import SceneManager from './components/scenes/SceneManager'
+import ParticlesPage from './pages/projects/ParticlesPage'
 
-import Block3d from './pages/Block3d'
-
-function App() {
+function AppContent() {
   return (
     <>
       <Canvas
@@ -21,23 +21,30 @@ function App() {
           zIndex: '-1',
         }}
       >
-        <Block3d />
+        <SceneManager />
       </Canvas>
-      <BrowserRouter>
-        <div className="maxWidth">
-          <Nav />
-          <main>
-            <Routes>
-              <Route path="/software" element={<BlockWork />} />
-              <Route path="/karate" element={<BlockKarate />} />
-              <Route path="/about" element={<BlockAbout />} />
-              <Route path="/" element={<BlockHome />} />
-            </Routes>
-          </main>
-          <Footer />
-        </div>
-      </BrowserRouter>
+      <div className="maxWidth">
+        <Nav />
+        <main>
+          <Routes>
+            <Route path="/work" element={<BlockWork />} />
+            <Route path="/projects/particles" element={<ParticlesPage />} />
+            <Route path="/karate" element={<BlockKarate />} />
+            <Route path="/about" element={<BlockAbout />} />
+            <Route path="/" element={<BlockHome />} />
+          </Routes>
+        </main>
+        <Footer />
+      </div>
     </>
+  )
+}
+
+function App() {
+  return (
+    <BrowserRouter>
+      <AppContent />
+    </BrowserRouter>
   )
 }
 

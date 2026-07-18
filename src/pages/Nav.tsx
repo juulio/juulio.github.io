@@ -9,7 +9,7 @@ export default function Header() {
       </Link>
       <ul>
         <li>
-          <Link to="/software">work</Link>
+          <Link to="/work">work</Link>
         </li>
         <li>
           <Link to="/karate">karate</Link>
@@ -19,24 +19,5 @@ export default function Header() {
         </li>
       </ul>
     </nav>
-    // <nav>
-    //   <ul>
-    //     <li>
-    //       <Link to="/">
-    //         <h1>julio del valle</h1>
-    //       </Link>
-    //     </li>
-    //     <li>
-    //       <ul>
-    //         <li>
-    //           <Link to="/software">work</Link>
-    //         </li>
-    //         <li>
-    //           <Link to="/karate">karate</Link>
-    //         </li>
-    //       </ul>
-    //     </li>
-    //   </ul>
-    // </nav>
   )
 }

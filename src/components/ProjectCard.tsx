@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom'
 import { Project } from '../data/projects'
 import '../styles/ProjectCard.css'
 
@@ -6,6 +7,7 @@ interface ProjectCardProps {
 }
 
 export default function ProjectCard({ project }: ProjectCardProps) {
+  const navigate = useNavigate()
   const hasValidLink = project.link && project.link !== '#'
 
   const cardContent = (
@@ -26,6 +28,21 @@ export default function ProjectCard({ project }: ProjectCardProps) {
       </div>
     </>
   )
+
+  if (project.isDemoProject) {
+    // Demo projects: navigate within app
+    return (
+      <div
+        className="projectCard"
+        onClick={() => {
+          navigate(project.link)
+        }}
+        style={{ cursor: 'pointer' }}
+      >
+        {cardContent}
+      </div>
+    )
+  }
 
   if (hasValidLink) {
     return (

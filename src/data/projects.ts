@@ -6,6 +6,7 @@ export interface Project {
   tags: string[]
   year: number
   thumbnail?: string
+  isDemoProject?: boolean
 }
 
 export const projects: Project[] = [
@@ -28,12 +29,13 @@ export const projects: Project[] = [
     year: 2021,
   },
   {
-    id: 'volcanic-eruption',
-    title: 'GLSL Volcanic Eruption',
+    id: 'particles',
+    title: 'Particle System',
     description:
-      'Generative graphics exploring volcanic patterns using GLSL shaders',
-    link: '#',
-    tags: ['GLSL', 'Shaders', 'Generative'],
-    year: 2021,
+      'Interactive particle system with physics simulation and dynamic lighting',
+    link: '/projects/particles',
+    tags: ['WebGL', 'Particles', 'Three.js'],
+    year: 2024,
+    isDemoProject: true,
   },
 ]
