@@ -34,7 +34,7 @@ export const projects: Project[] = [
     description:
       'Interactive particle system with physics simulation and dynamic lighting',
     link: '/projects/particles',
-    tags: ['WebGL', 'Particles', 'Three.js'],
+    tags: ['webgl', 'Particles', 'Three.js'],
     year: 2024,
     isDemoProject: true,
   },

@@ -17,6 +17,6 @@ export default function SceneManager() {
     return <FluidSimScene />
   }
 
-  // Default: background shader for home/work/karate/about
+  // Default: background shader for home
   return <Block3d />
 }

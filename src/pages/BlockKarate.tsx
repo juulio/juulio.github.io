@@ -33,8 +33,20 @@ export default function BlockKarate() {
         .
       </p>
       <p>
-        Since 2018 I hold a 3rd degree (san dan) black belt and I'm a teacher in
-        Costa Rica.{' '}
+        <span>2026</span> I completed the test and received my 4th degree
+        (Yondan) black belt.
+      </p>
+      <p>
+        <span>2018</span> I completed the test and received my 3rd degree
+        (Sandan) black belt.
+      </p>
+      <p>
+        <span>2014</span> I completed the test and received my 2nd degree
+        (Nidan) black belt.
+      </p>
+      <p>
+        <span>2001</span> I completed the test and received my 1st degree
+        (Shodan) black belt.
       </p>
       <p>
         Since 2024 I teach at the{' '}

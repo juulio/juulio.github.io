@@ -4,7 +4,6 @@ import Nav from './pages/Nav'
 import BlockHome from './pages/BlockHome'
 import BlockWork from './pages/BlockWork'
 import BlockKarate from './pages/BlockKarate'
-import BlockAbout from './pages/BlockAbout'
 import Footer from './pages/Footer'
 import { Canvas } from '@react-three/fiber'
 import SceneManager from './components/scenes/SceneManager'
@@ -30,7 +29,6 @@ function AppContent() {
             <Route path="/work" element={<BlockWork />} />
             <Route path="/projects/particles" element={<ParticlesPage />} />
             <Route path="/karate" element={<BlockKarate />} />
-            <Route path="/about" element={<BlockAbout />} />
             <Route path="/" element={<BlockHome />} />
           </Routes>
         </main>
