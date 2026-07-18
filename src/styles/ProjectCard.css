@@ -1,3 +1,7 @@
+a.projectCard {
+  text-decoration: none;
+}
+
 .projectCard {
   border: 1px solid rgba(255, 255, 255);
   border-radius: 8px;
@@ -26,7 +30,7 @@
 
 .projectCard__header h3 {
   margin: 0;
-  font-size: 1.1rem;
+  font-size: 1.5rem;
   font-weight: 600;
 }
 

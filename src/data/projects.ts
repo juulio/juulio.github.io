@@ -13,7 +13,7 @@ export const projects: Project[] = [
     id: 'tamashii',
     title: 'Tamashii Martial Arts',
     description:
-      'Interactive martial arts web experience with immersive 3D elements',
+      'Tamashii Martial Arts Kyokushin Kan Costa Rica oficial website',
     link: 'http://tamashiiarts.net/',
     tags: ['wordpress', 'web', 'karate'],
     year: 2022,
@@ -21,7 +21,8 @@ export const projects: Project[] = [
   {
     id: 'anas-harp',
     title: "Ana's Harp",
-    description: 'Musical experience showcasing harp performances',
+    description:
+      'Ana Lizano Costa Rica Musical experience showcasing harp performances',
     link: 'https://anas-harp.com/',
     tags: ['wordpress', 'web'],
     year: 2021,
