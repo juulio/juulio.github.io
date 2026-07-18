@@ -1,4 +1,4 @@
-# Julio Del Valle Costa Rica 2024
+# Julio Del Valle Costa Rica 2026
 
 # 3d web portfolio -javascript generative graphics experiments.
 
@@ -6,6 +6,7 @@
 
 # Project History
 
+- July 2026 - update Portfolio. Added animated shader background
 - August 2024 -launch new Portfolio website
 - April 2024 - removing webpack, adding vite.
 - December 2022 - Adding React to create a Projects' Portfolio
