@@ -10,7 +10,6 @@
 
 .projectFilter__label {
   font-weight: 600;
-  color: rgba(255, 255, 255, 0.8);
   font-size: 0.95rem;
 }
 
@@ -25,7 +24,6 @@
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 20px;
-  color: rgba(255, 255, 255, 0.7);
   font-size: 0.9rem;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -33,15 +31,11 @@
 }
 
 .projectFilter__button:hover {
-  border-color: rgba(255, 255, 255, 0.4);
   background: rgba(255, 255, 255, 0.1);
-  color: rgba(255, 255, 255, 0.9);
 }
 
 .projectFilter__button--active {
   background: rgba(255, 255, 255, 0.15);
-  border-color: rgba(255, 255, 255, 0.5);
-  color: rgba(255, 255, 255, 1);
 }
 
 @media (max-width: 768px) {

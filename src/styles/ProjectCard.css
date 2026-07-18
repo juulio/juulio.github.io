@@ -1,5 +1,5 @@
 .projectCard {
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255);
   border-radius: 8px;
   padding: 1.5rem;
   background: rgba(255, 255, 255, 0.02);
@@ -14,6 +14,7 @@
   border-color: rgba(255, 255, 255, 0.3);
   background: rgba(255, 255, 255, 0.05);
   transform: translateY(-2px);
+  cursor: pointer;
 }
 
 .projectCard__header {
@@ -31,14 +32,12 @@
 
 .projectCard__year {
   font-size: 0.85rem;
-  color: rgba(255, 255, 255, 0.6);
   white-space: nowrap;
 }
 
 .projectCard__description {
   margin: 0;
   font-size: 0.95rem;
-  color: rgba(255, 255, 255, 0.7);
   line-height: 1.5;
 }
 
@@ -54,13 +53,11 @@
   padding: 0.35rem 0.75rem;
   background: rgba(255, 255, 255, 0.1);
   border-radius: 20px;
-  color: rgba(255, 255, 255, 0.8);
   border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .projectCard__link {
   align-self: flex-start;
-  color: rgba(255, 255, 255, 0.8);
   text-decoration: none;
   font-size: 0.9rem;
   font-weight: 500;
@@ -70,6 +67,5 @@
 }
 
 .projectCard__link:hover {
-  color: rgba(255, 255, 255, 1);
   border-bottom-color: rgba(255, 255, 255, 0.6);
 }

@@ -4,7 +4,6 @@
 
 .projectsGrid__count {
   font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.6);
   margin-bottom: 1.5rem;
   margin-top: -1rem;
 }
@@ -20,7 +19,6 @@
   grid-column: 1 / -1;
   text-align: center;
   padding: 3rem 1rem;
-  color: rgba(255, 255, 255, 0.5);
   font-size: 1rem;
 }
 

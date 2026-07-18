@@ -103,10 +103,10 @@ void main() {
         float angle = time*0.4 + i*1.2566;
         vec2 center = 0.5 * vec2(sin(angle*1.3 + i), cos(angle*1.7 - i));
         float d = length(uv - center);
-        orb += 0.15 / (d*12.0 + 0.05);
+        orb += 0.08 / (d*12.0 + 0.05);
     }
-    // Orbs use a bright blend of pale yellow and warm amber
-    color += orb * mix(bgColors[7], bgColors[5], 0.6);
+    // Orbs use a muted blend of pale yellow and warm amber
+    color += orb * mix(bgColors[7], bgColors[5], 0.5) * 0.7;
 
     // Subtle caustic highlights in deep orange
     color += 0.08 * pow(abs(ripple), 2.5) * bgColors[6];
