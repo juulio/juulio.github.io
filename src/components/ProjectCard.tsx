@@ -6,8 +6,10 @@ interface ProjectCardProps {
 }
 
 export default function ProjectCard({ project }: ProjectCardProps) {
-  return (
-    <div className="projectCard">
+  const hasValidLink = project.link && project.link !== '#'
+
+  const cardContent = (
+    <>
       <div className="projectCard__header">
         <h3>{project.title}</h3>
         <span className="projectCard__year">{project.year}</span>
@@ -22,17 +24,21 @@ export default function ProjectCard({ project }: ProjectCardProps) {
           </span>
         ))}
       </div>
-
-      {project.link && project.link !== '#' && (
-        <a
-          href={project.link}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="projectCard__link"
-        >
-          View Project →
-        </a>
-      )}
-    </div>
+    </>
   )
+
+  if (hasValidLink) {
+    return (
+      <a
+        href={project.link}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="projectCard"
+      >
+        {cardContent}
+      </a>
+    )
+  }
+
+  return <div className="projectCard">{cardContent}</div>
 }
